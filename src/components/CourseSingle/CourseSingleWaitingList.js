@@ -19,7 +19,7 @@ function CourseSingleWaitingList() {
       <div className="Course__area__List">
         <div className="Course__area__Waiting Course__area__Waiting_play mb-2">
           <div className="Course__area__Waiting__icon">
-            <i class="fas fa-play"></i>
+            <i class="fas fa-play Course__area__Waiting__icon__Play"></i>
           </div>
           <div className="Course__area__Waiting__image">
             <img src="./images/03.jpg" alt="影片縮圖" />
@@ -31,7 +31,7 @@ function CourseSingleWaitingList() {
             <div className="col-4  ms-2 Course__area__Waiting__tag"># 手部</div>
             <div className="col-4 Course__area__Waiting__tag"># 初級</div>
           </div>
-          <div className="me-3 Course__area__Waiting__MoreBtn__hidden">
+          <div className="Course__area__Waiting__MoreBtn__hidden">
             <i class="fas fa-ellipsis-v"></i>
           </div>
         </div>
