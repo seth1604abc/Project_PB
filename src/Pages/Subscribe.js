@@ -22,7 +22,7 @@ function Subscribe() {
                 <Link to="/subscribe">訂閱</Link>
               </li>
               <li>
-                <Link to="/">活動</Link>
+                <Link to="/event">活動</Link>
               </li>
               <li style={{ marginRight: "50px" }}>
                 <Link to="/article">文章</Link>

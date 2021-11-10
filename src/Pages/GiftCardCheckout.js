@@ -4,7 +4,6 @@ import "react-credit-cards/es/styles-compiled.css";
 import "../css/GiftCardCheckout.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
 const GiftCardCheckout = () => {
   const [data, setData] = useState({
     cvc: "",
@@ -62,7 +61,7 @@ const GiftCardCheckout = () => {
             </form>
           </div>
           <div className="w-50 ">
-            <h2 className="giftCard-title p-3 mb-0">訂單摘要</h2>
+            <h3 className="giftCard-title p-3 mb-0">訂單摘要</h3>
             <div className="giftCard-order container p-4">
               <div className="row mb-2">
                 <div className="col-6">商品</div>
@@ -84,7 +83,7 @@ const GiftCardCheckout = () => {
                   選擇紅利金<span>(剩餘點數:150點)</span>:
                 </div>
                 <div className="col"></div>
-                <input type="number" className="col  me-1" />
+                <input type="number" className="col me-1 form-control" />
               </div>
               <hr className="mb-1" />
               <div className="row mb-3">
@@ -92,11 +91,18 @@ const GiftCardCheckout = () => {
                 <div className="col"></div>
                 <div className="col">$NT3000</div>
               </div>
+              <div className="d-flex justify-content-end">
+              <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
+              <button className="btn GiftCardCheckout__btn__next">下一步</button>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
+
     </>
   );
 };
