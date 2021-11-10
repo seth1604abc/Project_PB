@@ -1,0 +1,32 @@
+    命名: 
+        1. 首字大寫，例如 -> App.js
+        2. 要駝峰式命名
+        3. 小組件命名先以頁面為開頭 例如 -> CourseCard
+        4. css 檔案先分開，檔案名稱為各頁面開頭 
+
+    登入註冊頁 => Login
+    首頁 => Home
+    會員 => Member      
+                會員個人資料頁 => MemberInfo
+                會員訂單頁 => MemberOrder
+                會員購物點數頁 => MemberPoint
+                會員課程頁 => MemberCourse
+                會員活動頁 => MemberEvent
+
+    教練 => Coach(會員看到的教練頁)
+    
+    教練個人資料頁 => CoachInfo
+    教練課程頁 => CoachCourse
+    教練活動頁 => CoachEvent
+    教練文章頁 => CoachArticle
+    
+    課程 => Course  課程單獨頁 => CourseSingle   
+    商品 => Product 商品單獨頁 => ProductSingle
+    活動 => Event   活動單獨頁 => EventSigle
+    文章 => Article 文章單獨頁 => AritcleSingle
+    購物車 => Cart  購物車付款資料頁 => CartPayment
+    訂閱 => Subscribe
+
+
+
+components 裡面存放小組件
