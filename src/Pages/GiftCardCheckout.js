@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "../css/GiftCardCheckout.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 const GiftCardCheckout = () => {
   const [data, setData] = useState({
     cvc: "",
@@ -15,7 +17,7 @@ const GiftCardCheckout = () => {
   };
   return (
     <>
-      <div>navbar</div>
+      <Navbar />
       <div>結帳步驟</div>
       <div className="container giftCardCheckoutPage d-flex justify-content-center align-items-center">
         <div className="d-flex justify-content-evenly align-items-center">
@@ -89,15 +91,18 @@ const GiftCardCheckout = () => {
                 <div className="col"></div>
                 <div className="col">$NT3000</div>
               </div>
-
               <div className="d-flex justify-content-end">
               <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
               <button className="btn GiftCardCheckout__btn__next">下一步</button>
               </div>
+
             </div>
           </div>
         </div>
       </div>
+
+      <Footer />
+
     </>
   );
 };

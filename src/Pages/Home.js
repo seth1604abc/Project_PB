@@ -1,3 +1,4 @@
+
 import {useState} from "react"
 import ProductCard from "../components/ProductCard";
 import "../css/Home.css";
@@ -12,7 +13,6 @@ function Home() {
     <>
       <header>
       <NavBar className=""/>
-        {/* <nav className="nav">
           <img
             src="./pblogo.png"
             alt="logo"
@@ -41,7 +41,6 @@ function Home() {
               <i className="fas fa-shopping-cart"></i>
             </div>
           </div>
-        </nav> */}
         <img src="" alt="" />
         <div className="nav-scrollDown">
           <p>了解更多</p>
@@ -137,7 +136,8 @@ function Home() {
           <button>前往購買</button>
         </section>
       </main>
-      <Footer></Footer>
+      <Footer />
+
     </>
   );
 }
