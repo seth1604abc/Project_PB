@@ -7,10 +7,10 @@ function EventOtherCard(){
          <div className="text-center">
       <h3 className="my-5">瀏覽其它活動</h3>
     </div>
-    <div className="container my-5">
+    <div className="container my-5" >
       <div className="row">
         <div className="col d-flex justify-content-center">
-          <div className="card singleEvent_card">
+          <div className="singleEvent_card" >
             <img src="../event_imgs/w644.jpg" className="card-img-top" alt="課程" />
             <div className="card-body">
               <h5 className="mx-2">
@@ -41,7 +41,7 @@ function EventOtherCard(){
           </div>
         </div>
         <div className="col d-flex justify-content-center">
-          <div className="card singleEvent_card">
+          <div className=" singleEvent_card">
             <img src="../event_imgs/w644.jpg" className="card-img-top" alt="課程" />
             <div className="card-body">
               <h5 className="mx-2">
@@ -72,7 +72,7 @@ function EventOtherCard(){
           </div>
         </div>
         <div className="col d-flex justify-content-center">
-          <div className="card singleEvent_card">
+          <div className="singleEvent_card">
             <img src="../event_imgs/w644.jpg" className="card-img-top" alt="課程" />
             <div className="card-body">
               <h5 className="mx-2">
