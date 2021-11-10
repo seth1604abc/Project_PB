@@ -119,9 +119,11 @@ p {
 .course--context--filter--part button:hover {
   background-color: #537895;
 }
+
 .course--context--filter--part-active {
   background-color: #537895 !important;
 }
+
 .course--context--filter--input {
   width: 100%;
 }

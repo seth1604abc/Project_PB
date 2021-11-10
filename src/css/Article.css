@@ -112,13 +112,14 @@
   position: relative;
   width: 100%;
   border: 1px solid transparent;
-
-  transition: 0.4s;
+  top: 0;
+  transition: 0.2s;
 }
 .ArticleAuthor__HotArticle:hover {
-  border: 1px solid rgba(100, 100, 100, 0.3);
-  /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
+  /* border: 1px solid rgba(100, 100, 100, 0.3); */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
+  top: -0.2rem;
 }
 .ArticleAuthor__HotArticle__img img {
   border: 1px solid gray;

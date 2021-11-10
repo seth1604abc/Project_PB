@@ -1,8 +1,12 @@
 import React from "react";
 import "../css/GiftCardWriting.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 const GiftCardWriting = () => {
   return (
     <>
+      <Navbar />
       <div className="GiftCardWriting__position d-flex flex-column justify-content-center align-items-center">
         <div className="sendGift container mb-5 w-50  p-0">
           <h3 className="p-3">送禮人資料</h3>
@@ -44,6 +48,7 @@ const GiftCardWriting = () => {
             <button className="btn GiftCardWriting__btn__next ">下一步</button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
