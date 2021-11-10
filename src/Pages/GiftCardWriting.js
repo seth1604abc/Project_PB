@@ -49,8 +49,6 @@ const GiftCardWriting = () => {
         </div>
       </div>
       <Footer />
-
-
     </>
   );
 };

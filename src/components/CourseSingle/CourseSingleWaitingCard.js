@@ -20,15 +20,17 @@ function CourseSingleWaitingButton() {
 
   function MoreBtn(e) {
     // console.log(EddiesRef.current)
-    let eddies = document.querySelectorAll('.Course__area__Waiting__MoreBtn__Option')
+    let eddies = document.querySelectorAll(
+      ".Course__area__Waiting__MoreBtn__Option"
+    );
     let eddie = e.currentTarget.parentElement.children[4];
-    if(eddie.style.display===''){
-      for(let i=0; i<eddies.length; i++){
-        eddies[i].style.display='';
+    if (eddie.style.display === "") {
+      for (let i = 0; i < eddies.length; i++) {
+        eddies[i].style.display = "";
       }
-      eddie.style.display='block';
-    }else{
-      eddie.style.display='';
+      eddie.style.display = "block";
+    } else {
+      eddie.style.display = "";
     }
   }
 
@@ -59,19 +61,28 @@ function CourseSingleWaitingButton() {
               </div>
             </div>
             <div
-              className="me-3 Course__area__Waiting__MoreBtn pointer"
+              className="Course__area__Waiting__MoreBtn pointer"
               onClick={MoreBtn}
             >
               <i class="fas fa-ellipsis-v"></i>
             </div>
             <div
-              className={`position-absolute Course__area__Waiting__MoreBtn__Option p-2 `} id={item.id} ref={EddiesRef}
+              className={`position-absolute Course__area__Waiting__MoreBtn__Option p-2 `}
+              id={item.id}
+              ref={EddiesRef}
             >
-              <div className="pb-2 pointer">
+              <div
+                className="pb-2 pointer"
+                onClick={() => {
+                  console.log("收藏這部影片", item.id);
+                }}
+              >
                 <i class="fas fa-heart"></i> 收藏這部影片
               </div>
-              <hr className="Course__area__Waiting__MoreBtn__Option__Line" />
-              <div className="pt-2 pointer">
+              <div className="Course__area__Waiting__MoreBtn__Option__Line"></div>
+              <div className="pt-2 pointer" onClick={() => {
+                  console.log("從清單中移除", item.id);
+                }}>
                 <i class="fas fa-trash-alt"></i> 從清單中移除
               </div>
             </div>

@@ -17,13 +17,13 @@ function CourseSingleHitCourseCard() {
           </div>
           <div className="d-flex flex-column justify-content-center ms-3">
             <div className="row p-2">
-              <div className="Course__area__CourseHitCourse__title pb-1">
+              <h4>
                 {item.title}
-              </div>
-              <div className="col-3  ms-2 Course__area__Waiting__tag">
+              </h4>
+              <p className="col-3  ms-2 Course__area__HitCourse__tag">
                 # {item.bodyparts}
-              </div>
-              <div className="col-3 Course__area__Waiting__tag"># {item.level}</div>
+              </p>
+              <p className="col-3 Course__area__HitCourse__tag"># {item.level}</p>
               <div>
                 <i class="fas fa-heart me-3 mt-2 pointer HeartColor"></i>
                 <span>{item.likes}</span>

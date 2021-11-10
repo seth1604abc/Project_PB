@@ -4,6 +4,7 @@ import "react-credit-cards/es/styles-compiled.css";
 import "../css/GiftCardCheckout.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
 const GiftCardCheckout = () => {
   const [data, setData] = useState({
     cvc: "",
@@ -95,14 +96,11 @@ const GiftCardCheckout = () => {
               <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
               <button className="btn GiftCardCheckout__btn__next">下一步</button>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
       <Footer />
-
     </>
   );
 };

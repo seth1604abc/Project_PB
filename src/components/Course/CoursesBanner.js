@@ -6,7 +6,7 @@ function CoursesBanner() {
   const [bannerPos, setBannerPos] = useState("banner2");
   // 大小
   const [banner1Scale, setBanner1Scale] = useState("scaleSmall");
-  const [banner2Scale, setBanner2Scale] = useState("scaleBig");
+  const [banner2Scale, setBanner2Scale] = useState("");
   const [banner3Scale, setBanner3Scale] = useState("scaleSmall");
   // 控制鈕
   const [banner1button, setBanner1button] = useState("");
@@ -15,35 +15,96 @@ function CoursesBanner() {
   );
   const [banner3button, setBanner3button] = useState("");
   // 自動播放
-  const [banner1Play, setBanner1Play] = useState("");
-  const [banner2Play, setBanner2Play] = useState("autoplay='true'");
-  const [banner3Play, setBanner3Play] = useState("");
+  const video1 = document.getElementById("video1");
+  const video2 = document.getElementById("video2");
+  const video3 = document.getElementById("video3");
+  const palyPause = (index) => {
+    if (index === 1) {
+      video1.play();
+      video2.pause();
+      video3.pause();
+    } else if (index === 2) {
+      video1.pause();
+      video2.play();
+      video3.pause();
+    } else {
+      video1.pause();
+      video2.pause();
+      video3.play();
+    }
+  }
+  // 點擊按鈕 function
+  function clickBtn(index) {
+    if (index === 1) {
+      setBannerPos("banner1");
+      setBanner1Scale("scaleBig");
+      setBanner2Scale("scaleSmall");
+      setBanner3Scale("scaleSmall");
+      setBanner1button("Courses__Banner-ControlBar_active");
+      setBanner2button("");
+      setBanner3button("");
+    } else if (index === 2) {
+      setBannerPos("banner2");
+      setBanner1Scale("scaleSmall");
+      setBanner2Scale("scaleBig");
+      setBanner3Scale("scaleSmall");
+      setBanner1button("");
+      setBanner2button("Courses__Banner-ControlBar_active");
+      setBanner3button("");
+    } else {
+      setBannerPos("banner3");
+      setBanner1Scale("scaleSmall");
+      setBanner2Scale("scaleSmall");
+      setBanner3Scale("scaleBig");
+      setBanner1button("");
+      setBanner2button("");
+      setBanner3button("Courses__Banner-ControlBar_active");
+    }
+  }
 
   return (
     <div className="range">
       <div className={`d-flex Courses__Banner ${bannerPos}`}>
-        <div className=" Courses__Banner-1">
+        <div
+          className=" Courses__Banner-1"
+          onClick={() => {
+            clickBtn(1);
+            palyPause(1);
+          }}
+        >
           <div className={`Courses__Banner__Mask ${banner1Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop>
+              <video muted loop id="video1" className="pointer">
                 <source src="./videos/01.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
         </div>
-        <div className="Courses__Banner-2">
+        <div
+          className="Courses__Banner-2"
+          onClick={() => {
+            clickBtn(2);
+            palyPause(2);
+          }}
+        >
           <div className={`Courses__Banner__Mask ${banner2Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop>
+              <video muted loop id="video2" autoPlay className="pointer">
                 <source src="./videos/02.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
         </div>
-        <div className="Courses__Banner-3">
+        <div
+          className="Courses__Banner-3"
+          onClick={() => {
+            clickBtn(3);
+            palyPause(3);
+          }}
+        >
           <div className={`Courses__Banner__Mask ${banner3Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop>
+              <video muted loop id="video3" className="pointer">
                 <source src="./videos/03.mp4" types="video/mp4" />
               </video>
             </div>
@@ -55,13 +116,8 @@ function CoursesBanner() {
           <li
             className="col"
             onClick={() => {
-              setBannerPos("banner1");
-              setBanner1Scale("scaleBig");
-              setBanner2Scale("scaleSmall");
-              setBanner3Scale("scaleSmall");
-              setBanner1button("Courses__Banner-ControlBar_active");
-              setBanner2button("");
-              setBanner3button("");
+              clickBtn(1);
+              palyPause(1);
             }}
           >
             <i className={`far fa-circle  ${banner1button}`}></i>
@@ -69,13 +125,8 @@ function CoursesBanner() {
           <li
             className="col"
             onClick={() => {
-              setBannerPos("banner2");
-              setBanner1Scale("scaleSmall");
-              setBanner2Scale("scaleBig");
-              setBanner3Scale("scaleSmall");
-              setBanner1button("");
-              setBanner2button("Courses__Banner-ControlBar_active");
-              setBanner3button("");
+              clickBtn(2);
+              palyPause(2);
             }}
           >
             <i className={`far fa-circle  ${banner2button}`}></i>
@@ -83,13 +134,8 @@ function CoursesBanner() {
           <li
             className="col"
             onClick={() => {
-              setBannerPos("banner3");
-              setBanner1Scale("scaleSmall");
-              setBanner2Scale("scaleSmall");
-              setBanner3Scale("scaleBig");
-              setBanner1button("");
-              setBanner2button("");
-              setBanner3button("Courses__Banner-ControlBar_active");
+              clickBtn(3);
+              palyPause(3);
             }}
           >
             <i className={`far fa-circle  ${banner3button}`}></i>
