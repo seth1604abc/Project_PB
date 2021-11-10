@@ -1,6 +1,7 @@
 body{
   padding: 0 !important; 
 }
+
 /* banner區塊 */
 .banner {
   background-color: #09203f;
@@ -64,7 +65,6 @@ body{
 .card-title__star {
   color: rgb(255, 230, 0);
 }
-
 .card__addCart button {
   position: absolute;
   display: flex;
@@ -114,6 +114,7 @@ body{
   color: #fff;
   background-color: #09203f;
 }
+
 /* 搜尋篩選區 */
 
 .product__fillter {
@@ -130,6 +131,7 @@ body{
   background-color: #537895;
   color: #fff;
 }
+
 .product__fillter__buttons > .btn:hover {
   background-color: #ffecd2;
   color: #09203f;

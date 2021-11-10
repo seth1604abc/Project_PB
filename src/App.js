@@ -23,12 +23,14 @@ import Subscribe from './Pages/Subscribe';
 import Coach from './Pages/Coach';
 import CoachInfo from './Pages/CoachInfo';
 import CoachCourse from './Pages/CoachCourse';
-import CoachEvent from './Pages/CoachEvent'; 
+import CoachEvent from './Pages/CoachEvent';
+import Cart from './Pages/Cart';
+import CartInfo from './Pages/CartInfo'
+
+
 
 function App() {
   return (
-    //         <Event />
-//         <EventSingle />
     <div className="App">
       <Router>
         <Switch>
@@ -54,7 +56,10 @@ function App() {
           <Route path="/coach" exact component={Coach}></Route>
           <Route path="/coach-info" exact component={CoachInfo}></Route>
           <Route path="/coach-course" exact component={CoachCourse}></Route>
-          <Route path="/coach-event" exact component={CoachEvent}></Route>          
+          <Route path="/coach-event" exact component={CoachEvent}></Route>
+          <Route path="/cart" excat component={Cart}></Route>
+          <Route path="/cart-info" excat component={CartInfo}></Route>         
+
         </Switch>
       </Router>
     </div>

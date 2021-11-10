@@ -42,6 +42,8 @@ const ProductSingle = () => {
           /> */}
         </div>
         <div className="productMain__info ms-3">
+
+
           <h1>20kg啞鈴組</h1>
           <a href="#/">
             <span className="me-1">
@@ -54,6 +56,7 @@ const ProductSingle = () => {
           <div className="productMain__info__count">
             <p>數量:</p>
             <div className="d-flex justify-content-between align-items-center productMain__info__count__group">
+
               <button
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
@@ -84,6 +87,7 @@ const ProductSingle = () => {
         </div>
       </div>
       <div className="product__secondary mb-5 container d-flex  justify-content-center">
+
         <div clasName="product__secondary__left " style={{ width: "60%" }}>
           <div className=" mb-5 ">
             <button
@@ -120,6 +124,7 @@ const ProductSingle = () => {
             <Comment />
             <Comment />
             <Comment />
+
             <button className="btn product__secondary__left__comment__more m-1 align-self-end">
               更多評論
             </button>
@@ -143,6 +148,7 @@ const ProductSingle = () => {
       </div>
 
       <Footer />
+
     </>
   );
 };
