@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-
   return (
-    <div className="main-nav d-flex justify-content-between">
+    <div className="main-nav d-flex justify-content-between align-items-center">
+
       <Link to="/">
         <div className="main-nav__logo">
           <img src="/image/pblogo.png" alt="" />
