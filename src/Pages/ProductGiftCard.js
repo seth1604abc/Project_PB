@@ -8,7 +8,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
 
-
 const ProductGiftCard = () => {
   const text = ["介紹", "規格"];
   const defaultText = text[0];
@@ -30,8 +29,6 @@ const ProductGiftCard = () => {
   return (
     <>
       <Navbar />
-
-
       <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
           <img
@@ -131,12 +128,10 @@ const ProductGiftCard = () => {
           <RecommandProduct />
           <RecommandProduct />
           <RecommandProduct />
-
           <button className="btn product__secondary__recommand__more align-self-end mb-5">
             更多商品
           </button>
           <CourseSingleHitCourse/>
-
         </div>
       </div>
       <Footer />
