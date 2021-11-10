@@ -1,0 +1,311 @@
+html {
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  /*   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', */
+}
+
+/* hearder */
+
+header {
+  height: 100vh;
+  background: rgb(83, 120, 149);
+  background: linear-gradient(
+    180deg,
+    rgba(83, 120, 149, 1) 0%,
+    rgba(9, 32, 63, 1) 100%
+  );
+  color: white;
+}
+.nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.nav--logo {
+  margin: 1.2rem;
+}
+
+.nav--link {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+.nav--link--ul {
+  display: flex;
+  margin-right: 1rem;
+}
+.nav--link--ul li {
+  list-style: none;
+  margin-right: 1rem;
+}
+.nav--link--ul li a {
+  cursor: pointer;
+}
+.nav--link--icon {
+  margin-right: 1rem;
+}
+.nav-scrollDown {
+  position: absolute;
+  left: 48%;
+  top: 85%;
+  text-align: center;
+}
+.nav-scrollDown i,
+p {
+  margin: 0;
+}
+
+/* 課程選擇區 */
+.course {
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20%;
+  margin-top: 5%;
+}
+
+.course--context {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  color: #537895;
+}
+.course--context h3 {
+  font-size: 2.5rem;
+  color: #537895;
+}
+.course--context--filter {
+  margin-top: 10px;
+  width: 100%;
+}
+.course--context--filter--part {
+  width: 100%;
+  display: flex;
+
+  justify-content: space-between;
+}
+.course--context--filter--part button {
+  width: 20%;
+  margin: 0 1%;
+  padding: 1%;
+  font-size: 1rem;
+
+  background-color: #09203f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.course--context--filter--input {
+  width: 100%;
+  margin-top: 5%;
+  position: relative;
+}
+.course--context--filter--input input {
+  width: 100%;
+  height: 2rem;
+  position: absolute;
+  right: 0;
+}
+.course--context--filter--input button {
+  position: absolute;
+  right: 0;
+  height: 2rem;
+  background-color: #09203f;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* 待播清單區 */
+.playList {
+  margin: 0 20%;
+  margin-top: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.playList--context {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  color: #537895;
+}
+.playList--context h3 {
+  font-size: 2.5rem;
+}
+.playList--context p {
+  font-size: 1rem;
+  width: 100%;
+}
+.playList--context button {
+  position: relative;
+  left: 70%;
+  bottom: -10%;
+  width: 30%;
+  background: none;
+  border: 1px solid #09203f;
+  color: #09203f;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* 活動介紹區 */
+
+.event {
+  margin: 0 20%;
+  margin-top: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.event--context {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  color: #537895;
+}
+
+.event--context h3 {
+  font-size: 2.5rem;
+}
+.event--context p {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.event--group--cards {
+  display: flex;
+  flex-direction: column;
+}
+.event--group--cards img {
+  margin: 5% 0;
+}
+
+.event--group--link {
+  position: relative;
+  left: 70%;
+  width: 30%;
+  background: none;
+  border: 1px solid #09203f;
+  color: #09203f;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* 商品區 */
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10%;
+}
+
+.product--context {
+  width: 35%;
+  color: #537895;
+  margin-bottom: 3%;
+}
+
+.product--context h3 {
+  font-size: 2.5rem;
+  margin-bottom: 3%;
+}
+
+.product--context p {
+  font-size: 1rem;
+}
+
+.product--items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+/* 教練區 */
+.coach {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10%;
+}
+
+.coach h3 {
+  font-size: 2.5rem;
+  color: #537895;
+}
+.coach img {
+  margin: 5%;
+}
+
+.giftCard {
+  position: relative;
+  margin: 0 auto;
+  padding: 5%;
+  background: #537895;
+  color: #fff;
+  width: 60%;
+  border-radius: 2rem;
+}
+
+.giftCard img {
+  position: absolute;
+  top: -30%;
+  right: 0%;
+  transform: rotate(20deg);
+  border-radius: 10px;
+}
+.giftCard h3 {
+  font-size: 2.5rem;
+  margin-bottom: 3%;
+}
+.giftCard p {
+  font-size: 1rem;
+}
+.giftCard button {
+  background-color: rgb(255, 201, 85);
+  color: #09203f;
+  border: none;
+  padding: 2% 3%;
+  position: relative;
+  left: 80%;
+  top: 20%;
+  border-radius: 10px;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
