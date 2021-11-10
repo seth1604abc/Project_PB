@@ -13,29 +13,6 @@ function Home() {
     <>
       <header>
       <NavBar className=""/>
-          <div className="nav--link">
-            <ul className="nav--link--ul">
-              <li>
-                <a>課程</a>
-              </li>
-              <li>
-                <a>商品</a>
-              </li>
-              <li>
-                <a>活動</a>
-              </li>
-              <li>
-                <a>文章</a>
-              </li>
-              <li>
-                <a>方案</a>
-              </li>
-            </ul>
-            <div className="nav--link--icon">
-              <i className="fas fa-user"></i>
-              <i className="fas fa-shopping-cart"></i>
-            </div>
-          </div>
         <img src="" alt="" />
         <div className="nav-scrollDown">
           <p>了解更多</p>
