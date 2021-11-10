@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap");
+
+:root {
+  --main-color: #0f3357;
+  --secondary-color: #fee5c3;
+  --third-color: #f7faff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: var(--third-color);
+
+}
+
+.event_nav {
+  height: 40px;
+  width: 100%;
+  background-color: var(--main-color);
+}
+
+/* .singleEvent_cover_bottomColor{
+    width: 100%;
+    height: 600px;
+    background-color: var(--main-color);
+    opacity: 0.7;
+    position: relative;
+  } */
+
+
+  /* ------活動大卡片開始 ------*/
+
+.singleEvent_container {
+  max-width: 55%;
+  margin: 0 auto;
+  background-color: #fff;
+  margin: 4rem;
+  border-radius: 3rem;
+  /* position: absolute;
+    top: 20px; */
+  box-shadow: 4.8px 5.2px 4.8px rgba(0, 0, 0, 0.028),
+    9.5px 10.2px 10px rgba(0, 0, 0, 0.042), 27px 29px 29px rgba(0, 0, 0, 0.07);
+}
+
+.singleEvent_cover img{
+  border-radius: 3rem 3rem 0 0;
+  width: 100%;
+}
+
+.singleEvent_coach {
+  width: 55px;
+  height: 55px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.singleEvent_shareBtn {
+  border: 2px solid var(--main-color);
+  height: 2.5rem;
+  width: 8rem;
+  color: var(--main-color);
+  font-size: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-right: 5rem;
+}
+
+.singleEvent_shareBtn i{
+  font-size: 1.5rem;
+}
+
+.singleEvent_shareBtn:hover {
+  background-color:var(--main-color);
+  color: var(--secondary-color);
+}
+ /* -----活動內容 & 報名區塊 ------ */
+ .singleEvent_eventContent_wrapper{
+   width: 60%;
+   /* background-color:skyblue; */
+   margin:3rem 4rem;
+   
+ }
+
+ .singleEvent_eventContent_wrapper div p{
+   line-height: 2rem;
+ }
+
+/* 報名區塊 */
+ .singleEvent_detail{
+   border:1px solid lightgray;
+   width: 40%;
+   margin-right: 5rem;
+   margin-top: 3rem;
+ } 
+
+
+ .singleEvent_detail div{
+   line-height: 2rem;
+ }
+
+ .singleEvent_detail div i{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleEvent_detail_title {
+  font-size: 1.10rem;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+
+ .singleEvent_detail_signUpBtn{
+   border: none;
+   background-color: var(--main-color);
+   color: #fff;
+   border-radius: 0.5rem;
+   padding: 0.5rem 2rem;
+ }
+
+ .singleEvent_detail_signUpBtn:hover{
+   opacity: 0.8;
+ }
+
+/* 地圖 */
+ .singleEvent_map_wrapper {
+  margin-bottom: 5rem;
+ }
+
+.singleEvent_img{
+  width: 100%;
+  height: 13rem;
+}
+  
+ /* ----其它活動---- */
+
+ 
+ .singleEvent_card{
+  position:relative;
+  background-color: #fff;
+  width: 20rem;
+  /* border: 0.5px solid lightgrey; */
+  box-shadow: 1px 1px 1px lightgrey;
+ }
+
+
+ .singleEvent_card:hover {
+  top: -8px;
+  transition: 0.1s ease-in-out;
+  box-shadow: 3px 3px 5px lightgrey;
+}
+
+.singleEvent_card i {
+  font-size: 1.5rem;
+}
+
+
+.singleEvent_card_time .singleEvent_card_quota{
+  letter-spacing: 0.25rem;
+}
+
+.singleEvent_card_coach {
+  width: 40px;
+  height: 40px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+  position: absolute;
+  right: 2rem;
+  bottom: 1.5rem;
+}
+
+.singleEvent_card_coach_name {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.5rem;
+}
+
+.singleEvent_card_quota_wrapper img{
+  width: 25px;
+}
