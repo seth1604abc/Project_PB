@@ -49,12 +49,17 @@ function CoachEvent() {
                                             <p>活動名稱:</p>
                                             <p>活動時間:</p>
                                             <p>地點:</p>
+                                            <p>已報名人數</p>
+                                            <p>尚餘名額</p>
                                         </div>
                                         <div className="member-activity-content__card__info__data">
                                             <p>{data.title}</p>
                                             <p style={{marginTop: "20px"}}>{data.datetime}</p>
                                             <p style={{marginTop: "20px"}}>{data.location}</p>
+                                            <p>10人</p>
+                                            <p>10人</p>
                                         </div>
+                                        
                                     </div>
                                     <div className="member-activity-content__card__control">
                                         <button><i className="far fa-eye"></i>編輯活動</button>
