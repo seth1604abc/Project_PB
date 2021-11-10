@@ -25,11 +25,14 @@ import CoachInfo from './Pages/CoachInfo';
 import CoachCourse from './Pages/CoachCourse';
 import CoachEvent from './Pages/CoachEvent';
 import Cart from './Pages/Cart';
-
-
+import CartInfo from './Pages/CartInfo' 
+import CoachEventAdd from './Pages/CoachEventAdd';
+import CoachEventEdit from './Pages/CoachEventEdit';
+import CoachCourseAdd from './Pages/CoachCourseAdd';
 
 function App() {
   return (
+
     <div className="App">
       <Router>
         <Switch>
@@ -57,8 +60,10 @@ function App() {
           <Route path="/coach-course" exact component={CoachCourse}></Route>
           <Route path="/coach-event" exact component={CoachEvent}></Route>
           <Route path="/cart" excat component={Cart}></Route>
-          <Route path="/cart-info" excat component={CartInfo}></Route>         
-
+          <Route path="/cart-info" excat component={CartInfo}></Route>                 
+          <Route path="/coach-event-add" exact component={CoachEventAdd}></Route>          
+          <Route path="/coach-event-edit" exact component={CoachEventEdit}></Route>          
+          <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>          
         </Switch>
       </Router>
     </div>
