@@ -6,6 +6,7 @@ import { useState } from "react";
 import ArticleRecommand from "../components/ArticleRecommand";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
 
 const ProductGiftCard = () => {
   const text = ["介紹", "規格"];
@@ -28,8 +29,7 @@ const ProductGiftCard = () => {
   return (
     <>
       <Navbar />
-
-      <div className=" mb-5 productMain container d-flex justify-content-center align-items-center">
+      <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
           <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=giftcard"
@@ -128,9 +128,10 @@ const ProductGiftCard = () => {
           <RecommandProduct />
           <RecommandProduct />
           <RecommandProduct />
-          <button className="btn product__secondary__recommand__more align-self-end">
+          <button className="btn product__secondary__recommand__more align-self-end mb-5">
             更多商品
           </button>
+          <CourseSingleHitCourse/>
         </div>
       </div>
       <Footer />

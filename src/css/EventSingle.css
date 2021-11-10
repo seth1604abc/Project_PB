@@ -32,7 +32,7 @@ body {
   /* ------活動大卡片開始 ------*/
 
 .singleEvent_container {
-  max-width: 70%;
+  max-width: 55%;
   margin: 0 auto;
   background-color: #fff;
   margin: 4rem;
@@ -45,6 +45,7 @@ body {
 
 .singleEvent_cover img{
   border-radius: 3rem 3rem 0 0;
+  width: 100%;
 }
 
 .singleEvent_coach {
@@ -62,6 +63,7 @@ body {
   font-size: 2rem;
   background-color: #fff;
   border-radius: 10px;
+  margin-right: 5rem;
 }
 
 .singleEvent_shareBtn i{
@@ -74,9 +76,9 @@ body {
 }
  /* -----活動內容 & 報名區塊 ------ */
  .singleEvent_eventContent_wrapper{
-   width: 65%;
+   width: 60%;
    /* background-color:skyblue; */
-   margin-left: 4rem;
+   margin:3rem 4rem;
    
  }
 
@@ -87,7 +89,7 @@ body {
 /* 報名區塊 */
  .singleEvent_detail{
    border:1px solid lightgray;
-   width: 35%;
+   width: 40%;
    margin-right: 5rem;
    margin-top: 3rem;
  } 
@@ -121,33 +123,33 @@ body {
  .singleEvent_detail_signUpBtn:hover{
    opacity: 0.8;
  }
- .singleEvent_card_quota_wrapper img{
-   width: 25px;
- }
+
 /* 地圖 */
  .singleEvent_map_wrapper {
   margin-bottom: 5rem;
-}
+ }
 
-.singleEvent_img {
-  /* background-image: url(./event_imgs/google\ map_1.jpg); */
-  width:100%;
+.singleEvent_img{
+  width: 100%;
   height: 13rem;
-  
 }
- 
+  
  /* ----其它活動---- */
 
  
  .singleEvent_card{
-  width: 22rem;
   position:relative;
+  background-color: #fff;
+  width: 20rem;
+  /* border: 0.5px solid lightgrey; */
+  box-shadow: 1px 1px 1px lightgrey;
  }
 
+
  .singleEvent_card:hover {
-  top: -10px;
-  transition: 0.2s ease-in-out;
-  box-shadow: 2px 2px 5px lightgray;
+  top: -8px;
+  transition: 0.1s ease-in-out;
+  box-shadow: 3px 3px 5px lightgrey;
 }
 
 .singleEvent_card i {
@@ -173,4 +175,8 @@ body {
   position: absolute;
   right: 1.5rem;
   bottom: 0.5rem;
+}
+
+.singleEvent_card_quota_wrapper img{
+  width: 25px;
 }

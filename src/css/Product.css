@@ -1,3 +1,7 @@
+body{
+  padding: 0 !important; 
+}
+
 /* banner區塊 */
 .banner {
   background-color: #09203f;
@@ -22,10 +26,11 @@
 /* 商品列表區 */
 .card {
   position: relative;
+  border: 0.5px solid;
   width: 20rem;
   border: none;
   top: 0;
-  transition:.2s ;
+  transition: 0.2s;
 }
 .card:hover {
   top: -1rem;
@@ -60,6 +65,55 @@
 .card-title__star {
   color: rgb(255, 230, 0);
 }
+.card__addCart button {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; 
+  border-radius: 1000px;
+  top: 5%;
+  right: 5%;
+  color: #ffecd2;
+  transition: 0.3s;
+}
+.card__addCart button:hover {
+  color:#09203f  !important;
+  background-color:#ffecd2  !important;
+  transform: scale(1.1) !important;
+}
+.card__addCart button:active {
+  color: #09203f !important;
+  background-color: #ffecd2 !important;
+  
+}
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+  min-width: 3rem !important;
+  min-height: 3rem !important;
+  background-color: transparent !important;
+}
+.poper{
+  width: 9rem;
+  height: 9rem;
+}
+.poper__count__group{
+  border: 1px solid #09203f;
+  border-radius: 5px;
+}
+.poper__count__btn-m{
+  color: #fff;
+  background-color: #09203f;
+  border-radius: 5px 0 0 5px;
+}
+.poper__count__btn-p{
+  color: #fff;
+  background-color: #09203f;
+  border-radius: 0 5px 5px 0;
+}
+.poper__cart__btn{
+  color: #fff;
+  background-color: #09203f;
+}
 
 /* 搜尋篩選區 */
 
@@ -77,19 +131,20 @@
   background-color: #537895;
   color: #fff;
 }
-.product__fillter__buttons > .btn:hover{
-background-color: #ffecd2 ;
-color: #09203f;
+
+.product__fillter__buttons > .btn:hover {
+  background-color: #ffecd2;
+  color: #09203f;
 }
 .product__fillter__buttons-active {
-background-color: #ffecd2 !important;
-color:#09203f  !important;
+  background-color: #ffecd2 !important;
+  color: #09203f !important;
 }
 
 .product__fillter__search {
   position: relative;
 }
-.product__fillter__search input{
+.product__fillter__search input {
   border-radius: 5px 0 0 5px;
   border: none;
 }

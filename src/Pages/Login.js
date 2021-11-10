@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import $ from "jquery";
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  //===========================動畫開始===========================
+
   const changeToLogin = () => {
     $(".login-slide-bar__login").addClass("animate-r-to-l");
     $(".signup-box").css("display", "none");
@@ -26,6 +30,57 @@ function Login() {
     }, 1250);
   };
 
+
+  //===========================動畫結束===========================
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+  const registerData = {
+    email: email,
+    password: password,
+    checkPassword: checkPassword
+  }
+  //message為錯誤訊息設置
+  const [message, setMessage] = useState("");
+
+  const register = async () => {
+    if(!email || !password || !checkPassword) {
+      setMessage("有未輸入的欄位");
+    } else if(password !== checkPassword) {
+      setMessage("密碼必須相符");
+    } else {
+      try {
+        let response = await axios.post("http://localhost:3001/auth/register", registerData);
+        //如果有錯誤訊息
+        if(response.data.code != 0){
+          setMessage(response.data.message);
+          console.log(response.data.message)
+        } else {
+          //沒有錯誤訊息        
+          history.push("/");
+        }
+        
+      } catch (e) {
+        console.log("error: ", e);
+      }
+    }
+  }
+
+  const loginData = {
+    email: email,
+    password: password
+  }
+  const login = async () => {
+    let result = await axios.post("http://localhost:3001/auth/login", loginData);
+    if(result.data.message) {
+      setMessage(result.data.message);
+    } else {
+      history.push("/");
+    }
+  }
+
+
   return (
     <>
       <Navbar />
@@ -39,25 +94,41 @@ function Login() {
           <div className="signup-box">
             <div className="signup-box-l">
               <p>註冊帳號</p>
+
+              <div className="login-error-message">{message}</div>
+
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-envelope"></i>
                 </label>
-                <input type="text" placeholder="電子信箱" />
+                <input type="email" placeholder="電子信箱" onChange={
+                  (e) => {
+                    setEmail(e.target.value);
+                  }
+                }/>
               </div>
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-unlock-alt"></i>
                 </label>
-                <input type="text" placeholder="密碼" />
+                <input type="password" placeholder="密碼" onChange={
+                  (e) => {
+                    setPassword(e.target.value);
+                  }
+                }/>
+
               </div>
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-unlock-alt"></i>
                 </label>
-                <input type="text" placeholder="確認密碼" />
+                <input type="password" placeholder="確認密碼" onChange={
+                  (e) => {
+                    setCheckPassword(e.target.value);
+                  }
+                }/>
               </div>
-              <button className="login-btn">註冊</button>
+              <button className="login-btn" onClick={register}>下一步</button>
               <p
                 style={{
                   color: "#C2BEBE",
@@ -100,19 +171,28 @@ function Login() {
             </div>
             <div className="signin-box-r text-center">
               <p>登入</p>
+              <div className="login-error-message">{message}</div>
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-envelope"></i>
                 </label>
-                <input type="text" placeholder="電子信箱" />
+                <input type="text" placeholder="電子信箱" onChange={
+                  (e) => {
+                    setEmail(e.target.value);
+                  }
+                }/>
               </div>
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-unlock-alt"></i>
                 </label>
-                <input type="text" placeholder="密碼" />
+                <input type="text" placeholder="密碼" onChange={
+                  (e) => {
+                    setPassword(e.target.value);
+                  }
+                }/>
               </div>
-              <button className="register-btn">登入</button>
+              <button className="register-btn" onClick={login}>登入</button>
               <p
                 style={{
                   color: "#C2BEBE",
