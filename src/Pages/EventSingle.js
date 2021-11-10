@@ -18,6 +18,4 @@ function EventSingle() {
   );
 }
 
-
 export default EventSingle;
-
