@@ -1,0 +1,228 @@
+body{
+  background-color: #F7FAFF;
+}
+/* 商品主資訊區 */
+.productMain__info h1 {
+  color: #09203f;
+  font-weight: 700;
+}
+.productMain__info a {
+  color: #537895;
+  text-decoration: none;
+}
+.productMain__info a span {
+  color: rgb(253, 211, 22);
+}
+hr {
+  border: 2px solid #09203f;
+}
+
+.productMain__info h3 {
+  color: #537895;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.productMain__info p {
+  color: #09203f;
+  font-size: 1.5rem;
+}
+.productMain__info__count__group {
+  border: #09203f 1px solid;
+  width: 60%;
+  border-radius: 5px;
+}
+.productMain__info__count__group{
+  background-color: #fff;
+}
+.productMain__info__count__group__add {
+  background-color: #09203f;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+}
+.productMain__info__count__group__add:hover {
+  background-color: #2571e3;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+}
+.productMain__info__count__group__substract {
+  background-color: #09203f;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+}
+.productMain__info__count__group__substract:hover{
+  background-color:#2571e3;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+}
+
+.productMain__info__btn--cart {
+  background-color: #ffecd2;
+  color: #09203f;
+  font-size: 1.2rem;
+  transition: .4s;
+  margin-right: 5rem;
+}
+.productMain__info__btn--cart:hover {
+  background-color: #ffecd2;
+  color: #09203f;
+  
+  transform: scale(1.1);
+}
+.productMain__info__btn--buy {
+  background-color: #2571e3;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: .4s;
+  
+}
+.productMain__info__btn--buy:hover {
+  background-color: #2571e3;
+  color: #fff;
+  transform: scale(1.1);
+  
+}
+
+
+/* 商品介紹區 */
+.product__secondary__left__btn--intro {
+  font-size: 1rem;
+  border: #09203f 1px solid;
+  color: #09203f;
+  padding: 10px;
+  border-bottom: transparent;
+  border-radius: 5px 5px 0 0;
+  transition: .4s;
+}
+.product__secondary__left__btn--intro:hover{
+  background-color: #09203f;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.product__secondary__left__btn--intro:active{
+  background-color: #2571e3;
+  color: #fff;
+}
+.product__secondary__left__btn--detail {
+  border: #09203f 1px solid;
+  padding: 10px;
+  border-bottom: transparent;
+  border-radius: 5px 5px 0 0;
+  transition: .4s;
+}
+.product__secondary__left__btn--detail:hover{
+  background-color: #09203f;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.product__secondary__left__btn--detail:active{
+  background-color: #2571e3;
+  color: #fff;
+}
+.product__secondary__left__btn--detail-active{
+  background-color: #09203f;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.product__secondary__left__text {
+  font-size: 0.8rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: #09203f 1px solid;
+  border-radius: 0 5px 5px 5px;
+}
+
+/* 商品留言區 */
+.product__comment__card {
+  padding: 1rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+.product__comment__card:hover {
+  padding: 1rem;
+  border: 1px solid rgb(146, 146, 146);
+  border-radius: 10px;
+}
+.product__comment__card img {
+  border-radius: 50%;
+}
+.product__secondary__left__comment {
+  position: relative;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 10px;
+}
+.product__secondary__left__comment__more {
+  font-size: 1rem;
+  background-color: transparent;
+  border: 1px solid #09203f;
+  color: #09203f;
+  border-radius: 0;
+  transition: .4s;
+}
+.product__secondary__left__comment__more:hover{
+  border: 1px solid transparent;
+  background-color: #09203f;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.product__secondary__left__comment__more:active{
+  border: 1px solid transparent;
+  background-color: #2571e3;
+  
+}
+/* 推薦商品區 */
+.product__secondary__recommand {
+  width: 30%;
+  height: auto;
+  position: relative;
+}
+.product__secondary__recommand__more {
+  font-size: 1rem;
+  background-color: transparent;
+  border: 1px solid #09203f;
+  color: #09203f;
+  border-radius: 0;
+  transition: .4s;
+}
+.product__secondary__recommand__more:hover {
+  border: 1px solid transparent;
+  background-color: #09203f;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.product__secondary__recommand__more:active { 
+  background-color: #2571e3;
+}
+.RecommandProduct{
+  border-radius: 0.8rem;
+  transition: .4s;
+}
+.RecommandProduct:hover{
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.RecommandProduct__part {
+  /* background-color: #09203f; */
+  /* color: #fff; */
+  border-radius: 3px;
+  /* padding: .1rem .3rem; */
+}
+.RecommandProduct__rating {
+  color: rgb(253, 211, 22);
+}
+
+/* 推薦文章區 */
+.article-card{
+  
+  border-radius: 10px;
+  /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
+  transition: .4s;
+}
+.article-card:hover{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}

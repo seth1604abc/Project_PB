@@ -1,0 +1,157 @@
+body{
+  padding: 0 !important; 
+}
+/* banner區塊 */
+.banner {
+  background-color: #09203f;
+  border-radius: 10px;
+}
+.banner__context h3 {
+  font-weight: 600;
+}
+.banner__context p {
+  font-size: 1.5rem;
+}
+.banner__context button {
+  background-color: #ffecd2;
+  color: #09203f;
+  padding: 2% 10%;
+  color: #09203f;
+  font-size: 2.5rem;
+  border: none;
+  border-radius: 5px;
+}
+
+/* 商品列表區 */
+.card {
+  position: relative;
+  border: 0.5px solid;
+  width: 20rem;
+  border: none;
+  top: 0;
+  transition: 0.2s;
+}
+.card:hover {
+  top: -1rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+.card__crown {
+  color: rgb(255, 230, 0);
+  font-size: 4rem;
+  position: absolute;
+  top: -15%;
+  right: -15%;
+  transform: rotate(30deg);
+}
+.card__ranking {
+  position: absolute;
+  top: -4%;
+  right: 1%;
+  z-index: 9;
+}
+
+.card-body {
+  padding: 5%;
+}
+.card__part {
+  background-color: #09203f;
+  color: #fff;
+  padding: 2% 3%;
+  text-align: center;
+  width: 25%;
+  border-radius: 5px;
+}
+.card-title__star {
+  color: rgb(255, 230, 0);
+}
+
+.card__addCart button {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; 
+  border-radius: 1000px;
+  top: 5%;
+  right: 5%;
+  color: #ffecd2;
+  transition: 0.3s;
+}
+.card__addCart button:hover {
+  color:#09203f  !important;
+  background-color:#ffecd2  !important;
+  transform: scale(1.1) !important;
+}
+.card__addCart button:active {
+  color: #09203f !important;
+  background-color: #ffecd2 !important;
+  
+}
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+  min-width: 3rem !important;
+  min-height: 3rem !important;
+  background-color: transparent !important;
+}
+.poper{
+  width: 9rem;
+  height: 9rem;
+}
+.poper__count__group{
+  border: 1px solid #09203f;
+  border-radius: 5px;
+}
+.poper__count__btn-m{
+  color: #fff;
+  background-color: #09203f;
+  border-radius: 5px 0 0 5px;
+}
+.poper__count__btn-p{
+  color: #fff;
+  background-color: #09203f;
+  border-radius: 0 5px 5px 0;
+}
+.poper__cart__btn{
+  color: #fff;
+  background-color: #09203f;
+}
+/* 搜尋篩選區 */
+
+.product__fillter {
+  background-color: #09203f;
+  position: relative;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.product__fillter__buttons > .btn {
+  width: 50%;
+  margin: 0.5rem;
+  padding: 0.5rem 3rem;
+  background-color: #537895;
+  color: #fff;
+}
+.product__fillter__buttons > .btn:hover {
+  background-color: #ffecd2;
+  color: #09203f;
+}
+.product__fillter__buttons-active {
+  background-color: #ffecd2 !important;
+  color: #09203f !important;
+}
+
+.product__fillter__search {
+  position: relative;
+}
+.product__fillter__search input {
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+.product__fillter__search button {
+  background-color: #fff;
+  border: none;
+  border-radius: 0 5px 5px 0;
+}
+.product__fillter__search i {
+  color: #09203f;
+  font-size: 1.2rem;
+}
