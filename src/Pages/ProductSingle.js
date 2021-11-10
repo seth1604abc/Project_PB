@@ -11,7 +11,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 
-
 const ProductSingle = () => {
   const text = ["介紹", "規格"];
   const defaultText = text[0];
@@ -42,6 +41,8 @@ const ProductSingle = () => {
           /> */}
         </div>
         <div className="productMain__info ms-3">
+
+
           <h1>20kg啞鈴組</h1>
           <a href="#/">
             <span className="me-1">
@@ -141,7 +142,6 @@ const ProductSingle = () => {
           <CourseSingleHitCourse />
         </div>
       </div>
-
       <Footer />
     </>
   );

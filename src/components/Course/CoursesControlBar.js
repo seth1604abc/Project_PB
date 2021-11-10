@@ -4,16 +4,29 @@ import { useState } from "react";
 function CourseControlBar() {
   const [heart, setHeart] = useState("far");
   const [heartButton, setHeartButton] = useState("");
+  const [playListBg, setPlayListBg] = useState("");
+  const [playListButton, setPlayListButton] = useState(
+    "./images/play-list-MainColor.png"
+  );
   function HeartToggle() {
     if (heart === "far") {
       setHeart("fas HeartColor");
-      setHeartButton('bgBlueftWhite');
+      setHeartButton("bgBlueftWhite");
     } else {
       setHeart("far");
-      setHeartButton('');
+      setHeartButton("");
     }
   }
-  
+  function PlayListToggle() {
+    if (playListButton === "./images/play-list-MainColor.png") {
+      setPlayListButton("./images/play-list-SecondColor.png");
+      setPlayListBg("Courses__control-bar__playList__Bg");
+    } else {
+      setPlayListButton("./images/play-list-MainColor.png");
+      setPlayListBg("");
+    }
+  }
+
   return (
     <div>
       <div className="Courses__control-bar">
@@ -67,8 +80,22 @@ function CourseControlBar() {
           </option>
           <option value="2">熱門程度</option>
         </select>
-        <div className={`${heartButton} pointer Courses__control-bar__sort-btn`} onClick={HeartToggle}>
-          <i class={`${heart} fa-heart`}></i> 已收藏課程
+        <div className="d-flex">
+          <div
+            className={`${heartButton} pointer Courses__control-bar__sort-btn align-items-center d-flex`}
+            onClick={HeartToggle}
+          >
+            <i class={`${heart} fa-heart`}></i> 我的收藏清單
+          </div>
+          <div
+            className={`${playListBg} pointer Courses__control-bar__sort-btn align-items-center d-flex`}
+            onClick={PlayListToggle}
+          >
+            <div className=" Courses__control-bar__playList__icon">
+              <img src={playListButton} alt="" />
+            </div>
+            我的待播清單
+          </div>
         </div>
       </div>
     </div>
