@@ -196,11 +196,12 @@ hr {
   background-color: #2571e3;
 }
 .RecommandProduct{
-  
+  border-radius: 0.8rem;
   transition: .4s;
 }
 .RecommandProduct:hover{
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .RecommandProduct__part {
@@ -215,7 +216,6 @@ hr {
 
 /* 推薦文章區 */
 .article-card{
-  background-color: #fff;
   border-radius: 10px;
   /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
   transition: .4s;

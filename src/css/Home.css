@@ -119,6 +119,11 @@ p {
 .course--context--filter--part button:hover {
   background-color: #537895;
 }
+
+.course--context--filter--part-active {
+  background-color: #537895 !important;
+}
+
 .course--context--filter--input {
   width: 100%;
 }
@@ -149,7 +154,7 @@ p {
   justify-content: space-between;
 }
 .playList--context {
-  width: 40%;
+  width: 39%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -310,7 +315,7 @@ p {
   margin-bottom: 3%;
 }
 .giftCard p {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .giftCard button {
   background-color: rgb(255, 201, 85);

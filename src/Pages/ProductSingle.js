@@ -1,48 +1,49 @@
 import React from "react";
 import Comment from "../components/Comment";
 import "../css/ProductSingle.css";
-import "../css/Article.css"
-import "../css/Course.css"
+import "../css/Article.css";
+import "../css/Course.css";
 import RecommandProduct from "../components/RecommandProduct";
 import { useState } from "react";
 import ArticleRecommand from "../components/ArticleRecommand";
-import CourseSingleHitCourse from "../components/CourseSingleHitCourse"
-
+import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Gallery from "../components/Gallery";
 
 
 const ProductSingle = () => {
-  const text=["介紹","規格"];
-  const defaultText=text[0];
-  const[showText,setShowText]=useState(defaultText); 
-    
-  const[number,setNumber]=useState(1);
-  const handleClick=(i)=>{
-    if(i===0){
-        if(number===1){
-            return
-        }
-        setNumber(number-1);
-    }
-    if(i===1){
-        setNumber(number+1);
-    }
-  }
+  const text = ["介紹", "規格"];
+  const defaultText = text[0];
+  const [showText, setShowText] = useState(defaultText);
 
-
-    
+  const [number, setNumber] = useState(1);
+  const handleClick = (i) => {
+    if (i === 0) {
+      if (number === 1) {
+        return;
+      }
+      setNumber(number - 1);
+    }
+    if (i === 1) {
+      setNumber(number + 1);
+    }
+  };
+  
   return (
     <>
-      <div>nav</div>
-      
-      <div className=" mb-5 productMain container d-flex justify-content-center align-items-center">
+      <Navbar />
+      <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
-          <img
+          <Gallery/>
+          {/* <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=picture"
             alt=""
-            
-          />
+          /> */}
         </div>
-        <div className="productMain__info">
+        <div className="productMain__info ms-3">
+
+
           <h1>20kg啞鈴組</h1>
           <a href="#/">
             <span className="me-1">
@@ -55,13 +56,22 @@ const ProductSingle = () => {
           <div className="productMain__info__count">
             <p>數量:</p>
             <div className="d-flex justify-content-between align-items-center productMain__info__count__group">
-              <button className="btn productMain__info__count__group__substract"
-              onClick={()=>{handleClick(0)}}>
+
+              <button
+                className="btn productMain__info__count__group__substract"
+                onClick={() => {
+                  handleClick(0);
+                }}
+              >
                 -
               </button>
               <div className="mx-3">{number}</div>
-              <button className="btn productMain__info__count__group__add"
-              onClick={()=>{handleClick(1)}}>
+              <button
+                className="btn productMain__info__count__group__add"
+                onClick={() => {
+                  handleClick(1);
+                }}
+              >
                 +
               </button>
             </div>
@@ -77,44 +87,68 @@ const ProductSingle = () => {
         </div>
       </div>
       <div className="product__secondary mb-5 container d-flex  justify-content-center">
-      
-      <div clasName="product__secondary__left" style={{width: "50%"}}>
+
+        <div clasName="product__secondary__left " style={{ width: "60%" }}>
           <div className=" mb-5 ">
-            <button className={`btn product__secondary__left__btn--intro ${(showText==="介紹")?"product__secondary__left__btn--detail-active":""}`}
-            onClick={()=>{setShowText(text[0])}}
-            >商品介紹</button>
-            <button onClick={()=>{setShowText(text[1])}} className={`btn product__secondary__left__btn--detail ${(showText==="規格")?"product__secondary__left__btn--detail-active":""}`}>商品規格</button>
-            <p className="btn product__secondary__left__text w-100">{showText}</p>
+            <button
+              className={`btn product__secondary__left__btn--intro ${
+                showText === "介紹"
+                  ? "product__secondary__left__btn--detail-active"
+                  : ""
+              }`}
+              onClick={() => {
+                setShowText(text[0]);
+              }}
+            >
+              商品介紹
+            </button>
+            <button
+              onClick={() => {
+                setShowText(text[1]);
+              }}
+              className={`btn product__secondary__left__btn--detail ${
+                showText === "規格"
+                  ? "product__secondary__left__btn--detail-active"
+                  : ""
+              }`}
+            >
+              商品規格
+            </button>
+            <p className="btn product__secondary__left__text w-100">
+              {showText}
+            </p>
           </div>
           <div className="product__secondary__left__comment  d-flex flex-column mb-5">
-          <div>商品評價</div>
+            <div>商品評價</div>
             <Comment />
             <Comment />
             <Comment />
             <Comment />
-            <button className="btn product__secondary__left__comment__more m-1 align-self-end">更多評論</button>
+
+            <button className="btn product__secondary__left__comment__more m-1 align-self-end">
+              更多評論
+            </button>
           </div>
-          <ArticleRecommand/>
-          
-          
+          <ArticleRecommand />
         </div>
         <div className="product__secondary__recommand d-flex flex-column align-items-start ms-5 ">
-        <div className="d-flex Article__area__title w-100">
-        <i class="fas fa-shopping-bag Course__area__icon p-2"></i><h2 className="">推薦商品</h2>
+          <div className="d-flex Article__area__title w-100">
+            <i class="fas fa-shopping-bag Course__area__icon p-2"></i>
+            <h2 className="">推薦商品</h2>
+          </div>
+
+          <RecommandProduct />
+          <RecommandProduct />
+          <RecommandProduct />
+          <button className="btn product__secondary__recommand__more align-self-end mb-5">
+            更多商品
+          </button>
+          <CourseSingleHitCourse />
         </div>
-            
-            <RecommandProduct/>
-            <RecommandProduct/>
-            <RecommandProduct/>
-            <button className="btn product__secondary__recommand__more align-self-end mb-5">更多商品</button>
-            <CourseSingleHitCourse/>
-        </div>
-        
       </div>
-      
-        
-      
-      <div>footer</div>
+
+      <Footer />
+
     </>
   );
 };
