@@ -13,11 +13,6 @@ function Home() {
     <>
       <header>
       <NavBar className=""/>
-          <img
-            src="./pblogo.png"
-            alt="logo"
-            className="nav--logo"
-          />
           <div className="nav--link">
             <ul className="nav--link--ul">
               <li>
