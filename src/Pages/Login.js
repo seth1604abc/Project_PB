@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 function Login() {
   //===========================動畫開始===========================
+
   const changeToLogin = () => {
     $(".login-slide-bar__login").addClass("animate-r-to-l");
     $(".signup-box").css("display", "none");
@@ -28,6 +29,8 @@ function Login() {
       $(".login-slide-bar__register").removeClass("login-slide-bar__register");
     }, 1250);
   };
+
+
   //===========================動畫結束===========================
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -77,6 +80,7 @@ function Login() {
     }
   }
 
+
   return (
     <>
       <Navbar />
@@ -90,7 +94,9 @@ function Login() {
           <div className="signup-box">
             <div className="signup-box-l">
               <p>註冊帳號</p>
+
               <div className="login-error-message">{message}</div>
+
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-envelope"></i>
@@ -110,6 +116,7 @@ function Login() {
                     setPassword(e.target.value);
                   }
                 }/>
+
               </div>
               <div className="login-input-box">
                 <label htmlFor="">

@@ -5,7 +5,7 @@ body {
   font-family: "Noto Sans TC", sans-serif;
 }
 .main-nav {
-  height: 100px;
+  height: 80px;
   background-color: #09203f;
   color: #ffecd2;
   padding: 0 2%;
@@ -37,7 +37,7 @@ body {
 }
 .main-nav__logo > img {
   height: 50px;
-  filter: brightness(4);
+  filter: brightness(7) hue-rotate(23deg);
 }
 .main-nav__ul {
   list-style: none;
@@ -456,7 +456,7 @@ body {
   font-size: 16px;
   text-align: left;
   color: red;
-}
+
 .signup-box-r {
   width: 40%;
 }

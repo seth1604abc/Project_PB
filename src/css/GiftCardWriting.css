@@ -1,0 +1,34 @@
+.GiftCardWriting__position{
+    height:90vh;
+}
+.sendGift{
+    border: 1px solid #000;
+    
+}
+.sendGift h3{
+    border: 1px solid #000;
+    background-color:#09203f;
+    color: #fff;
+    
+}
+.getGift{
+    border: 1px solid #000;
+}
+.sendGift input{
+    width: 90%;}
+.getGift h3{
+    border: 1px solid #000;
+    background-color:#09203f;
+    color:#fff;
+}
+
+.GiftCardWriting__btn__pre{
+    background-color: #ffecd2;
+    color: #09203f;
+    font-size:1.2rem;
+}
+.GiftCardWriting__btn__next{
+    background-color:#2571e3;
+    color: #fff;
+    font-size:1.2rem;
+}
