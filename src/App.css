@@ -428,7 +428,7 @@ body {
   height: 875px;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 .loginCard {
   width: 60%;
@@ -437,7 +437,6 @@ body {
   border-radius: 30px;
   position: relative;
   overflow: hidden;
-    
 }
 .signup-box {
   height: 100%;
@@ -446,7 +445,7 @@ body {
   /* display: none; */
 }
 .signup-box-l {
-  width: 60%;  
+  width: 60%;
   text-align: center;
 }
 .login-error-message {
@@ -456,7 +455,7 @@ body {
   font-size: 16px;
   text-align: left;
   color: red;
-
+}
 .signup-box-r {
   width: 40%;
 }
@@ -475,7 +474,7 @@ body {
 .login-input-box {
   width: 60%;
   border: 1px solid lightgray;
-  background-color: #EAEFF8;
+  background-color: #eaeff8;
   padding: 5px;
   margin: 0 auto 10px;
 }
@@ -483,7 +482,7 @@ body {
   margin-left: 20px;
   width: 85%;
   border: 0px;
-  background-color: #EAEFF8;
+  background-color: #eaeff8;
 }
 .login-input-box > input:focus {
   outline: none;
@@ -525,7 +524,7 @@ body {
   z-index: 2;
 }
 .signup-box-r > button {
-  background-color: #37476A;
+  background-color: #37476a;
   color: white;
   padding: 5px 40px;
   border: 0px;
@@ -541,14 +540,28 @@ body {
   margin-top: 50px;
 }
 @keyframes slide-r-to-l {
-  0% {right: 0;}
-  50% {right: 68%;}
-  100% {left: 0; background-color: #2571E3;}
+  0% {
+    right: 0;
+  }
+  50% {
+    right: 68%;
+  }
+  100% {
+    left: 0;
+    background-color: #2571e3;
+  }
 }
 @keyframes slide-l-to-r {
-  0% {left: 0;}
-  50% {left: 60%;}
-  100% {right: 0; background-color: #ffecd2;}
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    right: 0;
+    background-color: #ffecd2;
+  }
 }
 .animate-r-to-l {
   animation-name: slide-r-to-l;
@@ -564,15 +577,15 @@ body {
   height: 100%;
   background-color: #ffecd2;
   top: 0;
-  right: 0;    
+  right: 0;
 }
 .login-slide-bar__register {
   position: absolute;
   width: 40%;
   height: 100%;
-  background-color: #2571E3;
+  background-color: #2571e3;
   top: 0;
-  left: 0; 
+  left: 0;
 }
 .signin-box {
   height: 100%;
@@ -623,7 +636,7 @@ body {
 }
 .sub-choice-year > i {
   margin-right: 50px;
-  color: #2571E3;
+  color: #2571e3;
   font-size: 26px;
 }
 .sub-choice-month > p {
@@ -635,16 +648,16 @@ body {
 }
 .sub-choice-month > i {
   margin-right: 50px;
-  color: #2571E3;
+  color: #2571e3;
   font-size: 22px;
 }
 .cart-container {
-  width: 100vw;  
-  background-color: #EAEFF8;  
+  width: 100vw;
+  background-color: #eaeff8;
 }
 .cart-progress-bar {
   width: 50%;
-  height: 200px;  
+  height: 200px;
   margin: 50px auto;
   position: relative;
 }
@@ -663,7 +676,7 @@ body {
   position: absolute;
   width: 95%;
   border: 2px solid black;
-  opacity: .8;
+  opacity: 0.8;
   z-index: -1;
   top: 5px;
   left: 10px;
@@ -677,11 +690,11 @@ body {
   height: 100px;
   padding: 10px;
 }
-.cart-cotent__box__check {    
-    display: flex ;
-    align-items: center;
-    justify-content: center;    
-    width: 5%;
+.cart-cotent__box__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5%;
 }
 .cart-cotent__box__price {
   width: 20%;
@@ -702,7 +715,6 @@ body {
 .cart-content__title {
   background-color: #09203f;
   color: white;
-  
 }
 .cart-content__choose {
   padding: 10px;
@@ -741,14 +753,14 @@ body {
   align-items: center;
 }
 .cart-cotent__box__image > img {
-  width: 80%;  
+  width: 80%;
   object-fit: cotain;
 }
 .cart-content__total__container {
   width: 70%;
-  height: 82%; 
+  height: 82%;
   margin: auto;
-  padding-top: 20px;  
+  padding-top: 20px;
 }
 .cart-content__total__benefit {
   margin-top: 50px;

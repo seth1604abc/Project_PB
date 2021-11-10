@@ -25,7 +25,6 @@ import CoachInfo from './Pages/CoachInfo';
 import CoachCourse from './Pages/CoachCourse';
 import CoachEvent from './Pages/CoachEvent';
 import Cart from './Pages/Cart';
-import CartInfo from './Pages/CartInfo'
 
 
 

@@ -25,7 +25,7 @@ let articleAuthorTopic = [
 function ArticleAuthor() {
   return (
     <>
-      <div className="ArticleAuthor align-items-center">
+      <div className="ArticleAuthor align-items-center py-4 px-2">
         <div className="ArticleAuther__info">
           <div className="ArticleAuthor__Coach__image">
             <Membericon />
