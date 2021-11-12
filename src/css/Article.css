@@ -1,0 +1,156 @@
+/* Article 廣告 開始 */
+.Article__Banner__Mask {
+  display: flex;
+  transition: 0.4s ease-in-out;
+}
+.Article__Banner__group {
+  width: 100vw;
+  height: 35vw;
+}
+.Article__Banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.Article__Banner__image1 {
+  transform: translateX(0);
+}
+.Article__Banner__image2 {
+  transform: translateX(-100vw);
+}
+.Article__Banner__image3 {
+  transform: translateX(-200vw);
+}
+.Article__Banner__title {
+  min-width: 100vw;
+  top: 5vh;
+  color: white;
+}
+.Article__Banner__title__content {
+  width: 40%;
+  align-items: center;
+}
+.Article__Banner__title__content__Btn {
+  padding: 5px 10px;
+  margin: 1rem 0;
+  border: 1px solid white;
+}
+.Article__area__title {
+  border-bottom: 3px solid var(--third-color);
+  font-weight: 500;
+  color: var(--main-color);
+  margin-bottom: 1rem;
+}
+
+/* Article 廣告 結束*/
+/* Article 最新文章 開始 */
+
+.Article__width{
+  width: 70%;
+  margin: 0 auto;
+}
+.ArticleNewsCard {
+  padding: 1rem 2rem;
+  transition: 0.4s;
+  border: 1px solid transparent;
+}
+.ArticleNewsCard:hover {
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.1);
+  background: white;
+}
+.ArticleNewsCard__image {
+  max-width: 25%;
+  overflow: hidden;
+}
+.ArticleNewsCard__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ArticleNewsCard__content {
+  width: 45%;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.ArticleNewsCard__info {
+  width: 20%;
+}
+.ArticleNewsCard__CoachImg {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+}
+/* Article 最新文章 結束 */
+/* Article 推薦作者 開始 */
+.ArticleAuthor {
+  width: 100%;
+  background: white;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  display: flex;
+  /* align-items: center; */
+}
+.ArticleAuther__info {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 0 2rem;
+  border-right: 1px black solid;
+}
+.ArticleAuthor__Coach__image {
+  margin: 0 auto;
+  width: 7vw;
+  height: 7vw;
+}
+.ArticleAuthor__Coach__Name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+.ArticleAuthor__HotArticle {
+  padding: 1rem;
+  margin: 0.5rem;
+  position: relative;
+  width: 100%;
+  border: 1px solid transparent;
+  top: 0;
+  transition: 0.2s;
+}
+.ArticleAuthor__HotArticle:hover {
+  /* border: 1px solid rgba(100, 100, 100, 0.3); */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  top: -0.2rem;
+}
+.ArticleAuthor__HotArticle__img img {
+  border: 1px solid gray;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ArticleAuthor__HotArticle__Date {
+  position: absolute;
+  bottom: 0;
+  font-size: 0.9rem;
+}
+/* Article 推薦作者 結束 */
+
+/* Article 文章單獨頁面 開始 */
+.ArticleSingle__Coach__icon {
+  width: 35px;
+  height: 35px;
+}
+.ArticleSingle__Article__image {
+  width: 100%;
+  height: 30vw;
+}
+.ArticleSingle__Article__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ArticleSingle__Article__content {
+  text-indent: 2em;
+  font-size: 1.2rem;
+  line-height: 2.5rem;
+}
+/* Article 文章單獨頁面 結束 */
