@@ -15,12 +15,15 @@ function Home() {
       <NavBar className=""/>
         <img src="" alt="" />
         <div className="nav-scrollDown">
+          <a href="#scrollTo" className="scrollTo">
           <p>了解更多</p>
           <i className="fas fa-chevron-down"></i>
+          </a>
         </div>
       </header>
       <main>
-        <section className="course d-flex align-items-center">
+          <div id="scrollTo" className="" >nice</div>
+        <section className="course d-flex align-items-center" >
           <div className="course--context">
             <h3 className="text-nowrap">你在找什麼課程?</h3>
             <p>
