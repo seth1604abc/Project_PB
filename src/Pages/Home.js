@@ -1,29 +1,40 @@
-
-import {useState} from "react"
+import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import "../css/Home.css";
 import Footer from "../components/Footer";
-import NavBar from "../components/Navbar"
+import NavBar from "../components/Navbar";
+import ReactPlayer from "react-player";
 function Home() {
-  const[part,setPart]=useState("");
-  const handlePart=(i)=>{
+  const [part, setPart] = useState("");
+  const handlePart = (i) => {
     setPart(i);
-  }
+  };
   return (
     <>
       <header>
-      <NavBar className=""/>
-        <img src="" alt="" />
+        <NavBar className="" />
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=YARJ99FqcYE"
+          loop="true"
+          muted="true"
+          playing="true"
+          width="100vw"
+          height="100vh"
+          className="hero-player"
+        />
+        <div className="home-video-filter"></div>
         <div className="nav-scrollDown">
           <a href="#scrollTo" className="scrollTo">
-          <p>了解更多</p>
-          <i className="fas fa-chevron-down"></i>
+            <p>了解更多</p>
+            <i className="fas fa-chevron-down"></i>
           </a>
         </div>
       </header>
       <main>
-          <div id="scrollTo" className="" >nice</div>
-        <section className="course d-flex align-items-center" >
+        <div id="scrollTo" className="">
+          nice
+        </div>
+        <section className="course d-flex align-items-center">
           <div className="course--context">
             <h3 className="text-nowrap">你在找什麼課程?</h3>
             <p>
@@ -32,11 +43,66 @@ function Home() {
 
             <div className="course--context--filter">
               <div className="course--context--filter--part">
-                <button className={part==="手部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("手部")}}>手部</button>
-                <button className={part==="腿部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("腿部")}}>腿部</button>
-                <button className={part==="胸部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("胸部")}}>胸部</button>
-                <button className={part==="肩部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("肩部")}}>肩部</button>
-                <button className={part==="背部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("背部")}}>背部</button>
+                <button
+                  className={
+                    part === "手部"
+                      ? "course--context--filter--part-active"
+                      : ""
+                  }
+                  onClick={() => {
+                    handlePart("手部");
+                  }}
+                >
+                  手部
+                </button>
+                <button
+                  className={
+                    part === "腿部"
+                      ? "course--context--filter--part-active"
+                      : ""
+                  }
+                  onClick={() => {
+                    handlePart("腿部");
+                  }}
+                >
+                  腿部
+                </button>
+                <button
+                  className={
+                    part === "胸部"
+                      ? "course--context--filter--part-active"
+                      : ""
+                  }
+                  onClick={() => {
+                    handlePart("胸部");
+                  }}
+                >
+                  胸部
+                </button>
+                <button
+                  className={
+                    part === "肩部"
+                      ? "course--context--filter--part-active"
+                      : ""
+                  }
+                  onClick={() => {
+                    handlePart("肩部");
+                  }}
+                >
+                  肩部
+                </button>
+                <button
+                  className={
+                    part === "背部"
+                      ? "course--context--filter--part-active"
+                      : ""
+                  }
+                  onClick={() => {
+                    handlePart("背部");
+                  }}
+                >
+                  背部
+                </button>
               </div>
               <div className="course--context--filter--input ">
                 <input type="text" name="" id="" />
@@ -53,7 +119,9 @@ function Home() {
           <img src="https://via.placeholder.com/300x200" alt="" />
           <div className="playList--context">
             <h3 className="nowrap">隨你所好，安排課程</h3>
-            <p className="mb-3 me-0">在眾多課程中收藏你所喜愛的課程，並依照需要安排你的課表!</p>
+            <p className="mb-3 me-0">
+              在眾多課程中收藏你所喜愛的課程，並依照需要安排你的課表!
+            </p>
             <button className="">前往課程</button>
           </div>
         </section>
@@ -93,7 +161,6 @@ function Home() {
             皆由專業教練指導
           </h3>
           <div className="coach--list">
-           
             <div className="divider"></div>
             <div className="coachName">Chris</div>
             <div className="coachTime">教練資歷5年</div>

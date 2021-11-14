@@ -20,6 +20,7 @@ header {
     rgba(9, 32, 63, 1) 100%
   );
   color: white;
+  position: relative;
 }
 .nav {
   position: relative;
@@ -68,7 +69,22 @@ header {
 p {
   margin: 0;
 }
-
+.hero-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.home-video-filter {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(13, 7, 100,.5);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
 /* 課程選擇區 */
 .scrollTo {
   text-decoration: none;
@@ -76,6 +92,8 @@ p {
   transition: all 0.4s;
   font-size: 1.1rem;
   text-align: center;
+  position: relative;
+  z-index: 50;
 }
 .scrollTo:hover {
   text-decoration: none;
