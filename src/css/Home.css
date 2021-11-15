@@ -71,16 +71,15 @@ p {
 }
 .hero-player {
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  
 }
 .home-video-filter {
-  position: absolute;
+  position: relative;
   width: 100vw;
-  height: 100vh;
-  background-color: rgba(13, 7, 100,.5);
+  height: 90vh;
+  background-color: rgba(13, 7, 100, 0.5);
   top: 0;
   left: 0;
   z-index: 10;
@@ -107,6 +106,7 @@ p {
 }
 #scrollTo {
   color: transparent;
+  height: 4rem;
 }
 .course {
   height: auto;

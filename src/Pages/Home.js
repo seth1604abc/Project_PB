@@ -19,7 +19,7 @@ function Home() {
           muted="true"
           playing="true"
           width="100vw"
-          height="100vh"
+          height="90vh"
           className="hero-player"
         />
         <div className="home-video-filter"></div>
@@ -32,7 +32,7 @@ function Home() {
       </header>
       <main>
         <div id="scrollTo" className="">
-          nice
+          
         </div>
         <section className="course d-flex align-items-center">
           <div className="course--context">
