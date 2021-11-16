@@ -1,47 +1,20 @@
 
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import ProductCard from "../components/ProductCard";
 import "../css/Home.css";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar"
+import axios from "axios";
 function Home() {
   const[part,setPart]=useState("");
   const handlePart=(i)=>{
     setPart(i);
-  }
+  }  
   return (
     <>
       <header>
-      <NavBar className=""/>
-          <img
-            src="./pblogo.png"
-            alt="logo"
-            className="nav--logo"
-          />
-          <div className="nav--link">
-            <ul className="nav--link--ul">
-              <li>
-                <a>課程</a>
-              </li>
-              <li>
-                <a>商品</a>
-              </li>
-              <li>
-                <a>活動</a>
-              </li>
-              <li>
-                <a>文章</a>
-              </li>
-              <li>
-                <a>方案</a>
-              </li>
-            </ul>
-            <div className="nav--link--icon">
-              <i className="fas fa-user"></i>
-              <i className="fas fa-shopping-cart"></i>
-            </div>
-          </div>
-        <img src="" alt="" />
+      <NavBar />        
+                 
         <div className="nav-scrollDown">
           <p>了解更多</p>
           <i className="fas fa-chevron-down"></i>
