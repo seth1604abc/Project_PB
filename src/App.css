@@ -771,6 +771,146 @@ body {
 .cart-content__total__benefit {
   margin-top: 50px;
 }
+.cart-content-l {
+  width: 50%;
+}
+.cart-content-l__info {
+  width: 100%;  
+  border: 1px solid #9e9fa2;
+  padding: 10px;
+}
+.cart-content-l__info__data > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-l__info__data > input {
+  width: 95%;
+  padding: 10px;
+}
+.cart-content-l__paymethod {
+  padding: 10px;
+  width: 100%;  
+  border: 1px solid #9e9fa2;  
+}
+.cart-content-l__paymethod__data > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-l__paymethod__data > select {
+  width: 95%;
+  padding: 10px;
+}
+.cart-content-r {
+  width: 50%;
+}
+.cart-content-r__payment {
+  padding: 10px;
+  border: 1px solid #9e9fa2;
+}
+.cart-content-r__payment > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-r__payment > select {
+  padding: 5px 10px;
+  width: 30%;
+}
+.cart-content-r__btn {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.cart-content-r__btn > button {
+  padding: 10px 60px;
+  border: 0px;
+  font-size: 20px;
+}
+.register-next-container {
+  width: 600px;
+  min-height: 600px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);  
+  border-radius: 20px;
+  overflow: hidden;
+  
+}
+.register-next-container > h3 {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #09203f;
+  color: #ffecd2;
+}
+.register-next-container__div {
+  margin: 20px;
+}
+.register-next-container__div > label {
+  font-size: 18px;
+  margin-right: 30px;
+  font-weight: bolder;
+}
+.register-next-container__div > input {
+  padding: 10px;
+}
+.register-next {
+  display: none;
+}
+.register-next-container__btn {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+.register-next-container__btn > button {
+  padding: 5px 40px;
+  border: 0px;
+}
+.formik-error {
+  width: 60%;
+  text-align: left;
+  color: red;
+  margin: 0 auto;
+}
+.formik-error-reg {
+  margin-left: 20px;
+  text-align: left;
+  color: red;
+}
+.navbar-login-li {
+  position: relative;
+
+}
+.navbar-login-li:hover {
+  background-color: #ffecd2;
+  color: #09203f;
+  transition: .4s;
+  cursor: pointer;
+}
+.navbar-login-li > span {
+  height: 24px;
+}
+.navbar-login-li > span > i {
+  font-size: 24px;
+}
+.navbar-login-li__div{
+  position: absolute;
+  width: 100%;  
+  top:24px;  
+  background-color: #ffecd2;
+  color: black;
+  display: none;
+}
+.navbar-login-li > div > div {
+  text-align: center;
+  padding: 20px 0;
+}
+.navbar-login-li > div > div:hover {
+  background-color: #2571e3;
+  color: white;
+  cursor: pointer;
+}
 footer {
   background-color: #09203f;
   height: 80px;
