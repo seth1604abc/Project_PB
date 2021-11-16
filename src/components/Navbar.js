@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import $ from 'jquery';
 
 function Navbar() {
+  const [isLoggedin, setIsLoggedin] = useState(false);  
+  useEffect( async () => {
+    let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });    
+    if(res.data.userId) {
+      setIsLoggedin(true);
+    }    
+  }, [])
+
+  const showDiv = () => {
+    if(document.querySelector(".navbar-login-li__div").style.display == "block") {
+      document.querySelector(".navbar-login-li__div").style.display = "none";
+    } else {
+      document.querySelector(".navbar-login-li__div").style.display = "block";
+    }   
+  }
+
+  const logout = async () => {
+    let result = await axios.post("http://localhost:3001/auth/logout", { withCredentials: true });
+    console.log(result);
+  }
+
   return (
     <div className="main-nav d-flex justify-content-between align-items-center">
       <Link to="/">
@@ -28,14 +51,31 @@ function Navbar() {
           </li>
           <li style={{ justifyContent: "end" }}>
             <Link to="/">
-              <i style={{}} className="fas fa-shopping-cart"></i>
+              <i className="fas fa-shopping-cart"></i>
             </Link>
           </li>
-          <li>
-            <Link to="/login">
-              <i className="fas fa-user"></i>
-            </Link>
-          </li>
+          {           
+            isLoggedin ? (
+            <li className="navbar-login-li" onClick={showDiv}>
+              <span>
+                <i className="fas fa-user"></i>
+              </span>
+              <div className="navbar-login-li__div">
+                <div>
+                  <Link to="/member-info">
+                    會員中心
+                  </Link>
+                </div>
+                <div style={{marginTop: "10px"}} onClick={logout}>登出</div>
+              </div>
+            </li>
+            ) : (
+              <li>
+                <Link to="/login" style={{fontSize: "14px"}}>註冊/登入</Link>                
+              </li>
+            )
+          }
+          
         </ul>
       </div>
     </div>

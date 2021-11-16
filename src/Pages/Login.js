@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import $ from "jquery";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import * as yup from 'yup';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 
-function Login() {
+const registerData = {    
+  firstName: "",
+  lastName: "",
+  birth: "",
+  phone: "",    
+}
+
+function Login() {  
+   
   //===========================動畫開始===========================
 
   const changeToLogin = () => {
@@ -33,46 +43,65 @@ function Login() {
 
   //===========================動畫結束===========================
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
-  const registerData = {
-    email: email,
-    password: password,
-    checkPassword: checkPassword
-  }
-  //message為錯誤訊息設置
+  
+  //message為後端錯誤訊息設置
   const [message, setMessage] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birth, setBirth] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const register = async () => {
-    if(!email || !password || !checkPassword) {
-      setMessage("有未輸入的欄位");
-    } else if(password !== checkPassword) {
-      setMessage("密碼必須相符");
-    } else {
+  const registerNext = async () => {    
       try {
-        let response = await axios.post("http://localhost:3001/auth/register", registerData);
-        //如果有錯誤訊息
+        registerData.email = $('input[name="email"]').val();
+        registerData.password = $('input[name="password"]').val();        
+        let response = await axios.post("http://localhost:3001/auth/register-check", registerData);
+        
+        //如果有錯誤訊息(code: 0 為沒有錯誤)
         if(response.data.code != 0){
           setMessage(response.data.message);
           console.log(response.data.message)
         } else {
           //沒有錯誤訊息        
-          history.push("/");
-        }
-        
+          $('.loginCard').hide();
+          $('.register-next').show();
+        }        
       } catch (e) {
         console.log("error: ", e);
       }
-    }
+    }   
+  
+
+  const backToLogin = () => {
+    $('.loginCard').show();
+    $('.register-next').hide();
   }
 
-  const loginData = {
-    email: email,
-    password: password
+  const register = async () => {
+    let city = $("#city option:selected").text();
+    let area = $("#area option:selected").text();
+    let addr = $("#address").val();        
+    registerData.totalAddress = city + area + addr;
+    registerData.firstName = $("input[name='firstName']").val();
+    registerData.lastName = $("input[name='lastName']").val();
+    registerData.birth = birth;
+    registerData.phone = $("input[name='phone']").val();
+        
+    let data = await axios.post("http://localhost:3001/auth/register", registerData);
+    if(data.data.message){
+      console.log(data.data.message);
+    }
+    if(data.data.code == 0) {
+      history.push("/");
+    }
   }
+  
+  const loginData = {};
+
   const login = async () => {
-    let result = await axios.post("http://localhost:3001/auth/login", loginData);
+    loginData.email = $('input[name="loginEmail"]').val();
+    loginData.password = $('input[name="loginPassword"]').val();
+    let result = await axios.post("http://localhost:3001/auth/login", loginData, { withCredentials: true });
     if(result.data.message) {
       setMessage(result.data.message);
     } else {
@@ -80,55 +109,76 @@ function Login() {
     }
   }
 
+  const initialValues = {
+    email: "",
+    password: "",
+    checkPassword: "",
+  };
 
-  return (
-    <>
+  const initialRegister = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+  }
+  const phoneReg = /^09[0-9]{8}$/
+  const registerSchema = yup.object().shape({
+    firstName: yup.string().required("請輸入姓氏"),
+    lastName: yup.string().required("請輸入名字"),
+    phone: yup.string().matches(phoneReg, "請輸入正確格式手機號碼").required("請輸入手機號碼"),
+    address: yup.string().required("請輸入地址"),
+  })
+
+  const registerCheckSchema = yup.object().shape({
+    email: yup.string().email("請輸入正確Email格式").required("請輸入Email"),
+    password: yup.string().min(6, "密碼最少為6位").max(15, "密碼最多為15位").required("請輸入密碼"),
+    checkPassword: yup.string().oneOf([yup.ref("password"), null], "確認密碼與密碼不相符!"),
+  })
+
+  return (    
+    <>      
       <Navbar />
       <div
         className="loginContainer"
         style={{
           background: "url(/image/login-background.png) center no-repeat",
+          position: "relative"
         }}
       >
         <div className="loginCard">
+        {/* ====================================註冊頁面===================================== */}
           <div className="signup-box">
             <div className="signup-box-l">
               <p>註冊帳號</p>
-
-              <div className="login-error-message">{message}</div>
-
-              <div className="login-input-box">
-                <label htmlFor="">
-                  <i className="fas fa-envelope"></i>
-                </label>
-                <input type="email" placeholder="電子信箱" onChange={
-                  (e) => {
-                    setEmail(e.target.value);
-                  }
-                }/>
-              </div>
-              <div className="login-input-box">
-                <label htmlFor="">
-                  <i className="fas fa-unlock-alt"></i>
-                </label>
-                <input type="password" placeholder="密碼" onChange={
-                  (e) => {
-                    setPassword(e.target.value);
-                  }
-                }/>
-
-              </div>
-              <div className="login-input-box">
-                <label htmlFor="">
-                  <i className="fas fa-unlock-alt"></i>
-                </label>
-                <input type="password" placeholder="確認密碼" onChange={
-                  (e) => {
-                    setCheckPassword(e.target.value);
-                  }
-                }/>
-              </div>
-              <button className="login-btn" onClick={register}>下一步</button>
+              <Formik initialValues={initialValues} validationSchema={registerCheckSchema} onSubmit={registerNext}>
+                <Form>              
+                  <div className="login-error-message">{message}</div> {/* 後端錯誤訊息 */}
+                  <ErrorMessage name="email" component="p" className="formik-error"/>  
+                  <div className="login-input-box">
+                    <label htmlFor="">
+                      <i className="fas fa-envelope"></i>
+                    </label>
+                    <Field placeholder="電子信箱" name="email" />
+                  </div>
+                  <ErrorMessage name="password" component="p" className="formik-error"/>
+                  <div className="login-input-box">
+                    <label htmlFor="">
+                      <i className="fas fa-unlock-alt"></i>
+                    </label>
+                    <Field type="password" placeholder="密碼" name="password"/>
+                  </div>
+                  <ErrorMessage name="checkPassword" component="p" className="formik-error"/>
+                  <div className="login-input-box">
+                    <label htmlFor="">
+                      <i className="fas fa-unlock-alt"></i>
+                    </label>
+                    <Field type="password" placeholder="確認密碼" name="checkPassword"/>
+                  </div>                
+                  
+                  <button className="login-btn">下一步</button>
+                </Form>
+              </Formik>
+              
               <p
                 style={{
                   color: "#C2BEBE",
@@ -156,7 +206,9 @@ function Login() {
               </button>
             </div>
           </div>
+          {/* ====================================註冊頁面結束===================================== */}
 
+          {/* ====================================登入頁面===================================== */}
           <div className="signin-box">
             <div className="signin-box-l">
               <p style={{ fontSize: "40px" }}>歡迎回來，朋友</p>
@@ -176,21 +228,13 @@ function Login() {
                 <label htmlFor="">
                   <i className="fas fa-envelope"></i>
                 </label>
-                <input type="text" placeholder="電子信箱" onChange={
-                  (e) => {
-                    setEmail(e.target.value);
-                  }
-                }/>
+                <input type="text" placeholder="電子信箱" name="loginEmail"/>
               </div>
               <div className="login-input-box">
                 <label htmlFor="">
                   <i className="fas fa-unlock-alt"></i>
                 </label>
-                <input type="text" placeholder="密碼" onChange={
-                  (e) => {
-                    setPassword(e.target.value);
-                  }
-                }/>
+                <input type="text" placeholder="密碼" name="loginPassword"/>
               </div>
               <button className="register-btn" onClick={login}>登入</button>
               <p
@@ -209,9 +253,66 @@ function Login() {
               </div>
             </div>
           </div>
-
+          {/* ====================================登入頁面結束===================================== */}
           <div className="login-slide-bar__login"></div>
         </div>
+
+        <div className="register-next">
+          <div className="register-next-container">
+            <h3>註冊資料</h3>
+            <Formik initialValues={initialRegister} validationSchema={registerSchema} onSubmit={register}>
+              <Form>
+                <ErrorMessage name="firstName" component="p" className="formik-error-reg"/>
+                <div className="register-next-container__div">
+                  <label htmlFor="">姓氏</label>
+                  <Field type="text" placeholder="請輸入姓氏" name="firstName"/>
+                </div>
+                <ErrorMessage name="lastName" component="p" className="formik-error-reg"/>
+                <div className="register-next-container__div">
+                  <label htmlFor="">名字</label>
+                  <Field type="text" placeholder="請輸入名字" name="lastName"/>
+                </div>
+                
+                <div className="register-next-container__div">            
+                  <label htmlFor="">生日</label>
+                  <input type="date" placeholder="請輸入生日" onChange={
+                    (e) => {
+                      setBirth(e.target.value);
+                    }
+                  }/>
+                </div>
+                <ErrorMessage name="phone" component="p" className="formik-error-reg"/>            
+                <div className="register-next-container__div">            
+                  <label htmlFor="">電話</label>
+                  <Field type="text" placeholder="請輸入手機號碼" name="phone"/>
+                </div>              
+                <div className="register-next-container__div">
+                  <label htmlFor="">地址</label>
+                  <select style={{padding: "10px", marginRight: "20px"}} id="city">
+                    <option value="" disabled>---請選擇---</option>
+                    <option value="台北市">台北市</option>
+                    <option value="桃園市">桃園市</option>
+                  </select>
+                  <select style={{padding: "10px"}} id="area">
+                    <option value="" disabled>---請選擇---</option>
+                    <option value="東區">東區</option>
+                    <option value="北區">北區</option>
+                  </select>
+                </div>
+                <ErrorMessage name="address" component="p" className="formik-error-reg"/>            
+                <div className="register-next-container__div">
+                  <Field style={{width: "80%"}} type="text" placeholder="請輸入地址" id="address" name="address"/>
+                </div>
+              
+                <div className="register-next-container__btn">
+                  <button type="button" style={{backgroundColor: "#ffecd2", color: "black"}} onClick={backToLogin}>取消</button>
+                  <button type="submit" style={{backgroundColor: "#2571e3", color: "white", marginLeft: "20px"}}>註冊</button>              
+                </div>
+            </Form>
+            </Formik>
+          </div>
+        </div>
+
       </div>
       <Footer />
     </>

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
+import {useState, useEffect} from "react"
 import ProductCard from "../components/ProductCard";
 import "../css/Home.css";
 import Footer from "../components/Footer";
-import NavBar from "../components/Navbar";
-import ReactPlayer from "react-player";
-import { Link } from "react-router-dom";
+import NavBar from "../components/Navbar"
+import axios from "axios";
+
 function Home() {
   const [part, setPart] = useState("");
   const handlePart = (i) => {
