@@ -9,13 +9,13 @@ body {
   font-family: "Noto Sans TC", sans-serif;
 }
 
-main section a {
+main section button a{
   text-decoration: none;
   color: #09203f;
 }
-main section a:hover{
+.playList--context a:hover, .event--context a:hover{
   text-decoration: none;
-  color: #fff;
+  color: #09203f;
 }
 /* hearder */
 
@@ -236,8 +236,7 @@ p {
 /* 活動介紹區 */
 
 .event {
-  margin: 0 20%;
-  margin-top: 10%;
+  margin: 10% 20%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -290,19 +289,19 @@ p {
   transform: scale(1.1);
 }
 /* 商品區 */
-.product {
+/* .product {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
+  align-items: center; 
   margin: 10%;
-}
+} */
 
 .product--context {
   width: 35%;
   color: #537895;
   margin-bottom: 3%;
+  text-align: center;
 }
 
 .product--context h3 {
@@ -315,7 +314,7 @@ p {
 }
 
 .product--items {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

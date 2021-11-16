@@ -144,7 +144,7 @@ function Home() {
           </div>
         </section>
 
-        <section className="product">
+        <section className="d-flex flex-column align-items-center">
           <div className="product--context">
             <h3>熱門商品</h3>
             <p>搭配優選商品，讓訓練更有效</p>
