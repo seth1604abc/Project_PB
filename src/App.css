@@ -9,6 +9,11 @@ body {
   background-color: #09203f;
   color: #ffecd2;
   padding: 0 2%;
+  z-index: 100;
+  position: relative;
+}
+.main-nav__link{
+  height: 100%;
 }
 .main-nav-sub {
   background-color: #09203f;
@@ -116,10 +121,11 @@ body {
   width: 100%;
   padding-top: 200px;
 }
-
 .member-container {
   width: 100%;
 }
+
+/* 會員活動 */
 .member-activity-content {
   width: 1000px;
   min-height: 800px;
@@ -765,8 +771,246 @@ body {
 .cart-content__total__benefit {
   margin-top: 50px;
 }
+.cart-content-l {
+  width: 50%;
+}
+.cart-content-l__info {
+  width: 100%;  
+  border: 1px solid #9e9fa2;
+  padding: 10px;
+}
+.cart-content-l__info__data > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-l__info__data > input {
+  width: 95%;
+  padding: 10px;
+}
+.cart-content-l__paymethod {
+  padding: 10px;
+  width: 100%;  
+  border: 1px solid #9e9fa2;  
+}
+.cart-content-l__paymethod__data > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-l__paymethod__data > select {
+  width: 95%;
+  padding: 10px;
+}
+.cart-content-r {
+  width: 50%;
+}
+.cart-content-r__payment {
+  padding: 10px;
+  border: 1px solid #9e9fa2;
+}
+.cart-content-r__payment > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.cart-content-r__payment > select {
+  padding: 5px 10px;
+  width: 30%;
+}
+.cart-content-r__btn {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.cart-content-r__btn > button {
+  padding: 10px 60px;
+  border: 0px;
+  font-size: 20px;
+}
+.register-next-container {
+  width: 600px;
+  min-height: 600px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);  
+  border-radius: 20px;
+  overflow: hidden;
+  
+}
+.register-next-container > h3 {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #09203f;
+  color: #ffecd2;
+}
+.register-next-container__div {
+  margin: 20px;
+}
+.register-next-container__div > label {
+  font-size: 18px;
+  margin-right: 30px;
+  font-weight: bolder;
+}
+.register-next-container__div > input {
+  padding: 10px;
+}
+.register-next {
+  display: none;
+}
+.register-next-container__btn {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+.register-next-container__btn > button {
+  padding: 5px 40px;
+  border: 0px;
+}
+.formik-error {
+  width: 60%;
+  text-align: left;
+  color: red;
+  margin: 0 auto;
+}
+.formik-error-reg {
+  margin-left: 20px;
+  text-align: left;
+  color: red;
+}
+.navbar-login-li {
+  position: relative;
+
+}
+.navbar-login-li:hover {
+  background-color: #ffecd2;
+  color: #09203f;
+  transition: .4s;
+  cursor: pointer;
+}
+.navbar-login-li > span {
+  height: 24px;
+}
+.navbar-login-li > span > i {
+  font-size: 24px;
+}
+.navbar-login-li__div{
+  position: absolute;
+  width: 100%;  
+  top:24px;  
+  background-color: #ffecd2;
+  color: black;
+  display: none;
+}
+.navbar-login-li > div > div {
+  text-align: center;
+  padding: 20px 0;
+}
+.navbar-login-li > div > div:hover {
+  background-color: #2571e3;
+  color: white;
+  cursor: pointer;
+}
 footer {
   background-color: #09203f;
   height: 80px;
   width: 100%;
+}
+
+/* 教練活動列表 */
+.coach-activity-content {
+  width: 1000px;
+  min-height: 800px;
+  border-radius: 20px;
+  background-color: white;
+  margin: 50px 0;
+  padding: 50px 20px;
+}
+.coach-activity-content > hr {
+  width: 60%;
+  margin: 2rem auto;
+  border: 1px solid gray;
+}
+.coach-activity-content_info__eventName{
+  color:#09203f;
+  font-size: 1.5rem;
+
+}
+
+.coach-activity-content_info__title {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+.coach-activity-content__card__info__data {
+  margin-left: 20px;
+}
+
+.coach-activity-content__card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.coach-activity-content__card__img {
+  width: 90%;
+  height: 90%;
+  border: 0.5px solid lightgray;
+}
+.coach-activity-content__card__control_wrapper{
+  padding: 2rem;
+  font-size: 1rem;
+}
+.coach-activity-content__card__control {
+  display: flex;
+  flex-direction: column;
+}
+.coach-activity-content__card__control > button {
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 8px 20px;
+
+}
+.coach-activity-content__card__control > button:hover {
+  background-color: #1d6cf5;
+  color: white;
+}
+.coach-activity-content__card__control > button > i {
+  margin-right: 10px;
+}
+
+/* 教練新增活動 */
+.editor .ql-editor{
+  width: 100%;
+  min-height: 18rem;
+}
+
+.editor {
+  margin-bottom: 2rem;
+}
+.CoachEventAdd_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.CoachEventAdd_banner_preview {
+  width: 100%;
+  height: 15rem;
+  border: 2px dashed lightgray;
+}
+/* 教練修改活動 CoachEventEdit */
+.CoachEventEdit_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.CoachEventEdit_banner_preview {
+  width: 100%;
+  height: 15rem;
+  border: 2px dashed lightgray;
+}
+
+/* 教練新增課程 CoachCourseAdd */
+
+.CoachCourseAdd_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }

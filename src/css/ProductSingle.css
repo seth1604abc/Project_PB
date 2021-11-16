@@ -2,6 +2,9 @@ body{
   background-color: #F7FAFF;
 }
 /* 商品主資訊區 */
+.productMain_pictures{
+  margin-right: 6rem;
+}
 .productMain__info h1 {
   color: #09203f;
   font-weight: 700;
@@ -28,9 +31,7 @@ hr {
   font-size: 1.5rem;
 }
 .productMain__info__count__group {
-  border: #09203f 1px solid;
-  width: 60%;
-  border-radius: 5px;
+  width: 53%;
 }
 .productMain__info__count__group{
   background-color: #fff;
@@ -173,6 +174,13 @@ hr {
   
 }
 /* 推薦商品區 */
+.recomandProductLink{
+  text-decoration: none;
+  color: #09203f;
+}
+.recomandProductLink:hover{
+  color: #2571e3;
+}
 .product__secondary__recommand {
   width: 30%;
   height: auto;

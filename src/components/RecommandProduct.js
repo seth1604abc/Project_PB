@@ -1,8 +1,9 @@
 import React from 'react'
-
+import { Link } from "react-router-dom";
 const RecommandProduct = () => {
     return (
         <>
+                <Link to="/product-single" className="recomandProductLink">
             <div className="RecommandProduct d-flex align-items-center mb-4 pe-5">
                 <img src="https://via.placeholder.com/150" className="me-3" alt=""/>
                 <div>
@@ -11,6 +12,7 @@ const RecommandProduct = () => {
                     <p>NT$1250</p>
                 </div>
             </div>
+                </Link>
         </>
     )
 }
