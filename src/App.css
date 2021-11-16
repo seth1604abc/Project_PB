@@ -116,10 +116,11 @@ body {
   width: 100%;
   padding-top: 200px;
 }
-
 .member-container {
   width: 100%;
 }
+
+/* 會員活動 */
 .member-activity-content {
   width: 1000px;
   min-height: 800px;
@@ -769,4 +770,102 @@ footer {
   background-color: #09203f;
   height: 80px;
   width: 100%;
+}
+
+/* 教練活動列表 */
+.coach-activity-content {
+  width: 1000px;
+  min-height: 800px;
+  border-radius: 20px;
+  background-color: white;
+  margin: 50px 0;
+  padding: 50px 20px;
+}
+.coach-activity-content > hr {
+  width: 60%;
+  margin: 2rem auto;
+  border: 1px solid gray;
+}
+.coach-activity-content_info__eventName{
+  color:#09203f;
+  font-size: 1.5rem;
+
+}
+
+.coach-activity-content_info__title {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+.coach-activity-content__card__info__data {
+  margin-left: 20px;
+}
+
+.coach-activity-content__card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.coach-activity-content__card__img {
+  width: 90%;
+  height: 90%;
+  border: 0.5px solid lightgray;
+}
+.coach-activity-content__card__control_wrapper{
+  padding: 2rem;
+  font-size: 1rem;
+}
+.coach-activity-content__card__control {
+  display: flex;
+  flex-direction: column;
+}
+.coach-activity-content__card__control > button {
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 8px 20px;
+
+}
+.coach-activity-content__card__control > button:hover {
+  background-color: #1d6cf5;
+  color: white;
+}
+.coach-activity-content__card__control > button > i {
+  margin-right: 10px;
+}
+
+/* 教練新增活動 */
+.editor .ql-editor{
+  width: 100%;
+  min-height: 18rem;
+}
+
+.editor {
+  margin-bottom: 2rem;
+}
+.CoachEventAdd_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.CoachEventAdd_banner_preview {
+  width: 100%;
+  height: 15rem;
+  border: 2px dashed lightgray;
+}
+/* 教練修改活動 CoachEventEdit */
+.CoachEventEdit_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.CoachEventEdit_banner_preview {
+  width: 100%;
+  height: 15rem;
+  border: 2px dashed lightgray;
+}
+
+/* 教練新增課程 CoachCourseAdd */
+
+.CoachCourseAdd_wrapper label{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
