@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import Comment from "../components/Comment";
 import "../css/ProductSingle.css";
 import "../css/Article.css";
@@ -12,6 +13,9 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 
 const ProductSingle = () => {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   const text = ["介紹", "規格"];
   const defaultText = text[0];
   const [showText, setShowText] = useState(defaultText);
@@ -40,7 +44,7 @@ const ProductSingle = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar id="productSingle-start"/>
       <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
           <Gallery />
