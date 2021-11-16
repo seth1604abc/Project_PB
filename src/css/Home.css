@@ -12,7 +12,7 @@ body {
 /* hearder */
 
 header {
-  height: 100vh;
+  height:100vh;
   background: rgb(83, 120, 149);
   background: linear-gradient(
     180deg,
@@ -21,6 +21,7 @@ header {
   );
   color: white;
   position: relative;
+  
 }
 .nav {
   position: relative;
@@ -74,11 +75,12 @@ p {
   top: 80px;
   left: 0;
   
+  
 }
 .home-video-filter {
   position: relative;
   width: 100vw;
-  height: 90vh;
+  height: 92vh;
   background-color: rgba(13, 7, 100, 0.5);
   top: 0;
   left: 0;
