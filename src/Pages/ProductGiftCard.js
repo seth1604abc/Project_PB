@@ -30,13 +30,10 @@ const ProductGiftCard = () => {
     <>
       <Navbar />
       <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
-        <div className="productMain_pictures me-5">
-          <img
-            src="https://via.placeholder.com/550x400/333/FFECD2/?text=giftcard"
-            alt=""
-          />
+        <div className="productMain_pictures  w-50">
+          <img src="./images/giftcard.png" alt="" className="w-100"/>
         </div>
-        <div className="productMain__info">
+        <div className="productMain__info mx-0">
           <a href="#/">
             <h1>30天會籍禮物卡</h1>
             <span className="me-1">
@@ -131,7 +128,7 @@ const ProductGiftCard = () => {
           <button className="btn product__secondary__recommand__more align-self-end mb-5">
             更多商品
           </button>
-          <CourseSingleHitCourse/>
+          <CourseSingleHitCourse />
         </div>
       </div>
       <Footer />

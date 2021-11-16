@@ -3,6 +3,7 @@ import "../css/Product.css";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Banner from "../components/Course/CoursesBanner";
+import CoursesPageButton from "../components/Course/CoursesPageButton";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -10,7 +11,7 @@ function ShoppingMain() {
   return (
     <>
       <Navbar />
-      <Banner/>
+      <Banner />
       {/* 熱門商品區 */}
       <div className="product__hot container  justify-content-center align-items-center  ">
         <h3 className="mb-4">熱門商品</h3>
@@ -49,6 +50,7 @@ function ShoppingMain() {
         <ProductCard />
         <ProductCard />
       </div>
+      <CoursesPageButton />
       <Footer />
     </>
   );
