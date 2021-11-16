@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MemberLeftBar from "../components/MemberLeftBar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from 'axios';
 
 function MemberInfo() {
+  const [data, setData] = useState({});
+  useEffect(async () => {
+    let result = await axios.get("http://localhost:3001/member/info", { withCredentials: true });
+    setData(result.data[0]);   
+    
+  }, [])
+
+
   return (
     <>
       <Navbar />
@@ -21,31 +30,28 @@ function MemberInfo() {
                   <p>個人資訊</p>
                   <label for="">姓氏</label>
                   <br />
-                  <input type="text" />
+                  <input type="text" value={data.first_name}/>
                   <br />
                   <label for="">名字</label>
                   <br />
-                  <input type="text" />
+                  <input type="text" value={data.last_name}/>
                   <br />
                   <label for="">生日</label>
                   <br />
-                  <input type="text" />
+                  <input type="date" defaultValue={data.birth}/>
                 </div>
               </div>
               <div className="w-50 member-main-info--r">
                 <div className="w-75 m-auto member-main-info--l__ct">
                   <p>聯絡方式</p>
-                  <label for="">電話(室內)</label>
-                  <br />
-                  <input type="text" />
-                  <br />
+                  
                   <label for="">電話(手機)</label>
                   <br />
-                  <input type="text" />
+                  <input type="text" value={data.phone}/>
                   <br />
                   <label for="">電子信箱</label>
                   <br />
-                  <input type="text" />
+                  <input type="text" value={data.email}/>
                   <br />
                   <label for="">地址</label>
                   <br />
@@ -70,13 +76,13 @@ function MemberInfo() {
             </div>
             <div className="member-code h-30 w-100 mt-5">
               <div className="member-code__ct d-flex justify-content-around m-auto">
-                <div>
+                <div >
                   <p>會員狀態:</p>
-                  <p>禮物卡兌換:</p>
+                  <p style={{marginTop: "10px"}}>禮物卡兌換:</p>
                 </div>
-                <div>
+                <div >
                   <p>一般會員</p>
-                  <input type="text" />
+                  <input type="text"  style={{marginTop: "10px"}}/>
                 </div>
                 <div>
                   <div>

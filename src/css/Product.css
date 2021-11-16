@@ -36,6 +36,9 @@ body{
   top: -1rem;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 }
+.card a{
+  color: #09203f;
+}
 .card__crown {
   color: rgb(255, 230, 0);
   font-size: 4rem;
