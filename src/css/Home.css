@@ -349,6 +349,7 @@ p {
 }
 
 .giftCard img {
+  width: 300px;
   position: absolute;
   top: -30%;
   right: 0%;

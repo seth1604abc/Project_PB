@@ -173,7 +173,7 @@ function Home() {
           </div>
         </section>
         <section className="giftCard mb-5 p-5">
-          <img src="https://via.placeholder.com/300x200" alt="" />
+          <img src="./images/giftcard.png" alt="" />
           <h3>購買禮物卡，邀請朋友一起來運動!</h3>
           <p>送給朋友一個月的會籍，一起享受運動的樂趣!</p>
           <Link to="/giftcard"><button>前往購買</button></Link>

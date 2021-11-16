@@ -2,6 +2,9 @@ body{
   background-color: #F7FAFF;
 }
 /* 商品主資訊區 */
+.productMain_pictures{
+  margin-right: 6rem;
+}
 .productMain__info h1 {
   color: #09203f;
   font-weight: 700;
