@@ -123,7 +123,7 @@ function Home() {
             <p className="mb-3 me-0">
               在眾多課程中收藏你所喜愛的課程，並依照需要安排你的課表!
             </p>
-            <button className=""><Link to="/course">前往課程</Link></button>
+            <Link to="/course"><button className="">前往課程</button></Link>
           </div>
         </section>
 
@@ -140,7 +140,7 @@ function Home() {
               <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
             </div>
-            <button className="event--group--link"><Link to="/event">更多活動</Link></button>
+            <Link to="/event"><button className="event--group--link">更多活動</button></Link>
           </div>
         </section>
 
@@ -176,7 +176,7 @@ function Home() {
           <img src="https://via.placeholder.com/300x200" alt="" />
           <h3>購買禮物卡，邀請朋友一起來運動!</h3>
           <p>送給朋友一個月的會籍，一起享受運動的樂趣!</p>
-          <button>前往購買</button>
+          <Link to="/giftcard"><button>前往購買</button></Link>
         </section>
       </main>
       <Footer />
