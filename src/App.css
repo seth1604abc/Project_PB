@@ -12,6 +12,9 @@ body {
   z-index: 100;
   position: relative;
 }
+.main-nav__link{
+  height: 100%;
+}
 .main-nav-sub {
   background-color: #09203f;
   color: #ffecd2;
