@@ -11,7 +11,7 @@ function Home() {
   };
   return (
     <>
-      <header>
+      <header className="">
         <NavBar className="" />
         <ReactPlayer
           url="https://www.youtube.com/watch?v=YARJ99FqcYE"
@@ -19,7 +19,7 @@ function Home() {
           muted="true"
           playing="true"
           width="100vw"
-          height="90vh"
+          height="92vh"
           className="hero-player"
         />
         <div className="home-video-filter"></div>
