@@ -14,7 +14,11 @@ import Gallery from "../components/Gallery";
 
 const ProductSingle = () => {
   useEffect(()=>{
-    window.scrollTo(0, 0);
+    window.scroll({
+      top:0,
+      behavior:"instant"
+    });
+    
   },[])
   const text = ["介紹", "規格"];
   const defaultText = text[0];
