@@ -1,6 +1,20 @@
 import React from "react";
 
+
+// const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+// class SimpleMap extends Component {
+//   static defaultProps = {
+//     center: {
+//       lat: 59.95,
+//       lng: 30.33
+//     },
+//     zoom: 11
+//   }
+
 function EventContent() {
+
+ 
   return (
     <div className="d-flex justify-content-center">
       <div className="singleEvent_container">
@@ -146,6 +160,19 @@ function EventContent() {
             class="singleEvent_img"
             style={{ backgroundImage: "url(/event_imgs/google_map_1.jpg)" }}
           >
+          <div style={{ height: '100vh', width: '100%' }}>
+        {/* <GoogleMapReact
+          bootstrapURLKeys={{ key: AIzaSyD8fY5DEYdmYwYY2bhrq0PC73DkY5tBK1E}}
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
+        >
+          <AnyReactComponent
+            lat={59.955413}
+            lng={30.337844}
+            text="My Marker"
+          />
+        </GoogleMapReact> */}
+      </div>
           </div>
         </div>
       </div>

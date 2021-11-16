@@ -6,7 +6,7 @@ import ProductSingle from "./Pages/ProductSingle";
 import ProductGiftCard from "./Pages/ProductGiftCard";
 import GiftCardCheckout from "./Pages/GiftCardCheckout";
 import GiftCardWriting from "./Pages/GiftCardWriting";
-import './Home.css';
+import './css/Home.css';
 import Course from "./Pages/Course";
 import CourseSingle from "./Pages/CourseSingle";
 import Article from "./Pages/Article";
@@ -67,6 +67,7 @@ function App() {
           <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>          
         </Switch>
       </Router>
+     
     </div>
   );
 }
