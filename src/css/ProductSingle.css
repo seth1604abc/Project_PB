@@ -173,6 +173,13 @@ hr {
   
 }
 /* 推薦商品區 */
+.recomandProductLink{
+  text-decoration: none;
+  color: #09203f;
+}
+.recomandProductLink:hover{
+  color: #2571e3;
+}
 .product__secondary__recommand {
   width: 30%;
   height: auto;
