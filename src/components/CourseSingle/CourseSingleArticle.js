@@ -1,5 +1,5 @@
 import React from 'react'
-import ArticleRecommand from './ArticleRecommand'
+import ArticleRecommand from '../ArticleRecommand'
 
 function CourseSingleArticle() {
   return (
