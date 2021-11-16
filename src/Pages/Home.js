@@ -4,6 +4,7 @@ import "../css/Home.css";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 function Home() {
   const [part, setPart] = useState("");
   const handlePart = (i) => {
@@ -122,7 +123,7 @@ function Home() {
             <p className="mb-3 me-0">
               在眾多課程中收藏你所喜愛的課程，並依照需要安排你的課表!
             </p>
-            <button className="">前往課程</button>
+            <button className=""><Link to="/course">前往課程</Link></button>
           </div>
         </section>
 
@@ -139,7 +140,7 @@ function Home() {
               <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
             </div>
-            <button className="event--group--link">更多活動</button>
+            <button className="event--group--link"><Link to="/event">更多活動</Link></button>
           </div>
         </section>
 
