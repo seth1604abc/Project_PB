@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import Comment from "../components/Comment";
 import "../css/ProductSingle.css";
 import "../css/Article.css";
@@ -12,6 +13,13 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 
 const ProductSingle = () => {
+  useEffect(()=>{
+    window.scroll({
+      top:0,
+      behavior:"instant"
+    });
+    
+  },[])
   const text = ["介紹", "規格"];
   const defaultText = text[0];
   const [showText, setShowText] = useState(defaultText);
@@ -28,21 +36,28 @@ const ProductSingle = () => {
       setNumber(number + 1);
     }
   };
-  
+
+  const handleChange = (e) => {
+    console.log(typeof Number(e.target.value));
+    if (Number.isInteger(Number(e.target.value))) {
+      e.target.value <= 0 ? setNumber(1) : setNumber(Number(e.target.value));
+    } else {
+      return;
+    }
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar id="productSingle-start"/>
       <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
-          <Gallery/>
+          <Gallery />
           {/* <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=picture"
             alt=""
           /> */}
         </div>
         <div className="productMain__info ms-3">
-
-
           <h1>20kg啞鈴組</h1>
           <a href="#/">
             <span className="me-1">
@@ -63,7 +78,13 @@ const ProductSingle = () => {
               >
                 -
               </button>
-              <div className="mx-3">{number}</div>
+              <input
+                type="text"
+                className="form-control rounded-0"
+                value={number}
+                onChange={handleChange}
+                maxLength="2"
+              />
               <button
                 className="btn productMain__info__count__group__add"
                 onClick={() => {
