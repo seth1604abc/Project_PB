@@ -1,5 +1,5 @@
 import React from 'react'
-import RecommandProduct from './RecommandProduct'
+import RecommandProduct from '../RecommandProduct'
 
 function CourseSingleProduct() {
   return (

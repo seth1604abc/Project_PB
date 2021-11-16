@@ -3,16 +3,6 @@ import { useRef } from "react";
 
 let waitinglist = [
   { id: 1, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
-  { id: 2, title: "一二三四五六", bodyparts: "手部", level: "中級" },
-  { id: 3, title: "七六五四三二", bodyparts: "胸部", level: "初級" },
-  { id: 4, title: "這是課程名稱", bodyparts: "手部", level: "高級" },
-  { id: 5, title: "六五四三二一", bodyparts: "腿部", level: "初級" },
-  { id: 6, title: "這是課程名稱", bodyparts: "手部", level: "中級" },
-  { id: 7, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
-  { id: 8, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
-  { id: 9, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
-  { id: 10, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
-  { id: 11, title: "這是課程名稱", bodyparts: "手部", level: "初級" },
 ];
 
 function CourseSingleWaitingButton() {
@@ -41,7 +31,7 @@ function CourseSingleWaitingButton() {
           <div
             className="Course__area__Waiting mb-2"
             id={item.id}
-            key={item.id}
+            key={item.id} draggable="true"
           >
             <div className="Course__area__Waiting__icon pointer" id={item.id}>
               <i class="fas fa-grip-lines"></i>

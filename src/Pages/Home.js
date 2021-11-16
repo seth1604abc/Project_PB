@@ -12,35 +12,7 @@ function Home() {
   return (
     <>
       <header>
-      <NavBar className=""/>
-          <img
-            src="./pblogo.png"
-            alt="logo"
-            className="nav--logo"
-          />
-          <div className="nav--link">
-            <ul className="nav--link--ul">
-              <li>
-                <a>課程</a>
-              </li>
-              <li>
-                <a>商品</a>
-              </li>
-              <li>
-                <a>活動</a>
-              </li>
-              <li>
-                <a>文章</a>
-              </li>
-              <li>
-                <a>方案</a>
-              </li>
-            </ul>
-            <div className="nav--link--icon">
-              <i className="fas fa-user"></i>
-              <i className="fas fa-shopping-cart"></i>
-            </div>
-          </div>
+      <NavBar />
         <img src="" alt="" />
         <div className="nav-scrollDown">
           <p>了解更多</p>
@@ -54,7 +26,6 @@ function Home() {
             <p>
               透過部位、時間長度還有程度標籤，快速從上百堂的課程中找到你想學習的健身知識!
             </p>
-
             <div className="course--context--filter">
               <div className="course--context--filter--part">
                 <button className={part==="手部"?"course--context--filter--part-active":""} onClick={()=>{handlePart("手部")}}>手部</button>
@@ -73,7 +44,6 @@ function Home() {
           </div>
           <ProductCard />
         </section>
-
         <section className="playList">
           <img src="https://via.placeholder.com/300x200" alt="" />
           <div className="playList--context">
@@ -82,7 +52,6 @@ function Home() {
             <button className="">前往課程</button>
           </div>
         </section>
-
         <section className="event">
           <div className="event--context">
             <h3 className="text-nowrap">輕鬆報名，簡單規劃</h3>
@@ -99,7 +68,6 @@ function Home() {
             <button className="event--group--link">更多活動</button>
           </div>
         </section>
-
         <section className="product">
           <div className="product--context">
             <h3>熱門商品</h3>
@@ -117,8 +85,7 @@ function Home() {
             <br />
             皆由專業教練指導
           </h3>
-          <div className="coach--list">
-           
+          <div className="coach--list">  
             <div className="divider"></div>
             <div className="coachName">Chris</div>
             <div className="coachTime">教練資歷5年</div>
