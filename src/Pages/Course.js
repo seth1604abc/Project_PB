@@ -6,8 +6,15 @@ import Banner from "../components/Course/CoursesBanner";
 import CourseListContainer from "../components/Course/CourseListContainer";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { useEffect } from "react";
 function Course() {
+  useEffect(()=>{
+    window.scroll({
+      top:0,
+      behavior:"instant"
+    });
+    
+  },[])
   return (
     <div>
       <Navbar />

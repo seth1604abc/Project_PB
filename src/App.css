@@ -9,6 +9,11 @@ body {
   background-color: #09203f;
   color: #ffecd2;
   padding: 0 2%;
+  z-index: 100;
+  position: relative;
+}
+.main-nav__link{
+  height: 100%;
 }
 .main-nav-sub {
   background-color: #09203f;
