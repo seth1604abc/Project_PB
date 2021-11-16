@@ -35,7 +35,7 @@ function CourseSingleWaitingList() {
             <i class="fas fa-ellipsis-v"></i>
           </div>
         </div>
-        <CourseSingleWaitingCard />
+          <CourseSingleWaitingCard />
       </div>
     </div>
   );
