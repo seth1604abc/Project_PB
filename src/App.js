@@ -66,6 +66,7 @@ function App() {
           <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>          
         </Switch>
       </Router>
+     
     </div>
   );
 }

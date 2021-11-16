@@ -41,7 +41,6 @@ function Home() {
             <p>
               透過部位、時間長度還有程度標籤，快速從上百堂的課程中找到你想學習的健身知識!
             </p>
-
             <div className="course--context--filter">
               <div className="course--context--filter--part">
                 <button
@@ -115,7 +114,6 @@ function Home() {
           </div>
           <ProductCard />
         </section>
-
         <section className="playList">
           <img src="https://via.placeholder.com/300x200" alt="" />
           <div className="playList--context">
@@ -126,7 +124,6 @@ function Home() {
             <Link to="/course"><button className="">前往課程</button></Link>
           </div>
         </section>
-
         <section className="event">
           <div className="event--context">
             <h3 className="text-nowrap">輕鬆報名，簡單規劃</h3>
@@ -143,7 +140,6 @@ function Home() {
             <Link to="/event"><button className="event--group--link">更多活動</button></Link>
           </div>
         </section>
-
         <section className="d-flex flex-column align-items-center">
           <div className="product--context">
             <h3>熱門商品</h3>
