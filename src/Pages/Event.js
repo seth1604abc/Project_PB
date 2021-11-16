@@ -5,7 +5,9 @@ import Footer from "../components/Footer";
 import EventBanner from "../components/Event/EventBanner";
 import EventCard from "../components/Event/EventCard";
 
+
 function Event() {
+ 
   return (
     <div>
       <Navbar />
