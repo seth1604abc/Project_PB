@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 function ShoppingMain() {
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
+  const[newProduct,setNewProduct]=useState([]);
   useEffect(async () => {
     //抓熱門商品
     let resHitProduct = await axios.get(
@@ -25,7 +26,7 @@ function ShoppingMain() {
       withCredentials: true,
     });
     setProduct(resProduct.data);
-    console.log(resProduct.data);
+    setNewProduct(resProduct.data)
   }, []);
 
   const hotList = hotProduct.map((product) => {
@@ -40,7 +41,8 @@ function ShoppingMain() {
       />
     );
   });
-  const pList = product.map((product) => {
+
+  let pList = product.map((product) => {
     return (
       <ProductCard
         key={product.id}
@@ -49,10 +51,20 @@ function ShoppingMain() {
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
-        styling={`marginEnd:"3rem"`}
       />
     );
   });
+
+  
+
+  const handleChangeCat = (i) => {
+     let partProduct=[...newProduct];
+    let newList = partProduct.filter((item) => {
+      return item.product_type_id === i;
+    });
+    setProduct(newList);
+    console.log(newList);
+  };
   return (
     <>
       <Navbar />
@@ -66,14 +78,14 @@ function ShoppingMain() {
       </div>
       {/* 商品搜尋 */}
       <div className="container">
-        <ProductFilter />
+        <ProductFilter changeList={handleChangeCat} />
       </div>
 
       {/* 商品列表 */}
       <div className="ms-3">
-      <div className="d-flex flex-wrap container justify-content-start">
-        {pList}
-      </div>
+        <div className="d-flex flex-wrap container justify-content-start">
+          {pList}
+        </div>
       </div>
       <CoursesPageButton />
       <Footer />
