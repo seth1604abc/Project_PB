@@ -92,7 +92,7 @@ function ProductCard({ key, name, sold, rate, part, price, styling }) {
             </div>
           </Popover>
         </div>
-        <Link to="/product-single" className="text-decoration-none">
+        <Link to={`/product-single/`} className="text-decoration-none">
           {/* <div className="card__crown"><i className="fas fa-crown"></i></div>
                     <p className="card__ranking">1</p> */}
 
