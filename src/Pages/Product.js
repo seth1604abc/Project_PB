@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 function ShoppingMain() {
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
-  const[newProduct,setNewProduct]=useState([]);
+  const [newProduct, setNewProduct] = useState([]);
   useEffect(async () => {
     //抓熱門商品
     let resHitProduct = await axios.get(
@@ -26,13 +26,15 @@ function ShoppingMain() {
       withCredentials: true,
     });
     setProduct(resProduct.data);
-    setNewProduct(resProduct.data)
+    setNewProduct(resProduct.data);
+    console.log(resProduct.data)
   }, []);
 
   const hotList = hotProduct.map((product) => {
+    console.log(typeof(product.id))
     return (
       <ProductCard
-        key={product.id}
+        productId={product.id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
@@ -45,7 +47,7 @@ function ShoppingMain() {
   let pList = product.map((product) => {
     return (
       <ProductCard
-        key={product.id}
+        productId={product.id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
@@ -55,15 +57,33 @@ function ShoppingMain() {
     );
   });
 
-  
-
   const handleChangeCat = (i) => {
-     let partProduct=[...newProduct];
-    let newList = partProduct.filter((item) => {
+    let catProduct = [...newProduct];
+    let newList = catProduct.filter((item) => {
       return item.product_type_id === i;
     });
     setProduct(newList);
-    console.log(newList);
+    // console.log(newList);
+  };
+
+  //健身器材部位篩選
+  const [option, setOption] = useState(0);
+  const handleSelect = (e) => {
+    setOption(e.target.value);
+    // console.log(e.target.value)
+    // console.log(option)
+    let partProduct = [...newProduct];
+    if (e.target.value === 0) {
+      handleChangeCat(3);
+    } else {
+      let partList = partProduct.filter((item) => {
+        return item.body_part_id === Number(e.target.value);
+      }); 
+      console.log(partProduct)
+      setProduct(partList);
+        console.log(partList);
+        console.log(product);
+    }
   };
   return (
     <>
@@ -78,7 +98,10 @@ function ShoppingMain() {
       </div>
       {/* 商品搜尋 */}
       <div className="container">
-        <ProductFilter changeList={handleChangeCat} />
+        <ProductFilter
+          changeList={handleChangeCat}
+          handleSelect={handleSelect}
+        />
       </div>
 
       {/* 商品列表 */}
