@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-function ProductCard({ key, name, sold, rate, part, price, styling }) {
+function ProductCard({ productId, name, sold, rate, part, price }) {
   //對部位
   let bodyPart = {
     0: "綜合",
@@ -42,7 +42,7 @@ function ProductCard({ key, name, sold, rate, part, price, styling }) {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <div className={`card mx-5 mb-5`}  key={key}>
+      <div className={`card mx-5 mb-5`}>
         <div className="card__addCart p-0">
           <Button
             aria-describedby={id}
@@ -92,7 +92,7 @@ function ProductCard({ key, name, sold, rate, part, price, styling }) {
             </div>
           </Popover>
         </div>
-        <Link to={`/product-single/`} className="text-decoration-none">
+        <Link to={`/product-single/${productId}`} className="text-decoration-none">
           {/* <div className="card__crown"><i className="fas fa-crown"></i></div>
                     <p className="card__ranking">1</p> */}
 

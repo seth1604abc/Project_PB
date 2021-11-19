@@ -2,11 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "../css/Product.css";
 
-function ProductFiter({ changeList }) {
+function ProductFiter({ changeList,handleSelect }) {
   const [cat, setCat] = useState("");
   const handleCat = (v) => {
     setCat(v);
   };
+
+  
 
   return (
     <>
@@ -41,15 +43,16 @@ function ProductFiter({ changeList }) {
             }`}
             onClick={() => {
               handleCat("健身器材");
-              changeList(3);
+              // changeList(3);
             }}
+            onChange={handleSelect}
           >
-            <option selected>健身器材</option>
+            <option value="0">健身器材</option>
             <option value="1">手部</option>
-            <option value="2">腿部</option>
+            <option value="2">肩部</option>
             <option value="3">胸部</option>
-            <option value="4">肩部</option>
-            <option value="5">背部</option>
+            <option value="4">背部</option>
+            <option value="5">腿部</option>
           </select>
         </div>
         <div className="product__fillter__search d-flex">
