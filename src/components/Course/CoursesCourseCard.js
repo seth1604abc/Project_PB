@@ -1,7 +1,7 @@
 import React from "react";
 let storage = sessionStorage;
 
-function CoursesCourseCard(item) {
+function CoursesCourseCard(course) {
   // sessionStorage
   // 給 WaitingList 空字串
   if (storage["WaitingList"] == null) {
@@ -32,8 +32,8 @@ function CoursesCourseCard(item) {
     // 如果 sessionStorage 中沒有相同資料 就加入 WaitingList
     if (storage[waitingId]) {
       let newArr = storage["WaitingList"].split(",");
-      newArr = newArr.filter(function (item) {
-        return item !== waitingId;
+      newArr = newArr.filter(function (course) {
+        return course !== waitingId;
       });
       storage["WaitingList"] = newArr.toString();
       storage.removeItem(waitingId);
@@ -43,40 +43,41 @@ function CoursesCourseCard(item) {
     }
   }
   let storagelist = storage["WaitingList"].split(",");
+  console.log(storagelist,course.id)
   return (
     <>
         <div className="Courses__singlecourse__card mb-5">
-          <img src={item.img} className="card-img-top" alt="課程1" />
+          <img src={`./images/${course.filename}`} className="card-img-top" alt="課程1" />
           <div className="card-body">
             <div className="mb-2 d-flex">
               <div className="Courses__singlecourse__card__type">
-                {item.bodyparts}
+                {course.body_part_id}
               </div>
               <div className="Courses__singlecourse__card__coach_name ms-3">
-                {item.coach}
+                {course.coach}
               </div>
             </div>
-            <h3 className="mt-3">{item.title}</h3>
+            <h3 className="mt-3">{course.title}</h3>
             <div className="mt-4 d-flex">
               <div className="Courses__singlecourse__card__count me-2">
-                觀看次數：{item.count}次
+                觀看次數：{course.views}次
               </div>
               <div className="Courses__singlecourse__card__created-at me-2">
-                {item.created_at}
+                {course.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{item.heart}</span>
-                <i id={item.id} class="far fa-heart" onClick={clickHeart}></i>
+                <span>{course.likes}</span>
+                <i id={course.id} class="far fa-heart" onClick={clickHeart}></i>
               </div>
             </div>
           </div>
-          <div id={item.id} className="Courses__play-list" onClick={AddList}>
+          <div id={course.id} className="Courses__play-list" onClick={AddList}>
             <div>
-              {storagelist.includes(item.id) ? "成功加入清單" : "加入待播清單"}
+              {storagelist.includes(`${course.id}`) ? "成功加入清單" : "加入待播清單"}
             </div>
             <img
               src={
-                storagelist.includes(item.id)
+                storagelist.includes(`${course.id}`)
                   ? "./images/play-list-addsuccess.png"
                   : "./images/play-list-bg.png"
               }
@@ -84,7 +85,7 @@ function CoursesCourseCard(item) {
             />
             <input
               type="hidden"
-              value={`${item.id}|${item.title}|${item.bodyparts}|${item.level}|${item.img}`}
+              value={`${course.id}|${course.title}|${course.bodyparts}|${course.level}|${course.img}`}
             />
           </div>
           <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
