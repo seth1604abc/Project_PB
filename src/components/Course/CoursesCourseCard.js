@@ -62,7 +62,7 @@ function CoursesCourseCard(course) {
               <div className="Courses__singlecourse__card__count me-2">
                 觀看次數：{course.views}次
               </div>
-              <div className="Courses__singlecourse__card__created-at me-2">
+              <div className="Courses__singlecourse__card__created-at me-4">
                 {course.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
