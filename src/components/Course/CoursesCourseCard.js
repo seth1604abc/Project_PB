@@ -46,7 +46,7 @@ function CoursesCourseCard(item) {
   return (
     <>
         <div className="Courses__singlecourse__card mb-5">
-          <img src="./images/01.png" className="card-img-top" alt="課程1" />
+          <img src={item.img} className="card-img-top" alt="課程1" />
           <div className="card-body">
             <div className="mb-2 d-flex">
               <div className="Courses__singlecourse__card__type">
