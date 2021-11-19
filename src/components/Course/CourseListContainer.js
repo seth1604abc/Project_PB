@@ -162,11 +162,9 @@ function CourseListContainer() {
               title={course.title}
               upload_time={course.upload_time}
               update_time={course.update_time}
-              user_id={course.user_id}
               likes={course.likes}
               body_part_id={course.body_part_id}
               views={course.views}
-              heart={course.heart}
               level={course.level_name}
               filename={course.filename}
             />
