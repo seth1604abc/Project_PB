@@ -1,28 +1,42 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Comment from "../components/Comment";
 import "../css/ProductSingle.css";
 import "../css/Article.css";
 import "../css/Course.css";
 import RecommandProduct from "../components/RecommandProduct";
-import { useState } from "react";
 import ArticleRecommand from "../components/ArticleRecommand";
 import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ProductSingle = () => {
-  useEffect(()=>{
+  
+  useEffect(async () => {
     window.scroll({
-      top:0,
-      behavior:"instant"
+      top: 0,
+      behavior: "instant",
     });
-    
-  },[])
+
+    let product = await axios.get(
+      `http://localhost:3001/product/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+      setProductData(product.data[0]);
+      setShowText(product.data[0].intro);
+    console.log(product.data[0]);
+  }, []);
+
+  const [ productData, setProductData] = useState({});
+  const { productId } = useParams();
   const text = ["介紹", "規格"];
-  const defaultText = text[0];
-  const [showText, setShowText] = useState(defaultText);
+  const show=[productData.intro,productData.detail];
+  const [showText, setShowText] = useState(show[0]);
 
   const [number, setNumber] = useState(1);
   const handleClick = (i) => {
@@ -48,7 +62,7 @@ const ProductSingle = () => {
 
   return (
     <>
-      <Navbar id="productSingle-start"/>
+      <Navbar id="productSingle-start" />
       <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
         <div className="productMain_pictures me-5">
           <Gallery />
@@ -58,15 +72,15 @@ const ProductSingle = () => {
           /> */}
         </div>
         <div className="productMain__info ms-3">
-          <h1>20kg啞鈴組</h1>
+          <h1>{productData.title}</h1>
           <a href="#/">
             <span className="me-1">
-              4.5<i className="fas fa-star"></i>
+            {productData.average_rate}<i className="fas fa-star"></i>
             </span>{" "}
             10筆評價
           </a>
           <hr className="my-1" />
-          <h3>NT$1250</h3>
+          <h3>NT${productData.price}</h3>
           <div className="productMain__info__count">
             <p>數量:</p>
             <div className="d-flex justify-content-between align-items-center productMain__info__count__group">
@@ -74,6 +88,7 @@ const ProductSingle = () => {
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
                   handleClick(0);
+                  console.log(productData)
                 }}
               >
                 -
@@ -110,22 +125,24 @@ const ProductSingle = () => {
           <div className=" mb-5 ">
             <button
               className={`btn product__secondary__left__btn--intro ${
-                showText === "介紹"
+                showText === show[0]
                   ? "product__secondary__left__btn--detail-active"
                   : ""
               }`}
               onClick={() => {
-                setShowText(text[0]);
+                setShowText(show[0]);
+                console.log(show)
               }}
             >
               商品介紹
             </button>
             <button
               onClick={() => {
-                setShowText(text[1]);
+                setShowText(show[1]);
+                console.log(showText)
               }}
               className={`btn product__secondary__left__btn--detail ${
-                showText === "規格"
+                showText === show[1]
                   ? "product__secondary__left__btn--detail-active"
                   : ""
               }`}
