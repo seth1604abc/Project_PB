@@ -1,11 +1,11 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import Axios from "axios";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
 function CoachEventAddCard() {
-    const  modules  = {
+    const  modules  = { 
         toolbar: [
             [{ font: [] }],
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -28,7 +28,7 @@ function CoachEventAddCard() {
     const [eventIntro, setEventIntro] = useState('')
 
     const submitEvent =() => {
-      Axios.post("http://localhost:3000/event", {
+      Axios.get("http://localhost:3001/event/coach-event-add", {
         title: eventName,
         datetime: eventTime,
         location: eventLocation,
@@ -38,12 +38,14 @@ function CoachEventAddCard() {
       }).then(()=>{
         alert("successful insert");
       })
+      // console.log(eventName);
+   
     }
   return (
     <div className="member-activity-content ">
       <div className="row" style={{ margin: "50px 150px" }}>
         <div className="">
-          <form className="CoachEventAdd_wrapper">
+          <div className="CoachEventAdd_wrapper">
             <div className="mb-4 CoachEventAdd_banner_preview"></div>
             <div className="mb-4">
               <label for="">活動圖片新增</label>
@@ -112,23 +114,24 @@ function CoachEventAddCard() {
               ></textarea>
             </div>
             <div className="editor">
-              <h2>Quill</h2>
+              <h2>Quill</h2> 
               <ReactQuill 
-              theme="snow" 
-              modules={modules} />
+              theme="snow"   
+              modules={modules}
+              onChange = {(e)=>{setEventIntro(e.target.value)}} />
               {/* onChange={setValue}  */}
-              onChange = {(e)=>{setEventIntro(e.target.value)}}
+              {/* onChange = {(e)=>{setEventIntro(e.target.value)}} */}
             </div>
             <div className="d-flex justify-content-end">
-            <button className="btn btn-warning me-3" type="submit">
+            <button className="btn btn-warning me-3" type="button">
               取消
             </button>
-            <button className="btn btn-primary " type="submit" onClick={submitEvent}>
+            <button className="btn btn-primary " type="button" onClick={submitEvent}>
               新增
             </button>
             </div>
             
-          </form>
+          </div>
         </div>
       </div>
     </div>
