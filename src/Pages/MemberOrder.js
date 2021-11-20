@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MemberLeftBar from "../components/MemberLeftBar";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from 'axios';
 
 function MemberOrder() {
   const columns: GridColDef[] = [
@@ -15,80 +16,13 @@ function MemberOrder() {
     { field: "addr", headerName: "地址", width: 300 },
   ];
 
-  const rows: GridRowsProp = [
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211105,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-    {
-      id: 20211104,
-      time: "2021/11/04",
-      status: "運送中",
-      trans: "7-11便利商店",
-      paymethod: "信用卡",
-      payment: "NT $3000",
-      addr: "台北市總統路總統府1號",
-    },
-  ];
+  // const rows: GridRowsProp = [
+    
+  // ];
+  useEffect( async () => {
+    let result = await axios.get("http://localhost:3001/member/order", {withCredentials: true});
+    console.log(result);
+  }, [])
 
   return (
     <>
@@ -128,7 +62,7 @@ function MemberOrder() {
           </div>
 
           <div className="member-order-content">
-            <DataGrid rows={rows} columns={columns} />
+            {/* <DataGrid rows={rows} columns={columns} /> */}
           </div>
         </div>
       </div>
