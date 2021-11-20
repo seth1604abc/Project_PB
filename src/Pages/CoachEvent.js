@@ -57,7 +57,7 @@ function CoachEvent() {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("成功刪除");
-        setMemberEventData(memberEventData.filter((data) => data.id != id));
+        setMemberEventData(memberEventData.filter((data) => data.id !== id));
       }
     });
   };
