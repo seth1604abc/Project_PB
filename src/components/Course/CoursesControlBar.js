@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+let storage = sessionStorage;
 
 function CourseControlBar() {
   const [heart, setHeart] = useState("far");
@@ -21,6 +22,11 @@ function CourseControlBar() {
     if (playListButton === "./images/play-list-MainColor.png") {
       setPlayListButton("./images/play-list-SecondColor.png");
       setPlayListBg("Courses__control-bar__playList__Bg");
+      let WaitingList = storage
+        .getItem("WaitingList")
+        .substr(0, storage.getItem("WaitingList").length - 1)
+        .split(",");
+      console.log(WaitingList);
     } else {
       setPlayListButton("./images/play-list-MainColor.png");
       setPlayListBg("");
@@ -31,7 +37,7 @@ function CourseControlBar() {
     <div>
       <div className="Courses__control-bar">
         <div className="d-flex">
-          <select className="form-select Courses__control-bar__select-width">
+          <select className="form-select Courses__control-bar__select-width" onChange={()=>{}}>
             <option value="1" selected>
               課程分類
             </option>
