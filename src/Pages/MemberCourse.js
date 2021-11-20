@@ -69,7 +69,7 @@ function MemberCourse() {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("成功刪除", "success");
-        setMemberCourseData(memberCourseData.filter((user) => user.id != id));
+        setMemberCourseData(memberCourseData.filter((user) => user.id !== id));
       }
     });
   };
