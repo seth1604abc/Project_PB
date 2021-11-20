@@ -314,7 +314,7 @@ p {
 }
 
 .product--items {
-  width: 80%;
+  width: 85%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
