@@ -81,7 +81,9 @@ function Login() {
     let city = $("#city option:selected").text();
     let area = $("#area option:selected").text();
     let addr = $("#address").val();        
-    registerData.totalAddress = city + area + addr;
+    registerData.city = city;
+    registerData.area = area;
+    registerData.address = addr;
     registerData.firstName = $("input[name='firstName']").val();
     registerData.lastName = $("input[name='lastName']").val();
     registerData.birth = birth;
@@ -92,7 +94,7 @@ function Login() {
       console.log(data.data.message);
     }
     if(data.data.code == 0) {
-      history.push("/");
+      history.go(0);
     }
   }
   
