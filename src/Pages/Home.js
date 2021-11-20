@@ -1,17 +1,43 @@
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import "../css/Home.css";
 import Footer from "../components/Footer";
-import NavBar from "../components/Navbar"
+import NavBar from "../components/Navbar";
 import axios from "axios";
 
 function Home() {
+  const [hotProduct, setHotProduct] = useState([]);
+  useEffect(async () => {
+    let resProduct = await axios.get(
+      "http://localhost:3001/product/hot-product",
+      { withCredentials: true }
+    );
+    console.log(resProduct.data);
+    setHotProduct(resProduct.data);
+    console.log(hotProduct);
+  }, []);
+
+  //選擇部位
   const [part, setPart] = useState("");
   const handlePart = (i) => {
     setPart(i);
   };
+
+  //熱門商品
+  const hotList = hotProduct.map((product) => {
+    return (
+      <ProductCard
+        key={product.id}
+        name={product.title}
+        sold={product.sold}
+        part={product.body_part_id}
+        price={product.price}
+        rate={product.average_rate}
+      />
+    );
+  });
   return (
     <>
       <header className="">
@@ -34,9 +60,7 @@ function Home() {
         </div>
       </header>
       <main>
-        <div id="scrollTo" className="">
-          
-        </div>
+        <div id="scrollTo" className=""></div>
         <section className="course d-flex align-items-center">
           <div className="course--context">
             <h3 className="text-nowrap">你在找什麼課程?</h3>
@@ -123,7 +147,9 @@ function Home() {
             <p className="mb-3 me-0">
               在眾多課程中收藏你所喜愛的課程，並依照需要安排你的課表!
             </p>
-            <Link to="/course"><button className="">前往課程</button></Link>
+            <Link to="/course">
+              <button className="">前往課程</button>
+            </Link>
           </div>
         </section>
         <section className="event">
@@ -139,7 +165,9 @@ function Home() {
               <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
             </div>
-            <Link to="/event"><button className="event--group--link">更多活動</button></Link>
+            <Link to="/event">
+              <button className="event--group--link">更多活動</button>
+            </Link>
           </div>
         </section>
         <section className="d-flex flex-column align-items-center">
@@ -147,11 +175,7 @@ function Home() {
             <h3>熱門商品</h3>
             <p>搭配優選商品，讓訓練更有效</p>
           </div>
-          <div className="product--items">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-          </div>
+          <div className="product--items">{hotList}</div>
         </section>
         <section className="coach">
           <h3>
@@ -174,7 +198,9 @@ function Home() {
           <img src="./images/giftcard.png" alt="" />
           <h3>購買禮物卡，邀請朋友一起來運動!</h3>
           <p>送給朋友一個月的會籍，一起享受運動的樂趣!</p>
-          <Link to="/giftcard"><button>前往購買</button></Link>
+          <Link to="/giftcard">
+            <button>前往購買</button>
+          </Link>
         </section>
       </main>
       <Footer />
