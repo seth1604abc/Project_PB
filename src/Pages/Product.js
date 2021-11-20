@@ -27,11 +27,11 @@ function ShoppingMain() {
     });
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
-    console.log(resProduct.data)
+    console.log(resProduct.data);
   }, []);
 
   const hotList = hotProduct.map((product) => {
-    console.log(typeof(product.id))
+    console.log(typeof product.id);
     return (
       <ProductCard
         productId={product.id}
@@ -78,11 +78,11 @@ function ShoppingMain() {
     } else {
       let partList = partProduct.filter((item) => {
         return item.body_part_id === Number(e.target.value);
-      }); 
-      console.log(partProduct)
+      });
+      console.log(partProduct);
       setProduct(partList);
-        console.log(partList);
-        console.log(product);
+      console.log(partList);
+      console.log(product);
     }
   };
   return (

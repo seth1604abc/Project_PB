@@ -7,7 +7,7 @@ const Gallery = () => {
       // Image item:
       itemId: "1",
       mediaUrl:
-        "https://i.picsum.photos/id/674/200/300.jpg?hmac=kS3VQkm7AuZdYJGUABZGmnNj_3KtZ6Twgb5Qb9ITssY",
+        "https://github.com/seth1604abc/Project_PB/blob/Chris/public/images/20kg%E5%95%9E%E9%88%B4-1.jpg",
       metaData: {
         type: "image",
         height: 200,
@@ -25,7 +25,7 @@ const Gallery = () => {
       // Another Image item:
       itemId: "2",
       mediaUrl:
-        "https://i.picsum.photos/id/1003/1181/1772.jpg?hmac=oN9fHMXiqe9Zq2RM6XT-RVZkojgPnECWwyEF1RvvTZk",
+        "https://github.com/seth1604abc/Project_PB/blob/Chris/public/images/20kg%E5%95%9E%E9%88%B4-2.jpg",
       metaData: {
         type: "image",
         height: 200,
