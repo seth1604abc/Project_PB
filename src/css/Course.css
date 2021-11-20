@@ -232,7 +232,7 @@ option {
   color: var(--main-color);
   letter-spacing: 1px;
   font-size: 1rem;
-  margin-left: 32px;
+  margin-left: 10px;
   transform: translateY(-5px);
 }
 .Courses__singlecourse__card__heart i {
