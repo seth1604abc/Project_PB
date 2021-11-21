@@ -15,7 +15,7 @@ function ProductCard({
   category,
   mainImage,
 }) {
-  const[pImg,setPImg]=useState();
+  const[pImg,setPImg]=useState({});
   useEffect(async () => {
     //抓商品圖片
     let pImages = await axios.get(
@@ -24,8 +24,8 @@ function ProductCard({
         withCredentials: true,
       }
     );
-    setPImg(pImages.data[0].name);
-    
+    console.log(pImages);
+    setPImg(pImages);
   }, []);
 
   //對部位
@@ -124,7 +124,7 @@ function ProductCard({
                     <p className="card__ranking">1</p> */}
 
           <img
-            src={`./product_images/${pImg}`}
+            src={`./product_images/${mainImage}`}
             className="card-img-top"
             alt="..."
           />
