@@ -73,7 +73,7 @@ const Gallery = () => {
     cubeType: "cover",
     galleryThumbnailsAlignment: "left",
     hoveringBehaviour: "NEVER_SHOW",
-    isAutoSlideshow: true,
+    isAutoSlideshow: false,
     slideshowLoop: false,
     autoSlideshowInterval: 3,
     thumbnailSpacings: 1,
