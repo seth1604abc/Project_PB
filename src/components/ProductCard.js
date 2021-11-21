@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-function ProductCard({ productId, name, sold, rate, part, price ,category }) {
+function ProductCard({ productId, name, sold, rate, part, price ,category,mainImage }) {
   //對部位
   let bodyPart = {
     0: "綜合",
@@ -97,7 +97,7 @@ function ProductCard({ productId, name, sold, rate, part, price ,category }) {
                     <p className="card__ranking">1</p> */}
 
           <img
-            src="https://via.placeholder.com/200x150/333/FFECD2/?text=picture"
+            src={`./product_images/${mainImage}`}
             className="card-img-top"
             alt="..."
           />

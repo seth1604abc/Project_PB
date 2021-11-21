@@ -9,12 +9,18 @@ import axios from "axios";
 
 function Home() {
   const [hotProduct, setHotProduct] = useState([]);
+  const [pImg, setPImg] = useState({});
   useEffect(async () => {
     let resProduct = await axios.get(
       "http://localhost:3001/product/hot-product",
       { withCredentials: true }
     );
+    //抓商品圖片
+    let pImages = await axios.get("http://localhost:3001/product/images", {
+      withCredentials: true,
+    });
     console.log(resProduct.data);
+    setPImg(pImages.data[0]);
     setHotProduct(resProduct.data);
     console.log(hotProduct);
   }, []);
@@ -36,6 +42,7 @@ function Home() {
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
+        mainImage={pImg.name}
       />
     );
   });
