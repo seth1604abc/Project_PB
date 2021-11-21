@@ -198,7 +198,7 @@ const ProductSingle = () => {
         </div>
         <div className="product__secondary__recommand d-flex flex-column align-items-start ms-5 ">
           <div className="d-flex Article__area__title w-100">
-            <i class="fas fa-shopping-bag Course__area__icon p-2"></i>
+            <i className="fas fa-shopping-bag Course__area__icon p-2"></i>
             <h2 className="">推薦商品</h2>
           </div>
           {rList}
