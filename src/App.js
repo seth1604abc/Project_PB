@@ -45,7 +45,7 @@ function App() {
           <Route path="/course" exact component={Course}></Route>
           <Route path="/course-single" exact component={CourseSingle}></Route>
           <Route path="/product" exact component={Product}></Route>
-          <Route path="/product-single/:productId" exact component={ProductSingle}></Route>
+          <Route path="/product-single/:category/:productId" exact component={ProductSingle}></Route>
           <Route path="/giftcard" exact component={ProductGiftCard}></Route>
           <Route path="/giftcard-checkout" exact component={GiftCardCheckout}></Route>
           <Route path="/giftcard-writing" exact component={GiftCardWriting}></Route>
