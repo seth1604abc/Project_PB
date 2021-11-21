@@ -43,10 +43,11 @@ function CoursesCourseCard(course) {
     }
   }
   let storagelist = storage["WaitingList"].split(",");
-  console.log(storagelist,course.id)
+  console.log(storagelist)
+  //console.log(storagelist,course.id)
   return (
     <>
-        <div className="Courses__singlecourse__card mb-5">
+        <div className="Courses__singlecourse__card ">
           <img src={`./images/${course.filename}`} className="card-img-top" alt="課程1" />
           <div className="card-body">
             <div className="mb-2 d-flex">

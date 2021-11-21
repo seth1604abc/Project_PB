@@ -16,6 +16,7 @@ import CourseSingleArticle from "../components/CourseSingle/CourseSingleArticle"
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+
 function CourseSingle() {
   return (
     <>

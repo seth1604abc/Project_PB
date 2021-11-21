@@ -34,7 +34,7 @@ function CourseSingleVideo() {
         </div>
         <div className="pt-3 ps-4">
           <div className="d-flex align-items-center position-relative">
-            <h1 className="mb-0">這是課程名稱</h1>
+            <h1 className="mb-0">手部訓練課程</h1>
             <div className="Course__Video-area__Description pe-4 d-flex">
               <div className="d-flex pointer">
                 <div className="Course__Video-area__tags me-3">

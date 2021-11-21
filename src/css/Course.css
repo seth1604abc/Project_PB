@@ -195,6 +195,14 @@ option {
 }
 
 /* Courses - 課程CARD */
+.Courses__singlecourse__card__flex__wrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,20rem);
+  justify-content: space-between;
+  grid-gap:4rem;
+  margin: 2rem 0;
+  padding: 0 3.5rem;
+}
 .Courses__singlecourse__card {
   width: 320px;
   cursor: pointer;
@@ -502,7 +510,7 @@ option {
   text-align: center;
 }
 .Course__area__Waiting__image {
-  width: 50%;
+  width: 60%;
 }
 .Course__area__Waiting__image img {
   width: 100%;
