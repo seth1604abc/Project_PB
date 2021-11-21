@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 let storage = sessionStorage;
 
-function CourseControlBar() {
+function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
   const [heart, setHeart] = useState("far");
   const [heartButton, setHeartButton] = useState("");
   const [playListBg, setPlayListBg] = useState("");
@@ -22,14 +22,12 @@ function CourseControlBar() {
     if (playListButton === "./images/play-list-MainColor.png") {
       setPlayListButton("./images/play-list-SecondColor.png");
       setPlayListBg("Courses__control-bar__playList__Bg");
-      let WaitingList = storage
-        .getItem("WaitingList")
-        .substr(0, storage.getItem("WaitingList").length - 1)
-        .split(",");
-      console.log(WaitingList);
+      waitingListButtonToggle(1)
     } else {
       setPlayListButton("./images/play-list-MainColor.png");
       setPlayListBg("");
+      waitingListButtonToggle(2)
+
     }
   }
 
@@ -37,7 +35,7 @@ function CourseControlBar() {
     <div>
       <div className="Courses__control-bar">
         <div className="d-flex">
-          <select className="form-select Courses__control-bar__select-width" onChange={()=>{}}>
+          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="body_part_id">
             <option value="1" selected>
               課程分類
             </option>
@@ -47,7 +45,7 @@ function CourseControlBar() {
             <option value="5">背部</option>
             <option value="6">腿部</option>
           </select>
-          <select className="form-select Courses__control-bar__select-width">
+          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="user_id">
             <option value="1" selected>
               教練
             </option>
@@ -57,7 +55,7 @@ function CourseControlBar() {
             <option value="5">Eric</option>
             <option value="6">Tommy</option>
           </select>
-          <select className="form-select Courses__control-bar__select-width">
+          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="level_id">
             <option value="1" selected>
               難易度
             </option>
