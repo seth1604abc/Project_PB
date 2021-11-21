@@ -12,14 +12,20 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductSingle = () => {
-  
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
+    let recommandProduct = await axios.get(
+      `http://localhost:3001/product/recommand-product/${category}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     let product = await axios.get(
       `http://localhost:3001/product/${productId}`,
@@ -27,17 +33,40 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
-      setProductData(product.data[0]);
-      setShowText(product.data[0].intro);
+    console.log(recommandProduct.data);
+    setProductData(product.data[0]);
+    setRProduct(recommandProduct.data);
+    setShowText(product.data[0].intro);
     console.log(product.data[0]);
+    console.log(recommandProduct.data);
   }, []);
 
-  const [ productData, setProductData] = useState({});
-  const { productId } = useParams();
+  //拿商品資料
+  const [productData, setProductData] = useState({});
+  //推薦商品資料
+  const [rProduct, setRProduct] = useState([]);
+  const rList = rProduct.map((product) => {
+    return (
+      <RecommandProduct
+        productId={product.id}
+        name={product.title}
+        sold={product.sold}
+        part={product.body_part_id}
+        price={product.price}
+        rate={product.average_rate}
+        category={product.product_type_id}
+      />
+    );
+  });
+  //拿url傳的資料
+  const { category, productId } = useParams();
+
+  //拿介紹文字
   const text = ["介紹", "規格"];
-  const show=[productData.intro,productData.detail];
+  const show = [productData.intro, productData.detail];
   const [showText, setShowText] = useState(show[0]);
 
+  //記數量
   const [number, setNumber] = useState(1);
   const handleClick = (i) => {
     if (i === 0) {
@@ -75,7 +104,8 @@ const ProductSingle = () => {
           <h1>{productData.title}</h1>
           <a href="#/">
             <span className="me-1">
-            {productData.average_rate}<i className="fas fa-star"></i>
+              {productData.average_rate}
+              <i className="fas fa-star"></i>
             </span>{" "}
             10筆評價
           </a>
@@ -88,7 +118,8 @@ const ProductSingle = () => {
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
                   handleClick(0);
-                  console.log(productData)
+                  console.log(productData);
+                  console.log(Number(category));
                 }}
               >
                 -
@@ -131,7 +162,7 @@ const ProductSingle = () => {
               }`}
               onClick={() => {
                 setShowText(show[0]);
-                console.log(show)
+                console.log(show);
               }}
             >
               商品介紹
@@ -139,7 +170,7 @@ const ProductSingle = () => {
             <button
               onClick={() => {
                 setShowText(show[1]);
-                console.log(showText)
+                console.log(showText);
               }}
               className={`btn product__secondary__left__btn--detail ${
                 showText === show[1]
@@ -170,13 +201,12 @@ const ProductSingle = () => {
             <i class="fas fa-shopping-bag Course__area__icon p-2"></i>
             <h2 className="">推薦商品</h2>
           </div>
-
-          <RecommandProduct />
-          <RecommandProduct />
-          <RecommandProduct />
+          {rList}
+          <Link to="/product">
           <button className="btn product__secondary__recommand__more align-self-end mb-5">
             更多商品
           </button>
+          </Link>
           <CourseSingleHitCourse />
         </div>
       </div>
