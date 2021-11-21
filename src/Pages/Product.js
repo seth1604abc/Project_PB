@@ -13,7 +13,6 @@ function ShoppingMain() {
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-  const [pImg, setPImg] = useState({});
   useEffect(async () => {
     //抓熱門商品
     let resHitProduct = await axios.get(
@@ -26,19 +25,13 @@ function ShoppingMain() {
     let resProduct = await axios.get("http://localhost:3001/product", {
       withCredentials: true,
     });
-
-    //抓商品圖片
-    let pImages = await axios.get("http://localhost:3001/product/images", {
-      withCredentials: true,
-    });
-    setPImg(pImages.data[0]);
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
-    console.log(resProduct.data);
+    
+    
   }, []);
-
   const hotList = hotProduct.map((product) => {
-    console.log(typeof product.id);
+    // console.log(typeof product.id);
     return (
       <ProductCard
         productId={product.id}
@@ -48,12 +41,13 @@ function ShoppingMain() {
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
-        mainImage={pImg.name}
+        
       />
     );
   });
 
   let pList = product.map((product) => {
+    
     return (
       <ProductCard
         productId={product.id}
@@ -97,6 +91,7 @@ function ShoppingMain() {
   };
   return (
     <>
+    {/* <button onClick={()=>{console.log(pImg[3])}}>1</button> */}
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}
