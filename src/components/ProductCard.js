@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-function ProductCard({ productId, name, sold, rate, part, price }) {
+function ProductCard({ productId, name, sold, rate, part, price ,category }) {
   //對部位
   let bodyPart = {
     0: "綜合",
@@ -92,7 +92,7 @@ function ProductCard({ productId, name, sold, rate, part, price }) {
             </div>
           </Popover>
         </div>
-        <Link to={`/product-single/${productId}`} className="text-decoration-none">
+        <Link to={`/product-single/${category}/${productId}`} className="text-decoration-none">
           {/* <div className="card__crown"><i className="fas fa-crown"></i></div>
                     <p className="card__ranking">1</p> */}
 
