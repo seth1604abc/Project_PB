@@ -40,7 +40,7 @@ const ProductSingle = () => {
     console.log(product.data[0]);
     console.log(recommandProduct.data);
   }, []);
-
+  const { category, productId } = useParams();
   //拿商品資料
   const [productData, setProductData] = useState({});
   //推薦商品資料
@@ -59,7 +59,7 @@ const ProductSingle = () => {
     );
   });
   //拿url傳的資料
-  const { category, productId } = useParams();
+  
 
   //拿介紹文字
   const text = ["介紹", "規格"];

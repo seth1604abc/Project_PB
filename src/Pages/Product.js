@@ -32,7 +32,7 @@ function ShoppingMain() {
     // console.log(typeof product.id);
     return (
       <ProductCard
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
@@ -47,7 +47,7 @@ function ShoppingMain() {
   let pList = product.map((product) => {
     return (
       <ProductCard
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
