@@ -40,6 +40,7 @@ function ShoppingMain() {
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
+        category={product.product_type_id}
       />
     );
   });
@@ -53,6 +54,7 @@ function ShoppingMain() {
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
+        category={product.product_type_id}
       />
     );
   });

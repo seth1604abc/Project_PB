@@ -29,12 +29,13 @@ function Home() {
   const hotList = hotProduct.map((product) => {
     return (
       <ProductCard
-        key={product.id}
+        productId={product.id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
+        category={product.product_type_id}
       />
     );
   });
