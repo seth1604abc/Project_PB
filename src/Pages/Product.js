@@ -27,8 +27,6 @@ function ShoppingMain() {
     });
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
-    
-    
   }, []);
   const hotList = hotProduct.map((product) => {
     // console.log(typeof product.id);
@@ -41,13 +39,12 @@ function ShoppingMain() {
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
-        
+        mainImage={product.name}
       />
     );
   });
 
   let pList = product.map((product) => {
-    
     return (
       <ProductCard
         productId={product.id}
@@ -57,6 +54,7 @@ function ShoppingMain() {
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
+        mainImage={product.name}
       />
     );
   });
@@ -91,7 +89,7 @@ function ShoppingMain() {
   };
   return (
     <>
-    {/* <button onClick={()=>{console.log(pImg[3])}}>1</button> */}
+      {/* <button onClick={()=>{console.log(pImg[3])}}>1</button> */}
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}

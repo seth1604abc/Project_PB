@@ -8,14 +8,25 @@ import NavBar from "../components/Navbar";
 import axios from "axios";
 
 function Home() {
+  const[pImg,setPImg]=useState({});
   const [hotProduct, setHotProduct] = useState([]);
+
   useEffect(async () => {
+    // let pImages = await axios.get(
+    //   `http://localhost:3001/product/images`,
+    //   {
+    //     withCredentials: true,
+    //   }
+    // );
+    
     let resProduct = await axios.get(
       "http://localhost:3001/product/hot-product",
       { withCredentials: true }
     );
+    // setPImg();
     setHotProduct(resProduct.data);
-    console.log(hotProduct);
+    // console.log(hotProduct);
+    console.log(resProduct.data)
   }, []);
 
   //選擇部位
@@ -26,6 +37,7 @@ function Home() {
 
   //熱門商品
   const hotList = hotProduct.map((product) => {
+    
     return (
       <ProductCard
         productId={product.id}
@@ -35,6 +47,7 @@ function Home() {
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
+        mainImage={product.name}
       />
     );
   });
