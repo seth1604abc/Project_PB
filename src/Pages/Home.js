@@ -40,7 +40,7 @@ function Home() {
     
     return (
       <ProductCard
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
