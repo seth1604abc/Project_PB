@@ -7,7 +7,7 @@ const Gallery = () => {
       // Image item:
       itemId: "1",
       mediaUrl:
-        "https://github.com/seth1604abc/Project_PB/blob/Chris/public/images/20kg%E5%95%9E%E9%88%B4-1.jpg",
+        "https://media.decathlon.tw/media/catalog/product/cache/10/image/9df78eab33525d08d6e5fb8d27136e95/e/4/e47b62c4-1798-40ee-8234-032356f22e28_8756638.jpg",
       metaData: {
         type: "image",
         height: 200,
@@ -25,7 +25,7 @@ const Gallery = () => {
       // Another Image item:
       itemId: "2",
       mediaUrl:
-        "https://github.com/seth1604abc/Project_PB/blob/Chris/public/images/20kg%E5%95%9E%E9%88%B4-2.jpg",
+        "https://media.decathlon.tw/media/catalog/product/cache/10/image/438x/9df78eab33525d08d6e5fb8d27136e95/1/a/1a1248b0-0f8e-4141-bc8a-34273db5d218_8756638.jpg",
       metaData: {
         type: "image",
         height: 200,
@@ -42,7 +42,20 @@ const Gallery = () => {
     {
       // Another Image item:
       itemId: "3",
-      mediaUrl: "https://via.placeholder.com/500",
+      mediaUrl: "https://media.decathlon.tw/media/catalog/product/cache/10/image/9df78eab33525d08d6e5fb8d27136e95/5/5/55bac6d1-5b5b-428c-8267-7a23295e104b_8756638.jpg",
+      metaData: {
+        type: "image",
+        height: 200,
+        width: 100,
+        title: "sample-title",
+        description: "sample-description",
+        focalPoint: [0, 0]
+      }
+    },
+    {
+      // Another Image item:
+      itemId: "3",
+      mediaUrl: "https://media.decathlon.tw/media/catalog/product/cache/10/image/9df78eab33525d08d6e5fb8d27136e95/3/d/3d61c86b-e629-4a04-9a88-6611abbd7d60_8756638.jpg",
       metaData: {
         type: "image",
         height: 200,
