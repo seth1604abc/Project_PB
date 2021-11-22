@@ -2,7 +2,16 @@ import React from "react";
 import { useState } from "react";
 let storage = sessionStorage;
 
-function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
+function CourseControlBar({
+  waitingListButtonToggle,
+  bodyPartHandleSelect,
+  filterBase,
+  setFilterBase,
+  HitSort,
+  setSort,
+  setKeyWord,
+  searchtext,
+}) {
   const [heart, setHeart] = useState("far");
   const [heartButton, setHeartButton] = useState("");
   const [playListBg, setPlayListBg] = useState("");
@@ -22,12 +31,11 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
     if (playListButton === "./images/play-list-MainColor.png") {
       setPlayListButton("./images/play-list-SecondColor.png");
       setPlayListBg("Courses__control-bar__playList__Bg");
-      waitingListButtonToggle(1)
+      waitingListButtonToggle(1);
     } else {
       setPlayListButton("./images/play-list-MainColor.png");
       setPlayListBg("");
-      waitingListButtonToggle(2)
-
+      waitingListButtonToggle(2);
     }
   }
 
@@ -35,7 +43,19 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
     <div>
       <div className="Courses__control-bar">
         <div className="d-flex">
-          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="body_part_id">
+          <select
+            className="form-select Courses__control-bar__select-width"
+            name="body_part_id"
+            onClick={bodyPartHandleSelect}
+            onChange={(e) => {
+              let newSelect = {
+                ...filterBase,
+                [e.target.name]: e.target.value,
+              };
+              console.log(newSelect);
+              setFilterBase(newSelect);
+            }}
+          >
             <option value="1" selected>
               課程分類
             </option>
@@ -45,7 +65,19 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
             <option value="5">背部</option>
             <option value="6">腿部</option>
           </select>
-          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="user_id">
+          <select
+            className="form-select Courses__control-bar__select-width"
+            name="user_id"
+            onClick={bodyPartHandleSelect}
+            onChange={(e) => {
+              let newSelect = {
+                ...filterBase,
+                [e.target.name]: e.target.value,
+              };
+              console.log(newSelect);
+              setFilterBase(newSelect);
+            }}
+          >
             <option value="1" selected>
               教練
             </option>
@@ -55,7 +87,19 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
             <option value="5">Eric</option>
             <option value="6">Tommy</option>
           </select>
-          <select className="form-select Courses__control-bar__select-width" onChange={handleFilterBaseChange} name="level_id">
+          <select
+            className="form-select Courses__control-bar__select-width"
+            name="level_id"
+            onClick={bodyPartHandleSelect}
+            onChange={(e) => {
+              let newSelect = {
+                ...filterBase,
+                [e.target.name]: e.target.value,
+              };
+              console.log(newSelect);
+              setFilterBase(newSelect);
+            }}
+          >
             <option value="1" selected>
               難易度
             </option>
@@ -70,6 +114,10 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
             class="input-form-control Course__area__Talk__InputArea__Input m-1 ms-3"
             aria-label="Text input with segmented dropdown button"
             placeholder="關鍵字搜尋"
+            onKeyDown={(e) => {
+              setKeyWord(e.target.value);
+            }}
+            onChenge={searchtext}
           />
           <a type="button" className="btn">
             <i class="fas fa-search"></i>
@@ -78,7 +126,17 @@ function CourseControlBar({waitingListButtonToggle,handleFilterBaseChange}) {
       </div>
       <div className="Courses__control-bar__sort mt-4 d-flex align-items-center">
         <div>排序方式：</div>
-        <select className="form-select Courses__control-bar__sort__select-width">
+        <select
+          className="form-select Courses__control-bar__sort__select-width"
+          onChange={HitSort}
+          onClick={(e) => {
+            if (e.target.value === "1") {
+              setSort(1);
+            } else {
+              setSort(2);
+            }
+          }}
+        >
           <option value="1" selected>
             更新時間
           </option>

@@ -9,7 +9,6 @@ function CourseSingleWaitingButton({ title, bodyPart, level, id, filename }) {
     .getItem("WaitingList")
     .substr(0, storage.getItem("WaitingList").length - 1)
     .split(",");
-    console.log(typeof(id))
   function MoreBtn(e) {
     let eddies = document.querySelectorAll(
       ".Course__area__Waiting__MoreBtn__Option"
@@ -47,7 +46,7 @@ function CourseSingleWaitingButton({ title, bodyPart, level, id, filename }) {
           ></i>
         </div>
         <div className="Course__area__Waiting__image">
-          <img src={`./images/${filename}`} alt="影片縮圖" />
+          <img src={`/images/${filename}.png`} alt="影片縮圖" />
         </div>
         <div className="row p-2">
           <div className="col-12 Course__area__Waiting__title">{title}</div>
