@@ -34,10 +34,23 @@ body {
 }
 
 /* ----search bar---- */
+
 .event_searchBar_wrapper {
   background-color: var(--main-color);
   border-radius: 1rem;
   /* height: 5.5rem; */
+}
+
+.event_searchBar_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.event_searchBar_container .react-datepicker-wrapper {
+  margin: 12px 0;
+  width: 100%;
 }
 .event_search_month {
   width: 15rem;
