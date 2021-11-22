@@ -12,8 +12,8 @@ function CourseSingleWaitingList() {
     .getItem("WaitingList")
     .substr(0, storage.getItem("WaitingList").length - 1)
     .split(",");
-    console.log("allcourse",allCourse)
-  console.log("waitingList",WaitingList);
+  //console.log("allcourse",allCourse)
+  //console.log("waitingList",WaitingList);
   let checkdWaitingList = allCourse.filter((item) => {
     return WaitingList.includes(`${item.id}`);
   });
@@ -28,7 +28,7 @@ function CourseSingleWaitingList() {
   checkdWaitingList.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
   // 用陣列去排序另一個陣列 ------
 
-  console.log("checkdWaitingList", checkdWaitingList);
+  //console.log("checkdWaitingList", checkdWaitingList);
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -44,7 +44,7 @@ function CourseSingleWaitingList() {
       <div className="d-flex align-items-center Article__area__title">
         <img
           className="Course__area__icon"
-          src="./images/play-list-MainColor.png"
+          src="/images/play-list-MainColor.png"
           alt="播放清單圖示"
         />
         <h2 className="Course__area__title me-3">播放清單</h2>

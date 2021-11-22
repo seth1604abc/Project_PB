@@ -43,7 +43,7 @@ function App() {
           <Route path="/article" exact component={Article}></Route>
           <Route path="/article-single" exact component={ArticleSingle}></Route>
           <Route path="/course" exact component={Course}></Route>
-          <Route path="/course-single" exact component={CourseSingle}></Route>
+          <Route path="/course-single/:courseId" exact component={CourseSingle}></Route>
           <Route path="/product" exact component={Product}></Route>
           <Route path="/product-single/:productId" exact component={ProductSingle}></Route>
           <Route path="/giftcard" exact component={ProductGiftCard}></Route>

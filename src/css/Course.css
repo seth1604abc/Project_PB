@@ -14,6 +14,9 @@
 .HeartColor {
   color: red;
 }
+.LinkNoStyle{
+  text-decoration: none;
+}
 /* 網頁文字設定 */
 
 body {
@@ -210,6 +213,9 @@ option {
   background: white;
   top: 0;
   transition: 0.2s;
+}
+.Courses__singlecourse__card__title{
+color: var(--main-color);
 }
 .Courses__singlecourse__card:hover {
   top: -1rem;
