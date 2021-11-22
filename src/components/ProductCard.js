@@ -15,7 +15,6 @@ function ProductCard({
   category,
   mainImage,
 }) {
-  const[pImg,setPImg]=useState({});
   useEffect(async () => {
     //抓商品圖片
     let pImages = await axios.get(
@@ -25,7 +24,6 @@ function ProductCard({
       }
     );
     console.log(pImages);
-    setPImg(pImages);
   }, []);
 
   //對部位
