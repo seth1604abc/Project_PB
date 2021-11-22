@@ -89,7 +89,8 @@ function ShoppingMain() {
   };
   return (
     <>
-      {/* <button onClick={()=>{console.log(pImg[3])}}>1</button> */}
+      <button onClick={()=>{console.log(pList)
+      console.log(product)}}>1</button>
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}
