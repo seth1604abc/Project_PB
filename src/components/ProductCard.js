@@ -122,12 +122,12 @@ function ProductCard({
                     <p className="card__ranking">1</p> */}
 
           <img
-            src={`./product_images/${mainImage}`}
+            src={`/product_images/${mainImage}`}
             className="card-img-top"
             alt="..."
           />
           <div className="card-body">
-            <div className="card__price">{price}</div>
+            <div className="card__price">NT${price}</div>
             <h5 className="card-title">
               {name}
               <span className="card-title__star">
