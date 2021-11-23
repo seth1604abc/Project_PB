@@ -5,7 +5,7 @@ function CourseSingleHitCourseCard(item) {
     <div>
       <div className="d-flex Course__HitCourse__Card p-2 my-2 pointer">
         <div className="Course__area__Waiting__image ms-2">
-          <img src={item.img} alt="商品圖片" />
+          <img src={`/images/${item.img}.png`} alt="商品圖片" />
         </div>
         <div className="d-flex flex-column justify-content-center ms-3">
           <div className="row p-2">
