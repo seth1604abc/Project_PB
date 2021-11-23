@@ -20,6 +20,7 @@ function CourseListContainer() {
     level_id: "1",
     user_id: "1",
   });
+  const [copyFilterBase, setCopyFilterBase] = useState(filterBase);
   // 關鍵字搜尋
   const [keyWord, setKeyWord] = useState("");
   useEffect(async () => {
@@ -136,6 +137,7 @@ function CourseListContainer() {
       });
       setCourse(coachChecked);
     }
+    setCopyFilterBase(filterBase)
   }
 
   function waitingListButtonToggle(e) {
@@ -174,13 +176,114 @@ function CourseListContainer() {
 
   // 關鍵字搜尋
   function searchtext() {
-    let unsearch = course;
-    //console.log(unsearch);
+    let unserach = course;
     let Keyword = allCourse.filter((item) => {
       return item.title.includes(keyWord);
     });
-    console.log(Keyword)
-    // setCourse(Keyword);
+    console.log("searchtext", Keyword);
+    let defaultFilter = {
+      ...filterBase,
+      body_part_id: "1",
+      user_id: "1",
+      level_id: "1",
+    };
+    setFilterBase(defaultFilter);
+    console.log(defaultFilter);
+    if (keyWord === "") {
+      setFilterBase(copyFilterBase)
+      if (
+        // 身體部位有變化
+        filterBase.body_part_id !== "1" &&
+        filterBase.level_id === "1" &&
+        filterBase.user_id === "1"
+      ) {
+        let bodyPartChecked = allCourse.filter((item) => {
+          return item.body_part_id === Number(filterBase.body_part_id);
+        });
+        setCourse(bodyPartChecked);
+      } else if (
+        // 教練有變化
+        filterBase.body_part_id === "1" &&
+        filterBase.level_id === "1" &&
+        filterBase.user_id !== "1"
+      ) {
+        let coachChecked = allCourse.filter((item) => {
+          return item.user_id === Number(filterBase.user_id);
+        });
+        setCourse(coachChecked);
+      } else if (
+        // 難易度有變化
+        filterBase.body_part_id === "1" &&
+        filterBase.level_id !== "1" &&
+        filterBase.user_id === "1"
+      ) {
+        let levelChecked = allCourse.filter((item) => {
+          return item.level_id === Number(filterBase.level_id);
+        });
+        setCourse(levelChecked);
+      } else if (
+        // 身體部位跟難易度 有變化
+        filterBase.body_part_id !== "1" &&
+        filterBase.level_id !== "1" &&
+        filterBase.user_id === "1"
+      ) {
+        setCourse(allCourse);
+        let bodyPartChecked = allCourse.filter((item) => {
+          return item.body_part_id === Number(filterBase.body_part_id);
+        });
+        let levelChecked = bodyPartChecked.filter((item) => {
+          return item.level_id === Number(filterBase.level_id);
+        });
+        setCourse(levelChecked);
+      } else if (
+        // 身體部位跟教練 有變化
+        filterBase.body_part_id !== "1" &&
+        filterBase.level_id === "1" &&
+        filterBase.user_id !== "1"
+      ) {
+        setCourse(allCourse);
+        let bodyPartChecked = allCourse.filter((item) => {
+          return item.body_part_id === Number(filterBase.body_part_id);
+        });
+        let coachChecked = bodyPartChecked.filter((item) => {
+          return item.user_id === Number(filterBase.user_id);
+        });
+        setCourse(coachChecked);
+      } else if (
+        // 難易度跟教練 有變化
+        filterBase.body_part_id === "1" &&
+        filterBase.level_id !== "1" &&
+        filterBase.user_id !== "1"
+      ) {
+        setCourse(allCourse);
+        let levelChecked = allCourse.filter((item) => {
+          return item.level_id === Number(filterBase.level_id);
+        });
+        let coachChecked = levelChecked.filter((item) => {
+          return item.user_id === Number(filterBase.user_id);
+        });
+        setCourse(coachChecked);
+      } else if (
+        // 三個都有變化
+        filterBase.body_part_id !== "1" &&
+        filterBase.level_id !== "1" &&
+        filterBase.user_id !== "1"
+      ) {
+        setCourse(allCourse);
+        let bodyPartChecked = allCourse.filter((item) => {
+          return item.body_part_id === Number(filterBase.body_part_id);
+        });
+        let levelChecked = bodyPartChecked.filter((item) => {
+          return item.level_id === Number(filterBase.level_id);
+        });
+        let coachChecked = levelChecked.filter((item) => {
+          return item.user_id === Number(filterBase.user_id);
+        });
+        setCourse(coachChecked);
+      }
+    } else {
+      setCourse(Keyword);
+    }
   }
   return (
     <div>
@@ -192,7 +295,7 @@ function CourseListContainer() {
         HitSort={HitSort()}
         setSort={setSort}
         setKeyWord={setKeyWord}
-        searchtext={searchtext()}
+        searchtext={searchtext}
       />
       <div className="Courses__singlecourse__card__flex__wrapper">
         {/* Card */}

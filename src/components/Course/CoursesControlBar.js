@@ -55,8 +55,9 @@ function CourseControlBar({
               console.log(newSelect);
               setFilterBase(newSelect);
             }}
+            defaultValue={filterBase.body_part_id}
           >
-            <option value="1" selected>
+            <option value="1">
               課程分類
             </option>
             <option value="2">手部</option>
@@ -77,8 +78,10 @@ function CourseControlBar({
               console.log(newSelect);
               setFilterBase(newSelect);
             }}
+            defaultValue={filterBase.user_id}
+
           >
-            <option value="1" selected>
+            <option value="1">
               教練
             </option>
             <option value="2">Ariel</option>
@@ -99,8 +102,9 @@ function CourseControlBar({
               console.log(newSelect);
               setFilterBase(newSelect);
             }}
+            defaultValue={filterBase.level_id}
           >
-            <option value="1" selected>
+            <option value="1">
               難易度
             </option>
             <option value="2">初級</option>
@@ -114,14 +118,13 @@ function CourseControlBar({
             class="input-form-control Course__area__Talk__InputArea__Input m-1 ms-3"
             aria-label="Text input with segmented dropdown button"
             placeholder="關鍵字搜尋"
-            onKeyDown={(e) => {
+            onKeyUp={(e) => {
               setKeyWord(e.target.value);
             }}
-            onChenge={searchtext}
           />
-          <a type="button" className="btn">
-            <i class="fas fa-search"></i>
-          </a>
+          <button type="button" className="btn" >
+            <i class="fas fa-search" onClick={searchtext}></i>
+          </button>
         </div>
       </div>
       <div className="Courses__control-bar__sort mt-4 d-flex align-items-center">

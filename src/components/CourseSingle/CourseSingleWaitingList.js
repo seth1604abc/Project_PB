@@ -17,7 +17,7 @@ function CourseSingleWaitingList() {
   let checkdWaitingList = allCourse.filter((item) => {
     return WaitingList.includes(`${item.id}`);
   });
-  
+
   // 用陣列去排序另一個陣列 ------
   // https://newbedev.com/sort-an-array-of-objects-based-on-another-array-of-ids
   const itemPositions = {};
@@ -39,6 +39,7 @@ function CourseSingleWaitingList() {
     setAllCourse(allCourse.data);
   }, []);
 
+  
   return (
     <div className="Course__area Course__Waiting_area p-3">
       <div className="d-flex align-items-center Article__area__title">
@@ -54,18 +55,23 @@ function CourseSingleWaitingList() {
         </div>
       </div>
       <div className="Course__area__List">
-        {checkdWaitingList.map((checkdWaitingList) => {
-          return (
-            <CourseSingleWaitingCard
-              title={checkdWaitingList.title}
-              bodyPart={checkdWaitingList.body_part_id}
-              level={checkdWaitingList.level_id}
-              id={checkdWaitingList.id}
-              filename={checkdWaitingList.filename}
-              checkdWaitingList={checkdWaitingList}
-            />
-          );
-        })}
+        <ul
+          className="Course__Single__WaitingList__Ul moveable"
+          name="itemsList"
+        >
+          {checkdWaitingList.map((checkdWaitingList) => {
+            return (
+              <CourseSingleWaitingCard
+                title={checkdWaitingList.title}
+                bodyPart={checkdWaitingList.body_part_id}
+                level={checkdWaitingList.level_id}
+                id={checkdWaitingList.id}
+                filename={checkdWaitingList.filename}
+                checkdWaitingList={checkdWaitingList}
+              />
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
