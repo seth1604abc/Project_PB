@@ -27,19 +27,19 @@ function ShoppingMain() {
     });
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
-    console.log(resProduct.data)
   }, []);
-
   const hotList = hotProduct.map((product) => {
-    console.log(typeof(product.id))
+    // console.log(typeof product.id);
     return (
       <ProductCard
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
+        category={product.product_type_id}
+        mainImage={product.name}
       />
     );
   });
@@ -47,12 +47,14 @@ function ShoppingMain() {
   let pList = product.map((product) => {
     return (
       <ProductCard
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
+        category={product.product_type_id}
+        mainImage={product.name}
       />
     );
   });
@@ -78,15 +80,17 @@ function ShoppingMain() {
     } else {
       let partList = partProduct.filter((item) => {
         return item.body_part_id === Number(e.target.value);
-      }); 
-      console.log(partProduct)
+      });
+      console.log(partProduct);
       setProduct(partList);
-        console.log(partList);
-        console.log(product);
+      console.log(partList);
+      console.log(product);
     }
   };
   return (
     <>
+      <button onClick={()=>{console.log(pList)
+      console.log(product)}}>1</button>
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}
