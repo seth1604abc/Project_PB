@@ -15,14 +15,33 @@ import CourseSingleProduct from "../components/CourseSingle/CourseSingleProduct"
 import CourseSingleArticle from "../components/CourseSingle/CourseSingleArticle";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function CourseSingle() {
+  const { courseId } = useParams();
+  const [singleCourse, setSingleCourse] = useState();
+  useEffect(async () => {
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
+    let SingleCourse = await axios.get(
+      `http://localhost:3001/Course/SingleCourse/${courseId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    setSingleCourse(SingleCourse.data);
+  }, []);
+
   return (
     <>
       <Navbar />
       <div className="container">
         <div className="Course__video-mainarea mt-4">
-          <CourseSingleVideo />
+          <CourseSingleVideo singleCourse={singleCourse} />
           <CourseSingleWaitingList />
         </div>
         <div className="d-flex  mt-4 ms-4 me-4">

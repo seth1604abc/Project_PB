@@ -14,6 +14,9 @@
 .HeartColor {
   color: red;
 }
+.LinkNoStyle {
+  text-decoration: none;
+}
 /* 網頁文字設定 */
 
 body {
@@ -195,6 +198,14 @@ option {
 }
 
 /* Courses - 課程CARD */
+.Courses__singlecourse__card__flex__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20rem);
+  justify-content: space-between;
+  grid-gap: 4rem;
+  margin: 2rem 0;
+  padding: 0 3.5rem;
+}
 .Courses__singlecourse__card {
   width: 320px;
   cursor: pointer;
@@ -202,6 +213,9 @@ option {
   background: white;
   top: 0;
   transition: 0.2s;
+}
+.Courses__singlecourse__card__title {
+  color: var(--main-color);
 }
 .Courses__singlecourse__card:hover {
   top: -1rem;
@@ -440,6 +454,18 @@ option {
 
 /* 待播清單 */
 
+/* 拖曳功能 開始 */
+.Course__Single__WaitingList__Ul {
+  margin: 0;
+  padding: 0;
+}
+.Course__Single__WaitingList__Li.drag-sort-active {
+  background: transparent;
+  color: transparent;
+  border: 1px solid #4ca1af;
+}
+/* 拖曳功能 結束 */
+
 .Course__Waiting_area {
   width: 35%;
   height: 622px;
@@ -502,7 +528,7 @@ option {
   text-align: center;
 }
 .Course__area__Waiting__image {
-  width: 50%;
+  width: 60%;
 }
 .Course__area__Waiting__image img {
   width: 100%;
