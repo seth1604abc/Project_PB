@@ -33,7 +33,14 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
+    let productImages = await axios.get(
+      `http://localhost:3001/product/all-images/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
     console.log(recommandProduct.data);
+    setProductImages(productImages.data);
     setProductData(product.data[0]);
     setRProduct(recommandProduct.data);
     setShowText(product.data[0].intro);
@@ -41,6 +48,8 @@ const ProductSingle = () => {
     console.log(recommandProduct.data);
   }, []);
   const { category, productId } = useParams();
+  //商品圖片
+  const [productImages, setProductImages] = useState([]);
   //拿商品資料
   const [productData, setProductData] = useState({});
   //推薦商品資料
@@ -59,7 +68,6 @@ const ProductSingle = () => {
     );
   });
   //拿url傳的資料
-  
 
   //拿介紹文字
   const text = ["介紹", "規格"];
@@ -92,9 +100,9 @@ const ProductSingle = () => {
   return (
     <>
       <Navbar id="productSingle-start" />
-      <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
-        <div className="productMain_pictures me-5">
-          <Gallery />
+      <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
+        <div className="productMain_pictures ">
+          <Gallery images={productImages} className="productSingleGallery"/>
           {/* <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=picture"
             alt=""
@@ -120,6 +128,7 @@ const ProductSingle = () => {
                   handleClick(0);
                   console.log(productData);
                   console.log(Number(category));
+                  console.log(productImages);
                 }}
               >
                 -
@@ -203,9 +212,9 @@ const ProductSingle = () => {
           </div>
           {rList}
           <Link to="/product">
-          <button className="btn product__secondary__recommand__more align-self-end mb-5">
-            更多商品
-          </button>
+            <button className="btn product__secondary__recommand__more align-self-end mb-5">
+              更多商品
+            </button>
           </Link>
           <CourseSingleHitCourse />
         </div>
