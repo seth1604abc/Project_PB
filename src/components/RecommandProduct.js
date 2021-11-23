@@ -1,7 +1,5 @@
 import React from 'react'
-import{useState,useEffect}from "react"
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const RecommandProduct = ({productId,name,sold,part,price,rate,category,image}) => {
     

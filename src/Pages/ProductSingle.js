@@ -15,6 +15,7 @@ import { useParams,useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ProductSingle = () => {
+  //拿url傳的資料
   const { category, productId } = useParams();
   const location=useLocation();
 
@@ -36,27 +37,51 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
+    //取得商品圖片
     let productImages = await axios.get(
       `http://localhost:3001/product/all-images/${productId}`,
       {
         withCredentials: true,
       }
     );
+    //取得商品留言
+    let productComment = await axios.get(
+      `http://localhost:3001/product/comments/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    setComments(productComment.data);
     setProductImages(productImages.data);
     setProductData(product.data[0]);
     setRProduct(recommandProduct.data);
     setShowText(product.data[0].intro);
-    console.log(recommandProduct.data);
+    console.log(productComment.data);
+    // console.log(recommandProduct.data);
     // console.log(product.data[0]);
     // console.log(recommandProduct.data);
     let newList=[productData.intro, productData.detail];
     const show =newList;
   }, [location]);
-   
+
+  //商品留言
+  const[comments,setComments]=useState([]);
+  const cList=comments.map((comment)=>{
+    return( <Comment 
+      content={comment.content}
+      name={`${comment.first_name}${comment.last_name}`}
+      rate={comment.rate}
+      createdTime={comment.created_at}
+      user_id={comment.user_id}
+      product_id={comment.product_id}
+    />)
+  });
   //商品圖片
   const [productImages, setProductImages] = useState([]);
+
   //拿商品資料
   const [productData, setProductData] = useState({});
+
   //推薦商品資料
   const [rProduct, setRProduct] = useState([]);
   const rList = rProduct.map((product) => {
@@ -73,7 +98,7 @@ const ProductSingle = () => {
       />
     );
   });
-  //拿url傳的資料
+  
 
   //拿介紹文字
   const text = ["介紹", "規格"];
@@ -201,10 +226,11 @@ const ProductSingle = () => {
           </div>
           <div className="product__secondary__left__comment  d-flex flex-column mb-5">
             <div>商品評價</div>
+            {cList}
+            {/* <Comment />
             <Comment />
             <Comment />
-            <Comment />
-            <Comment />
+            <Comment /> */}
             <button className="btn product__secondary__left__comment__more m-1 align-self-end">
               更多評論
             </button>
