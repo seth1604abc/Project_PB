@@ -5,30 +5,31 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function EventSearchBar() {
   const [startDate, setStartDate] = useState(new Date());
-  const [finishDate, setFinishDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   return (
     <div className="event_searchBar_wrapper my-5">
       <div className="event_searchBar_container">
-        <span className="mx-5 text-white h5">活動區間</span>
+        <span className="text-white h5 event_rangeText">活動區間</span>
         <div>
-          <DatePicker
-            className="event_search_month"
-            id="event_search_month"
-            name="event_search_month"
-            select={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
+        <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
+      />
         </div>
         <span className="text-white h5 mx-4">至</span>
         <div>
-          <DatePicker
-            className="event_search_month"
-            id="event_search_month"
-            name="event_search_month"
-            select={finishDate}
-            onChange={(date) => setFinishDate(date)}
-          />
+        <DatePicker
+        selected={endDate}
+        onChange={(date) => setEndDate(date)}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
+      />
         </div>
         <button type="event_search_submit" className="event_search_submit">
           <i className="fa fa-search"></i>
