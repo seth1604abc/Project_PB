@@ -11,17 +11,20 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ProductSingle = () => {
+  const { category, productId } = useParams();
+  const location=useLocation();
+
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
     let recommandProduct = await axios.get(
-      `http://localhost:3001/product/recommand-product/${category}`,
+      `http://localhost:3001/product/recommand-product/${category}/${productId}`,
       {
         withCredentials: true,
       }
@@ -39,15 +42,17 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
-    console.log(recommandProduct.data);
     setProductImages(productImages.data);
     setProductData(product.data[0]);
     setRProduct(recommandProduct.data);
     setShowText(product.data[0].intro);
-    console.log(product.data[0]);
     console.log(recommandProduct.data);
-  }, []);
-  const { category, productId } = useParams();
+    // console.log(product.data[0]);
+    // console.log(recommandProduct.data);
+    let newList=[productData.intro, productData.detail];
+    const show =newList;
+  }, [location]);
+   
   //商品圖片
   const [productImages, setProductImages] = useState([]);
   //拿商品資料
@@ -57,13 +62,14 @@ const ProductSingle = () => {
   const rList = rProduct.map((product) => {
     return (
       <RecommandProduct
-        productId={product.id}
+        productId={product.product_id}
         name={product.title}
         sold={product.sold}
         part={product.body_part_id}
         price={product.price}
         rate={product.average_rate}
         category={product.product_type_id}
+        image={product.name}
       />
     );
   });
@@ -71,7 +77,7 @@ const ProductSingle = () => {
 
   //拿介紹文字
   const text = ["介紹", "規格"];
-  const show = [productData.intro, productData.detail];
+  let show = [productData.intro, productData.detail];
   const [showText, setShowText] = useState(show[0]);
 
   //記數量
