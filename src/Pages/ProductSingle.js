@@ -24,8 +24,17 @@ const ProductSingle = () => {
       top: 0,
       behavior: "instant",
     });
+    //取得推薦商品
     let recommandProduct = await axios.get(
       `http://localhost:3001/product/recommand-product/${category}/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    //取得推薦文章
+    let recommandArticle = await axios.get(
+      `http://localhost:3001/product/article/${category}/${productId}`,
       {
         withCredentials: true,
       }
