@@ -33,12 +33,12 @@ const ProductSingle = () => {
     );
 
     //取得推薦文章
-    let recommandArticle = await axios.get(
-      `http://localhost:3001/product/article/${category}/${productId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    // let recommandArticle = await axios.get(
+    //   `http://localhost:3001/product/article/${category}/${productId}`,
+    //   {
+    //     withCredentials: true,
+    //   }
+    // );
 
     let product = await axios.get(
       `http://localhost:3001/product/${productId}`,
