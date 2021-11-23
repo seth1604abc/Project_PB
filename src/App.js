@@ -6,7 +6,7 @@ import ProductSingle from "./Pages/ProductSingle";
 import ProductGiftCard from "./Pages/ProductGiftCard";
 import GiftCardCheckout from "./Pages/GiftCardCheckout";
 import GiftCardWriting from "./Pages/GiftCardWriting";
-import './Home.css';
+import './css/Home.css';
 import Course from "./Pages/Course";
 import CourseSingle from "./Pages/CourseSingle";
 import Article from "./Pages/Article";
@@ -30,6 +30,7 @@ import CoachEventAdd from './Pages/CoachEventAdd';
 import CoachEventEdit from './Pages/CoachEventEdit';
 import CoachCourseAdd from './Pages/CoachCourseAdd';
 
+
 function App() {
   return (
 
@@ -42,9 +43,9 @@ function App() {
           <Route path="/article" exact component={Article}></Route>
           <Route path="/article-single" exact component={ArticleSingle}></Route>
           <Route path="/course" exact component={Course}></Route>
-          <Route path="/course-single" exact component={CourseSingle}></Route>
+          <Route path="/course-single/:courseId" exact component={CourseSingle}></Route>
           <Route path="/product" exact component={Product}></Route>
-          <Route path="/product-single" exact component={ProductSingle}></Route>
+          <Route path="/product-single/:category/:productId" exact component={ProductSingle}></Route>
           <Route path="/giftcard" exact component={ProductGiftCard}></Route>
           <Route path="/giftcard-checkout" exact component={GiftCardCheckout}></Route>
           <Route path="/giftcard-writing" exact component={GiftCardWriting}></Route>
@@ -66,6 +67,7 @@ function App() {
           <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>          
         </Switch>
       </Router>
+     
     </div>
   );
 }

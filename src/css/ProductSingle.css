@@ -1,7 +1,15 @@
-body{
-  background-color: #F7FAFF;
+body {
+  background-color: #f7faff;
 }
 /* 商品主資訊區 */
+.carousel-control-prev {
+}
+
+.productMain_pictures{
+  overflow: hidden;
+  width: 35rem;
+  height: 35rem;
+}
 .productMain__info h1 {
   color: #09203f;
   font-weight: 700;
@@ -28,11 +36,9 @@ hr {
   font-size: 1.5rem;
 }
 .productMain__info__count__group {
-  border: #09203f 1px solid;
-  width: 60%;
-  border-radius: 5px;
+  width: 53%;
 }
-.productMain__info__count__group{
+.productMain__info__count__group {
   background-color: #fff;
 }
 .productMain__info__count__group__add {
@@ -50,8 +56,8 @@ hr {
   color: #fff;
   border-radius: 5px 0 0 5px;
 }
-.productMain__info__count__group__substract:hover{
-  background-color:#2571e3;
+.productMain__info__count__group__substract:hover {
+  background-color: #2571e3;
   color: #fff;
   border-radius: 5px 0 0 5px;
 }
@@ -60,29 +66,26 @@ hr {
   background-color: #ffecd2;
   color: #09203f;
   font-size: 1.2rem;
-  transition: .4s;
+  transition: 0.4s;
   margin-right: 5rem;
 }
 .productMain__info__btn--cart:hover {
   background-color: #ffecd2;
   color: #09203f;
-  
+
   transform: scale(1.1);
 }
 .productMain__info__btn--buy {
   background-color: #2571e3;
   color: #fff;
   font-size: 1.2rem;
-  transition: .4s;
-  
+  transition: 0.4s;
 }
 .productMain__info__btn--buy:hover {
   background-color: #2571e3;
   color: #fff;
   transform: scale(1.1);
-  
 }
-
 
 /* 商品介紹區 */
 .product__secondary__left__btn--intro {
@@ -92,14 +95,14 @@ hr {
   padding: 10px;
   border-bottom: transparent;
   border-radius: 5px 5px 0 0;
-  transition: .4s;
+  transition: 0.4s;
 }
-.product__secondary__left__btn--intro:hover{
+.product__secondary__left__btn--intro:hover {
   background-color: #09203f;
   color: #fff;
   font-size: 1.1rem;
 }
-.product__secondary__left__btn--intro:active{
+.product__secondary__left__btn--intro:active {
   background-color: #2571e3;
   color: #fff;
 }
@@ -108,18 +111,18 @@ hr {
   padding: 10px;
   border-bottom: transparent;
   border-radius: 5px 5px 0 0;
-  transition: .4s;
+  transition: 0.4s;
 }
-.product__secondary__left__btn--detail:hover{
+.product__secondary__left__btn--detail:hover {
   background-color: #09203f;
   color: #fff;
   font-size: 1.1rem;
 }
-.product__secondary__left__btn--detail:active{
+.product__secondary__left__btn--detail:active {
   background-color: #2571e3;
   color: #fff;
 }
-.product__secondary__left__btn--detail-active{
+.product__secondary__left__btn--detail-active {
   background-color: #09203f;
   color: #fff;
   font-size: 1.1rem;
@@ -159,20 +162,26 @@ hr {
   border: 1px solid #09203f;
   color: #09203f;
   border-radius: 0;
-  transition: .4s;
+  transition: 0.4s;
 }
-.product__secondary__left__comment__more:hover{
+.product__secondary__left__comment__more:hover {
   border: 1px solid transparent;
   background-color: #09203f;
   color: #fff;
   font-size: 1.1rem;
 }
-.product__secondary__left__comment__more:active{
+.product__secondary__left__comment__more:active {
   border: 1px solid transparent;
   background-color: #2571e3;
-  
 }
 /* 推薦商品區 */
+.recomandProductLink {
+  text-decoration: none;
+  color: #09203f;
+}
+.recomandProductLink:hover {
+  color: #2571e3;
+}
 .product__secondary__recommand {
   width: 30%;
   height: auto;
@@ -184,7 +193,7 @@ hr {
   border: 1px solid #09203f;
   color: #09203f;
   border-radius: 0;
-  transition: .4s;
+  transition: 0.4s;
 }
 .product__secondary__recommand__more:hover {
   border: 1px solid transparent;
@@ -192,14 +201,14 @@ hr {
   color: #fff;
   font-size: 1.1rem;
 }
-.product__secondary__recommand__more:active { 
+.product__secondary__recommand__more:active {
   background-color: #2571e3;
 }
-.RecommandProduct{
+.RecommandProduct {
   border-radius: 0.8rem;
-  transition: .4s;
+  transition: 0.4s;
 }
-.RecommandProduct:hover{
+.RecommandProduct:hover {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
@@ -215,12 +224,12 @@ hr {
 }
 
 /* 推薦文章區 */
-.article-card{
+.article-card {
   border-radius: 10px;
   /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
-  transition: .4s;
+  transition: 0.4s;
 }
-.article-card:hover{
+.article-card:hover {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);

@@ -1,50 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MemberLeftBar from "../components/MemberLeftBar";
 import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { useHistory } from 'react-router-dom';
 
 function MemberEvent() {
-  const datas = [
-    {
-      id: 1,
-      title: "臨時活動名稱1",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 2,
-      title: "臨時活動名稱2",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 3,
-      title: "臨時活動名稱3",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 4,
-      title: "臨時活動名稱4",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 5,
-      title: "臨時活動名稱5",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 6,
-      title: "臨時活動名稱6",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-  ];
+  const [memberEventData, setMemberEventData] = useState([]);
+  const history = useHistory();
 
-  const [memberEventData, setMemberEventData] = useState(datas);
+  useEffect(async () => {
+    let result = await axios.get("http://localhost:3001/member/event", {withCredentials: true});
+    console.log(result);
+    setMemberEventData(result.data);
+  }, [])
+  
+  
 
   const handleDelete = (e) => {
     let id = e.target.id;
@@ -54,11 +26,16 @@ function MemberEvent() {
       showDenyButton: true,
       confirmButtonText: "確定",
       denyButtonText: "取消",
-    }).then((result) => {
+    }).then( async (result) => {
       if (result.isConfirmed) {
         Swal.fire("成功刪除");
-        setMemberEventData(memberEventData.filter((data) => data.id != id));
+        let result = await axios.post("http://localhost:3001/member/event-delete", {id: id}, {withCredentials: true});
+        if(result){
+          history.go(0);
+        }
+        
       }
+      
     });
   };
 
@@ -72,17 +49,19 @@ function MemberEvent() {
             return (
               <>
                 <div className="member-activity-content__card">
-                  <div className="member-activity-content__card__img"></div>
+                  <div className="member-activity-content__card__img">
+                    <img src={`/event_imgs/${data.image}`} alt="" />
+                  </div>
                   <div className="member-activity-content__card__info d-flex">
                     <div className="member-activity-content__card__info__title">
                       <p>活動名稱:</p>
-                      <p>活動時間:</p>
-                      <p>地點:</p>
+                      <p style={{ marginTop: "20px" }}>活動時間:</p>
+                      <p style={{ marginTop: "20px" }}>地點:</p>
                     </div>
                     <div className="member-activity-content__card__info__data">
                       <p>{data.title}</p>
-                      <p style={{ marginTop: "20px" }}>{data.datetime}</p>
-                      <p style={{ marginTop: "20px" }}>{data.location}</p>
+                      <p style={{ marginTop: "25px" }}>{data.datetime}</p>
+                      <p style={{ marginTop: "25px" }}>{data.location}</p>
                     </div>
                   </div>
                   <div className="member-activity-content__card__control">

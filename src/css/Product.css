@@ -36,6 +36,15 @@ body{
   top: -1rem;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 }
+.card a{
+  color: #09203f;
+}
+.card img{
+  width: 320px;
+  height: 300px;
+  object-fit:cover;
+  align-self: center;
+}
 .card__crown {
   color: rgb(255, 230, 0);
   font-size: 4rem;
@@ -76,6 +85,7 @@ body{
   right: 5%;
   color: #ffecd2;
   transition: 0.3s;
+  background-color: #537895 !important;
 }
 .card__addCart button:hover {
   color:#09203f  !important;

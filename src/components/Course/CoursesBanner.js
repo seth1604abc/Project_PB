@@ -15,24 +15,12 @@ function CoursesBanner() {
   );
   const [banner3button, setBanner3button] = useState("");
   // 自動播放
-  const video1 = document.getElementById("video1");
-  const video2 = document.getElementById("video2");
-  const video3 = document.getElementById("video3");
-  const palyPause = (index) => {
-    if (index === 1) {
-      video1.play();
-      video2.pause();
-      video3.pause();
-    } else if (index === 2) {
-      video1.pause();
-      video2.play();
-      video3.pause();
-    } else {
-      video1.pause();
-      video2.pause();
-      video3.play();
-    }
-  }
+  const palyPause = (e) => {
+    document.querySelector("#video1").pause();
+    document.querySelector("#video2").pause();
+    document.querySelector("#video3").pause();
+    document.querySelector(`#video${e}`).play();
+  };
   // 點擊按鈕 function
   function clickBtn(index) {
     if (index === 1) {
@@ -66,8 +54,8 @@ function CoursesBanner() {
     <div className="range">
       <div className={`d-flex Courses__Banner ${bannerPos}`}>
         <div
-          className=" Courses__Banner-1"
-          onClick={() => {
+          className="Courses__Banner-1"
+          onClick={(e) => {
             clickBtn(1);
             palyPause(1);
           }}
@@ -75,14 +63,14 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner1Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video1" className="pointer">
-                <source src="./videos/01.mp4" types="video/mp4" />
+                <source src="/videos/01.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
         </div>
         <div
           className="Courses__Banner-2"
-          onClick={() => {
+          onClick={(e) => {
             clickBtn(2);
             palyPause(2);
           }}
@@ -90,14 +78,14 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner2Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video2" autoPlay className="pointer">
-                <source src="./videos/02.mp4" types="video/mp4" />
+                <source src="/videos/02.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
         </div>
         <div
           className="Courses__Banner-3"
-          onClick={() => {
+          onClick={(e) => {
             clickBtn(3);
             palyPause(3);
           }}
@@ -105,7 +93,7 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner3Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video3" className="pointer">
-                <source src="./videos/03.mp4" types="video/mp4" />
+                <source src="/videos/03.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
@@ -115,7 +103,7 @@ function CoursesBanner() {
         <ul className="row">
           <li
             className="col"
-            onClick={() => {
+            onClick={(e) => {
               clickBtn(1);
               palyPause(1);
             }}
@@ -124,7 +112,7 @@ function CoursesBanner() {
           </li>
           <li
             className="col"
-            onClick={() => {
+            onClick={(e) => {
               clickBtn(2);
               palyPause(2);
             }}
@@ -133,7 +121,7 @@ function CoursesBanner() {
           </li>
           <li
             className="col"
-            onClick={() => {
+            onClick={(e) => {
               clickBtn(3);
               palyPause(3);
             }}
