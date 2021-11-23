@@ -4,7 +4,7 @@ function Membericon() {
   return (
     <>
       <div className="Courses__singlecourse__card__coach">
-        <img src="./images/03.jpg" alt="coach" />
+        <img src='/images/03.jpg' alt="coach" />
       </div>
     </>
   );
