@@ -1,7 +1,19 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 function MemberLeftBar() {
+    const [photo, setPhoto] = useState("");
+
+    useEffect(async () => {
+        let result = await axios.get("http://localhost:3001/member/memberphoto", {withCredentials: true})
+        if(result.data[0]){
+            setPhoto(result.data[0].image);
+        }        
+        
+        
+    }, [])
+
     return (
         <>
             <div className="member-left-nav">
@@ -9,8 +21,8 @@ function MemberLeftBar() {
                     <h2>會員專區</h2>
                     <p>首頁>會員專區>個人資料</p>
                 </div> */}
-                <div style={{paddingLeft: "50px", margin: "50px 0"}}>
-                    <img src="/image/member.png" alt="" style={{width: "200px", height: "200px"}} />
+                <div className="member-main-info__img__ct" style={{margin: "50px 0", border: "0px"}}>
+                    <img src={`/image/${photo}`} alt=""/>
                 </div>
                 <ul className="member-left__ul">
                     <li>
