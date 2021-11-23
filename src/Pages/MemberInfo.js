@@ -114,14 +114,35 @@ function MemberInfo() {
     }    
   }
 
-  const uploadPost = async () => {
-    for (let pair of uploadImage.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+  const uploadPost = () => {    
+    if(uploadImage != null) {      
+      Swal.fire({
+        text: "確定要更改大頭貼?",
+        showDenyButton: true,
+        confirmButtonText: "確定",
+        denyButtonText: "取消",
+      }).then( async (result) => {
+        if(result.isConfirmed){
+          let res = await axios.post("http://localhost:3001/member/formdata", uploadImage, {withCredentials: true})
+          Swal.fire("上傳成功");
+          history.go(0);
+        }
+      })
     }
-    if(uploadImage != null) {
-      let res = await axios.post("http://localhost:3001/member/formdata", {data: uploadImage})
-      console.log(res);
-    }
+  }
+
+  const handleCountyChange = (e) => {
+    const {countyValue} = e;
+    let newData = {...data}
+    newData.city = countyValue;
+    setData(newData);
+  }
+
+  const handleDistrictChange = (e) => {    
+    const {districtValue} = e;
+    let newData = {...data};
+    newData.area = districtValue;    
+    setData(newData);
   }
 
   return (
@@ -177,7 +198,7 @@ function MemberInfo() {
                   <label for="">地址</label>
                   <br />  
 
-                  <ZipCodeTW displayType="text" zipStyle={{display: "none"}} districtStyle={{marginLeft: "20px"}} districtClass="districtClass" countyClass="countyClass"/>
+                  <ZipCodeTW displayType="text" zipStyle={{display: "none"}} districtStyle={{marginLeft: "20px"}} districtClass="districtClass" countyClass="countyClass" countyValue={data.city} handleChangeCounty={handleCountyChange} districtValue={data.area} handleChangeDistrict={handleDistrictChange}/>
 
                   <input type="text" style={{marginTop: "15px"}} defaultValue={data.address} name="address"/>
                   <div className="member-main-info--l__ct__btn">
