@@ -41,6 +41,28 @@ function CoachEventAddCard() {
       // console.log(eventName);
    
     }
+
+    const[image, setImage] = useState('')
+    const[loading, setLoading] = useState(false)
+
+    const uploadImage = async e => {
+      const files = e.target.files
+      const data = new FormData()
+      data.append('file', files[0]) 
+      setLoading(true)
+      const res = await fetch(
+        'http://localhost:3001/event/coach-event-add',
+        {
+          method: 'POST',
+          body: data
+        } 
+      )
+      const file = await res.json()
+
+      setImage(file.secure_url)
+      setLoading(false)
+    }
+
   return (
     <div className="member-activity-content ">
       <div className="row" style={{ margin: "50px 150px" }}>
@@ -54,7 +76,11 @@ function CoachEventAddCard() {
                 className="form-control"
                 name="CoachEventAdd_banner"
                 id="banner"
+                onChange={uploadImage}
               />
+              {loading ? (
+                <h3>Loading....</h3> 
+              ): (<img src= {image} style={{ width: '300px' }} alt="" />)}
             </div>
             <div className="mb-4">
               <label for="">活動名稱</label>
