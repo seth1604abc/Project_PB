@@ -11,15 +11,34 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductSingle = () => {
-  
+  //拿url傳的資料
+  const { category, productId } = useParams();
+  const location = useLocation();
+
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
+    //取得推薦商品
+    let recommandProduct = await axios.get(
+      `http://localhost:3001/product/recommand-product/${category}/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    //取得推薦文章
+    // let recommandArticle = await axios.get(
+    //   `http://localhost:3001/product/article/${category}/${productId}`,
+    //   {
+    //     withCredentials: true,
+    //   }
+    // );
 
     let product = await axios.get(
       `http://localhost:3001/product/${productId}`,
@@ -27,17 +46,76 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
-      setProductData(product.data[0]);
-      setShowText(product.data[0].intro);
+    //取得商品圖片
+    let productImages = await axios.get(
+      `http://localhost:3001/product/all-images/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    //取得商品留言
+    let productComment = await axios.get(
+      `http://localhost:3001/product/comments/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    setComments(productComment.data);
+    setProductImages(productImages.data);
+    setProductData(product.data[0]);
+    setRProduct(recommandProduct.data);
+    setShowText(product.data[0].intro);
+    console.log(productComment.data);
+    console.log(recommandProduct.data);
     console.log(product.data[0]);
-  }, []);
+    console.log(recommandProduct.data);
+    let newList = [productData.intro, productData.detail];
+    const show = newList;
+  }, [location]);
 
-  const [ productData, setProductData] = useState({});
-  const { productId } = useParams();
+  //商品留言
+  const [comments, setComments] = useState([]);
+  const cList = comments.map((comment) => {
+    return (
+      <Comment
+        content={comment.content}
+        name={`${comment.first_name}${comment.last_name}`}
+        rate={comment.rate}
+        createdTime={comment.created_at}
+        user_id={comment.user_id}
+        product_id={comment.product_id}
+      />
+    );
+  });
+  //商品圖片
+  const [productImages, setProductImages] = useState([]);
+
+  //拿商品資料
+  const [productData, setProductData] = useState({});
+
+  //推薦商品資料
+  const [rProduct, setRProduct] = useState([]);
+  const rList = rProduct.map((product) => {
+    return (
+      <RecommandProduct
+        productId={product.product_id}
+        name={product.title}
+        sold={product.sold}
+        part={product.body_part_id}
+        price={product.price}
+        rate={product.average_rate}
+        category={product.product_type_id}
+        image={product.name}
+      />
+    );
+  });
+
+  //拿介紹文字
   const text = ["介紹", "規格"];
-  const show=[productData.intro,productData.detail];
+  let show = [productData.intro, productData.detail];
   const [showText, setShowText] = useState(show[0]);
 
+  //記數量
   const [number, setNumber] = useState(1);
   const handleClick = (i) => {
     if (i === 0) {
@@ -63,9 +141,9 @@ const ProductSingle = () => {
   return (
     <>
       <Navbar id="productSingle-start" />
-      <div className=" my-5 productMain container d-flex justify-content-center align-items-center">
-        <div className="productMain_pictures me-5">
-          <Gallery />
+      <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
+        <div className="productMain_pictures ">
+          <Gallery images={productImages} className="productSingleGallery" />
           {/* <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=picture"
             alt=""
@@ -75,7 +153,8 @@ const ProductSingle = () => {
           <h1>{productData.title}</h1>
           <a href="#/">
             <span className="me-1">
-            {productData.average_rate}<i className="fas fa-star"></i>
+              {productData.average_rate}
+              <i className="fas fa-star"></i>
             </span>{" "}
             10筆評價
           </a>
@@ -88,7 +167,9 @@ const ProductSingle = () => {
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
                   handleClick(0);
-                  console.log(productData)
+                  console.log(productData);
+                  console.log(Number(category));
+                  console.log(productImages);
                 }}
               >
                 -
@@ -131,7 +212,7 @@ const ProductSingle = () => {
               }`}
               onClick={() => {
                 setShowText(show[0]);
-                console.log(show)
+                console.log(show);
               }}
             >
               商品介紹
@@ -139,7 +220,7 @@ const ProductSingle = () => {
             <button
               onClick={() => {
                 setShowText(show[1]);
-                console.log(showText)
+                console.log(showText);
               }}
               className={`btn product__secondary__left__btn--detail ${
                 showText === show[1]
@@ -155,10 +236,11 @@ const ProductSingle = () => {
           </div>
           <div className="product__secondary__left__comment  d-flex flex-column mb-5">
             <div>商品評價</div>
+            {cList}
+            {/* <Comment />
             <Comment />
             <Comment />
-            <Comment />
-            <Comment />
+            <Comment /> */}
             <button className="btn product__secondary__left__comment__more m-1 align-self-end">
               更多評論
             </button>
@@ -167,16 +249,15 @@ const ProductSingle = () => {
         </div>
         <div className="product__secondary__recommand d-flex flex-column align-items-start ms-5 ">
           <div className="d-flex Article__area__title w-100">
-            <i class="fas fa-shopping-bag Course__area__icon p-2"></i>
+            <i className="fas fa-shopping-bag Course__area__icon p-2"></i>
             <h2 className="">推薦商品</h2>
           </div>
-
-          <RecommandProduct />
-          <RecommandProduct />
-          <RecommandProduct />
-          <button className="btn product__secondary__recommand__more align-self-end mb-5">
-            更多商品
-          </button>
+          {rList}
+          <Link to="/product">
+            <button className="btn product__secondary__recommand__more align-self-end mb-5">
+              更多商品
+            </button>
+          </Link>
           <CourseSingleHitCourse />
         </div>
       </div>
