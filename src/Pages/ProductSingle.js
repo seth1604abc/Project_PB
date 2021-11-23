@@ -11,13 +11,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
-import { useParams,useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ProductSingle = () => {
   //拿url傳的資料
   const { category, productId } = useParams();
-  const location=useLocation();
+  const location = useLocation();
 
   useEffect(async () => {
     window.scroll({
@@ -66,24 +66,26 @@ const ProductSingle = () => {
     setRProduct(recommandProduct.data);
     setShowText(product.data[0].intro);
     console.log(productComment.data);
-    // console.log(recommandProduct.data);
-    // console.log(product.data[0]);
-    // console.log(recommandProduct.data);
-    let newList=[productData.intro, productData.detail];
-    const show =newList;
+    console.log(recommandProduct.data);
+    console.log(product.data[0]);
+    console.log(recommandProduct.data);
+    let newList = [productData.intro, productData.detail];
+    const show = newList;
   }, [location]);
 
   //商品留言
-  const[comments,setComments]=useState([]);
-  const cList=comments.map((comment)=>{
-    return( <Comment 
-      content={comment.content}
-      name={`${comment.first_name}${comment.last_name}`}
-      rate={comment.rate}
-      createdTime={comment.created_at}
-      user_id={comment.user_id}
-      product_id={comment.product_id}
-    />)
+  const [comments, setComments] = useState([]);
+  const cList = comments.map((comment) => {
+    return (
+      <Comment
+        content={comment.content}
+        name={`${comment.first_name}${comment.last_name}`}
+        rate={comment.rate}
+        createdTime={comment.created_at}
+        user_id={comment.user_id}
+        product_id={comment.product_id}
+      />
+    );
   });
   //商品圖片
   const [productImages, setProductImages] = useState([]);
@@ -107,7 +109,6 @@ const ProductSingle = () => {
       />
     );
   });
-  
 
   //拿介紹文字
   const text = ["介紹", "規格"];
@@ -142,7 +143,7 @@ const ProductSingle = () => {
       <Navbar id="productSingle-start" />
       <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
         <div className="productMain_pictures ">
-          <Gallery images={productImages} className="productSingleGallery"/>
+          <Gallery images={productImages} className="productSingleGallery" />
           {/* <img
             src="https://via.placeholder.com/550x400/333/FFECD2/?text=picture"
             alt=""
