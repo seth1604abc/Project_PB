@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MemberLeftBar from "../components/MemberLeftBar";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from 'axios';
 
 function MemberCoin() {
+  const [data, setData] = useState([]);
+  const [balance, setBalance] = useState(0);
+  
+  useEffect(async () => {
+    let response = await axios.get("http://localhost:3001/member/coin-balance", { withCredentials: true})    
+    setBalance(response.data[0].point);
+    let result = await axios.get("http://localhost:3001/member/coin", { withCredentials: true})
+    console.log(result.data);
+    let total = 0;
+    for(let i=0; i<result.data.length; i++){
+      total = total + result.data[i].gain_point - result.data[i].use_point;
+      result.data[i].balance = total;
+    }
+    setData(result.data);
+  }, [])
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "訂單編號", width: 150 },
-    { field: "gain", headerName: "獲得點數", width: 150 },
-    { field: "used", headerName: "使用點數", width: 150 },
+    { field: "gain_point", headerName: "獲得點數", width: 150 },
+    { field: "use_point", headerName: "使用點數", width: 150 },
     { field: "balance", headerName: "點數餘額", width: 150 },
-    { field: "time", headerName: "時間", width: 150 },
+    { field: "created_at", headerName: "時間", width: 150 },
   ];
 
-  const rows: GridRowsProp = [
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-    { id: 20211104, gain: 20, used: "10", balance: 189, time: "2021/11/04" },
-  ];
+  const rows: GridRowsProp = data;
 
   return (
     <>
@@ -38,7 +47,7 @@ function MemberCoin() {
                   class="fas fa-dollar-sign"
                   style={{ color: "yellow", marginRight: "10px" }}
                 ></i>
-                500
+                {balance}
               </p>
             </div>
           </div>

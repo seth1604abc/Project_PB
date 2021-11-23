@@ -3,9 +3,31 @@ import { useState, useEffect } from "react";
 import Popover from "@mui/material/Popover";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import axios from "axios";
 
-function ProductCard({ productId, name, sold, rate, part, price }) {
+function ProductCard({
+  productId,
+  name,
+  sold,
+  rate,
+  part,
+  price,
+  category,
+  mainImage,
+}) {
+  useEffect(async () => {
+    //抓商品圖片
+    let pImages = await axios.get(
+      `http://localhost:3001/product/images/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(pImages);
+  }, []);
+
   //對部位
+
   let bodyPart = {
     0: "綜合",
     1: "手部",
@@ -92,17 +114,20 @@ function ProductCard({ productId, name, sold, rate, part, price }) {
             </div>
           </Popover>
         </div>
-        <Link to={`/product-single/${productId}`} className="text-decoration-none">
+        <Link
+          to={`/product-single/${category}/${productId}`}
+          className="text-decoration-none"
+        >
           {/* <div className="card__crown"><i className="fas fa-crown"></i></div>
                     <p className="card__ranking">1</p> */}
 
           <img
-            src="https://via.placeholder.com/200x150/333/FFECD2/?text=picture"
+            src={`/product_images/${mainImage}`}
             className="card-img-top"
             alt="..."
           />
           <div className="card-body">
-            <div className="card__price">${price}</div>
+            <div className="card__price">NT${price}</div>
             <h5 className="card-title">
               {name}
               <span className="card-title__star">

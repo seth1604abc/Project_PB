@@ -63,7 +63,7 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner1Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video1" className="pointer">
-                <source src="./videos/01.mp4" types="video/mp4" />
+                <source src="/videos/01.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
@@ -78,7 +78,7 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner2Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video2" autoPlay className="pointer">
-                <source src="./videos/02.mp4" types="video/mp4" />
+                <source src="/videos/02.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
@@ -93,7 +93,7 @@ function CoursesBanner() {
           <div className={`Courses__Banner__Mask ${banner3Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
               <video muted loop id="video3" className="pointer">
-                <source src="./videos/03.mp4" types="video/mp4" />
+                <source src="/videos/03.mp4" types="video/mp4" />
               </video>
             </div>
           </div>
