@@ -1,8 +1,9 @@
 import React from "react";
 import Membericon from "../MemberIcon.js";
 import { useState } from "react";
+import { BODY_PARTS, LEVEL} from '../BodyPartandLevelTable'
 
-function CourseSingleVideo() {
+function CourseSingleVideo({singleCourse}) {
   const [seeall, setSeeall] = useState("");
   function viewall(e) {
     if (seeall === "") {
@@ -24,24 +25,28 @@ function CourseSingleVideo() {
       setIcon("far");
     }
   }
+  console.log(singleCourse)
+  if(singleCourse === undefined){
+    return <></>
+  }
   return (
     <>
       <div className="Course__Main-area white-bg">
         <div className="Course__Video">
           <video controls>
-            <source src="./videos/01.mp4" type="video/mp4" />
+            <source src={`/videos/${singleCourse[0].filename}.mp4`} type="video/mp4" />
           </video>
         </div>
         <div className="pt-3 ps-4">
           <div className="d-flex align-items-center position-relative">
-            <h1 className="mb-0">這是課程名稱</h1>
+            <h1 className="mb-0">{singleCourse[0].title}</h1>
             <div className="Course__Video-area__Description pe-4 d-flex">
               <div className="d-flex pointer">
                 <div className="Course__Video-area__tags me-3">
-                  <i class="fas fa-hand-paper me-2"></i>手部
+                  <i class="fas fa-hand-paper me-2"></i>{BODY_PARTS[singleCourse[0].body_part_id]}
                 </div>
                 <div className="Course__Video-area__tags me-3">
-                  <i class="fas fa-signal me-2"></i>初級
+                  <i class="fas fa-signal me-2"></i>{LEVEL[singleCourse[0].level_id]}
                 </div>
               </div>
               <div className="Course__video-area__likes me-3 Maincolor">
@@ -49,7 +54,7 @@ function CourseSingleVideo() {
                   class={`${icon} far fa-heart me-2 pointer `}
                   onClick={clickheart}
                 ></i>
-                <span>1020</span>
+                <span>{singleCourse[0].likes}</span>
                 <i class="fas fa-share-alt me-2 ms-3 pointer Maincolor"></i>
                 <span>分享</span>
               </div>
@@ -63,28 +68,9 @@ function CourseSingleVideo() {
               Taylor Swift
             </div>
             <div className="position-relative pb-4 mb-4">
-              <div className={`Course__video-area__Content pe-4 ${seeall}`}>
-                團名「TWICE」由JYP娛樂公司創辦者朴軫永取名，寓意為「讓大眾透過耳朵一次，再由眼睛一次，獲得雙重的感動。」的意思。問候語為「One
-                In A
-                Million」，意味著要成為百萬偶像團體中的唯一。問候口號為「One in
-                a million！大家好，我們是 TWICE。」
-                團名「TWICE」由JYP娛樂公司創辦者朴軫永取名，寓意為「讓大眾透過耳朵一次，再由眼睛一次，獲得雙重的感動。」的意思。問候語為「One
-                In A
-                Million」，意味著要成為百萬偶像團體中的唯一。問候口號為「One in
-                a million！大家好，我們是 TWICE。」
-                大眾透過耳朵一次，再由眼睛一次，獲得雙重的感動。」的意思。問候語為「One
-                In A
-                Million」，意味著要成為百萬偶像團體中的唯一。問候口號為「One in
-                a million！大家好，我們是
-                TWICE。」大眾透過耳朵一次，再由眼睛一次，獲得雙重的感動。」的意思。問候語為「One
-                In A
-                Million」，意味著要成為百萬偶像團體中的唯一。問候口號為「One in
-                a million！大家好，我們是
-                TWICE。」大眾透過耳朵一次，再由眼睛一次，獲得雙重的感動。」的意思。問候語為「One
-                In A
-                Million」，意味著要成為百萬偶像團體中的唯一。問候口號為「One in
-                a million！大家好，我們是 TWICE。」
-              </div>
+              <pre className={`Course__video-area__Content pe-4 ${seeall}`}>
+              {singleCourse[0].detail}
+              </pre>
               <div
                 className="pointer Course__video-area__Content__seeall-icon pe-4"
                 onClick={(e) => {
