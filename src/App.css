@@ -7,7 +7,7 @@ body {
 .navbar__cart{
   position: relative;
 }
-.navbar__cart:hover .navbar__cart__content{display: block;}
+.navbar__cart:hover .navbar__cart__content{display: flex;}
 
 
 .navbar__cart__content{
@@ -15,10 +15,15 @@ body {
   display: none;
   /* width: 10rem; */
   /* height: 10rem; */
-  background-color: #e2cef3;
+  color: #09203f;
+  background-color: #fff;
+  border-radius: .5rem;
+  overflow: hidden;
   top: 5rem;
-  left: -2rem;
+  left: -5rem;
+  box-shadow:5px 5px 5px #333;
   z-index: 1;
+  
 }
 .main-nav {
   height: 80px;
