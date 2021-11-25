@@ -4,6 +4,22 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
 }
+.navbar__cart{
+  position: relative;
+}
+.navbar__cart:hover .navbar__cart__content{display: block;}
+
+
+.navbar__cart__content{
+  position: absolute;
+  display: none;
+  width: 10rem;
+  height: 10rem;
+  background-color: #e2cef3;
+  top: 5rem;
+  left: -2rem;
+  z-index: 1;
+}
 .main-nav {
   height: 80px;
   background-color: #09203f;

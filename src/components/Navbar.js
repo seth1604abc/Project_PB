@@ -3,14 +3,28 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import $ from 'jquery';
 
+
 function Navbar() {
   const [isLoggedin, setIsLoggedin] = useState(false);  
+  const[cartData,setCartData]=useState([])
   useEffect( async () => {
     let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });    
     if(res.data.userId) {
       setIsLoggedin(true);
-    }    
+    }
+    let cartList=  await axios.get("http://localhost:3001/cart", { withCredentials: true });    
+    setCartData(cartList.data)
   }, [])
+
+  //map購物車
+  const cartList=cartData.map((item)=>{
+    return(
+      
+    )
+  })
+
+
+
 
   const showDiv = () => {
     if(document.querySelector(".navbar-login-li__div").style.display == "block") {
@@ -24,7 +38,7 @@ function Navbar() {
     let result = await axios.post("http://localhost:3001/auth/logout", { withCredentials: true });
     console.log(result);
   }
-
+  
   return (
     <div className="main-nav d-flex justify-content-between align-items-center">
       <Link to="/">
@@ -49,10 +63,11 @@ function Navbar() {
           <li style={{ marginRight: "50px" }}>
             <Link to="/article">文章</Link>
           </li>
-          <li style={{ justifyContent: "end" }}>
+          <li style={{ justifyContent: "end" }} className="navbar__cart">
             <Link to="/cart">
               <i className="fas fa-shopping-cart"></i>
             </Link>
+            <div className="navbar__cart__content"></div>
           </li>
           {           
             isLoggedin ? (
