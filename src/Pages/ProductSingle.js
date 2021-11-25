@@ -142,7 +142,7 @@ const ProductSingle = () => {
 
   return (
     <>
-      <Navbar id="productSingle-start" />
+      <Navbar/>
       <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
         <div className="productMain_pictures ">
           <Gallery images={productImages} className="productSingleGallery" />

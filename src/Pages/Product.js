@@ -115,14 +115,14 @@ function ShoppingMain() {
   };
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           console.log(pList);
           console.log(product);
         }}
       >
         1
-      </button>
+      </button> */}
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}

@@ -21,7 +21,15 @@ function Navbar() {
   }, []);
 
   //map購物車
+  const [cartTotal,setCartTotal]=useState(0);
   const cartList = cartData.map((item) => {
+    // let sum=0;
+    // if(item!==cartData.at(-1)){
+    //   sum+=item.price*item.amount;
+    // }else{
+    //   sum+=item.price*item.amount;
+    //   setCartTotal(sum);
+    // }
     return (
       <>
       <div className="d-flex align-items-center justify-content-start">
@@ -41,7 +49,7 @@ function Navbar() {
           </dic>
           <div className="text-end">
             <div>{item.amount}x</div>
-            <div>price:{`${item.price * item.amount}`}</div>
+            <div>NTD$ {`${item.price * item.amount}`}</div>
           </div>
         </div>
       </div>
@@ -100,6 +108,7 @@ function Navbar() {
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
               <div className="my-2">{cartList}</div>
+              <div>總計:{cartList>0&&cartTotal}</div>
               <Link
                 to="/cart"
                 className="btn my-2 text-white"
