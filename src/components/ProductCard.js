@@ -23,18 +23,18 @@ function ProductCard({
         withCredentials: true,
       }
     );
-    console.log(pImages);
+    // console.log(pImages);
   }, []);
 
   //對部位
 
   let bodyPart = {
-    0: "綜合",
-    1: "手部",
-    2: "肩部",
-    3: "胸部",
-    4: "背部",
-    5: "腿部",
+    1: "綜合",
+    2: "手部",
+    3: "肩部",
+    4: "胸部",
+    5: "背部",
+    6: "腿部",
   };
   //記數量
   const [number, setNumber] = useState(1);
