@@ -39,7 +39,7 @@ function ShoppingMain() {
     // console.log(search)
   };
   useEffect(() => {
-    let List = [...product];
+    let List = [...newNewProduct];
     console.log(List);
     let searchList = List.filter((item) => {
       let productName = item.title;

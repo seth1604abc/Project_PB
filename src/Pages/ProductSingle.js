@@ -169,9 +169,9 @@ const ProductSingle = () => {
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
                   handleClick(0);
-                  console.log(productData);
-                  console.log(Number(category));
-                  console.log(productImages);
+                  // console.log(productData);
+                  // console.log(Number(category));
+                  // console.log(productImages);
                 }}
               >
                 -
@@ -196,24 +196,29 @@ const ProductSingle = () => {
           <div className="my-3 d-flex justify-content-start">
             <button
               className="btn productMain__info__btn--cart me-3"
-              onClick={() => {
+              onClick={async () => {
+                let productImages = await axios.get(
+                  `http://localhost:3001/cart/addCart/${productId}`,
+                  {
+                    withCredentials: true,
+                  }
+                );
                 Swal.fire({
                   title: "成功加入購物車",
                   text: `${productData.title} ${number}份加入購物車`,
                   icon: "success",
                   confirmButtonText: "繼續購物",
-                  confirmButtonColor:"#1d6cf5"
+                  confirmButtonColor: "#1d6cf5",
                 });
               }}
             >
               加入購物車
             </button>
             <Link to="/cart">
-            <button className="btn productMain__info__btn--buy">
-              直接購買
-            </button>
+              <button className="btn productMain__info__btn--buy">
+                直接購買
+              </button>
             </Link>
-            
           </div>
         </div>
       </div>

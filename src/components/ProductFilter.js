@@ -75,14 +75,18 @@ function ProductFiter({
             placeholder="搜尋商品名稱"
             id="productSearch"
             name="productSearch"
-            onCompositionStart={handleComposition}
-            onCompositionUpdate={handleComposition}
-            onCompositionEnd={handleComposition}
-            onChange={(e) => {
-            //只有onComposition===false，才作onChange
-            if (e.target instanceof HTMLInputElement && !isOnComposition){
-              handleSearch(e);
-            }}}
+            // onCompositionStart={handleComposition}
+            // onCompositionUpdate={handleComposition}
+            // onCompositionEnd={handleComposition}
+            onChange={
+              handleSearch
+              
+            //   (e) => {
+            // //只有onComposition===false，才作onChange
+            // if (e.target instanceof HTMLInputElement && !isOnComposition){
+            //   handleSearch(e);
+            // }}
+            }
 
           />
           <button className="btn">
