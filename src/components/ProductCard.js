@@ -28,8 +28,33 @@ function ProductCard({
     // console.log(pImages);
   }, []);
 
-  //對部位
+  //處理彈出視窗(滑動時隱藏)
+  const [scrollY, setScrollY] = useState(0);
 
+  function logit() {
+    setScrollY(window.pageYOffset);
+    if(anchorEl!==null){
+      setAnchorEl(null)
+    }else{
+      return
+    }
+  }
+  useEffect(() => {
+    function watchScroll() {
+      window.addEventListener("scroll", logit);
+    }
+    watchScroll();
+    console.log(scrollY);
+    return () => {
+      window.removeEventListener("scroll", logit);
+    };
+  });
+
+
+
+
+
+  //對部位
   let bodyPart = {
     1: "綜合",
     2: "手部",
