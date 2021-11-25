@@ -13,6 +13,8 @@ import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const ProductSingle = () => {
   //拿url傳的資料
@@ -192,12 +194,26 @@ const ProductSingle = () => {
             </div>
           </div>
           <div className="my-3 d-flex justify-content-start">
-            <button className="btn productMain__info__btn--cart me-3">
+            <button
+              className="btn productMain__info__btn--cart me-3"
+              onClick={() => {
+                Swal.fire({
+                  title: "成功加入購物車",
+                  text: `${productData.title} ${number}份加入購物車`,
+                  icon: "success",
+                  confirmButtonText: "繼續購物",
+                  confirmButtonColor:"#1d6cf5"
+                });
+              }}
+            >
               加入購物車
             </button>
+            <Link to="/cart">
             <button className="btn productMain__info__btn--buy">
               直接購買
             </button>
+            </Link>
+            
           </div>
         </div>
       </div>

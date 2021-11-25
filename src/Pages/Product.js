@@ -13,6 +13,7 @@ function ShoppingMain() {
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
+  const [newNewProduct, setNewNewProduct] = useState([]);
   useEffect(async () => {
     //抓熱門商品
     let resHitProduct = await axios.get(
@@ -27,9 +28,32 @@ function ShoppingMain() {
     });
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
+    setNewNewProduct(resProduct.data);
   }, []);
+  //設定composition
+  
+  //監聽搜尋
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    // console.log(search)
+  };
+  useEffect(() => {
+    let List = [...product];
+    console.log(List);
+    let searchList = List.filter((item) => {
+      let productName = item.title;
+      return productName.includes(search);
+    });
+    console.log(searchList);
+    if (search === "") {
+      setProduct(newNewProduct);
+    } else {
+      setProduct(searchList);
+    }
+  }, [search, newNewProduct]);
+
   const hotList = hotProduct.map((product) => {
-    // console.log(typeof product.id);
     return (
       <ProductCard
         productId={product.product_id}
@@ -65,6 +89,7 @@ function ShoppingMain() {
       return item.product_type_id === i;
     });
     setProduct(newList);
+    setNewNewProduct(newList);
     // console.log(newList);
   };
 
@@ -75,22 +100,29 @@ function ShoppingMain() {
     // console.log(e.target.value)
     // console.log(option)
     let partProduct = [...newProduct];
-    if (e.target.value === 0) {
+    if (e.target.value == 1) {
       handleChangeCat(3);
     } else {
       let partList = partProduct.filter((item) => {
         return item.body_part_id === Number(e.target.value);
       });
-      console.log(partProduct);
       setProduct(partList);
-      console.log(partList);
-      console.log(product);
+      setNewNewProduct(partList);
+      // console.log(partProduct);
+      // console.log(partList);
+      // console.log(product);
     }
   };
   return (
     <>
-      <button onClick={()=>{console.log(pList)
-      console.log(product)}}>1</button>
+      <button
+        onClick={() => {
+          console.log(pList);
+          console.log(product);
+        }}
+      >
+        1
+      </button>
       <Navbar />
       <Banner />
       {/* 熱門商品區 */}
@@ -105,6 +137,7 @@ function ShoppingMain() {
         <ProductFilter
           changeList={handleChangeCat}
           handleSelect={handleSelect}
+          handleSearch={handleSearch}
         />
       </div>
 
