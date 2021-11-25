@@ -50,7 +50,7 @@ function Navbar() {
             <Link to="/article">文章</Link>
           </li>
           <li style={{ justifyContent: "end" }}>
-            <Link to="/">
+            <Link to="/cart">
               <i className="fas fa-shopping-cart"></i>
             </Link>
           </li>
