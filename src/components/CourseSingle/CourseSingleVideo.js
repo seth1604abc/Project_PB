@@ -25,7 +25,7 @@ function CourseSingleVideo({singleCourse}) {
       setIcon("far");
     }
   }
-  console.log(singleCourse)
+  //console.log(singleCourse)
   if(singleCourse === undefined){
     return <></>
   }
