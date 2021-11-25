@@ -22,6 +22,7 @@ import axios from "axios";
 function CourseSingle() {
   const { courseId } = useParams();
   const [singleCourse, setSingleCourse] = useState();
+
   useEffect(async () => {
     window.scroll({
       top: 0,
@@ -47,7 +48,7 @@ function CourseSingle() {
         <div className="d-flex  mt-4 ms-4 me-4">
           <div className="maxw65">
             <div className="mb-4">
-              <CourseSingleTalk />
+              <CourseSingleTalk course_id={courseId} singleCourse={singleCourse} videoid={courseId}/>
             </div>
             <div>
               <CourseSingleArticle />
