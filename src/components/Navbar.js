@@ -108,7 +108,7 @@ function Navbar() {
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
               <div className="my-2">{cartList}</div>
-              <div>總計:{cartList>0&&cartTotal}</div>
+              {/* <div>總計:{cartList>0&&cartTotal}</div> */}
               <Link
                 to="/cart"
                 className="btn my-2 text-white"
