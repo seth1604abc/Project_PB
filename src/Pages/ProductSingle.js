@@ -180,6 +180,7 @@ const ProductSingle = () => {
                 type="text"
                 className="form-control rounded-0"
                 value={number}
+                name="amount"
                 onChange={handleChange}
                 maxLength="2"
               />
@@ -197,12 +198,16 @@ const ProductSingle = () => {
             <button
               className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
-                let productImages = await axios.get(
-                  `http://localhost:3001/cart/addCart/${productId}`,
-                  {
-                    withCredentials: true,
-                  }
-                );
+                await axios
+                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
+                    number: `${number}`,
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
                 Swal.fire({
                   title: "成功加入購物車",
                   text: `${productData.title} ${number}份加入購物車`,
