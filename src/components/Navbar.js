@@ -23,9 +23,10 @@ function Navbar() {
   //map購物車
   const cartList = cartData.map((item) => {
     return (
+      <>
       <div className="d-flex align-items-center justify-content-start">
         <div
-          className="me-1"
+          className="mx-1"
           style={{ width: "5rem", backgroundColor: "white" }}
         >
           <img
@@ -44,7 +45,11 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <hr />
+      <div className="d-flex justify-content-center">
+      <hr className="border-0" style={{size:"0.05rem",color:"#333",width:"90%",align:"center"}}/>
+      </div>
+      
+      </>
     );
   });
 
