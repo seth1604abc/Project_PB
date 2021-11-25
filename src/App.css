@@ -13,8 +13,8 @@ body {
 .navbar__cart__content{
   position: absolute;
   display: none;
-  width: 10rem;
-  height: 10rem;
+  /* width: 10rem; */
+  /* height: 10rem; */
   background-color: #e2cef3;
   top: 5rem;
   left: -2rem;

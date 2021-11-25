@@ -12,14 +12,22 @@ function Navbar() {
     if(res.data.userId) {
       setIsLoggedin(true);
     }
-    let cartList=  await axios.get("http://localhost:3001/cart", { withCredentials: true });    
-    setCartData(cartList.data)
+    let cartList=  await axios.get("http://localhost:3001/cart/list", { withCredentials: true });    
+    setCartData(cartList.data);
+    console.log(cartList.data);
   }, [])
 
   //map購物車
   const cartList=cartData.map((item)=>{
     return(
-      
+        <div className="d-flex align-items-center">
+        <img src={`./product_images/${item.name}`} alt="" style={{width:"5rem"}}/>
+          <h5 className="text-nowrap">{item.title}</h5>
+          <div className="text-end">
+          <div>{item.amount}x</div>
+          <div>price:{`${item.price*item.amount}`}</div>
+          </div>
+        </div>
     )
   })
 
@@ -67,7 +75,7 @@ function Navbar() {
             <Link to="/cart">
               <i className="fas fa-shopping-cart"></i>
             </Link>
-            <div className="navbar__cart__content"></div>
+            <div className="navbar__cart__content">{cartList}</div>
           </li>
           {           
             isLoggedin ? (
