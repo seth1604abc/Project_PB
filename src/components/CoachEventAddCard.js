@@ -28,7 +28,7 @@ function CoachEventAddCard() {
     const [eventIntro, setEventIntro] = useState('')
 
     const submitEvent =() => {
-      Axios.get("http://localhost:3001/event/coach-event-add", {
+      Axios.post("http://localhost:3001/event/coach-event-add", {
         title: eventName,
         datetime: eventTime,
         location: eventLocation,

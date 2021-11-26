@@ -13,6 +13,7 @@ function EventSearchBar() {
         <span className="text-white h5 event_rangeText">活動區間</span>
         <div>
         <DatePicker
+        className= "event_searchBar_datepicker"
         selected={startDate}
         onChange={(date) => setStartDate(date)}
         selectsStart
@@ -23,6 +24,7 @@ function EventSearchBar() {
         <span className="text-white h5 mx-4">至</span>
         <div>
         <DatePicker
+        className= "event_searchBar_datepicker"
         selected={endDate}
         onChange={(date) => setEndDate(date)}
         selectsEnd
