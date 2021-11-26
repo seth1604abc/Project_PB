@@ -68,6 +68,7 @@ function CoachEvent() {
       <div className="member-container d-flex">
         <CoachLeftBar />
         <div className="coach-activity-content">
+        <button className="coach-activity-addBtn">新增活動</button>
           {memberEventData.map((data, index) => {
             return (
               <>
