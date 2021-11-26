@@ -22,6 +22,7 @@ import axios from "axios";
 function CourseSingle() {
   const { courseId } = useParams();
   const [singleCourse, setSingleCourse] = useState();
+  const [random, setRandom] = useState();
 
   useEffect(async () => {
     window.scroll({
@@ -35,7 +36,7 @@ function CourseSingle() {
       }
     );
     setSingleCourse(SingleCourse.data);
-  }, []);
+  }, [random]);
 
   return (
     <>
@@ -56,7 +57,7 @@ function CourseSingle() {
           </div>
           <div className="maxw35 p-3 m-1 ps-4">
             <div className="mb-4">
-              <CourseSingleHitCourse videoid={courseId}/>
+              <CourseSingleHitCourse videoid={courseId} setRandom={setRandom}/>
             </div>
             <div>
               <CourseSingleProduct />
