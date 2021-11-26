@@ -56,7 +56,7 @@ function CourseSingle() {
           </div>
           <div className="maxw35 p-3 m-1 ps-4">
             <div className="mb-4">
-              <CourseSingleHitCourse />
+              <CourseSingleHitCourse videoid={courseId}/>
             </div>
             <div>
               <CourseSingleProduct />
