@@ -162,6 +162,7 @@ function ProductCard({
           </Popover>
         </div>
         <Link
+        // to={productId===19?`/giftcard`:`/product-single/${category}/${productId}`}
           to={`/product-single/${category}/${productId}`}
           className="text-decoration-none"
         >

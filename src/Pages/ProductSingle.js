@@ -142,7 +142,7 @@ const ProductSingle = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
         <div className="productMain_pictures ">
           <Gallery images={productImages} className="productSingleGallery" />
@@ -194,9 +194,11 @@ const ProductSingle = () => {
               </button>
             </div>
           </div>
-          <div className="my-3 d-flex justify-content-start">
+          <div className="my-3 d-flex justify-content-start ">
             <button
-              className="btn productMain__info__btn--cart me-3"
+              
+              className={`${productId}`==="19"?`d-none btn productMain__info__btn--cart me-3`:`btn productMain__info__btn--cart me-3`}
+              // className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
                 await axios
                   .post(`http://localhost:3001/cart/addcart/${productId}`, {
@@ -219,8 +221,11 @@ const ProductSingle = () => {
             >
               加入購物車
             </button>
-            <Link to="/cart">
-              <button className="btn productMain__info__btn--buy">
+            <Link
+             to={`${productId}`==="19"?`/giftcard-checkout`:`/cart`}
+            //  to="/cart"
+             >
+              <button className="btn productMain__info__btn--buy ">
                 直接購買
               </button>
             </Link>
