@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Navbar() {
+  const history = useHistory();
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [cartData, setCartData] = useState([]);
+  const [role, setRole] = useState({});
   useEffect(async () => {
     let res = await axios.get("http://localhost:3001/auth/login", {
       withCredentials: true,
     });
     if (res.data.userId) {
       setIsLoggedin(true);
+      setRole(res.data);
     }
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
@@ -61,6 +66,7 @@ function Navbar() {
     );
   });
 
+
   const showDiv = () => {
     if (
       document.querySelector(".navbar-login-li__div").style.display == "block"
@@ -71,13 +77,22 @@ function Navbar() {
     }
   };
 
+  
   const logout = async () => {
-    let result = await axios.post("http://localhost:3001/auth/logout", {
-      withCredentials: true,
-    });
-    console.log(result);
-  };
-
+    Swal.fire({
+      title: "確定要登出嗎?",
+      showDenyButton: true,
+      confirmButtonText: "確定",
+      denyButtonText: "取消",
+    }).then(async (res) => {
+      if(res.isConfirmed){
+        let result = await axios.get("http://localhost:3001/auth/logout", { withCredentials: true });
+        history.push("/login");
+      }
+    })
+    
+    
+  }
   return (
     <div className="main-nav d-flex justify-content-between align-items-center">
       <Link to="/">
@@ -125,11 +140,11 @@ function Navbar() {
               </span>
               <div className="navbar-login-li__div">
                 <div>
-                  <Link to="/member-info">會員中心</Link>
+                  <Link to={role.url}>
+                    {role.role}
+                  </Link>
                 </div>
-                <div style={{ marginTop: "10px" }} onClick={logout}>
-                  登出
-                </div>
+                <div style={{marginTop: "10px"}} onClick={logout}>登出</div>
               </div>
             </li>
           ) : (

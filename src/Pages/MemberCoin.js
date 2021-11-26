@@ -4,22 +4,29 @@ import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function MemberCoin() {
   const [data, setData] = useState([]);
   const [balance, setBalance] = useState(0);
+  const history = useHistory();
   
   useEffect(async () => {
-    let response = await axios.get("http://localhost:3001/member/coin-balance", { withCredentials: true})    
-    setBalance(response.data[0].point);
-    let result = await axios.get("http://localhost:3001/member/coin", { withCredentials: true})
-    console.log(result.data);
-    let total = 0;
-    for(let i=0; i<result.data.length; i++){
-      total = total + result.data[i].gain_point - result.data[i].use_point;
-      result.data[i].balance = total;
-    }
-    setData(result.data);
+    let response = await axios.get("http://localhost:3001/member/coin-balance", { withCredentials: true})
+    if(response.data == "loginerror"){
+      history.push("/login");
+    } else {
+      setBalance(response.data[0].point);
+      let result = await axios.get("http://localhost:3001/member/coin", { withCredentials: true})
+      console.log(result.data);
+      let total = 0;
+      for(let i=0; i<result.data.length; i++){
+        total = total + result.data[i].gain_point - result.data[i].use_point;
+        result.data[i].balance = total;
+      }
+      setData(result.data);
+    }    
+    
   }, [])
 
   const columns: GridColDef[] = [
