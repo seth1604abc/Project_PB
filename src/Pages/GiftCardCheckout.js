@@ -4,6 +4,7 @@ import "react-credit-cards/es/styles-compiled.css";
 import "../css/GiftCardCheckout.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const GiftCardCheckout = () => {
   const [data, setData] = useState({
@@ -93,8 +94,14 @@ const GiftCardCheckout = () => {
                 <div className="col">$NT3000</div>
               </div>
               <div className="d-flex justify-content-end">
+              <Link to="/product-single/2/19">
               <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
+              </Link>
+              
+              <Link to="/giftcard-writing">
               <button className="btn GiftCardCheckout__btn__next">下一步</button>
+              </Link>
+              
               </div>
             </div>
           </div>

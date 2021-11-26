@@ -1,12 +1,20 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import Comment from "../components/Comment";
 import "../css/ProductSingle.css";
+import "../css/Article.css";
+import "../css/Course.css";
 import RecommandProduct from "../components/RecommandProduct";
-import { useState } from "react";
 import ArticleRecommand from "../components/ArticleRecommand";
+import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
+import Gallery from "../components/Gallery";
+import axios from "axios";
+import { useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const ProductGiftCard = () => {
   const text = ["介紹", "規格"];
@@ -68,9 +76,9 @@ const ProductGiftCard = () => {
             </div>
           </div>
           <div className="my-3 d-flex justify-content-start">
-            <button className="btn productMain__info__btn--cart me-2">
+            {/* <button className="btn productMain__info__btn--cart me-2">
               加入購物車
-            </button>
+            </button> */}
             <button className="btn productMain__info__btn--buy">
               直接購買
             </button>

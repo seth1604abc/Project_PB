@@ -5,7 +5,16 @@ import $ from "jquery";
 
 let storage = sessionStorage;
 
-function CourseSingleWaitingButton({ title, bodyPart, level, id, filename }) {
+function CourseSingleWaitingButton({
+  title,
+  bodyPart,
+  level,
+  id,
+  filename,
+  droppableProps,
+  dragHandleProps,
+  innerRef,
+}) {
   const EddiesRef = useRef([]);
   let WaitingList = storage
     .getItem("WaitingList")
@@ -26,50 +35,51 @@ function CourseSingleWaitingButton({ title, bodyPart, level, id, filename }) {
     }
   }
 
-  let newarr = []
   // 拖曳事件
   // https://pjchender.blogspot.com/2017/08/html5-drag-and-drop-api.html
-  function dragStart(e) {
-    var index = $(e.target).index();
-    e.dataTransfer.setData("text/plain", index);
-    console.log('index',index)
-  }
+  // function dragStart(e) {
+  //   var index = $(e.target).index();
+  //   e.dataTransfer.setData("text/plain", index);
+  //   console.log('index',index)
+  // }
 
-  function dropped(e) {
-    cancelDefault(e);
-    // get new and old index
-    let oldIndex = e.dataTransfer.getData("text/plain");
-    let target = $(e.currentTarget);
-    let newIndex = target.index();
+  // function dropped(e) {
+  //   cancelDefault(e);
+  //   // get new and old index
+  //   let oldIndex = e.dataTransfer.getData("text/plain");
+  //   let target = $(e.currentTarget);
+  //   let newIndex = target.index();
 
-    // remove dropped items at old place
-    let dropped = $(this).parent().children().eq(oldIndex).remove();
-    console.log('oldIndex',oldIndex)
-    console.log('newIndex',newIndex)
+  //   // remove dropped items at old place
+  //   let dropped = $(this).parent().children().eq(oldIndex).remove();
+  //   console.log('oldIndex',oldIndex)
+  //   console.log('newIndex',newIndex)
 
+  //   if (newIndex < oldIndex) {
+  //     target.before(dropped);
+  //   } else {
+  //     target.after(dropped);
+  //   }
+  //   // 要再塞進陣列
+  // }
 
-    if (newIndex < oldIndex) {
-      target.before(dropped);
-    } else {
-      target.after(dropped);
-    }
-    // 要再塞進陣列
-  }
-
-  function cancelDefault(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  }
+  // function cancelDefault(e) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   return false;
+  // }
 
   return (
     <li
       className="Course__Single__WaitingList__Li"
-      draggable="true"
-      onDragStart={dragStart}
-      onDrop={dropped}
-      onDragEnter={cancelDefault}
-      onDragOver={cancelDefault}
+      droppableProps
+      dragHandleProps
+      innerRef
+      // draggable="true"
+      // onDragStart={dragStart}
+      // onDrop={dropped}
+      // onDragEnter={cancelDefault}
+      // onDragOver={cancelDefault}
     >
       <div
         className={`${
