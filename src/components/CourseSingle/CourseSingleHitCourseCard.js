@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function CourseSingleHitCourseCard({id,title,bodyparts,level,likes,img,setRandom}) {
   return (
-    <Link to={`/course-single/${id}`} className="LinkNoStyle" onClick={()=>{setRandom(Math.random())}}>
+    <a href={`/course-single/${id}`} className="LinkNoStyle" onClick={()=>{setRandom(Math.random())}}>
       <div>
         <div className="d-flex Course__HitCourse__Card p-2 my-2 pointer">
           <div className="Course__area__Waiting__image ms-2">
@@ -26,7 +26,7 @@ function CourseSingleHitCourseCard({id,title,bodyparts,level,likes,img,setRandom
           </div>
         </div>
       </div>
-    </Link>
+    </a>
   );
 }
 
