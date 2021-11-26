@@ -7,6 +7,8 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import $ from 'jquery';
 import { useHistory } from 'react-router-dom';
+import ReactStars from "react-rating-stars-component";
+import Swal from 'sweetalert2';
 
 function MemberOrder() {
   const[notYet, setNotYet] = useState(0);
@@ -14,8 +16,12 @@ function MemberOrder() {
   const[complete, setComplete] = useState(0);
   //data 是總order列表
   const [data, setData] = useState([]);
+  //detail是order_detail
   const [detail, setDetail] = useState([]);
   const [totalPrice, setToatalPrice] = useState(0);
+  //進入rate拉出的資料
+  const [rateData, setRateData] = useState({});
+  
 
   function turnStatus(id) {
     switch (id) {
@@ -47,16 +53,17 @@ function MemberOrder() {
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "訂單編號", width: 150 },
+    { field: "id", headerName: "訂單編號", width: 100 },
     { field: "created_at", headerName: "時間", width: 150 },
     { field: "ship_status", headerName: "狀態", width: 100 },
-    { field: "ship_method", headerName: "運送方式", width: 150 },
+    { field: "ship_method", headerName: "運送方式", width: 100 },
     { field: "pay_method", headerName: "付款方式", width: 100 },
-    { field: "total_price", headerName: "訂單金額", width: 150 },
-    { field: "address", headerName: "地址", width: 300 },
+    { field: "total_price", headerName: "訂單金額", width: 120 },
+    { field: "address", headerName: "地址", width: 350 },
     {
       field: "detail",
       headerName: "查看詳情",
+      width: 200,
       disableClickEventBubbling: true,
       renderCell: (params) => {
         const onClick = async () => {
@@ -73,8 +80,9 @@ function MemberOrder() {
   
           // let data = JSON.stringify(thisRow, null, 4);
           let id = thisRow.id;
-          let result = await axios.post("http://localhost:3001/member/order-detail", {id: id});
-          $('.member-order-show-box').css("display", "flex");          
+          let result = await axios.post("http://localhost:3001/member/order-detail", {id: id}, {withCredentials: true});          
+          $('.member-order-show-box').css("display", "flex");
+          console.log(result);
           setDetail(result.data);
           let total = 0;
           for(let i =0; i<result.data.length; i++){
@@ -83,31 +91,81 @@ function MemberOrder() {
           setToatalPrice(total);          
         };
   
-        return <Button onClick={onClick}>查看購買商品</Button>;
+        return <Button variant="contained" color="success" onClick={onClick}>查看購買商品</Button>;
       }
-    }
+    }    
   ];
   
   const rows: GridRowsProp = data
 
   useEffect( async () => {
-    let result = await axios.get("http://localhost:3001/member/order", {withCredentials: true});    
-    setAlready(result.data.already);
-    setComplete(result.data.complete);
-    setNotYet(result.data.notYet);
+    let result = await axios.get("http://localhost:3001/member/order", {withCredentials: true});
+    if(result.data == "loginerror"){
+      history.push("/login");
+    } else {
+      setAlready(result.data.already);
+      setComplete(result.data.complete);
+      setNotYet(result.data.notYet);
+      
+      for(let i=0; i<result.data.data.length; i++){
+        result.data.data[i].ship_status = turnStatus(result.data.data[i].ship_status);
+        result.data.data[i].ship_method = turnShip(result.data.data[i].ship_method);
+        result.data.data[i].pay_method = turnPay(result.data.data[i].pay_method);
+      }
+  
+      setData(result.data.data);
+    }   
     
-    for(let i=0; i<result.data.data.length; i++){
-      result.data.data[i].ship_status = turnStatus(result.data.data[i].ship_status);
-      result.data.data[i].ship_method = turnShip(result.data.data[i].ship_method);
-      result.data.data[i].pay_method = turnPay(result.data.data[i].pay_method);
-    }
-
-    setData(result.data.data);
   }, [])
 
   const history = useHistory();
   const refresh = () => {
     history.go(0);
+  }
+  //將送出的評分data
+  const ratingPostData={};
+  const rate = async (e) => { 
+    //設置評分框data
+    let id = e.target.id;
+    let result = await axios.post("http://localhost:3001/member/rate-check",{id: id}, {withCredentials:true})        
+    if(result.data.message){      
+      Swal.fire(result.data.message)
+    } else {
+      const data = {
+        id: e.target.id,
+        title: e.target.title,
+        price: e.target.value,
+      }
+      setRateData(data);
+      $('.member-order-show-box-rate').css("display", "flex");
+      $('.member-order-show-box').css("display", "none");
+    }     
+         
+  }
+
+  const ratingChanged = (newRating) => {
+    ratingPostData.rate = newRating;
+  };
+
+  const postRate = async (e) => {
+    let text = $("#ratetext").val();
+    ratingPostData.comment = text;
+    ratingPostData.id = e.target.id;
+    if(!ratingPostData.rate) {
+      Swal.fire("請評分")
+    } else {
+      let result = await axios.post("http://localhost:3001/member/rate-product", ratingPostData, {withCredentials: true});
+      Swal.fire(result.data.message).then((res) => {
+        history.go(0);
+      })
+    }
+    // console.log(ratingPostData);
+    
+  }
+
+  const cancelRate = () => {
+    $('.member-order-show-box-rate').css("display", "none");
+    $('.member-order-show-box').css("display", "flex");
   }
 
   return (
@@ -161,6 +219,7 @@ function MemberOrder() {
                   <th>物品名稱</th>
                   <th>單價</th>
                   <th>數量</th>
+                  <th>功能</th>
                 </tr>
               </thead>
               <tbody>
@@ -171,6 +230,7 @@ function MemberOrder() {
                         <td>{de.title}</td>
                         <td>${de.price}</td>
                         <td>{de.amount}</td>
+                        <td><Button id={de.id} title={de.title} value={de.price} variant="contained" color="success" size="small" onClick={rate}>評分</Button></td>
                       </tr>
                     )
                   })
@@ -184,6 +244,42 @@ function MemberOrder() {
             <div className="text-center">
               <button style={{marginTop: "20px", padding: "5px 20px", backgroundColor: "#2571e3", color: "white", border: "0"}} onClick={refresh}>返回訂單列表</button>
             </div>            
+          </div>
+        </div>
+        <div className="member-order-show-box-rate">
+          <div className="member-order-show-box__rate__ct">
+            <div className="member-order-show-box__ct__title">評分表</div>
+            <div className="member-order-show-box__rate__ct__ct">
+              <div>
+                <span>產品名稱:</span>
+                <span style={{marginLeft: "30px"}}>{rateData.title}</span>
+              </div>
+              <div>
+                <span>產品價格:</span>
+                <span style={{marginLeft: "30px"}}>${rateData.price}</span>
+              </div>
+              <div>
+                <div>
+                  <span>評分:</span>                
+                  <ReactStars
+                    count={5}
+                    onChange={ratingChanged}
+                    size={24}
+                    activeColor="#ffd700"
+                  />
+                </div>                
+              </div>
+              <div>
+                <div>評論</div>                
+                <textarea name="" id="ratetext" cols="50" rows="5"></textarea>
+              </div>
+              <div className="d-flex justify-content-between member-order__ratebtn">                
+                <button style={{backgroundColor: "#ffecd2", color: "black"}} onClick={cancelRate}>取消評論</button>
+                <button style={{backgroundColor: "#2571e3", color: "white"}} id={rateData.id} onClick={postRate}>送出評論</button>
+              </div>
+            </div>
+                       
+            
           </div>
         </div>
       </div>
