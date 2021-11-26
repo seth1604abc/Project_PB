@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from 'axios';
+import Navbar from "../components/Navbar";
 
 function Subscribe() {
   const [isLoggedin, setIsLoggedin] = useState(false);  
