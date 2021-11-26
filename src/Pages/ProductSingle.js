@@ -13,6 +13,8 @@ import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const ProductSingle = () => {
   //拿url傳的資料
@@ -140,7 +142,7 @@ const ProductSingle = () => {
 
   return (
     <>
-      <Navbar id="productSingle-start" />
+      <Navbar />
       <div className=" my-5 productMain container d-flex justify-content-around align-items-center">
         <div className="productMain_pictures ">
           <Gallery images={productImages} className="productSingleGallery" />
@@ -167,9 +169,9 @@ const ProductSingle = () => {
                 className="btn productMain__info__count__group__substract"
                 onClick={() => {
                   handleClick(0);
-                  console.log(productData);
-                  console.log(Number(category));
-                  console.log(productImages);
+                  // console.log(productData);
+                  // console.log(Number(category));
+                  // console.log(productImages);
                 }}
               >
                 -
@@ -178,6 +180,7 @@ const ProductSingle = () => {
                 type="text"
                 className="form-control rounded-0"
                 value={number}
+                name="amount"
                 onChange={handleChange}
                 maxLength="2"
               />
@@ -191,13 +194,41 @@ const ProductSingle = () => {
               </button>
             </div>
           </div>
-          <div className="my-3 d-flex justify-content-start">
-            <button className="btn productMain__info__btn--cart me-3">
+          <div className="my-3 d-flex justify-content-start ">
+            <button
+              
+              className={`${productId}`==="19"?`d-none btn productMain__info__btn--cart me-3`:`btn productMain__info__btn--cart me-3`}
+              // className="btn productMain__info__btn--cart me-3"
+              onClick={async () => {
+                await axios
+                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
+                    number: `${number}`,
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                Swal.fire({
+                  title: "成功加入購物車",
+                  text: `${productData.title} ${number}份加入購物車`,
+                  icon: "success",
+                  confirmButtonText: "繼續購物",
+                  confirmButtonColor: "#1d6cf5",
+                });
+              }}
+            >
               加入購物車
             </button>
-            <button className="btn productMain__info__btn--buy">
-              直接購買
-            </button>
+            <Link
+             to={`${productId}`==="19"?`/giftcard-checkout`:`/cart`}
+            //  to="/cart"
+             >
+              <button className="btn productMain__info__btn--buy ">
+                直接購買
+              </button>
+            </Link>
           </div>
         </div>
       </div>
