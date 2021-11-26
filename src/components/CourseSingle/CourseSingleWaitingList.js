@@ -1,8 +1,11 @@
 import React from "react";
 import CourseSingleWaitingCard from "./CourseSingleWaitingCard.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { RepeatOutlined } from "@material-ui/icons";
+import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
+
 let storage = sessionStorage;
 
 function CourseSingleWaitingList() {
@@ -39,7 +42,23 @@ function CourseSingleWaitingList() {
     setAllCourse(allCourse.data);
   }, []);
 
-  
+  const EddiesRef = useRef([]);
+
+  function MoreBtn(e) {
+    let eddies = document.querySelectorAll(
+      ".Course__area__Waiting__MoreBtn__Option"
+    );
+    let eddie = e.currentTarget.parentElement.children[4];
+    if (eddie.style.display === "") {
+      for (let i = 0; i < eddies.length; i++) {
+        eddies[i].style.display = "";
+      }
+      eddie.style.display = "block";
+    } else {
+      eddie.style.display = "";
+    }
+  }
+
   return (
     <div className="Course__area Course__Waiting_area p-3">
       <div className="d-flex align-items-center Article__area__title">
@@ -59,16 +78,79 @@ function CourseSingleWaitingList() {
           className="Course__Single__WaitingList__Ul moveable"
           name="itemsList"
         >
-          {checkdWaitingList.map((checkdWaitingList) => {
+          {checkdWaitingList.map((checkdWaitingList, index) => {
             return (
-              <CourseSingleWaitingCard
-                title={checkdWaitingList.title}
-                bodyPart={checkdWaitingList.body_part_id}
-                level={checkdWaitingList.level_id}
-                id={checkdWaitingList.id}
-                filename={checkdWaitingList.filename}
-                checkdWaitingList={checkdWaitingList}
-              />
+              <li className="Course__Single__WaitingList__Li">
+                <div
+                  className={`${
+                    checkdWaitingList.id === Number(WaitingList[0])
+                      ? `Course__area__Waiting Course__area__Waiting_play mb-2`
+                      : `Course__area__Waiting mb-2`
+                  }`}
+                  id={checkdWaitingList.id}
+                  key={checkdWaitingList.id}
+                  draggable="true"
+                >
+                  <div
+                    className="Course__area__Waiting__icon pointer"
+                    id={checkdWaitingList.id}
+                  >
+                    <i
+                      class={`${
+                        checkdWaitingList.id === Number(WaitingList[0])
+                          ? `fas fa-play Course__area__Waiting__icon__Play`
+                          : `fas fa-grip-lines`
+                      }`}
+                    ></i>
+                  </div>
+                  <div className="Course__area__Waiting__image">
+                    <img
+                      src={`/images/${checkdWaitingList.filename}.png`}
+                      alt="影片縮圖"
+                    />
+                  </div>
+                  <div className="row p-2">
+                    <div className="col-12 Course__area__Waiting__title">
+                      {checkdWaitingList.title}
+                    </div>
+                    <div className="col-4  ms-2 Course__area__Waiting__tag">
+                      # {BODY_PARTS[checkdWaitingList.body_part_id]}
+                    </div>
+                    <div className="col-4 Course__area__Waiting__tag">
+                      # {LEVEL[checkdWaitingList.level_id]}
+                    </div>
+                  </div>
+                  <div
+                    className="Course__area__Waiting__MoreBtn pointer"
+                    onClick={MoreBtn}
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </div>
+                  <div
+                    className={`position-absolute Course__area__Waiting__MoreBtn__Option p-2 `}
+                    id={checkdWaitingList.id}
+                    ref={EddiesRef}
+                  >
+                    <div
+                      className="pb-2 pointer"
+                      onClick={() => {
+                        console.log("收藏這部影片", checkdWaitingList.id);
+                      }}
+                    >
+                      <i class="fas fa-heart"></i> 收藏這部影片
+                    </div>
+                    <div className="Course__area__Waiting__MoreBtn__Option__Line"></div>
+                    <div
+                      className="pt-2 pointer"
+                      onClick={() => {
+                        console.log("從清單中移除", checkdWaitingList.id);
+                      }}
+                    >
+                      <i class="fas fa-trash-alt"></i> 從清單中移除
+                    </div>
+                  </div>
+                </div>
+              </li>
             );
           })}
         </ul>

@@ -55,7 +55,6 @@ body {
 .event_rangeText{
   margin: 0 4rem;
 }
-
 .event_searchBar_datepicker {
   font-size: 16px;
   text-align: center;
@@ -67,7 +66,7 @@ body {
   margin: 1rem 1rem;
   width: 14rem;
   cursor: pointer;
-}
+} */
 .event_search_submit {
   width: 8rem;
   height: 40px;
