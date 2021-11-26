@@ -795,7 +795,7 @@ body {
   align-items: center;
 }
 .cart-content__list {
-  min-height: 600px;
+  min-height: 400px;
   width: 50%;
   border: 1px solid black;
 }
