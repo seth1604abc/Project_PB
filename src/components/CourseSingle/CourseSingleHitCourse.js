@@ -31,7 +31,7 @@ const HotCourse = [
   },
 ];
 
-function CourseSingleHitCourse({ videoid }) {
+function CourseSingleHitCourse({ videoid,setRandom }) {
   const [hitCourse, setHitCourse] = useState([]);
   useEffect(async () => {
     //所有留言
@@ -66,6 +66,7 @@ function CourseSingleHitCourse({ videoid }) {
                   level={LEVEL[item.level_id]}
                   likes={item.likes}
                   img={item.filename}
+                  setRandom={setRandom}
                 />
               </div>
             );
