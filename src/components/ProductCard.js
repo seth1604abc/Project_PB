@@ -4,6 +4,8 @@ import Popover from "@mui/material/Popover";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function ProductCard({
   productId,
@@ -23,18 +25,43 @@ function ProductCard({
         withCredentials: true,
       }
     );
-    console.log(pImages);
+    // console.log(pImages);
   }, []);
 
-  //對部位
+  //處理彈出視窗(滑動時隱藏)
+  const [scrollY, setScrollY] = useState(0);
 
+  function logit() {
+    setScrollY(window.pageYOffset);
+    if(anchorEl!==null){
+      setAnchorEl(null)
+    }else{
+      return
+    }
+  }
+  useEffect(() => {
+    function watchScroll() {
+      window.addEventListener("scroll", logit);
+    }
+    watchScroll();
+    console.log(scrollY);
+    return () => {
+      window.removeEventListener("scroll", logit);
+    };
+  });
+
+
+
+
+
+  //對部位
   let bodyPart = {
-    0: "綜合",
-    1: "手部",
-    2: "肩部",
-    3: "胸部",
-    4: "背部",
-    5: "腿部",
+    1: "綜合",
+    2: "手部",
+    3: "肩部",
+    4: "胸部",
+    5: "背部",
+    6: "腿部",
   };
   //記數量
   const [number, setNumber] = useState(1);
@@ -98,7 +125,7 @@ function ProductCard({
                 >
                   -
                 </button>
-                <div className="mx-2">{number}</div>
+                <input className="mx-2" value={number} style={{width:"50px"}}/>
                 <button
                   onClick={() => {
                     handleCount(1);
@@ -108,13 +135,34 @@ function ProductCard({
                   +
                 </button>
               </div>
-              <button className="btn poper__cart__btn">
+              <button className="btn poper__cart__btn"
+              onClick={async () => {
+                setAnchorEl(null);
+                await axios
+                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
+                    number: `${number}`,
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                Swal.fire({
+                  title: "成功加入購物車",
+                  text: `${name} ${number}份加入購物車`,
+                  icon: "success",
+                  confirmButtonText: "繼續購物",
+                  confirmButtonColor: "#1d6cf5",
+                });
+              }}>
                 <i className="fas fa-shopping-cart"></i>
               </button>
             </div>
           </Popover>
         </div>
         <Link
+        // to={productId===19?`/giftcard`:`/product-single/${category}/${productId}`}
           to={`/product-single/${category}/${productId}`}
           className="text-decoration-none"
         >

@@ -55,8 +55,7 @@ body {
 .event_rangeText{
   margin: 0 4rem;
 }
-
-/* input {
+.event_searchBar_datepicker {
   font-size: 16px;
   text-align: center;
   border-radius: 4px;

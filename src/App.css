@@ -4,6 +4,27 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
 }
+.navbar__cart{
+  position: relative;
+}
+.navbar__cart:hover .navbar__cart__content{display: flex;}
+
+
+.navbar__cart__content{
+  position: absolute;
+  display: none;
+  /* width: 10rem; */
+  /* height: 10rem; */
+  color: #09203f;
+  background-color: #fff;
+  border-radius: .5rem;
+  overflow: hidden;
+  top: 5rem;
+  left: -5rem;
+  box-shadow:5px 5px 5px #333;
+  z-index: 1;
+  
+}
 .main-nav {
   height: 80px;
   background-color: #09203f;
@@ -774,7 +795,7 @@ body {
   align-items: center;
 }
 .cart-content__list {
-  min-height: 600px;
+  min-height: 200px;
   width: 50%;
   border: 1px solid black;
 }
@@ -1017,6 +1038,18 @@ footer {
 }
 
 /* 教練活動列表 */
+.coach-activity-addBtn{
+  color: white;
+  background-color: #09203f;
+  padding: 0.8rem 1rem;
+  margin: 2rem 4rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.coach-activity-addBtn:hover {
+box-shadow: 5px 5px 5px lightgray;
+}
 .coach-activity-content {
   width: 1000px;
   min-height: 800px;
@@ -1114,6 +1147,6 @@ footer {
   margin-bottom: 0.5rem;
 }
 
-/* EventSearchBar---react-datepicker */
+
 
 
