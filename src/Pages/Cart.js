@@ -35,7 +35,16 @@ function Cart() {
           </div>
           <div className="cart-cotent__box__price">NT{item.price}元</div>
           <div className="cart-cotent__box__delete">
-            <i class="fas fa-trash-alt"></i>
+          <button className="btn"
+          onClick={()=>{
+              let newList=[...cList];
+              newList.splice(cList.indexOf(item),1);
+            //   console.log(newList);
+              setCList(newList)
+          }}>
+          <i className="fas fa-trash-alt"></i>
+          </button>
+            
           </div>
         </div>
         <hr className={cList.indexOf(item)===cList.length-1?"d-none":""} style={{ width: "100%", margin: "0" }} />
@@ -78,7 +87,7 @@ function Cart() {
               <button>刪除全部</button>
             </div>
             <hr style={{ width: "100%", margin: "10px 0" }} />
-            {cart}
+            {cList.length<=0?"購物車沒有商品":cart}
           </div>
 
           <div className="cart-content__total">
