@@ -17,6 +17,9 @@
 .LinkNoStyle {
   text-decoration: none;
 }
+.w100 {
+  width: 100%;
+}
 /* 網頁文字設定 */
 
 body {
@@ -587,6 +590,10 @@ option {
 .Course__CourseTalk__img {
   width: 60px;
   height: 60px;
+}
+.Course__CourseTalk__MainImg{
+  width: 80px;
+  height: 80px;
 }
 
 .Course__CourseTalk__Name {

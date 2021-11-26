@@ -4,6 +4,7 @@ import CoursesCourseCard from "./CoursesCourseCard";
 import CoursesCoursePages from "./CoursesPageButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 
 let storage = sessionStorage;
