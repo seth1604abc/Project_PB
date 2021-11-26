@@ -29,7 +29,7 @@ import CartInfo from './Pages/CartInfo'
 import CoachEventAdd from './Pages/CoachEventAdd';
 import CoachEventEdit from './Pages/CoachEventEdit';
 import CoachCourseAdd from './Pages/CoachCourseAdd';
-
+import SubscibePay from './Pages/SubscribePay';
 
 function App() {
   return (
@@ -64,7 +64,8 @@ function App() {
           <Route path="/cart-info" excat component={CartInfo}></Route>                 
           <Route path="/coach-event-add" exact component={CoachEventAdd}></Route>          
           <Route path="/coach-event-edit" exact component={CoachEventEdit}></Route>          
-          <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>          
+          <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>
+          <Route path="/subscribe-pay" exact component={SubscibePay}></Route>          
         </Switch>
       </Router>
      
