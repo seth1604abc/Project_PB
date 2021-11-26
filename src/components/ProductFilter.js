@@ -1,15 +1,29 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "../css/Product.css";
+import axios from "axios";
 
-function ProductFiter({ changeList,handleSelect }) {
+function ProductFiter({
+  changeList,
+  handleSelect,
+  handleSearch,
+  
+}) {
   const [cat, setCat] = useState("");
   const handleCat = (v) => {
     setCat(v);
   };
-
-  
-
+  //composition
+  let isOnComposition = false;
+  const handleComposition = (e) => {
+    if (e.type === "compositionend") {
+      //composition結束，代表中文輸入完成
+      isOnComposition = false;
+    } else {
+      //composition進行中，代表正在輸入中文
+      isOnComposition = true;
+    }
+  };
   return (
     <>
       {/* 搜尋篩選區 */}
@@ -43,20 +57,38 @@ function ProductFiter({ changeList,handleSelect }) {
             }`}
             onClick={() => {
               handleCat("健身器材");
-              // changeList(3);
             }}
             onChange={handleSelect}
           >
-            <option value="0">健身器材</option>
-            <option value="1">手部</option>
-            <option value="2">肩部</option>
-            <option value="3">胸部</option>
-            <option value="4">背部</option>
-            <option value="5">腿部</option>
+            <option value="1">健身器材</option>
+            <option value="2">手部</option>
+            <option value="3">肩部</option>
+            <option value="4">胸部</option>
+            <option value="5">背部</option>
+            <option value="6">腿部</option>
           </select>
         </div>
         <div className="product__fillter__search d-flex">
-          <input type="text" className="form-control" />
+          <input
+            type="text"
+            className="form-control"
+            placeholder="搜尋商品名稱"
+            id="productSearch"
+            name="productSearch"
+            // onCompositionStart={handleComposition}
+            // onCompositionUpdate={handleComposition}
+            // onCompositionEnd={handleComposition}
+            onChange={
+              handleSearch
+              
+            //   (e) => {
+            // //只有onComposition===false，才作onChange
+            // if (e.target instanceof HTMLInputElement && !isOnComposition){
+            //   handleSearch(e);
+            // }}
+            }
+
+          />
           <button className="btn">
             <i className="fas fa-search"></i>
           </button>
