@@ -83,6 +83,7 @@ function Event() {
   const eventList = EventData.map((data) => {
     return <EventCard key={data.id} id={data.id} title={data.title} event_time_month ={data.event_time_month} 
       event_time_day={data.event_time_day}
+      event_time_weekday={data.event_time_weekday}
       time={data.time}
       quota={data.quota}   
       coach={data.coach}    
