@@ -6,53 +6,92 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Cart() {
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+  const [list, setList] = useState([]);
   const [cList, setCList] = useState([]);
   useEffect(async () => {
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
     });
     setCList(cartList.data);
+    setList(cartList.data.map((item)=>{
+        return item.product_id
+    }))
     // console.log(cartList.data);
-    console.log(cList);
+    // console.log(cList);
   }, []);
+
+
+  const handleSelectAll = (e) => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(list);
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = (e) => {
+    const { id, checked } = e.target;
+    let newIsCheck=[...isCheck, id];
+    console.log(newIsCheck)
+    setIsCheck(newIsCheck);
+    if (!e.target.checked) {
+        let check = isCheck.filter(item => item !== id);
+      setIsCheck(check);
+    }
+  };
+
   //map購物清單
   let cart = cList.map((item) => {
     return (
       <>
         <div className="cart-content__box d-flex">
           <div className="cart-cotent__box__check">
-            <input  type="checkbox" name={item.product_id}/>
+            <input
+              type="checkbox"
+              key={item.product_id}
+              id={item.product_id}
+              name={item.product_id}
+              onChange={handleClick}
+              isCheck={isCheck.includes(item.product_id)?true:false}
+              
+            />
           </div>
           <div className="cart-cotent__box__image">
             <img src={`./product_images/${item.name}`} alt="" />
           </div>
           <div className="cart-cotent__box__title">
-            <Link to={`/product-single/${item.category}/${item.product_id}`}>{item.title}</Link>
+            <Link to={`/product-single/${item.category}/${item.product_id}`}>
+              {item.title}
+            </Link>
           </div>
           <div className="cart-cotent__box__count">
             <p>數量:</p>
-            <input type="number" min="1" defaultValue={item.amount}/>
+            <input type="number" min="1" defaultValue={item.amount} />
           </div>
           <div className="cart-cotent__box__price">NT{item.price}元</div>
           <div className="cart-cotent__box__delete">
-          <button className="btn"
-          onClick={()=>{
-              let newList=[...cList];
-              newList.splice(cList.indexOf(item),1);
-            //   console.log(newList);
-              setCList(newList)
-          }}>
-          <i className="fas fa-trash-alt"></i>
-          </button>
-            
+            <button
+              className="btn"
+              onClick={() => {
+                let newList = [...cList];
+                newList.splice(cList.indexOf(item), 1);
+                //   console.log(newList);
+                setCList(newList);
+              }}
+            >
+              <i className="fas fa-trash-alt"></i>
+            </button>
           </div>
         </div>
-        <hr className={cList.indexOf(item)===cList.length-1?"d-none":""} style={{ width: "100%", margin: "0" }} />
+        <hr
+          className={cList.indexOf(item) === cList.length - 1 ? "d-none" : ""}
+          style={{ width: "100%", margin: "0" }}
+        />
       </>
     );
   });
-
-
 
   return (
     <>
@@ -81,13 +120,19 @@ function Cart() {
             </div>
             <div className="cart-content__choose d-flex justify-content-between">
               <div style={{ padding: "3px" }}>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  name="selectAll"
+                  id="selectAll"
+                  onChange={handleSelectAll}
+                  checked={isCheckAll}
+                />
                 <span style={{ marginLeft: "3px" }}>選擇全部</span>
               </div>
               <button>刪除全部</button>
             </div>
             <hr style={{ width: "100%", margin: "10px 0" }} />
-            {cList.length<=0?"購物車沒有商品":cart}
+            {cList.length <= 0 ? "購物車沒有商品" : cart}
           </div>
 
           <div className="cart-content__total">
