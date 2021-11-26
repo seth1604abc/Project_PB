@@ -10,19 +10,24 @@ import { useHistory } from 'react-router-dom';
 
 function MemberCourse() {
   const [memberCourseData, setMemberCourseData] = useState([]);
-
+  const history = useHistory();
+  
   useEffect(async () => {
     let result = await axios.get("http://localhost:3001/member/course", {withCredentials: true})
-    console.log(result);
-    setMemberCourseData(result.data);
-    $("i").on("click", function () {
-      let hideBar = $(this).parent().next();
-      hideBar.toggle();
-    });
+    if(result.data == "loginerror"){
+      history.push("/login");
+    } else {
+      setMemberCourseData(result.data);
+      $("i").on("click", function () {
+        let hideBar = $(this).parent().next();
+        hideBar.toggle();
+      });
+    }
+    
 
   }, []);
   
-  const history = useHistory();
+  
   
 
   const handleDelete = (e) => {
@@ -36,9 +41,14 @@ function MemberCourse() {
     }).then( async (result) => {
       if (result.isConfirmed) {
         let result = await axios.post("http://localhost:3001/member/course-delete", {id: id}, {withCredentials: true})
-        Swal.fire("成功刪除", "success");        
+        Swal.fire("成功刪除", "success").then((res) => {
+          if(res.isConfirmed){
+            history.go(0);
+          }
+          
+        })       
       }
-      history.go(0);
+      
     });
   };
 
