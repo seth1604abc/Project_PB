@@ -10,18 +10,23 @@ function Cart() {
   const [isCheck, setIsCheck] = useState([]);
   const [list, setList] = useState([]);
   const [cList, setCList] = useState([]);
+  const[uData,setUData]=useState([]);
   useEffect(async () => {
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
     });
     setCList(cartList.data);
-    setList(cartList.data.map((item)=>{
-        return item.product_id
-    }))
+    setList(
+      cartList.data.map((item) => {
+        return item.product_id;
+      })
+    );
+    let userData= await axios.get("http://localhost:3001/member/info")
+    setUData(userData.data);
+    console.log(userData.data);
     // console.log(cartList.data);
     // console.log(cList);
   }, []);
-
 
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
@@ -33,11 +38,11 @@ function Cart() {
 
   const handleClick = (e) => {
     const { id, checked } = e.target;
-    let newIsCheck=[...isCheck, id];
-    console.log(newIsCheck)
+    let newIsCheck = [...isCheck, id];
+    console.log(newIsCheck);
     setIsCheck(newIsCheck);
     if (!e.target.checked) {
-        let check = isCheck.filter(item => item !== id);
+      let check = isCheck.filter((item) => item !== id);
       setIsCheck(check);
     }
   };
@@ -54,7 +59,8 @@ function Cart() {
               id={item.product_id}
               name={item.product_id}
               onChange={handleClick}
-              isCheck={isCheck.includes(item.product_id)?true:false}
+              // checked={isCheck.includes(item.product_id) ? true : false}
+              
               
             />
           </div>
@@ -158,11 +164,11 @@ function Cart() {
               </div>
               <div className="cart-content__total__benefit d-flex justify-content-between">
                 <div className="cart-content__total__benefit__check">
-                  <input type="checkbox" />
+                  {/* <input type="checkbox" isCheck={() => {}} /> */}
                   <span>選擇紅利金</span>
                 </div>
                 <div className="cart-content__total__benefit__count">
-                  -NT 100
+                  {/* <input type="number" min="0" onChange={handlePoint}/> */}
                 </div>
               </div>
               <hr />

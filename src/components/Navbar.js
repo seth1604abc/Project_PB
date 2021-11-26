@@ -38,7 +38,7 @@ function Navbar() {
           style={{ width: "5rem", backgroundColor: "white" }}
         >
           <img
-            src={`./product_images/${item.name}`}
+            src={`/product_images/${item.name}`}
             alt=""
             style={{ width: "5rem", fontSize: "0.8rem" }}
           />
