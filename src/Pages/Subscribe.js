@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Subscribe() {
-  const [isLoggedin, setIsLoggedin] = useState(false);  
+  const history = useHistory();
+  const [isLoggedin, setIsLoggedin] = useState(false);
+  const [role, setRole] = useState({});  
   useEffect( async () => {
-    let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });    
+    let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });        
     if(res.data.userId) {
       setIsLoggedin(true);
+      setRole(res.data);
     }    
   }, [])
 
@@ -21,7 +26,25 @@ function Subscribe() {
   }
 
   const logout = async () => {
-    let result = await axios.post("http://localhost:3001/auth/logout", { withCredentials: true });
+    Swal.fire({
+      title: "確定要登出嗎?",
+      showDenyButton: true,
+      confirmButtonText: "確定",
+      denyButtonText: "取消",
+    }).then(async (res) => {
+      if(res.isConfirmed){
+        let result = await axios.get("http://localhost:3001/auth/logout", { withCredentials: true });
+        history.push("/login");
+      }
+    })   
+  }
+
+  const sub = async (e) => {
+    let value = e.target.value;    
+    let result = await axios.post("http://localhost:3001/member/subscribe", {value: value}, {withCredentials:true});    
+    if(result.data == "loginerror"){
+      history.push("/login");
+    } 
     console.log(result);
   }
 
@@ -29,9 +52,11 @@ function Subscribe() {
     <>
       <div className="main-nav-sub" style={{ position: "relative" }}>
         <div className="sub-nav">
-          <div className="main-nav__logo">
-            <img src="/image/pblogo.png" alt="" />
-          </div>
+          <Link to="/">
+            <div className="main-nav__logo">
+              <img src="/image/pblogo.png" alt="" />
+            </div>
+          </Link>
           <div className="main-nav__link d-flex align-items-center">
             <ul className="main-nav__ul d-flex align-items-center">
               <li>
@@ -55,26 +80,26 @@ function Subscribe() {
                 </Link>
               </li>
               {           
-              isLoggedin ? (
-              <li className="navbar-login-li" onClick={showDiv}>
-                <span>
-                  <i className="fas fa-user"></i>
-                </span>
-                <div className="navbar-login-li__div">
-                  <div>
-                    <Link to="/member-info">
-                      會員中心
-                    </Link>
+                isLoggedin ? (
+                <li className="navbar-login-li" onClick={showDiv}>
+                  <span>
+                    <i className="fas fa-user"></i>
+                  </span>
+                  <div className="navbar-login-li__div">
+                    <div>
+                      <Link to={role.url}>
+                        {role.role}
+                      </Link>
+                    </div>
+                    <div style={{marginTop: "10px"}} onClick={logout}>登出</div>
                   </div>
-                  <div style={{marginTop: "10px"}} onClick={logout}>登出</div>
-                </div>
-              </li>
-              ) : (
-                <li>
-                  <Link to="/login" style={{fontSize: "14px"}}>註冊/登入</Link>                
                 </li>
-              )
-            }
+                ) : (
+                  <li>
+                    <Link to="/login" style={{fontSize: "14px"}}>註冊/登入</Link>                
+                  </li>
+                )
+              }
             </ul>
           </div>
         </div>
@@ -177,7 +202,7 @@ function Subscribe() {
                 <div style={{ textAlign: "left", marginTop: "10px" }}>
                   搶先免費試用，試用期間擁有所有訂閱者福利喔!
                 </div>
-                <button className="sub-start-btn" style={{marginTop: "50px"}}>馬上開始</button>
+                <button value="days" className="sub-start-btn" style={{marginTop: "50px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
             <div className="col">
@@ -214,7 +239,7 @@ function Subscribe() {
                     <i className="fas fa-check-circle"></i>會員方案七折優惠
                   </p>
                 </div>
-                <button className="sub-start-btn" style={{marginTop: "20px", padding: "5px 40px"}}>馬上開始</button>
+                <button value="years" className="sub-start-btn" style={{marginTop: "20px", padding: "5px 40px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
             <div className="col" style={{ paddingTop: "50px" }}>
@@ -235,7 +260,7 @@ function Subscribe() {
                     <i className="fas fa-check-circle"></i>參加獨享活動
                   </p>
                 </div>
-                <button className="sub-start-btn" style={{marginTop: "10px"}}>馬上開始</button>
+                <button value="months" className="sub-start-btn" style={{marginTop: "10px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
           </div>

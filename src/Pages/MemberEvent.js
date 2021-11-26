@@ -12,8 +12,12 @@ function MemberEvent() {
 
   useEffect(async () => {
     let result = await axios.get("http://localhost:3001/member/event", {withCredentials: true});
-    console.log(result);
-    setMemberEventData(result.data);
+    if(result.data == "loginerror"){
+      history.push("/login");
+    } else {
+      setMemberEventData(result.data);
+    }
+    
   }, [])
   
   
@@ -26,16 +30,11 @@ function MemberEvent() {
       showDenyButton: true,
       confirmButtonText: "確定",
       denyButtonText: "取消",
-    }).then( async (result) => {
-      if (result.isConfirmed) {
-        Swal.fire("成功刪除");
-        let result = await axios.post("http://localhost:3001/member/event-delete", {id: id}, {withCredentials: true});
-        if(result){
-          history.go(0);
-        }
-        
+    }).then(async (result) => {
+      if (result.isConfirmed) {        
+        let res = await axios.post("http://localhost:3001/member/event-delete", {id: id}, {withCredentials: true});
+        history.go(0);              
       }
-      
     });
   };
 

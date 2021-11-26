@@ -18,6 +18,9 @@ function MemberInfo() {
 
   useEffect(async () => {
     let result = await axios.get("http://localhost:3001/member/info", { withCredentials: true });
+    if(result.data == "loginerror"){
+      history.push("/login");
+    }
     let res = await setData(result.data[0]);   
     
   }, [])
@@ -50,8 +53,7 @@ function MemberInfo() {
     }).then(async (result) => {
         if(result.isConfirmed){
           let response = axios.post("http://localhost:3001/member/info", modifyData, {
-            withCredentials: true,
-            
+            withCredentials: true,            
           });
           
         }
