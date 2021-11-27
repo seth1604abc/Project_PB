@@ -28,13 +28,6 @@ function Navbar() {
   //map購物車
   const [cartTotal,setCartTotal]=useState(0);
   const cartList = cartData.map((item) => {
-    // let sum=0;
-    // if(item!==cartData.at(-1)){
-    //   sum+=item.price*item.amount;
-    // }else{
-    //   sum+=item.price*item.amount;
-    //   setCartTotal(sum);
-    // }
     return (
       <>
       <div className="d-flex align-items-center justify-content-start">
