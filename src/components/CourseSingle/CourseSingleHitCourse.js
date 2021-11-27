@@ -39,7 +39,7 @@ function CourseSingleHitCourse({ videoid,setRandom }) {
       withCredentials: true,
     });
     setHitCourse(HitCourse.data);
-    console.log(hitCourse);
+    //console.log(hitCourse);
   }, []);
   return (
     <div>
@@ -54,7 +54,7 @@ function CourseSingleHitCourse({ videoid,setRandom }) {
           return <></>;
         } else {
           if (item.length > 3) {
-            console.log(item.length);
+            //console.log(item.length);
             return <></>;
           } else {
             return (

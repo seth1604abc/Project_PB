@@ -2,33 +2,19 @@ import React from "react";
 import CourseSingleWaitingCard from "./CourseSingleWaitingCard.js";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { RepeatOutlined } from "@material-ui/icons";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
+import $ from "jquery";
 
 let storage = sessionStorage;
 
 function CourseSingleWaitingList() {
   const [course, setCourse] = useState([]);
   const [allCourse, setAllCourse] = useState([]);
-  let WaitingList = storage
-    .getItem("WaitingList")
-    .substr(0, storage.getItem("WaitingList").length - 1)
-    .split(",");
-  //console.log("allcourse",allCourse)
-  //console.log("waitingList",WaitingList);
-  let checkdWaitingList = allCourse.filter((item) => {
-    return WaitingList.includes(`${item.id}`);
-  });
-
-  // 用陣列去排序另一個陣列 ------
-  // https://newbedev.com/sort-an-array-of-objects-based-on-another-array-of-ids
-  const itemPositions = {};
-  for (const [index, id] of WaitingList.entries()) {
-    itemPositions[id] = index;
-  }
-
-  checkdWaitingList.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
+  const [waitingList, setWaitingList] = useState([]);
+  const [checkdWaitingList, setCheckdWaitingList] = useState([]);
+  const [oldIndex, setOldIndex] = useState(0);
+  // const innerRef = React.createRef()
   // 用陣列去排序另一個陣列 ------
 
   //console.log("checkdWaitingList", checkdWaitingList);
@@ -40,6 +26,25 @@ function CourseSingleWaitingList() {
     // 要改變的課程項目
     setCourse(allCourse.data);
     setAllCourse(allCourse.data);
+    let WaitingList = storage
+      .getItem("WaitingList")
+      .substr(0, storage.getItem("WaitingList").length - 1)
+      .split(",");
+    setWaitingList(WaitingList);
+    //console.log("allcourse",allCourse)
+    //console.log("waitingList",WaitingList);
+    let tempList = allCourse.data.filter((item) => {
+      return WaitingList.includes(`${item.id}`);
+    });
+    // 用陣列去排序另一個陣列 ------
+    // https://newbedev.com/sort-an-array-of-objects-based-on-another-array-of-ids
+    const itemPositions = {};
+    for (const [index, id] of WaitingList.entries()) {
+      itemPositions[id] = index;
+    }
+    tempList.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
+    setCheckdWaitingList(tempList);
+    // console.log(checkdWaitingList)
   }, []);
 
   const EddiesRef = useRef([]);
@@ -59,6 +64,49 @@ function CourseSingleWaitingList() {
     }
   }
 
+  //拖曳事件
+  //https://pjchender.blogspot.com/2017/08/html5-drag-and-drop-api.html
+  function dragStart(e, index) {
+    e.stopPropagation();
+    let oldindex = checkdWaitingList
+      .map((x) => Number(x.id))
+      .indexOf(Number(e.target.id));
+    setOldIndex(oldindex);
+  }
+
+  function dropped(e, index) {
+    if(oldIndex === 0){
+      return<></>
+    }else{
+      cancelDefault(e);
+      let target = $(e.currentTarget);
+      let newIndex = target.index();
+      if(newIndex === 0){
+        return <></>
+      }else{
+        let newArr = [...checkdWaitingList];
+      newArr.splice(oldIndex, 1);
+      newArr.splice(newIndex, 0, checkdWaitingList[oldIndex]);
+      setCheckdWaitingList(newArr);
+      // 要再塞進陣列
+      let idArr = newArr.map((item) => {
+        return item.id;
+      });
+      storage.setItem("WaitingList", idArr.join(",") + ",");
+      }
+    }
+  }
+
+  function cancelDefault(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+
+  if (checkdWaitingList === undefined) {
+    return <></>;
+  }
+
   return (
     <div className="Course__area Course__Waiting_area p-3">
       <div className="d-flex align-items-center Article__area__title">
@@ -74,79 +122,105 @@ function CourseSingleWaitingList() {
         </div>
       </div>
       <div className="Course__area__List">
-        <ul
-          className="Course__Single__WaitingList__Ul moveable"
-          name="itemsList"
-        >
-          {checkdWaitingList.map((checkdWaitingList, index) => {
+        <ul className="Course__Single__WaitingList__Ul">
+          {checkdWaitingList.map((item, index) => {
             return (
-              <li className="Course__Single__WaitingList__Li">
+              <li
+                className="Course__Single__WaitingList__Li noLiStyle"
+                draggable="true"
+                onDragStart={(e) => {
+                  dragStart(e, index);
+                }}
+                onDrop={(e) => {
+                  dropped(e, index);
+                }}
+                onDragEnter={cancelDefault}
+                onDragOver={cancelDefault}
+                id={item.id}
+                key={item.id}
+              >
                 <div
                   className={`${
-                    checkdWaitingList.id === Number(WaitingList[0])
+                    item.id === Number(checkdWaitingList[0].id)
                       ? `Course__area__Waiting Course__area__Waiting_play mb-2`
                       : `Course__area__Waiting mb-2`
                   }`}
-                  id={checkdWaitingList.id}
-                  key={checkdWaitingList.id}
+                  id={item.id}
                   draggable="true"
                 >
                   <div
                     className="Course__area__Waiting__icon pointer"
-                    id={checkdWaitingList.id}
+                    id={item.id}
                   >
                     <i
                       class={`${
-                        checkdWaitingList.id === Number(WaitingList[0])
+                        item.id === Number(checkdWaitingList[0].id)
                           ? `fas fa-play Course__area__Waiting__icon__Play`
                           : `fas fa-grip-lines`
                       }`}
+                      id={item.id}
                     ></i>
                   </div>
-                  <div className="Course__area__Waiting__image">
+                  <div className="Course__area__Waiting__image" id={item.id}>
                     <img
-                      src={`/images/${checkdWaitingList.filename}.png`}
+                      src={`/images/${item.filename}.png`}
                       alt="影片縮圖"
+                      id={item.id}
                     />
                   </div>
-                  <div className="row p-2">
-                    <div className="col-12 Course__area__Waiting__title">
-                      {checkdWaitingList.title}
+                  <div className="row p-2" id={item.id}>
+                    <div
+                      className="col-12 Course__area__Waiting__title"
+                      id={item.id}
+                    >
+                      {item.title}
                     </div>
-                    <div className="col-4  ms-2 Course__area__Waiting__tag">
-                      # {BODY_PARTS[checkdWaitingList.body_part_id]}
+                    <div
+                      className="col-4  ms-2 Course__area__Waiting__tag"
+                      id={item.id}
+                    >
+                      # {BODY_PARTS[item.body_part_id]}
                     </div>
-                    <div className="col-4 Course__area__Waiting__tag">
-                      # {LEVEL[checkdWaitingList.level_id]}
+                    <div
+                      className="col-4 Course__area__Waiting__tag"
+                      id={item.id}
+                    >
+                      # {LEVEL[item.level_id]}
                     </div>
                   </div>
                   <div
                     className="Course__area__Waiting__MoreBtn pointer"
                     onClick={MoreBtn}
+                    id={item.id}
                   >
-                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v" id={item.id}></i>
                   </div>
                   <div
                     className={`position-absolute Course__area__Waiting__MoreBtn__Option p-2 `}
-                    id={checkdWaitingList.id}
+                    id={item.id}
                     ref={EddiesRef}
                   >
                     <div
                       className="pb-2 pointer"
                       onClick={() => {
-                        console.log("收藏這部影片", checkdWaitingList.id);
+                        console.log("收藏這部影片", item.id);
                       }}
+                      id={item.id}
                     >
-                      <i class="fas fa-heart"></i> 收藏這部影片
+                      <i class="fas fa-heart" id={item.id}></i> 收藏這部影片
                     </div>
-                    <div className="Course__area__Waiting__MoreBtn__Option__Line"></div>
+                    <div
+                      className="Course__area__Waiting__MoreBtn__Option__Line"
+                      id={item.id}
+                    ></div>
                     <div
                       className="pt-2 pointer"
                       onClick={() => {
-                        console.log("從清單中移除", checkdWaitingList.id);
+                        console.log("從清單中移除", item.id);
                       }}
+                      id={item.id}
                     >
-                      <i class="fas fa-trash-alt"></i> 從清單中移除
+                      <i class="fas fa-trash-alt" id={item.id}></i> 從清單中移除
                     </div>
                   </div>
                 </div>
