@@ -93,6 +93,9 @@ function Cart() {
     if (e.target.value <= 0) {
       e.target.value = 0;
     }
+    if(e.target.value>total){
+      e.target.value=uData.point
+    }
     setUsePoint(e.target.value);
   };
   //初始總金額
