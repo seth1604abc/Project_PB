@@ -458,6 +458,11 @@ option {
 /* 待播清單 */
 
 /* 拖曳功能 開始 */
+.noLiStyle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .Course__Single__WaitingList__Ul {
   margin: 0;
   padding: 0;
@@ -591,7 +596,7 @@ option {
   width: 60px;
   height: 60px;
 }
-.Course__CourseTalk__MainImg{
+.Course__CourseTalk__MainImg {
   width: 80px;
   height: 80px;
 }

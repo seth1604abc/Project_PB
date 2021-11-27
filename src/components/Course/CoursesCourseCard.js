@@ -1,22 +1,63 @@
 import React from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 let storage = sessionStorage;
 
 function CoursesCourseCard(course) {
+  const [icon, setIcon] = useState("far");
+
   // sessionStorage
   // 給 WaitingList 空字串
   if (storage["WaitingList"] == null) {
     storage["WaitingList"] = "";
   }
 
-  function clickHeart(e) {
-    e.preventDefault()
-    if (e.target.className === "far fa-heart") {
-      e.target.className = "fas fa-heart HeartColor";
+  async function clickHeart(e) {
+    e.preventDefault();
+    if (icon === "far") {
+      setIcon("fas HeartColor");
+      let addCountLikes = course.likes + 1;
+      let likes = { like: addCountLikes, id: course.id };
+      let likeList = { course: course.id };
+      console.log(likeList);
+      try {
+        let SingleCourse = await axios.post(
+          `http://localhost:3001/Course/changeLikesCount`,
+          likes,
+          { withCredentials: true }
+        );
+        let addLikeList = await axios.post(
+          `http://localhost:3001/Course/addLikeList`,
+          likeList,
+          { withCredentials: true }
+        );
+      } catch (e) {
+        console.log(e);
+      }
     } else {
-      e.target.className = "far fa-heart";
+      setIcon("far");
+      let disCountLikes = course.likes;
+      let likes = { like: disCountLikes, id: course.id };
+      let likeList = { course: course.id };
+      console.log(likeList);
+      try {
+        let SingleCourse = await axios.post(
+          `http://localhost:3001/Course/changeLikesCount`,
+          likes,
+          { withCredentials: true }
+        );
+        let addLikeList = await axios.post(
+          `http://localhost:3001/Course/addLikeList`,
+          likeList,
+          { withCredentials: true }
+        );
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
+
   function AddList(e) {
     // 按鈕 toggle
     if (e.currentTarget.children[0].innerText === "加入待播清單") {
@@ -75,8 +116,12 @@ function CoursesCourseCard(course) {
                 {course.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{course.likes}</span>
-                <i id={course.id} class="far fa-heart" onClick={clickHeart}></i>
+                <span>{icon === "far" ? course.likes : course.likes + 1}</span>
+                <i
+                  id={course.id}
+                  class={`${icon} fa-heart`}
+                  onClick={clickHeart}
+                ></i>
               </div>
             </div>
           </div>
