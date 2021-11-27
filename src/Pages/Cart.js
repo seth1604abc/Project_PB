@@ -133,6 +133,13 @@ function Cart() {
               type="number"
               min="1"
               defaultValue={item.amount}
+              onChange={(e)=>{
+                // let newList=[...cList].filter((thing)=>thing.product_id!==item.product_id)
+                let newList=[...cList]
+                let newThing=newList[cList.indexOf(item)];
+                newThing.amount=e.target.value;
+                setCList(newList);
+              }}
             />
           </div>
           <div className="cart-cotent__box__price">NT{item.price}元</div>
@@ -237,10 +244,11 @@ function Cart() {
                   {total}
                 </div>
               </div>
-              <div className="cart-content__total__benefit d-flex justify-content-between">
+              <div className="cart-content__total__benefit d-flex justify-content-between align-items-center">
                 <div className="text-nowrap ">選擇紅利金</div>
 
-                <div className="cart-content__total__benefit__count d-flex justify-content-end">
+                <div className="cart-content__total__benefit__count d-flex align-items-center justify-content-end">
+                <span className="me-1" style={{fontSize:"0.8rem",color:"#333"}}>(目前擁有:{uData.point}點)</span>
                   <input
                     type="number"
                     className="form-control w-50 align-self-end"
@@ -257,7 +265,9 @@ function Cart() {
               </div>
               <div className="d-flex justify-content-center my-3">
                 <Link
-                  to="/cart-info"
+                  to={{
+                    pathname:"/cart-info",
+                    state:{cList,usePoint,},}}
                   className="btn"
                   style={{
                     backgroundColor: "#2571E3",
