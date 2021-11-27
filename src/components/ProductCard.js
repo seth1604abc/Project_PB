@@ -97,6 +97,7 @@ function ProductCard({
             aria-describedby={id}
             variant="contained"
             onClick={handleClick}
+            className={productId===19?"d-none":""}
           >
             <i className="fas fa-shopping-cart" />
           </Button>
@@ -172,6 +173,7 @@ function ProductCard({
           <img
             src={`/product_images/${mainImage}`}
             className="card-img-top"
+            style={{objectFit: "contain"}}
             alt="..."
           />
           <div className="card-body">
