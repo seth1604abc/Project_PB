@@ -54,7 +54,8 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
       try {
         let result = await axios.post(
           "http://localhost:3001/course/addComment",
-          sendtext
+          sendtext,
+          { withCredentials: true }
         );
         //console.log(text);
         let newComment = [...comments, sendtext];
@@ -69,7 +70,8 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
       try {
         let result = await axios.post(
           "http://localhost:3001/course/addChildrenComment",
-          childSendText
+          childSendText,
+          { withCredentials: true }
         );
         let newChildrenComment = [...childComment, childSendText];
         setComment(newChildrenComment);

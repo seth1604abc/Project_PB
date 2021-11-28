@@ -3,6 +3,7 @@ import { useState } from "react";
 let storage = sessionStorage;
 
 function CourseControlBar({
+  heartListButtonToggle,
   waitingListButtonToggle,
   bodyPartHandleSelect,
   filterBase,
@@ -22,9 +23,11 @@ function CourseControlBar({
     if (heart === "far") {
       setHeart("fas HeartColor");
       setHeartButton("bgBlueftWhite");
+      heartListButtonToggle(1)
     } else {
       setHeart("far");
       setHeartButton("");
+      heartListButtonToggle(2)
     }
   }
   function PlayListToggle() {
