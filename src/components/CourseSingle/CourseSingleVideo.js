@@ -33,7 +33,8 @@ function CourseSingleVideo({ singleCourse }) {
       try {
         let SingleCourse = await axios.post(
           `http://localhost:3001/Course/changeLikesCount`,
-          likes
+          likes,
+          { withCredentials: true }
         );
       } catch (e) {
         console.log(e);
@@ -45,7 +46,8 @@ function CourseSingleVideo({ singleCourse }) {
       try {
         let SingleCourse = await axios.post(
           `http://localhost:3001/Course/changeLikesCount`,
-          likes
+          likes,
+          { withCredentials: true }
         );
       } catch (e) {
         console.log(e);
@@ -53,7 +55,6 @@ function CourseSingleVideo({ singleCourse }) {
     }
   }
 
-  //console.log(singleCourse)
   if (singleCourse === undefined) {
     return <></>;
   }

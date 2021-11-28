@@ -1,11 +1,43 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 let storage = sessionStorage;
 
 function CoursesCourseCard(course) {
   const [icon, setIcon] = useState("far");
+  const [likeListAll, setLikeListAll] = useState([]);
+  const [likeListMember, setLikeListMember] = useState([]);
+
+  useEffect(async () => {
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    setLikeListAll(isLIkesList.data);
+    setLikeListMember(isLIkesListMember.data);
+
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+
+    if (currectList.includes(course.id)) {
+      setIcon("fas HeartColor");
+    } else {
+      setIcon("far");
+    }
+  }, []);
 
   // sessionStorage
   // 給 WaitingList 空字串
@@ -48,7 +80,7 @@ function CoursesCourseCard(course) {
           { withCredentials: true }
         );
         let addLikeList = await axios.post(
-          `http://localhost:3001/Course/addLikeList`,
+          `http://localhost:3001/Course/deleteLikeList`,
           likeList,
           { withCredentials: true }
         );
@@ -85,8 +117,10 @@ function CoursesCourseCard(course) {
     }
   }
   let storagelist = storage["WaitingList"].split(",");
-  //console.log(storagelist);
-  //console.log(storagelist,course.id)
+
+  if (likeListAll === undefined || likeListMember === undefined) {
+    return <></>;
+  }
   return (
     <>
       <div className="Courses__singlecourse__card">
@@ -116,7 +150,7 @@ function CoursesCourseCard(course) {
                 {course.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{icon === "far" ? course.likes : course.likes + 1}</span>
+                <span>{icon === "far" ? course.likes : course.likes+1}</span>
                 <i
                   id={course.id}
                   class={`${icon} fa-heart`}

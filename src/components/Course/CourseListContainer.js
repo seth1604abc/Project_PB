@@ -24,6 +24,8 @@ function CourseListContainer() {
   const [copyFilterBase, setCopyFilterBase] = useState(filterBase);
   // 關鍵字搜尋
   const [keyWord, setKeyWord] = useState("");
+  // 已收藏的課程
+  const [heartCourse, setHeartCourse] = useState();
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -33,6 +35,26 @@ function CourseListContainer() {
     setCourse(allCourse.data);
     // axios 抓回來後要保留的所有項目
     setAllCourse(allCourse.data);
+
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+    setHeartCourse(currectList);
   }, []);
 
   useEffect(() => {
@@ -138,7 +160,7 @@ function CourseListContainer() {
       });
       setCourse(coachChecked);
     }
-    setCopyFilterBase(filterBase)
+    setCopyFilterBase(filterBase);
   }
 
   function waitingListButtonToggle(e) {
@@ -149,7 +171,7 @@ function CourseListContainer() {
         .split(",");
       let checkdWaitingList = allCourse.filter((item) => {
         //console.log(item.id)
-        return WaitingList.includes(`${item.id}`);
+        return WaitingList.includes(item.id);
       });
       //console.log("checkdWaitingList",checkdWaitingList)
       setCourse(checkdWaitingList);
@@ -157,6 +179,22 @@ function CourseListContainer() {
       setCourse(allCourse);
     }
   }
+
+  function heartListButtonToggle(e) {
+    if (e === 1) {
+      console.log("部分顯示");
+      console.log(heartCourse);
+      let heartList = allCourse.filter((item) => {
+        //console.log(item.id)
+        return heartCourse.includes(item.id);
+      });
+      setCourse(heartList)
+    } else {
+      setCourse(allCourse);
+      console.log("全部顯示");
+    }
+  }
+
   // 排序更動 熱門程度  更新時間
   function HitSort() {
     //console.log(sort)
@@ -191,7 +229,7 @@ function CourseListContainer() {
     setFilterBase(defaultFilter);
     console.log(defaultFilter);
     if (keyWord === "") {
-      setFilterBase(copyFilterBase)
+      setFilterBase(copyFilterBase);
       if (
         // 身體部位有變化
         filterBase.body_part_id !== "1" &&
@@ -289,6 +327,7 @@ function CourseListContainer() {
   return (
     <div>
       <CourseControlBar
+        heartListButtonToggle={heartListButtonToggle}
         waitingListButtonToggle={waitingListButtonToggle}
         bodyPartHandleSelect={bodyPartHandleSelect}
         filterBase={filterBase}
@@ -309,10 +348,12 @@ function CourseListContainer() {
               upload_time={course.upload_time}
               update_time={course.update_time}
               likes={course.likes}
+              coach={course.coach}
               body_part_id={BODY_PARTS[course.body_part_id]}
               views={course.views}
               level={LEVEL[course.level_id]}
               filename={course.filename}
+              setHeartCourse={setHeartCourse}
             />
           );
         })}
