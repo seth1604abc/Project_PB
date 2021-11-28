@@ -139,7 +139,20 @@ function ProductCard({
               <button className="btn poper__cart__btn"
               onClick={async () => {
                 setAnchorEl(null);
-                await axios
+                let checkCart= await axios.get("http://localhost:3001/cart/list")
+                console.log(checkCart.data)
+                if (checkCart.data.filter(item => item.product_id == productId).length > 0) {
+                  console.log(`${productId} is in cart`)
+                  await axios
+                  .patch(`http://localhost:3001/cart/update/${productId}/${number}`)
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                }else{
+                  await axios
                   .post(`http://localhost:3001/cart/addcart/${productId}`, {
                     number: `${number}`,
                   })
@@ -149,6 +162,7 @@ function ProductCard({
                   .catch(function (error) {
                     console.log(error);
                   });
+                }
                 Swal.fire({
                   title: "成功加入購物車",
                   text: `${name} ${number}份加入購物車`,
