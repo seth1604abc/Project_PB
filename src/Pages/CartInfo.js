@@ -3,9 +3,19 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
+
 
 function CartInfo() {
+    const location=useLocation();
+    useEffect(()=>{
+        // console.log(location);
+        const list=location.state.checkList;
+        const point=location.state.usePoint;
+        const total=location.state.total;
+        const user=location.state.uData;
+        console.log(list,point,total,user);
+    },[])
     return (
         <>
             <Navbar />
@@ -29,6 +39,9 @@ function CartInfo() {
                     <div className="cart-content">
                         <div className="cart-content-l me-5">
                             <div className="cart-content__title p-3"><h3>訂單摘要</h3></div>
+                            
+
+                            <div className="cart-content__title p-3 mt-4"><h3>收件人資料</h3></div>
                             <div className="cart-content-l__info">                                
                                 <div className="cart-content-l__info__check">
                                     <input type="checkbox" />
@@ -44,9 +57,11 @@ function CartInfo() {
                                     <input type="text" placeholder="請輸入收件人電話號碼"/>
                                 </div>
                             </div>
-
-                            <div className="cart-content__title p-3 mt-4"><h3>選擇運送及付款方式</h3></div>
-                            <div className="cart-content-l__paymethod">
+                        </div>
+                        <div className="cart-content-r">
+                            <div className="cart-content__title p-3"><h3>選擇運送及付款方式</h3></div>
+                            <div className="cart-content-r__payment">
+                            {/* <div className="cart-content-l__paymethod"> */}
                                 <div className="cart-content-l__paymethod__data">
                                     <p>運送方式</p>
                                     <select name="" id="">
@@ -61,11 +76,8 @@ function CartInfo() {
                                         <option value="">信用卡</option>
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="cart-content-r">
-                            <div className="cart-content__title p-3"><h3>選擇運送及付款方式</h3></div>
-                            <div className="cart-content-r__payment">
+                            {/* </div> */}
+                            
                                 <p>運送地址(宅配)</p>
                                 <select name="" id="">
                                     <option value="">台北市</option>
