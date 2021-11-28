@@ -39,6 +39,10 @@ function Cart() {
       })
     );
   }, [isCheck]);
+
+ 
+
+
   //處理全選
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
@@ -58,6 +62,7 @@ function Cart() {
       setIsCheck(check);
     }
   };
+
   //處理多選刪除
   const handleDeleteSelected = () => {
     if (isCheck.length <= 0) {
@@ -95,17 +100,21 @@ function Cart() {
       e.target.value = 0;
     }
     if (e.target.value > total) {
-      e.target.value = uData.point;
+      e.target.value = total;
     }
     setUsePoint(e.target.value);
   };
   //初始總金額
   var total = 0;
-
+  const handleAfterTotal=()=>{
+    return total-usePoint;
+  }
   //map購物清單
   let cart = cList.map((item) => {
     let itemPrice = item.price * item.amount;
-    total += itemPrice;
+    if(isCheck.includes(item.product_id)){
+      total += itemPrice;
+    }
     return (
       <>
         <div className="cart-content__box d-flex">
@@ -140,7 +149,6 @@ function Cart() {
                 let newThing = newList[cList.indexOf(item)];
                 newThing.amount = e.target.value;
                 setCList(newList);
-
                 await axios
                   .patch(`http://localhost:3001/cart/list/${item.product_id}/${item.amount}`)
                   .then(function (response) {
@@ -275,14 +283,14 @@ function Cart() {
               <div className="cart-content__total__product d-flex justify-content-between">
                 <div className="cart-content__total__product__title">合計</div>
                 <div className="cart-content__total__product__price">
-                  {total - usePoint}
+                  {total-usePoint}
                 </div>
               </div>
               <div className="d-flex justify-content-center my-3">
                 <Link
                   to={{
                     pathname: "/cart-info",
-                    state: { cList, usePoint },
+                    state: { checkList:cList.filter(item=>isCheck.includes(item.product_id)), usePoint,total:`${total-usePoint}`,uData},
                   }}
                   className="btn"
                   style={{
