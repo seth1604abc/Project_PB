@@ -4,14 +4,36 @@ import { useState, useEffect } from "react";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import axios from "axios";
 
-function CourseSingleVideo({ singleCourse }) {
+function CourseSingleVideo({ singleCourse ,isCourse_id}) {
   const [seeall, setSeeall] = useState("");
-
-  useEffect(() => {
-    if (singleCourse) {
-      console.log(singleCourse[0].likes);
+  const [icon, setIcon] = useState("far");
+  const [rightList, setRightList] = useState('');
+  useEffect(async()=>{
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+    setRightList(currectList)
+    if (currectList.includes(Number(isCourse_id))) {
+      setIcon("fas HeartColor");
+    } else {
+      setIcon("far");
     }
-  }, []);
+  },[])
   function viewall(e) {
     if (seeall === "") {
       setSeeall("seeall");
@@ -24,16 +46,21 @@ function CourseSingleVideo({ singleCourse }) {
         '<i class="fas fa-angle-double-down px-1"></i> 顯示完整資訊';
     }
   }
-  const [icon, setIcon] = useState("far");
   async function clickheart() {
     if (icon === "far") {
       setIcon("fas HeartColor");
       let addCountLikes = singleCourse[0].likes + 1;
       let likes = { like: addCountLikes, id: singleCourse[0].id };
+      let likeList = { course: singleCourse[0].id };
       try {
         let SingleCourse = await axios.post(
           `http://localhost:3001/Course/changeLikesCount`,
           likes,
+          { withCredentials: true }
+        );
+        let addLikeList = await axios.post(
+          `http://localhost:3001/Course/addLikeList`,
+          likeList,
           { withCredentials: true }
         );
       } catch (e) {
@@ -43,10 +70,17 @@ function CourseSingleVideo({ singleCourse }) {
       setIcon("far");
       let disCountLikes = singleCourse[0].likes;
       let likes = { like: disCountLikes, id: singleCourse[0].id };
+      let likeList = { course: singleCourse[0].id };
+
       try {
         let SingleCourse = await axios.post(
           `http://localhost:3001/Course/changeLikesCount`,
           likes,
+          { withCredentials: true }
+        );
+        let addLikeList = await axios.post(
+          `http://localhost:3001/Course/deleteLikeList`,
+          likeList,
           { withCredentials: true }
         );
       } catch (e) {
@@ -55,7 +89,7 @@ function CourseSingleVideo({ singleCourse }) {
     }
   }
 
-  if (singleCourse === undefined) {
+  if (singleCourse === undefined || rightList ===undefined) {
     return <></>;
   }
   return (

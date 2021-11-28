@@ -43,8 +43,8 @@ function CourseSingle() {
       <Navbar />
       <div className="container">
         <div className="Course__video-mainarea mt-4">
-          <CourseSingleVideo singleCourse={singleCourse} />
-          <CourseSingleWaitingList />
+          <CourseSingleVideo singleCourse={singleCourse} isCourse_id={courseId}/>
+          <CourseSingleWaitingList isCourse_id={courseId}/>
         </div>
         <div className="d-flex  mt-4 ms-4 me-4">
           <div className="maxw65">

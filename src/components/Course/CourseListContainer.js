@@ -169,11 +169,12 @@ function CourseListContainer() {
         .getItem("WaitingList")
         .substr(0, storage.getItem("WaitingList").length - 1)
         .split(",");
-      let checkdWaitingList = allCourse.filter((item) => {
-        //console.log(item.id)
-        return WaitingList.includes(item.id);
-      });
-      //console.log("checkdWaitingList",checkdWaitingList)
+        console.log("WaitingList",WaitingList)
+        let checkdWaitingList = allCourse.filter((item) => {
+          console.log("item.id",item.id)
+          return WaitingList.includes(`${item.id}`);
+        });
+      console.log("checkdWaitingList",checkdWaitingList)
       setCourse(checkdWaitingList);
     } else {
       setCourse(allCourse);
@@ -207,10 +208,7 @@ function CourseListContainer() {
       course.sort(function (a, b) {
         return new Date(b.upload_time) - new Date(a.upload_time);
       });
-      //console.log('TimeSort')
     }
-    // 要改變的課程項目
-    //setCourse(CourseHitSort.data);
   }
 
   // 關鍵字搜尋
@@ -219,7 +217,7 @@ function CourseListContainer() {
     let Keyword = allCourse.filter((item) => {
       return item.title.includes(keyWord);
     });
-    console.log("searchtext", Keyword);
+    //console.log("searchtext", Keyword);
     let defaultFilter = {
       ...filterBase,
       body_part_id: "1",
@@ -227,9 +225,9 @@ function CourseListContainer() {
       level_id: "1",
     };
     setFilterBase(defaultFilter);
-    console.log(defaultFilter);
     if (keyWord === "") {
       setFilterBase(copyFilterBase);
+      setCourse(allCourse)
       if (
         // 身體部位有變化
         filterBase.body_part_id !== "1" &&

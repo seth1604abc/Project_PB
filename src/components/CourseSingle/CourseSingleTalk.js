@@ -77,8 +77,8 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
         setComment(newChildrenComment);
         setTextValue("");
         //console.log("newChildrenComment", newChildrenComment);
-        setTextPlaceHolder('留言')
-        setReply(false)
+        setTextPlaceHolder("留言");
+        setReply(false);
       } catch (e) {
         console.error(e);
       }
@@ -118,7 +118,11 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
             共
             <span className="p-2">
               {Number(videoId) === Number(course_id)
-                ? Number(comment.filter((item)=>{return item.course_id == videoId}).length)
+                ? Number(
+                    comment.filter((item) => {
+                      return item.course_id == videoId;
+                    }).length
+                  )
                 : 0}
             </span>
             則
@@ -150,6 +154,13 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
             onChange={(e) => {
               setText(e.target.value);
               setTextValue(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.charCode === 13) {
+                console.log("有喔");
+                submitComment(e);
+                setRandom(Math.random());
+              }
             }}
           />
           <i
