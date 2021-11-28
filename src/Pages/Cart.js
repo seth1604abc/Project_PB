@@ -28,7 +28,7 @@ function Cart() {
     // console.log(cartList.data);
     // console.log(cList);
   }, []);
-  useEffect(async() => {
+  useEffect(async () => {
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
     });
@@ -73,10 +73,11 @@ function Cart() {
         })
         .then(function (response) {
           console.log(response);
-          setCList(cList.filter((item)=>!isCheck.find((check)=>item==check)));
+          setCList(
+            cList.filter((item) => !isCheck.find((check) => item == check))
+          );
           setIsCheck([]);
           setIsCheckAll(false);
-          
         })
         .catch(function (error) {
           console.log(error);
@@ -93,8 +94,8 @@ function Cart() {
     if (e.target.value <= 0) {
       e.target.value = 0;
     }
-    if(e.target.value>total){
-      e.target.value=uData.point
+    if (e.target.value > total) {
+      e.target.value = uData.point;
     }
     setUsePoint(e.target.value);
   };
@@ -133,12 +134,21 @@ function Cart() {
               type="number"
               min="1"
               defaultValue={item.amount}
-              onChange={(e)=>{
+              onChange={async (e) => {
                 // let newList=[...cList].filter((thing)=>thing.product_id!==item.product_id)
-                let newList=[...cList]
-                let newThing=newList[cList.indexOf(item)];
-                newThing.amount=e.target.value;
+                let newList = [...cList];
+                let newThing = newList[cList.indexOf(item)];
+                newThing.amount = e.target.value;
                 setCList(newList);
+
+                await axios
+                  .patch(`http://localhost:3001/cart/list/${item.product_id}/${item.amount}`)
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
               }}
             />
           </div>
@@ -248,7 +258,12 @@ function Cart() {
                 <div className="text-nowrap ">選擇紅利金</div>
 
                 <div className="cart-content__total__benefit__count d-flex align-items-center justify-content-end">
-                <span className="me-1" style={{fontSize:"0.8rem",color:"#333"}}>(目前擁有:{uData.point}點)</span>
+                  <span
+                    className="me-1"
+                    style={{ fontSize: "0.8rem", color: "#333" }}
+                  >
+                    (目前擁有:{uData.point}點)
+                  </span>
                   <input
                     type="number"
                     className="form-control w-50 align-self-end"
@@ -266,8 +281,9 @@ function Cart() {
               <div className="d-flex justify-content-center my-3">
                 <Link
                   to={{
-                    pathname:"/cart-info",
-                    state:{cList,usePoint,},}}
+                    pathname: "/cart-info",
+                    state: { cList, usePoint },
+                  }}
                   className="btn"
                   style={{
                     backgroundColor: "#2571E3",
