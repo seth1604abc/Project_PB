@@ -200,7 +200,20 @@ const ProductSingle = () => {
               className={`${productId}`==="19"?`d-none btn productMain__info__btn--cart me-3`:`btn productMain__info__btn--cart me-3`}
               // className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
-                await axios
+                let checkCart= await axios.get("http://localhost:3001/cart/list")
+                console.log(checkCart.data)
+                if (checkCart.data.filter(item => item.product_id == productId).length > 0) {
+                  console.log(`${productId} is in cart`)
+                  await axios
+                  .patch(`http://localhost:3001/cart/update/${productId}/${number}`)
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                }else{
+                  await axios
                   .post(`http://localhost:3001/cart/addcart/${productId}`, {
                     number: `${number}`,
                   })
@@ -210,6 +223,7 @@ const ProductSingle = () => {
                   .catch(function (error) {
                     console.log(error);
                   });
+                }
                 Swal.fire({
                   title: "成功加入購物車",
                   text: `${productData.title} ${number}份加入購物車`,
