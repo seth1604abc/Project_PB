@@ -8,7 +8,7 @@ import $ from "jquery";
 
 let storage = sessionStorage;
 
-function CourseSingleWaitingList() {
+function CourseSingleWaitingList({isCourse_id}) {
   const [course, setCourse] = useState([]);
   const [allCourse, setAllCourse] = useState([]);
   const [waitingList, setWaitingList] = useState([]);
@@ -17,7 +17,7 @@ function CourseSingleWaitingList() {
   // const innerRef = React.createRef()
   // 用陣列去排序另一個陣列 ------
 
-  //console.log("checkdWaitingList", checkdWaitingList);
+ // console.log("isCourse_id", isCourse_id);
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -44,7 +44,17 @@ function CourseSingleWaitingList() {
     }
     tempList.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
     setCheckdWaitingList(tempList);
-    // console.log(checkdWaitingList)
+    if(WaitingList.includes(isCourse_id)){
+      let oldList = tempList.filter((item)=>{return Number(item.id) !== Number(isCourse_id) })
+      let targetItem = tempList.filter((item)=>{return Number(item.id) === Number(isCourse_id) })
+      oldList.unshift(targetItem[0])
+      //console.log(oldList)
+      setCheckdWaitingList(oldList)
+    }else{
+      let targetItem = allCourse.data.filter((item)=>{return Number(item.id) === Number(isCourse_id)})
+      tempList.unshift(targetItem[0])
+      setCheckdWaitingList(tempList)
+    }
   }, []);
 
   const EddiesRef = useRef([]);
