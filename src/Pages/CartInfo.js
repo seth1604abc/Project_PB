@@ -7,6 +7,10 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { ZipCodeTW } from "zipcode-tw-react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { FormControlUnstyled } from "@mui/core";
+import * as cheerio from 'cheerio';
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
 
 function CartInfo() {
   const history = useHistory();
@@ -49,47 +53,51 @@ useEffect(()=>{
   useEffect(async() => {
     // console.log(location);
     // console.log(list, point, total, user);
+    
    let mart=await axios.post("http://localhost:3001/cart/mart",{
       city:`${data.city}`,
       area:`${data.area}`
     }).then(function (response) {
       console.log(response);
+      
+      // console.log($);
+      
     });
-    console.log(mart);
-  }, [data.city,data.area]);
+    
+  }, [data]);
+  //處理信用卡
+  const [cData, setCData] = useState({
+    cvc: "",
+    expiry: "",
+    name: "",
+    number: "",
+  });
+ const handleInputNumber=(e)=>{
+   console.log(e.target.value.length)
+   if(e.target.value.length>16){
+    return
+   }else{
+    setCData({ ...cData, [e.target.name]: e.target.value });
+   }
+ };
 
-  //處理711
-  // const handleMart = async (countyValue, districtValue) => {
-  //   let result = await axios({
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/x-www-form-urlencoded",
-  //       "Access-Control-Allow-Origin": " *",
-  //       "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
-  //     },
-  //     url: "http://emap.pcsc.com.tw/EMapSDK.aspx",
-  //     data: {
-  //       commandid: "SearchStore",
-  //       city: `${countyValue}`,
-  //       town: `${districtValue}`,
-  //     },
-  //   });
-  //   console.log(result);
-  // };
-
+  const handleInputChange = (e) => {
+    setCData({ ...cData, [e.target.name]: e.target.value });
+  };
   //處理縣市
-  const handleCountyChange = (e) => {
+  const handleCountyChange = async(e) => {
     const { countyValue } = e;
     let newData = { ...data };
     newData.city = countyValue;
-    setData(newData);
+    newData.area="請選擇";
+     await setData(newData);
   };
 
-  const handleDistrictChange = (e) => {
+  const handleDistrictChange = async(e) => {
     const { districtValue } = e;
     let newData = { ...data };
     newData.area = districtValue;
-    setData(newData);
+    await setData(newData);
   };
   //處理地址
   const handleAddress = (e) => {
@@ -245,39 +253,79 @@ useEffect(()=>{
                 handleChangeDistrict={handleDistrictChange}
               />
               
-
-              <input
+              {shipment === 1 ? <input
                 type="text"
                 placeholder="請輸入詳細地址"
                 className="my-3 w-75 form-control"
                 onChange={handleAddress}
                 onClick={() => console.log(data)}
-              />
+              /> : <select
+                  className="form-select"
+                  name=""
+                  id=""
+                  // onChange={handlePayment}
+                >
+                  <option value="1">貨到付款</option>
+                  <option value="2">信用卡</option>
+                </select>
+              }
+              {/* <input
+                type="text"
+                placeholder="請輸入詳細地址"
+                className="my-3 w-75 form-control"
+                onChange={handleAddress}
+                onClick={() => console.log(data)}
+              /> */}
 
-              <p>運送地址(超商)</p>
-              <ZipCodeTW
-                displayType="text"
-                zipStyle={{ display: "none" }}
-                districtStyle={{ marginLeft: "20px" }}
-                districtClass="districtClass"
-                countyClass="countyClass"
-                countyValue={data.city}
-                handleChangeCounty={handleCountyChange}
-                districtValue={data.area}
-                handleChangeDistrict={handleDistrictChange}
-              />
-              <select className="form-control"></select>
+              
 
-              <p>付款方式: 貨到付款</p>
-
-              <p>付款方式: 信用卡</p>
-              <input type="radio" />
+              <p>付款方式: {payment===1?"貨到付款":"信用卡"}</p>
               <i
                 style={{ fontSize: "18px", marginLeft: "10px" }}
                 class="fab fa-cc-visa"
               ></i>
-              <span>(●●●●●●-1234)</span>
-
+              <div id="PaymentForm" className="creditCard-group p-3">
+               <Cards
+              cvc={cData.cvc}
+              expiry={cData.expiry}
+              focus={cData.focus}
+              name={cData.name}
+              number={cData.number}
+            />
+             <form action="" className="d-flex flex-column my-3">
+              <input
+                type="number"
+                className="form-control my-1"
+                name="cvc"
+                placeholder="CVC"
+                onChange={handleInputChange}
+                maxLength="3"
+              />
+              <input
+                type="date"
+                className="form-control my-1"
+                name="expiry"
+                placeholder="Expire Date"
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                className="form-control my-1"
+                name="name"
+                placeholder="Your Name"
+                onChange={handleInputChange}
+              />
+              <input
+                type="number"
+                className="form-control my-1"
+                name="number"
+                placeholder="Card Number"
+                onChange={handleInputNumber}
+                max="9999999999999999"
+                value={cData.number}
+              />
+            </form>
+              </div>
               <p
                 style={{
                   textDecoration: "underline",
