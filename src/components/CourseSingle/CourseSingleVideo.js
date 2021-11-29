@@ -3,12 +3,19 @@ import Membericon from "../MemberIcon.js";
 import { useState, useEffect } from "react";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function CourseSingleVideo({ singleCourse ,isCourse_id}) {
+function CourseSingleVideo({ singleCourse, isCourse_id }) {
   const [seeall, setSeeall] = useState("");
   const [icon, setIcon] = useState("far");
-  const [rightList, setRightList] = useState('');
-  useEffect(async()=>{
+  const [rightList, setRightList] = useState("");
+  const [theUser, setTheUser] = useState({ endtime: "" });
+  const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+  const [userMask, setUserMask] = useState(
+    "Course__Video__isntUser__Hidden"
+  );
+  const [notUserMask,setNotUserMask] = useState("Course__Video__isntUser__Hidden")
+  useEffect(async () => {
     let isLIkesList = await axios.get(
       "http://localhost:3001/Course/isLikeList",
       {
@@ -27,13 +34,56 @@ function CourseSingleVideo({ singleCourse ,isCourse_id}) {
     let currectList = filterLikeList.map((item) => {
       return item.course_id;
     });
-    setRightList(currectList)
+    setRightList(currectList);
     if (currectList.includes(Number(isCourse_id))) {
       setIcon("fas HeartColor");
     } else {
       setIcon("far");
     }
-  },[])
+    setUserMask("Course__Video__isntUser__Hidden");
+    let isUser = await axios.get("http://localhost:3001/Course/isUser", {
+      withCredentials: true,
+    });
+    setTheUser(isUser.data[0]);
+  }, []);
+
+  let video = document.querySelector("video");
+  if (theUser === undefined) {
+    //console.log("未登入");
+    setInterval(showTime, 1000);
+    let t = 0;
+    function showTime() {
+      t++;
+      // console.log(t);
+      if (videoCurrentTime > 20) {
+        video.pause();
+        video.controls = false;
+        setNotUserMask("Course__Video__isntUser__Show");
+        // alert("請加入付費會員");
+      }
+      return;
+    }
+  } else if (theUser !== undefined) {
+    if (theUser.endtime === null) {
+      //console.log("免費會員");
+      setInterval(showTime, 1000);
+      let t = 0;
+      function showTime() {
+        t++;
+        // console.log(t);
+        if (videoCurrentTime > 60) {
+          video.pause();
+          video.controls = false;
+          setUserMask("Course__Video__isntUser__Show");
+          // alert("請加入付費會員");
+        }
+        return;
+      }
+    } else if (theUser.endtime.length > 5) {
+      //console.log("付費會員");
+    }
+  }
+
   function viewall(e) {
     if (seeall === "") {
       setSeeall("seeall");
@@ -89,14 +139,47 @@ function CourseSingleVideo({ singleCourse ,isCourse_id}) {
     }
   }
 
-  if (singleCourse === undefined || rightList ===undefined) {
+  if (singleCourse === undefined || rightList === undefined) {
     return <></>;
   }
   return (
     <>
       <div className="Course__Main-area white-bg">
         <div className="Course__Video">
-          <video controls>
+          <div className={`Course__Video__isntUser ${userMask}`}>
+            <div className="Course__Video__isntUser__Content">
+              <div className="Course__Video__isntUser__Content__text mb-4">
+                <h4>您尚未成為付費會員。</h4>
+                <h4 className="mb-4">立即訂閱，觀看完整課程！</h4>
+                <Link to="/subscribe">
+                  <div className="Course__Video__isntUser__Content__button pointer">
+                    訂閱方案
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className={`Course__Video__isntUser ${notUserMask}`}>
+            <div className="Course__Video__isntUser__Content">
+              <div className="Course__Video__isntUser__Content__text mb-4">
+                <h4 className="mb-4">您尚未成為會員，立即加入！</h4>
+                <Link to="/login">
+                  <div className="Course__Video__isntUser__Content__button pointer">
+                    加入會員
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <video
+            id="theCourseVideo"
+            controls
+            autoPlay="true"
+            muted
+            onTimeUpdate={(e) => {
+              setVideoCurrentTime(e.target.currentTime);
+            }}
+          >
             <source
               src={`/videos/${singleCourse[0].filename}.mp4`}
               type="video/mp4"

@@ -23,7 +23,7 @@ function CourseSingle() {
   const { courseId } = useParams();
   const [singleCourse, setSingleCourse] = useState();
   const [random, setRandom] = useState();
-
+  const [theUser, setTheUser] = useState(null);
   useEffect(async () => {
     window.scroll({
       top: 0,
@@ -35,21 +35,36 @@ function CourseSingle() {
         withCredentials: true,
       }
     );
+    let isUser = await axios.get("http://localhost:3001/Course/isUser", {
+      withCredentials: true,
+    });
     setSingleCourse(SingleCourse.data);
+    setTheUser(isUser.data[0]);
   }, [random]);
-
+  if (singleCourse === undefined) {
+    return <></>;
+  }
   return (
     <>
       <Navbar />
       <div className="container">
         <div className="Course__video-mainarea mt-4">
-          <CourseSingleVideo singleCourse={singleCourse} isCourse_id={courseId}/>
-          <CourseSingleWaitingList isCourse_id={courseId}/>
+          <CourseSingleVideo
+            singleCourse={singleCourse}
+            isCourse_id={courseId}
+            theUser={theUser}
+          />
+          <CourseSingleWaitingList isCourse_id={courseId} />
         </div>
         <div className="d-flex  mt-4 ms-4 me-4">
           <div className="maxw65">
             <div className="mb-4">
-              <CourseSingleTalk course_id={courseId} singleCourse={singleCourse} videoid={courseId}/>
+              <CourseSingleTalk
+                course_id={courseId}
+                singleCourse={singleCourse}
+                videoid={courseId}
+                theUser={theUser}
+              />
             </div>
             <div>
               <CourseSingleArticle />
@@ -57,7 +72,7 @@ function CourseSingle() {
           </div>
           <div className="maxw35 p-3 m-1 ps-4">
             <div className="mb-4">
-              <CourseSingleHitCourse videoid={courseId} setRandom={setRandom}/>
+              <CourseSingleHitCourse videoid={courseId} setRandom={setRandom} />
             </div>
             <div>
               <CourseSingleProduct />

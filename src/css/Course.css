@@ -1,3 +1,21 @@
+/* Scroll Bar 開始 */
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--main-color);
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #cacaca;
+}
+/* Scroll Bar 結束 */
+
 /* 網站主色 */
 :root {
   --main-color: #09203f;
@@ -75,6 +93,7 @@ input:focus {
   overflow: hidden;
 }
 /* 設定影片位置 */
+
 .banner1 {
   left: 100%;
   transform: translateX(-39.5%);
@@ -349,6 +368,41 @@ option {
 /* CourseList 課程列表 結束 */
 
 /* CourseSinglePage 課程單獨頁面 開始 */
+/* 影片 遮罩設定 開始 */
+.Course__Video__isntUser {
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  text-align: center;
+}
+.Course__Video__isntUser__Hidden {
+  visibility: hidden;
+}
+.Course__Video__isntUser__Show {
+  visibility: visible;
+}
+.Course__Video__isntUser__Content {
+  padding: 10vw 0;
+  display: inline-block;
+  
+}
+.Course__Video__isntUser__Content__text {
+  color: var(--main-color);
+  background: white;
+  letter-spacing: 1px;
+  padding: 2rem 3rem;
+  border-radius: 0.3rem;
+}
+.Course__Video__isntUser__Content__button {
+  display: inline-block;
+  background: var(--main-color);
+  color: var(--second-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+/* 影片 遮罩設定 結束 */
 /* 影片 設定 */
 .Course__video-mainarea {
   display: flex;
@@ -363,9 +417,12 @@ option {
 }
 .Course__Video {
   position: relative;
+  overflow: hidden;
 }
 .Course__Video video {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 /* 概述 */
 .Course__Video-area__Description {
@@ -541,7 +598,7 @@ option {
 .Course__area__Waiting__image img {
   width: 100%;
   height: 100%;
-  object-fit:contain;
+  object-fit: contain;
   padding: 5px 0px;
 }
 .Course__area__Waiting__title {
