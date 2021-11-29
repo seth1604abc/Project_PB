@@ -3,12 +3,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { ZipCodeTW } from "zipcode-tw-react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 function CartInfo() {
+  const history = useHistory();
   const location = useLocation();
   const list = location.state.checkList;
   const point = location.state.usePoint;
@@ -30,7 +31,7 @@ function CartInfo() {
     }
     setUserPhone(e.target.value);
   };
-
+  //通會員資料
   const handleUserData = (e) => {
     if (checked) {
       setUserName("");
@@ -169,6 +170,7 @@ function CartInfo() {
               <div className="cart-content-l__info__data">
                 <p>收件人名稱</p>
                 <input
+                  className="form-control"
                   type="text"
                   placeholder="請輸入收件人名稱"
                   onChange={handleName}
@@ -181,6 +183,7 @@ function CartInfo() {
               <div className="cart-content-l__info__data">
                 <p>收件人電話</p>
                 <input
+                  className="form-control"
                   type="text"
                   placeholder="請輸入收件人電話號碼"
                   onChange={handlePhone}
@@ -197,14 +200,24 @@ function CartInfo() {
               {/* <div className="cart-content-l__paymethod"> */}
               <div className="cart-content-l__paymethod__data">
                 <p>運送方式</p>
-                <select name="" id="" onChange={handleShipment}>
+                <select
+                  className="form-select"
+                  name=""
+                  id=""
+                  onChange={handleShipment}
+                >
                   <option value="1">宅配到府</option>
                   <option value="2">超商取貨</option>
                 </select>
               </div>
               <div className="cart-content-l__paymethod__data">
                 <p>付款方式</p>
-                <select name="" id="" onChange={handlePayment}>
+                <select
+                  className="form-select"
+                  name=""
+                  id=""
+                  onChange={handlePayment}
+                >
                   <option value="1">貨到付款</option>
                   <option value="2">信用卡</option>
                 </select>
@@ -215,9 +228,9 @@ function CartInfo() {
               <ZipCodeTW
                 displayType="text"
                 zipStyle={{ display: "none" }}
-                districtStyle={{ marginLeft: "20px" }}
-                districtClass="districtClass"
-                countyClass="countyClass"
+                districtStyle={{ marginLeft: "1rem" }}
+                districtClass="districtClass form-select d-inline"
+                countyClass="countyClass form-select d-inline"
                 countyValue={data.city}
                 handleChangeCounty={handleCountyChange}
                 districtValue={data.area}
@@ -225,9 +238,10 @@ function CartInfo() {
               />
               <input
                 type="text"
-                className="my-3 w-75"
+                placeholder="請輸入詳細地址"
+                className="my-3 w-75 form-control"
                 onChange={handleAddress}
-                onClick={()=>console.log(data)}
+                onClick={() => console.log(data)}
               />
 
               <p>運送地址(超商)</p>
@@ -284,34 +298,42 @@ function CartInfo() {
                   color: "white",
                   fontSize: "1.5rem",
                 }}
-                onClick={async()=>{
+                onClick={async () => {
+                  console.log(
+                    `${data.countyValue}${data.districtValue}${data.addressDetail}`
+                  );
                   await axios
-                  .post(`http://localhost:3001/cart//add-order`, {               
-                    total:`${total}`,
-                    user_id:`${data.id}`,
-                    point:`${point}`,
-                    address:`${data.countyValue}${data.districtValue}${data.addressDetail}`,
-                    payment:`${payment}`,
-                    shipment:`${shipment}`,
-                    gainPoint:`${total/100}`
-                    
-                  })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                
-                Swal.fire({
-                  title: "成功加入購物車",
-                  text: `加入購物車`,
-                  icon: "success",
-                  confirmButtonText: "繼續購物",
-                  confirmButtonColor: "#1d6cf5",
-                });
-              }
-                }
+                    .post(`http://localhost:3001/cart//add-order`, {
+                      total: `${total}`,
+                      user_id: `${data.id}`,
+                      point: `${point}`,
+                      address: `${data.city}${data.area}${data.addressDetail}`,
+                      payment: `${payment}`,
+                      shipment: `${shipment}`,
+                      gainPoint: `${total / 100}`,
+                    })
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  await axios.delete(
+                    "http://localhost:3001/cart/delete-selected",
+                    {
+                      data: {
+                        items: `${list.map((item) => item.product_id)}`,
+                      },
+                    }
+                  );
+                  Swal.fire({
+                    title: "購買完成!",
+                    text: `已成功購買${list.length}項商品`,
+                    icon: "success",
+                    confirmButtonText: "繼續購物",
+                    confirmButtonColor: "#1d6cf5",
+                  }).then(history.push("/product"));
+                }}
               >
                 確認訂單
               </button>

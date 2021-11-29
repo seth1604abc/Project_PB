@@ -44,7 +44,7 @@ function ProductCard({
       window.addEventListener("scroll", logit);
     }
     watchScroll();
-    console.log(scrollY);
+    // console.log(scrollY);
     return () => {
       window.removeEventListener("scroll", logit);
     };
