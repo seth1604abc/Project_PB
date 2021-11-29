@@ -43,12 +43,20 @@ function CartInfo() {
       setChecked(true);
     }
   };
-
-  useEffect(() => {
+useEffect(()=>{
+  setData(user);
+},[])
+  useEffect(async() => {
     // console.log(location);
-    console.log(list, point, total, user);
-    setData(user);
-  }, []);
+    // console.log(list, point, total, user);
+   let mart=await axios.post("http://localhost:3001/cart/mart",{
+      city:`${data.city}`,
+      area:`${data.area}`
+    }).then(function (response) {
+      console.log(response);
+    });
+    console.log(mart);
+  }, [data.city,data.area]);
 
   //處理711
   // const handleMart = async (countyValue, districtValue) => {
@@ -236,6 +244,8 @@ function CartInfo() {
                 districtValue={data.area}
                 handleChangeDistrict={handleDistrictChange}
               />
+              
+
               <input
                 type="text"
                 placeholder="請輸入詳細地址"
