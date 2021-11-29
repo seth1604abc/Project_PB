@@ -3,7 +3,7 @@ import CourseSingleTalkParentContent from "./CourseSingleTalkParentContent";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function CourseSingleTalk({ course_id, singleCourse, videoid }) {
+function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   const [comment, setComment] = useState([]);
   const [comments, setComments] = useState([]);
   const [childComment, setChildComment] = useState([]);
@@ -87,17 +87,21 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
 
   function responseUser(e) {
     let name = e.target.id;
+    let talkinput = document.getElementById("talkInput")
     if (reply === false) {
       setReply(true);
       e.target.innerText = "取消回覆";
       setTextPlaceHolder(`回覆 ${name} 的留言...`);
       setMainCommentId(e.target.parentElement.id);
+      // 點擊回覆時，自動focus到輸入框
+      talkinput.focus()
     } else {
       setReply(false);
       e.target.innerText = "回覆";
       setTextPlaceHolder("留言");
     }
   }
+
 
   if (
     comment === undefined ||
@@ -148,6 +152,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid }) {
         </div>
         <div className="Course__area__Talk__InputArea px-4 py-2 my-3">
           <input
+            id="talkInput"
             className="input-form-control Course__area__Talk__InputArea__Input"
             placeholder={textPlaceHolder}
             value={textValue}
