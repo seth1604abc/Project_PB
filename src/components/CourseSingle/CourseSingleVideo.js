@@ -11,10 +11,10 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   const [rightList, setRightList] = useState("");
   const [theUser, setTheUser] = useState({ endtime: "" });
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
-  const [userMask, setUserMask] = useState(
+  const [userMask, setUserMask] = useState("Course__Video__isntUser__Hidden");
+  const [notUserMask, setNotUserMask] = useState(
     "Course__Video__isntUser__Hidden"
   );
-  const [notUserMask,setNotUserMask] = useState("Course__Video__isntUser__Hidden")
   useEffect(async () => {
     let isLIkesList = await axios.get(
       "http://localhost:3001/Course/isLikeList",
@@ -96,45 +96,50 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
         '<i class="fas fa-angle-double-down px-1"></i> 顯示完整資訊';
     }
   }
-  async function clickheart() {
-    if (icon === "far") {
-      setIcon("fas HeartColor");
-      let addCountLikes = singleCourse[0].likes + 1;
-      let likes = { like: addCountLikes, id: singleCourse[0].id };
-      let likeList = { course: singleCourse[0].id };
-      try {
-        let SingleCourse = await axios.post(
-          `http://localhost:3001/Course/changeLikesCount`,
-          likes,
-          { withCredentials: true }
-        );
-        let addLikeList = await axios.post(
-          `http://localhost:3001/Course/addLikeList`,
-          likeList,
-          { withCredentials: true }
-        );
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      setIcon("far");
-      let disCountLikes = singleCourse[0].likes;
-      let likes = { like: disCountLikes, id: singleCourse[0].id };
-      let likeList = { course: singleCourse[0].id };
 
-      try {
-        let SingleCourse = await axios.post(
-          `http://localhost:3001/Course/changeLikesCount`,
-          likes,
-          { withCredentials: true }
-        );
-        let addLikeList = await axios.post(
-          `http://localhost:3001/Course/deleteLikeList`,
-          likeList,
-          { withCredentials: true }
-        );
-      } catch (e) {
-        console.log(e);
+  async function clickheart() {
+    if (theUser === undefined) {
+      console.log("請登入");
+    } else if (theUser !== undefined) {
+      if (icon === "far") {
+        setIcon("fas HeartColor");
+        let addCountLikes = singleCourse[0].likes + 1;
+        let likes = { like: addCountLikes, id: singleCourse[0].id };
+        let likeList = { course: singleCourse[0].id };
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/addLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        setIcon("far");
+        let disCountLikes = singleCourse[0].likes;
+        let likes = { like: disCountLikes, id: singleCourse[0].id };
+        let likeList = { course: singleCourse[0].id };
+
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/deleteLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   }
@@ -188,9 +193,9 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
         </div>
         <div className="pt-3 ps-4">
           <div className="d-flex align-items-center position-relative">
-            <h1 className="mb-0">{singleCourse[0].title}</h1>
+            <h1 className="mb-0 normalMouse">{singleCourse[0].title}</h1>
             <div className="Course__Video-area__Description pe-4 d-flex">
-              <div className="d-flex pointer">
+              <div className="d-flex normalMouse">
                 <div className="Course__Video-area__tags me-3">
                   <i class="fas fa-hand-paper me-2"></i>
                   {BODY_PARTS[singleCourse[0].body_part_id]}
@@ -202,25 +207,25 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
               </div>
               <div className="Course__video-area__likes me-3 Maincolor">
                 <i
-                  class={`${icon} far fa-heart me-2 pointer `}
+                  class={`${icon} far fa-heart me-2 pointer`}
                   onClick={clickheart}
                 ></i>
-                <span>
+                <span className="normalMouse">
                   {icon === "far"
                     ? singleCourse[0].likes
                     : singleCourse[0].likes + 1}
                 </span>
-                <i class="fas fa-share-alt me-2 ms-3 pointer Maincolor"></i>
-                <span>分享</span>
+                <i class="fas fa-share-alt me-2 ms-3 Maincolor pointer"></i>
+                <span className="normalMouse">分享</span>
               </div>
             </div>
           </div>
-          <div className="d-flex mt-4">
-            <div className="Course__video-area__MemberImgsetting">
-              <Membericon />
+          <div className="d-flex mt-4 pt-2">
+            <div className="Course__video-area__MemberImgsetting ms-3">
+              <Membericon image={singleCourse[0].image}/>
             </div>
-            <div className="Course__video-area__CoachName ms-3">
-              Taylor Swift
+            <div className="Course__video-area__CoachName ps-2 ms-3 normalMouse">
+              {singleCourse[0].first_name} {singleCourse[0].last_name}
             </div>
             <div className="position-relative pb-4 mb-4">
               <pre className={`Course__video-area__Content pe-4 ${seeall}`}>

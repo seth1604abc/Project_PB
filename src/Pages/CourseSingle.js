@@ -41,6 +41,7 @@ function CourseSingle() {
     });
     setTheUser(isUser.data[0]);
   }, [random]);
+
   if (singleCourse === undefined) {
     return <></>;
   }
