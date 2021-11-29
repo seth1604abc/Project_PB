@@ -16,7 +16,7 @@ function CourseSingleHitCourse({ videoid,setRandom }) {
   }, []);
   return (
     <div>
-      <div className="d-flex Article__area__title">
+      <div className="d-flex Article__area__title normalMouse">
         <i class="fas fa-fire Course__area__icon p-2"></i>
         <h2>熱門課程</h2>
       </div>

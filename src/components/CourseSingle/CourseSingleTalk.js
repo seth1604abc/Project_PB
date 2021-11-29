@@ -145,6 +145,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
                   childComment={childComment}
                   responseUser={responseUser}
                   replyText={replyText}
+                  image={item.image}
                 />
               );
             }

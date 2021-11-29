@@ -48,7 +48,9 @@ body {
 .pointer {
   cursor: pointer;
 }
-
+.normalMouse{
+  cursor: default;
+}
 textarea:focus,
 input:focus {
   outline: none;
@@ -388,6 +390,7 @@ option {
   height: 100%;
   z-index: 999;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 .Course__Video__isntUser__Hidden {
   visibility: hidden;
@@ -405,6 +408,7 @@ option {
   letter-spacing: 1px;
   padding: 2rem 3rem;
   border-radius: 0.3rem;
+  transition: 0.4s;
 }
 .Course__Video__isntUser__Content__button {
   display: inline-block;
@@ -449,9 +453,9 @@ option {
   transform: scale(1);
   transition: 0.4s;
 }
-.Course__Video-area__tags:hover {
+/* .Course__Video-area__tags:hover {
   transform: scale(1.1);
-}
+} */
 .Course__Video-area__tags i {
   font-size: 13px;
   max-width: 13px;
@@ -472,7 +476,7 @@ option {
   transform: translateY(-25%);
 }
 .Course__video-area__CoachName {
-  min-width: 8rem;
+  min-width: 10rem;
   font-size: 1.1rem;
   font-weight: bold;
 }
@@ -549,10 +553,12 @@ option {
 }
 .Course__area__title {
   color: var(--main-color);
+  cursor: default; 
 }
 .Course__area__Secondtitle {
   padding-top: 6px;
   color: var(--main-color);
+  cursor: default; 
 }
 .Course__area__List {
   margin-left: 8px;
@@ -624,6 +630,12 @@ option {
   padding: 4px;
   color: var(--main-color);
   white-space: nowrap;
+}
+.Course__area__Waiting__MoreBtn__disVisible {
+  visibility: hidden;
+}
+.Course__area__Waiting__MoreBtn__Visible {
+  visibility: visible;
 }
 .Course__area__Waiting__MoreBtn__hidden {
   padding: 3px 6px;

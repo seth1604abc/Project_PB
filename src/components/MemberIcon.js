@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Membericon() {
+function Membericon({image}) {
   return (
     <>
       <div className="Courses__singlecourse__card__coach">
-        <img src='/images/03.jpg' alt="coach" />
+        <img src={`/images/${image}.jpg`} alt="coach" />
       </div>
     </>
   );

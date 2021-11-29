@@ -8,16 +8,18 @@ import $ from "jquery";
 
 let storage = sessionStorage;
 
-function CourseSingleWaitingList({isCourse_id}) {
+function CourseSingleWaitingList({ isCourse_id }) {
   const [course, setCourse] = useState([]);
   const [allCourse, setAllCourse] = useState([]);
   const [waitingList, setWaitingList] = useState([]);
   const [checkdWaitingList, setCheckdWaitingList] = useState([]);
   const [oldIndex, setOldIndex] = useState(0);
+  const [theUser, setTheUser] = useState(null);
+  const [morebutton,setMorebutton] = useState()
   // const innerRef = React.createRef()
   // 用陣列去排序另一個陣列 ------
 
- // console.log("isCourse_id", isCourse_id);
+  // console.log("isCourse_id", isCourse_id);
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -31,8 +33,10 @@ function CourseSingleWaitingList({isCourse_id}) {
       .substr(0, storage.getItem("WaitingList").length - 1)
       .split(",");
     setWaitingList(WaitingList);
-    //console.log("allcourse",allCourse)
-    //console.log("waitingList",WaitingList);
+    let isUser = await axios.get("http://localhost:3001/Course/isUser", {
+      withCredentials: true,
+    });
+    setTheUser(isUser.data[0]);
     let tempList = allCourse.data.filter((item) => {
       return WaitingList.includes(`${item.id}`);
     });
@@ -44,22 +48,41 @@ function CourseSingleWaitingList({isCourse_id}) {
     }
     tempList.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
     setCheckdWaitingList(tempList);
-    if(WaitingList.includes(isCourse_id)){
-      let oldList = tempList.filter((item)=>{return Number(item.id) !== Number(isCourse_id) })
-      let targetItem = tempList.filter((item)=>{return Number(item.id) === Number(isCourse_id) })
-      oldList.unshift(targetItem[0])
+    if (WaitingList.includes(isCourse_id)) {
+      let oldList = tempList.filter((item) => {
+        return Number(item.id) !== Number(isCourse_id);
+      });
+      let targetItem = tempList.filter((item) => {
+        return Number(item.id) === Number(isCourse_id);
+      });
+      oldList.unshift(targetItem[0]);
       //console.log(oldList)
-      setCheckdWaitingList(oldList)
-    }else{
-      let targetItem = allCourse.data.filter((item)=>{return Number(item.id) === Number(isCourse_id)})
-      tempList.unshift(targetItem[0])
-      setCheckdWaitingList(tempList)
+      setCheckdWaitingList(oldList);
+    } else {
+      let targetItem = allCourse.data.filter((item) => {
+        return Number(item.id) === Number(isCourse_id);
+      });
+      tempList.unshift(targetItem[0]);
+      setCheckdWaitingList(tempList);
     }
   }, []);
+
+  console.log(theUser)
+
+  // 點擊空白處 讓MOREBTN隱藏
+  document.addEventListener("click", (e) => {
+    let eddies = document.querySelectorAll(
+      ".Course__area__Waiting__MoreBtn__Option"
+    );
+    for (let i = 0; i < eddies.length; i++) {
+      eddies[i].style.display = "";
+    }
+  });
 
   const EddiesRef = useRef([]);
 
   function MoreBtn(e) {
+    e.nativeEvent.stopImmediatePropagation();
     let eddies = document.querySelectorAll(
       ".Course__area__Waiting__MoreBtn__Option"
     );
@@ -85,24 +108,24 @@ function CourseSingleWaitingList({isCourse_id}) {
   }
 
   function dropped(e, index) {
-    if(oldIndex === 0){
-      return<></>
-    }else{
+    if (oldIndex === 0) {
+      return <></>;
+    } else {
       cancelDefault(e);
       let target = $(e.currentTarget);
       let newIndex = target.index();
-      if(newIndex === 0){
-        return <></>
-      }else{
+      if (newIndex === 0) {
+        return <></>;
+      } else {
         let newArr = [...checkdWaitingList];
-      newArr.splice(oldIndex, 1);
-      newArr.splice(newIndex, 0, checkdWaitingList[oldIndex]);
-      setCheckdWaitingList(newArr);
-      // 要再塞進陣列
-      let idArr = newArr.map((item) => {
-        return item.id;
-      });
-      storage.setItem("WaitingList", idArr.join(",") + ",");
+        newArr.splice(oldIndex, 1);
+        newArr.splice(newIndex, 0, checkdWaitingList[oldIndex]);
+        setCheckdWaitingList(newArr);
+        // 要再塞進陣列
+        let idArr = newArr.map((item) => {
+          return item.id;
+        });
+        storage.setItem("WaitingList", idArr.join(",") + ",");
       }
     }
   }
@@ -110,6 +133,7 @@ function CourseSingleWaitingList({isCourse_id}) {
   function cancelDefault(e) {
     e.preventDefault();
     e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     return false;
   }
 
@@ -125,8 +149,8 @@ function CourseSingleWaitingList({isCourse_id}) {
           src="/images/play-list-MainColor.png"
           alt="播放清單圖示"
         />
-        <h2 className="Course__area__title me-3">播放清單</h2>
-        <div className="Course__area__Secondtitle">
+        <h2 className="Course__area__title me-3 normalMouse">播放清單</h2>
+        <div className="Course__area__Secondtitle normalMouse">
           共<span className="p-2">{checkdWaitingList.length}</span>部課程，
           <span className="p-2">50</span>分鐘
         </div>
@@ -199,7 +223,7 @@ function CourseSingleWaitingList({isCourse_id}) {
                     </div>
                   </div>
                   <div
-                    className="Course__area__Waiting__MoreBtn pointer"
+                    className={`Course__area__Waiting__MoreBtn pointer ${theUser !== undefined ? 'Course__area__Waiting__MoreBtn__Visible' : 'Course__area__Waiting__MoreBtn__disVisible'}`}
                     onClick={MoreBtn}
                     id={item.id}
                   >
@@ -212,7 +236,8 @@ function CourseSingleWaitingList({isCourse_id}) {
                   >
                     <div
                       className="pb-2 pointer"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.nativeEvent.stopImmediatePropagation();
                         console.log("收藏這部影片", item.id);
                       }}
                       id={item.id}
@@ -225,7 +250,8 @@ function CourseSingleWaitingList({isCourse_id}) {
                     ></div>
                     <div
                       className="pt-2 pointer"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.nativeEvent.stopImmediatePropagation();
                         console.log("從清單中移除", item.id);
                       }}
                       id={item.id}
