@@ -55,7 +55,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     function showTime() {
       t++;
       // console.log(t);
-      if (videoCurrentTime > 20) {
+      if (videoCurrentTime > 60) {
         video.pause();
         video.controls = false;
         setNotUserMask("Course__Video__isntUser__Show");

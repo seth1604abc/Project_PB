@@ -220,6 +220,18 @@ option {
 }
 
 /* Courses - 課程CARD */
+.Course__isntUser {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  text-align: center;
+}
+.Course__isntUser__shadow {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 .Courses__singlecourse__card__flex__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
@@ -386,7 +398,6 @@ option {
 .Course__Video__isntUser__Content {
   padding: 10vw 0;
   display: inline-block;
-  
 }
 .Course__Video__isntUser__Content__text {
   color: var(--main-color);

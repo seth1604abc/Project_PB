@@ -8,6 +8,7 @@ function CoursesCourseCard(course) {
   const [icon, setIcon] = useState("far");
   const [likeListAll, setLikeListAll] = useState([]);
   const [likeListMember, setLikeListMember] = useState([]);
+  const [theUser, setTheUser] = useState(null);
 
   useEffect(async () => {
     let isLIkesList = await axios.get(
@@ -37,6 +38,11 @@ function CoursesCourseCard(course) {
     } else {
       setIcon("far");
     }
+    let isUser = await axios.get("http://localhost:3001/Course/isUser", {
+      withCredentials: true,
+    });
+    setTheUser(isUser.data[0]);
+    console.log(theUser);
   }, []);
 
   // sessionStorage
@@ -46,46 +52,51 @@ function CoursesCourseCard(course) {
   }
 
   async function clickHeart(e) {
-    e.preventDefault();
-    if (icon === "far") {
-      setIcon("fas HeartColor");
-      let addCountLikes = course.likes + 1;
-      let likes = { like: addCountLikes, id: course.id };
-      let likeList = { course: course.id };
-      console.log(likeList);
-      try {
-        let SingleCourse = await axios.post(
-          `http://localhost:3001/Course/changeLikesCount`,
-          likes,
-          { withCredentials: true }
-        );
-        let addLikeList = await axios.post(
-          `http://localhost:3001/Course/addLikeList`,
-          likeList,
-          { withCredentials: true }
-        );
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      setIcon("far");
-      let disCountLikes = course.likes;
-      let likes = { like: disCountLikes, id: course.id };
-      let likeList = { course: course.id };
-      console.log(likeList);
-      try {
-        let SingleCourse = await axios.post(
-          `http://localhost:3001/Course/changeLikesCount`,
-          likes,
-          { withCredentials: true }
-        );
-        let addLikeList = await axios.post(
-          `http://localhost:3001/Course/deleteLikeList`,
-          likeList,
-          { withCredentials: true }
-        );
-      } catch (e) {
-        console.log(e);
+    if (theUser === undefined || theUser === null) {
+      //console.log('請登入會員')
+      e.preventDefault();
+    }else if(theUser !== undefined && theUser !== null){
+      e.preventDefault();
+      if (icon === "far") {
+        setIcon("fas HeartColor");
+        let addCountLikes = course.likes + 1;
+        let likes = { like: addCountLikes, id: course.id };
+        let likeList = { course: course.id };
+        console.log(likeList);
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/addLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        setIcon("far");
+        let disCountLikes = course.likes;
+        let likes = { like: disCountLikes, id: course.id };
+        let likeList = { course: course.id };
+        console.log(likeList);
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/deleteLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   }
@@ -150,7 +161,7 @@ function CoursesCourseCard(course) {
                 {course.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{icon === "far" ? course.likes : course.likes+1}</span>
+                <span>{icon === "far" ? course.likes : course.likes + 1}</span>
                 <i
                   id={course.id}
                   class={`${icon} fa-heart`}
