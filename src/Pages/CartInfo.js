@@ -227,6 +227,7 @@ function CartInfo() {
                 type="text"
                 className="my-3 w-75"
                 onChange={handleAddress}
+                onClick={()=>console.log(data)}
               />
 
               <p>運送地址(超商)</p>
@@ -285,8 +286,15 @@ function CartInfo() {
                 }}
                 onClick={async()=>{
                   await axios
-                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
-                    number: `${number}`,
+                  .post(`http://localhost:3001/cart//add-order`, {               
+                    total:`${total}`,
+                    user_id:`${data.id}`,
+                    point:`${point}`,
+                    address:`${data.countyValue}${data.districtValue}${data.addressDetail}`,
+                    payment:`${payment}`,
+                    shipment:`${shipment}`,
+                    gainPoint:`${total/100}`
+                    
                   })
                   .then(function (response) {
                     console.log(response);
@@ -297,7 +305,7 @@ function CartInfo() {
                 
                 Swal.fire({
                   title: "成功加入購物車",
-                  text: `${productData.title} ${number}份加入購物車`,
+                  text: `加入購物車`,
                   icon: "success",
                   confirmButtonText: "繼續購物",
                   confirmButtonColor: "#1d6cf5",
