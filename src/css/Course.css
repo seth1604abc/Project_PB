@@ -222,14 +222,7 @@ option {
 }
 
 /* Courses - 課程CARD */
-.Course__isntUser {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999;
-  text-align: center;
-}
+
 .Course__isntUser__shadow {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -241,6 +234,7 @@ option {
   grid-gap: 4rem;
   margin: 2rem 0;
   padding: 0 3.5rem;
+  transition: .4s;
 }
 .Courses__singlecourse__card {
   width: 320px;
@@ -379,6 +373,33 @@ option {
 .Courses__CoursePages i:active {
   color: var(--fourth-color);
 }
+.Course__isntUser {
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  text-align: center;
+}
+.Course__isntUser__Content {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  position:relative;
+}
+.Course__isntUser__Content__close{
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  cursor:pointer;
+}
+.Course__isntUser__Content__text {
+  color: var(--main-color);
+  background: white;
+  letter-spacing: 1px;
+  padding: 4rem 3rem;
+  border-radius: 0.3rem;
+}
 /* CourseList 課程列表 結束 */
 
 /* CourseSinglePage 課程單獨頁面 開始 */
@@ -397,18 +418,23 @@ option {
 }
 .Course__Video__isntUser__Show {
   visibility: visible;
+  display: flex;
+  justify-content: center;
+  transition: .4s;
+  align-items: center;
 }
 .Course__Video__isntUser__Content {
-  padding: 10vw 0;
+  /* padding: 10vw 0; */
+  transition: 0.4s;
   display: inline-block;
 }
 .Course__Video__isntUser__Content__text {
   color: var(--main-color);
   background: white;
   letter-spacing: 1px;
-  padding: 2rem 3rem;
+  padding: 4rem 3rem;
   border-radius: 0.3rem;
-  transition: 0.4s;
+  position: relative;
 }
 .Course__Video__isntUser__Content__button {
   display: inline-block;

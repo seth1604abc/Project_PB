@@ -166,7 +166,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
           </div>
           <div className={`Course__Video__isntUser ${notUserMask}`}>
             <div className="Course__Video__isntUser__Content">
-              <div className="Course__Video__isntUser__Content__text mb-4">
+              <div className="Course__Video__isntUser__Content__text">
                 <h4 className="mb-4">您尚未成為會員，立即加入！</h4>
                 <Link to="/login">
                   <div className="Course__Video__isntUser__Content__button pointer">
@@ -222,7 +222,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
           </div>
           <div className="d-flex mt-4 pt-2">
             <div className="Course__video-area__MemberImgsetting ms-3">
-              <Membericon image={singleCourse[0].image}/>
+              <Membericon image={singleCourse[0].image} />
             </div>
             <div className="Course__video-area__CoachName ps-2 ms-3 normalMouse">
               {singleCourse[0].first_name} {singleCourse[0].last_name}
