@@ -16,6 +16,18 @@ function ShoppingMain() {
   const [newProduct, setNewProduct] = useState([]);
   const [newNewProduct, setNewNewProduct] = useState([]);
   useEffect(async () => {
+    //抓熱門商品
+    let resHitProduct = await axios.get(
+      "http://localhost:3001/product/hot-product",{ withCredentials: true }   
+    );
+    setHotProduct(resHitProduct.data);
+
+    //抓全部商品
+    let resProduct = await axios.get("http://localhost:3001/product",{ withCredentials: true });
+    setProduct(resProduct.data);
+    setNewProduct(resProduct.data);
+    setNewNewProduct(resProduct.data);
+
     //確認登入
     let res = await axios.get("http://localhost:3001/auth/login", {
       withCredentials: true,
@@ -23,17 +35,6 @@ function ShoppingMain() {
     if (res.data.userId) {
       setIsLoggedin(true);
     }
-    //抓熱門商品
-    let resHitProduct = await axios.get(
-      "http://localhost:3001/product/hot-product"   
-    );
-    setHotProduct(resHitProduct.data);
-
-    //抓全部商品
-    let resProduct = await axios.get("http://localhost:3001/product");
-    setProduct(resProduct.data);
-    setNewProduct(resProduct.data);
-    setNewNewProduct(resProduct.data);
   }, []);
   //設定composition
   
