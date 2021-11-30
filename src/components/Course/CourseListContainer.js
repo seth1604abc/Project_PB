@@ -4,7 +4,7 @@ import CoursesCourseCard from "./CoursesCourseCard";
 import CoursesCoursePages from "./CoursesPageButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 let storage = sessionStorage;
 
@@ -25,6 +25,9 @@ function CourseListContainer() {
   const [keyWord, setKeyWord] = useState("");
   // 已收藏的課程
   const [heartCourse, setHeartCourse] = useState();
+  const [courseCardMask, setCourseCardMask] = useState(
+    "Course__Video__isntUser__Hidden"
+  );
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -168,12 +171,12 @@ function CourseListContainer() {
         .getItem("WaitingList")
         .substr(0, storage.getItem("WaitingList").length - 1)
         .split(",");
-        console.log("WaitingList",WaitingList)
-        let checkdWaitingList = allCourse.filter((item) => {
-          console.log("item.id",item.id)
-          return WaitingList.includes(`${item.id}`);
-        });
-      console.log("checkdWaitingList",checkdWaitingList)
+      console.log("WaitingList", WaitingList);
+      let checkdWaitingList = allCourse.filter((item) => {
+        console.log("item.id", item.id);
+        return WaitingList.includes(`${item.id}`);
+      });
+      console.log("checkdWaitingList", checkdWaitingList);
       setCourse(checkdWaitingList);
     } else {
       setCourse(allCourse);
@@ -186,7 +189,7 @@ function CourseListContainer() {
       let heartList = allCourse.filter((item) => {
         return heartCourse.includes(item.id);
       });
-      setCourse(heartList)
+      setCourse(heartList);
     } else {
       setCourse(allCourse);
       //console.log("全部顯示");
@@ -224,7 +227,7 @@ function CourseListContainer() {
     setFilterBase(defaultFilter);
     if (keyWord === "") {
       setFilterBase(copyFilterBase);
-      setCourse(allCourse)
+      setCourse(allCourse);
       if (
         // 身體部位有變化
         filterBase.body_part_id !== "1" &&
@@ -332,8 +335,31 @@ function CourseListContainer() {
         setKeyWord={setKeyWord}
         searchtext={searchtext}
       />
-      <div className="Courses__singlecourse__card__flex__wrapper">
-        {/* Card */}
+      <div className="Courses__singlecourse__card__flex__wrapper position-relative">
+        <div className={`Course__isntUser ${courseCardMask}`}>
+          <div className="Course__isntUser__Content">
+            <i
+              className="fas fa-times Course__isntUser__Content__close"
+              onClick={() => {
+                document.querySelector(".Course__isntUser").style.opacity = "0";
+                setCourseCardMask("Course__Video__isntUser__Hidden");
+                for (let i = 0; i < course.length; i++) {
+                  document.getElementsByClassName(
+                    "Courses__singlecourse__card"
+                  )[i].style.opacity = "1";
+                }
+              }}
+            ></i>
+            <div className="Course__isntUser__Content__text">
+              <h4 className="mb-4">您尚未成為會員，立即加入！</h4>
+              <Link to="/login">
+                <div className="Course__Video__isntUser__Content__button pointer">
+                  加入會員
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
         {course.map((theCourse) => {
           return (
             <CoursesCourseCard
@@ -342,6 +368,7 @@ function CourseListContainer() {
               course={course}
               setHeartCourse={setHeartCourse}
               heartCourse={heartCourse}
+              setCourseCardMask={setCourseCardMask}
             />
           );
         })}

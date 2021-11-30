@@ -19,6 +19,7 @@ function CoursesCourseCard({
   theCourse,
   course,
   heartCourse,
+  setCourseCardMask,
 }) {
   const [icon, setIcon] = useState("far");
   const [likeListAll, setLikeListAll] = useState([]);
@@ -67,8 +68,13 @@ function CoursesCourseCard({
 
   async function clickHeart(e) {
     if (theUser === undefined || theUser === null) {
-      //console.log('請登入會員')
+      console.log("請登入會員");
+      e.nativeEvent.stopImmediatePropagation();
+      setCourseCardMask('Course__Video__isntUser__Show')
       e.preventDefault();
+      for(let i=0; i<course.length; i++){
+        document.getElementsByClassName("Courses__singlecourse__card")[i].style.opacity = "0.2";
+      }
     } else if (theUser !== undefined && theUser !== null) {
       e.preventDefault();
       if (icon === "far") {
@@ -91,9 +97,9 @@ function CoursesCourseCard({
           console.log(e);
         }
         let NewCourse = [...heartCourse];
-        if(!NewCourse.includes(theCourse.id)){
-          NewCourse = [...heartCourse,theCourse.id]
-        }else{
+        if (!NewCourse.includes(theCourse.id)) {
+          NewCourse = [...heartCourse, theCourse.id];
+        } else {
           return;
         }
         setHeartCourse(NewCourse);
@@ -115,8 +121,10 @@ function CoursesCourseCard({
             { withCredentials: true }
           );
           let NewCourse = [...heartCourse];
-          NewCourse = NewCourse.filter((item)=>{return item !== theCourse.id})
-        setHeartCourse(NewCourse);
+          NewCourse = NewCourse.filter((item) => {
+            return item !== theCourse.id;
+          });
+          setHeartCourse(NewCourse);
         } catch (e) {
           console.log(e);
         }
@@ -216,11 +224,11 @@ function CoursesCourseCard({
           />
           <input
             type="hidden"
-            value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filenaem}`}
+            value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
           />
         </div>
         <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
-          <img src="/images/03.jpg" alt="coach" />
+          <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
         </div>
       </div>
     </>
