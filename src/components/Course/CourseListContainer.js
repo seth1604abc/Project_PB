@@ -5,7 +5,6 @@ import CoursesCoursePages from "./CoursesPageButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 
 let storage = sessionStorage;
 
@@ -183,16 +182,14 @@ function CourseListContainer() {
 
   function heartListButtonToggle(e) {
     if (e === 1) {
-      console.log("部分顯示");
-      console.log(heartCourse);
+      //console.log("部分顯示");
       let heartList = allCourse.filter((item) => {
-        //console.log(item.id)
         return heartCourse.includes(item.id);
       });
       setCourse(heartList)
     } else {
       setCourse(allCourse);
-      console.log("全部顯示");
+      //console.log("全部顯示");
     }
   }
 
@@ -337,21 +334,14 @@ function CourseListContainer() {
       />
       <div className="Courses__singlecourse__card__flex__wrapper">
         {/* Card */}
-        {course.map((course) => {
+        {course.map((theCourse) => {
           return (
             <CoursesCourseCard
-              key={course.id}
-              id={course.id}
-              title={course.title}
-              upload_time={course.upload_time}
-              update_time={course.update_time}
-              likes={course.likes}
-              coach={course.coach}
-              body_part_id={BODY_PARTS[course.body_part_id]}
-              views={course.views}
-              level={LEVEL[course.level_id]}
-              filename={course.filename}
+              key={theCourse.id}
+              theCourse={theCourse}
+              course={course}
               setHeartCourse={setHeartCourse}
+              heartCourse={heartCourse}
             />
           );
         })}

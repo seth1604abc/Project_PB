@@ -1,10 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import axios from "axios";
 let storage = sessionStorage;
 
-function CoursesCourseCard(course) {
+function CoursesCourseCard({
+  id,
+  title,
+  upload_time,
+  likes,
+  coach,
+  body_part_id,
+  view,
+  level,
+  filename,
+  setHeartCourse,
+  theCourse,
+  course,
+  heartCourse,
+}) {
   const [icon, setIcon] = useState("far");
   const [likeListAll, setLikeListAll] = useState([]);
   const [likeListMember, setLikeListMember] = useState([]);
@@ -33,7 +48,7 @@ function CoursesCourseCard(course) {
       return item.course_id;
     });
 
-    if (currectList.includes(course.id)) {
+    if (currectList.includes(theCourse.id)) {
       setIcon("fas HeartColor");
     } else {
       setIcon("far");
@@ -54,14 +69,13 @@ function CoursesCourseCard(course) {
     if (theUser === undefined || theUser === null) {
       //console.log('請登入會員')
       e.preventDefault();
-    }else if(theUser !== undefined && theUser !== null){
+    } else if (theUser !== undefined && theUser !== null) {
       e.preventDefault();
       if (icon === "far") {
         setIcon("fas HeartColor");
-        let addCountLikes = course.likes + 1;
-        let likes = { like: addCountLikes, id: course.id };
-        let likeList = { course: course.id };
-        console.log(likeList);
+        let addCountLikes = theCourse.likes + 1;
+        let likes = { like: addCountLikes, id: theCourse.id };
+        let likeList = { course: theCourse.id };
         try {
           let SingleCourse = await axios.post(
             `http://localhost:3001/Course/changeLikesCount`,
@@ -76,11 +90,18 @@ function CoursesCourseCard(course) {
         } catch (e) {
           console.log(e);
         }
+        let NewCourse = [...heartCourse];
+        if(!NewCourse.includes(theCourse.id)){
+          NewCourse = [...heartCourse,theCourse.id]
+        }else{
+          return;
+        }
+        setHeartCourse(NewCourse);
       } else {
         setIcon("far");
-        let disCountLikes = course.likes;
-        let likes = { like: disCountLikes, id: course.id };
-        let likeList = { course: course.id };
+        let disCountLikes = theCourse.likes;
+        let likes = { like: disCountLikes, id: theCourse.id };
+        let likeList = { course: theCourse.id };
         console.log(likeList);
         try {
           let SingleCourse = await axios.post(
@@ -93,6 +114,9 @@ function CoursesCourseCard(course) {
             likeList,
             { withCredentials: true }
           );
+          let NewCourse = [...heartCourse];
+          NewCourse = NewCourse.filter((item)=>{return item !== theCourse.id})
+        setHeartCourse(NewCourse);
         } catch (e) {
           console.log(e);
         }
@@ -128,39 +152,45 @@ function CoursesCourseCard(course) {
   }
   let storagelist = storage["WaitingList"].split(",");
 
-  if (likeListAll === undefined || likeListMember === undefined) {
+  if (
+    likeListAll === undefined ||
+    likeListMember === undefined ||
+    theCourse === undefined
+  ) {
     return <></>;
   }
   return (
     <>
       <div className="Courses__singlecourse__card">
-        <Link to={`/course-single/${course.id}`} className="LinkNoStyle">
+        <Link to={`/course-single/${theCourse.id}`} className="LinkNoStyle">
           <img
-            src={`/images/${course.filename}.png`}
+            src={`/images/${theCourse.filename}.png`}
             className="card-img-top"
             alt="課程1"
           />
           <div className="card-body">
             <div className="mb-2 d-flex">
               <div className="Courses__singlecourse__card__type">
-                {course.body_part_id}
+                {BODY_PARTS[theCourse.body_part_id]}
               </div>
               <div className="Courses__singlecourse__card__coach_name ms-3">
-                {course.coach}
+                {theCourse.coach}
               </div>
             </div>
             <h3 className="mt-3 Courses__singlecourse__card__title">
-              {course.title}
+              {theCourse.title}
             </h3>
             <div className="mt-4 d-flex">
               <div className="Courses__singlecourse__card__count me-2">
-                觀看次數：{course.views}次
+                觀看次數：{theCourse.views}次
               </div>
               <div className="Courses__singlecourse__card__created-at me-4">
-                {course.upload_time}
+                {theCourse.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{icon === "far" ? course.likes : course.likes + 1}</span>
+                <span>
+                  {icon === "far" ? theCourse.likes : theCourse.likes + 1}
+                </span>
                 <i
                   id={course.id}
                   class={`${icon} fa-heart`}
@@ -170,15 +200,15 @@ function CoursesCourseCard(course) {
             </div>
           </div>
         </Link>
-        <div id={course.id} className="Courses__play-list" onClick={AddList}>
+        <div id={theCourse.id} className="Courses__play-list" onClick={AddList}>
           <div>
-            {storagelist.includes(`${course.id}`)
+            {storagelist.includes(`${theCourse.id}`)
               ? "成功加入清單"
               : "加入待播清單"}
           </div>
           <img
             src={
-              storagelist.includes(`${course.id}`)
+              storagelist.includes(`${theCourse.id}`)
                 ? "/images/play-list-addsuccess.png"
                 : "/images/play-list-bg.png"
             }
@@ -186,7 +216,7 @@ function CoursesCourseCard(course) {
           />
           <input
             type="hidden"
-            value={`${course.id}|${course.title}|${course.bodyparts}|${course.level}|${course.img}`}
+            value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filenaem}`}
           />
         </div>
         <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
