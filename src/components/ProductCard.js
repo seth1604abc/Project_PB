@@ -17,7 +17,15 @@ function ProductCard({
   category,
   mainImage,
 }) {
+  const [isLoggedin, setIsLoggedin] = useState(false);
   useEffect(async () => {
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
     //抓商品圖片
     let pImages = await axios.get(
       `http://localhost:3001/product/images/${productId}`,
@@ -140,14 +148,12 @@ function ProductCard({
                 className="btn poper__cart__btn"
                 onClick={async () => {
                   setAnchorEl(null);
-                  let checkCart = await axios.get(
+                  if(isLoggedin){
+                    let checkCart = await axios.get(
                     "http://localhost:3001/cart/list",
                     { withCredentials: true }
                   );
-                  if (checkCart.data == "loginerror") {
-                    history.push("/login");
-                  }
-                  console.log(checkCart.data);
+                  
                   if (
                     checkCart.data.filter(
                       (item) => item.product_id == productId
@@ -188,6 +194,10 @@ function ProductCard({
                     confirmButtonText: "繼續購物",
                     confirmButtonColor: "#1d6cf5",
                   });
+                  }else{
+                    history.push("/login")
+                  }
+                 
                 }}
               >
                 <i className="fas fa-shopping-cart"></i>
