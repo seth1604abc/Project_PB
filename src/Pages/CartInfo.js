@@ -49,10 +49,11 @@ function CartInfo() {
   };
   useEffect(() => {
     setData(user);
+    
   }, []);
+
   useEffect(async () => {
     // console.log(location);
-    console.log(list);
 
     let mart = await axios
       .post("http://localhost:3001/cart/mart", {
@@ -390,23 +391,26 @@ function CartInfo() {
                       point - total / 100
                     }`
                   );
-                  for (let i = 0; i < list.length; i++) {
-                    if(!list[i]){
-                      return
-                    }else{
+                  
+                  await list.forEach((item) => {
+                    if (item.amount <= 0 || item.product_id <= 0) {
+                      return;
+                    } else {
                       axios.patch(
-                      `http://localhost:3001/cart/product-amount/${list[i].amount}/${list[i].product_id}`
-                    );
+                        `http://localhost:3001/cart/product-amount/${item.amount}/${item.product_id}`
+                      );
                     }
-                     
-                  }
-                  await axios.patch(
-                    `http://localhost:3001/cart/product-amount/`
-                  );
-                  // await axios.post(`http://localhost:3001/cart/add-orderdetail`,{
-                  //   listId:`${list.map(i=>i.product_id)}`,
-                  //   listAmount:`${list.map(i=>i.amount)}`
-                  // })
+                    return;
+                  });
+                  let orderid=await axios.get("http://localhost:3001/cart/getorderid")
+                  console.log(orderid);
+                  await list.forEach(item=> axios.post("http://localhost:3001/cart/add-orderdetail",{
+                    id:`${item.product_id}`,
+                    amount:`${item.amount}`,
+                    price:`${item.price*item.amount}`,
+                    order:`${orderid.data-1}`
+                  }))
+
                   Swal.fire({
                     title: "購買完成!",
                     text: `已成功購買${list.length}項商品`,
