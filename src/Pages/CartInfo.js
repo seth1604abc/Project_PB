@@ -52,7 +52,7 @@ function CartInfo() {
   }, []);
   useEffect(async () => {
     // console.log(location);
-    // console.log(list, point, total, user);
+    console.log(list);
 
     let mart = await axios
       .post("http://localhost:3001/cart/mart", {
@@ -390,15 +390,19 @@ function CartInfo() {
                       point - total / 100
                     }`
                   );
-                  for(var i=0;i<list.length;i++){
-                    if(list[i]){
-                      await axios.patch(
-                    `http://localhost:3001/cart/product-amount/${list[i].amount}/${list[i].product_id}`
-                  )
-                    }}
+                  for (let i = 0; i < list.length; i++) {
+                    if(!list[i]){
+                      return
+                    }else{
+                      axios.patch(
+                      `http://localhost:3001/cart/product-amount/${list[i].amount}/${list[i].product_id}`
+                    );
+                    }
+                     
+                  }
                   await axios.patch(
                     `http://localhost:3001/cart/product-amount/`
-                  )
+                  );
                   // await axios.post(`http://localhost:3001/cart/add-orderdetail`,{
                   //   listId:`${list.map(i=>i.product_id)}`,
                   //   listAmount:`${list.map(i=>i.amount)}`
