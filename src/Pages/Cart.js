@@ -233,8 +233,8 @@ function Cart() {
                 />
                 <span style={{ marginLeft: "3px" }}>選擇全部</span>
               </div>
-              <button className="btn" onClick={handleDeleteSelected}>
-                刪除全部
+              <button className="btn" style={isCheck.length<1?{backgroundColor:"#333"}:{backgroundColor:"red"}} onClick={handleDeleteSelected}>
+                刪除勾選
               </button>
             </div>
             <hr style={{ width: "100%", margin: "10px 0" }} />
@@ -293,12 +293,14 @@ function Cart() {
                     state: { checkList:cList.filter(item=>isCheck.includes(item.product_id)), usePoint,total:`${total-usePoint}`,uData},
                   }}
                   className="btn"
-                  style={{
-                    backgroundColor: "#2571E3",
+                  style={isCheck.length<=0?{backgroundColor: "#333",
                     color: "white",
                     border: "0px",
                     width: "100%",
-                  }}
+                    pointerEvents:"none"}:{backgroundColor: "#2571E3",
+                    color: "white",
+                    border: "0px",
+                    width: "100%"}}
                 >
                   下一步
                 </Link>
