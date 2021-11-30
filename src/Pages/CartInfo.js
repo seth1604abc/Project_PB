@@ -361,7 +361,7 @@ useEffect(()=>{
                     `${data.countyValue}${data.districtValue}${data.addressDetail}`
                   );
                   await axios
-                    .post(`http://localhost:3001/cart//add-order`, {
+                    .post(`http://localhost:3001/cart/add-order`, {
                       total: `${total}`,
                       user_id: `${data.id}`,
                       point: `${point}`,
@@ -384,6 +384,10 @@ useEffect(()=>{
                       },
                     }
                   );
+                  await axios.post(`http://localhost:3001/cart/add-orderdetail`,{
+                    listId:`${list.map(i=>i.product_id)}`,
+                    listAmount:`${list.map(i=>i.amount)}`
+                  })
                   Swal.fire({
                     title: "購買完成!",
                     text: `已成功購買${list.length}項商品`,
