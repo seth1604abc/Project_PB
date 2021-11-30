@@ -16,16 +16,10 @@ function ProductCard({
   price,
   category,
   mainImage,
+  isLoggedin
 }) {
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  
   useEffect(async () => {
-    //確認登入
-    let res = await axios.get("http://localhost:3001/auth/login", {
-      withCredentials: true,
-    });
-    if (res.data.userId) {
-      setIsLoggedin(true);
-    }
     //抓商品圖片
     let pImages = await axios.get(
       `http://localhost:3001/product/images/${productId}`,
@@ -163,7 +157,7 @@ function ProductCard({
                     await axios
                       .patch(
                         `http://localhost:3001/cart/update/${productId}/${number}`,
-                        { withCredentials: true }
+                        {},{ withCredentials: true }
                       )
                       .then(function (response) {
                         console.log(response);
