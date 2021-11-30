@@ -10,11 +10,19 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function ShoppingMain() {
+  const [isLoggedin, setIsLoggedin] = useState(false);
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
   const [newNewProduct, setNewNewProduct] = useState([]);
   useEffect(async () => {
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
     //抓熱門商品
     let resHitProduct = await axios.get(
       "http://localhost:3001/product/hot-product"   
@@ -76,6 +84,7 @@ function ShoppingMain() {
         rate={product.average_rate}
         category={product.product_type_id}
         mainImage={product.name}
+        isLoggedin={isLoggedin}
       />
     );
   });

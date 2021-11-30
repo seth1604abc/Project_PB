@@ -20,12 +20,19 @@ const ProductSingle = () => {
   //拿url傳的資料
   const { category, productId } = useParams();
   const location = useLocation();
-
+  const [isLoggedin, setIsLoggedin] = useState(false);
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
     //取得推薦商品
     let recommandProduct = await axios.get(
       `http://localhost:3001/product/recommand-product/${category}/${productId}`,
@@ -196,33 +203,50 @@ const ProductSingle = () => {
           </div>
           <div className="my-3 d-flex justify-content-start ">
             <button
-              
-              className={`${productId}`==="19"?`d-none btn productMain__info__btn--cart me-3`:`btn productMain__info__btn--cart me-3`}
+              className={
+                `${productId}` === "19"
+                  ? `d-none btn productMain__info__btn--cart me-3`
+                  : `btn productMain__info__btn--cart me-3`
+              }
               // className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
-                let checkCart= await axios.get("http://localhost:3001/cart/list")
-                console.log(checkCart.data)
-                if (checkCart.data.filter(item => item.product_id == productId).length > 0) {
-                  console.log(`${productId} is in cart`)
+                let checkCart = await axios.get(
+                  "http://localhost:3001/cart/list",
+                  { withCredentials: true }
+                );
+                console.log(checkCart.data);
+                if (
+                  checkCart.data.filter((item) => item.product_id == productId)
+                    .length > 0
+                ) {
+                  console.log(`${productId} is in cart`);
                   await axios
-                  .patch(`http://localhost:3001/cart/update/${productId}/${number}`)
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                }else{
+                    .patch(
+                      `http://localhost:3001/cart/update/${productId}/${number}`,
+                      {},
+                      { withCredentials: true }
+                    )
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                } else {
                   await axios
-                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
-                    number: `${number}`,
-                  })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
+                    .post(
+                      `http://localhost:3001/cart/addcart/${productId}`,
+                      {
+                        number: `${number}`,
+                      },
+                      { withCredentials: true }
+                    )
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
                 }
                 Swal.fire({
                   title: "成功加入購物車",
@@ -236,9 +260,59 @@ const ProductSingle = () => {
               加入購物車
             </button>
             <Link
-             to={`${productId}`==="19"?`/giftcard-checkout`:`/cart`}
-            //  to="/cart"
-             >
+              to={
+                isLoggedin
+                  ? `${productId}` === "19"
+                    ? `/giftcard-checkout`
+                    : `/cart`
+                  : "/login"
+              }
+              onClick={async () => {
+                if (isLoggedin) {
+                  let checkCart = await axios.get(
+                    "http://localhost:3001/cart/list",
+                    { withCredentials: true }
+                  );
+                  console.log(checkCart.data);
+                  if (
+                    checkCart.data.filter(
+                      (item) => item.product_id == productId
+                    ).length > 0
+                  ) {
+                    console.log(`${productId} is in cart`);
+                    await axios
+                      .patch(
+                        `http://localhost:3001/cart/update/${productId}/${number}`,
+                        {},
+                        { withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  } else {
+                    await axios
+                      .post(
+                        `http://localhost:3001/cart/addcart/${productId}`,
+                        {
+                          number: `${number}`,
+                        },
+                        { withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  }
+                } else {
+                  return;
+                }
+              }}
+            >
               <button className="btn productMain__info__btn--buy ">
                 直接購買
               </button>
