@@ -527,7 +527,15 @@ option {
   font-size: 3rem;
 }
 
+
 /* 待播清單 */
+
+.CourseCourseCard__HeartThis:hover{
+  color: red;
+}
+.CourseCourseCard__DeleteThis:hover{
+  color: #4ca1af;
+}
 
 /* 拖曳功能 開始 */
 .noLiStyle {

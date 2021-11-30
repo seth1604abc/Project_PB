@@ -88,12 +88,12 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     if (seeall === "") {
       setSeeall("seeall");
       e.target.innerHTML =
-        '<i class="fas fa-angle-double-up px-1"></i> 隱藏部分資訊';
+        '<i className="fas fa-angle-double-up px-1"></i> 隱藏部分資訊';
       console.log(e.target.innerHTML);
     } else {
       setSeeall("");
       e.target.innerHTML =
-        '<i class="fas fa-angle-double-down px-1"></i> 顯示完整資訊';
+        '<i className="fas fa-angle-double-down px-1"></i> 顯示完整資訊';
     }
   }
 
@@ -179,7 +179,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
           <video
             id="theCourseVideo"
             controls
-            autoPlay="true"
+            autoPlay={true}
             muted
             onTimeUpdate={(e) => {
               setVideoCurrentTime(e.target.currentTime);

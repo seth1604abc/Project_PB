@@ -42,7 +42,6 @@ function CoursesCourseCard(course) {
       withCredentials: true,
     });
     setTheUser(isUser.data[0]);
-    console.log(theUser);
   }, []);
 
   // sessionStorage

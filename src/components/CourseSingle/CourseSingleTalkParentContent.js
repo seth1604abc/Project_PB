@@ -10,7 +10,7 @@ function CourseSingleTalkParentContent({
   childComment,
   responseUser,
   replyText,
-  image
+  image,
 }) {
   const [child, setChild] = useState();
   useEffect(() => {
@@ -21,11 +21,11 @@ function CourseSingleTalkParentContent({
   }
 
   return (
-    <div>
+    <div key={id}>
       <div className="m-3">
         <div className="d-flex row w100">
           <div className="col Course__CourseTalk__MainImg">
-            <Membericon image={image}/>
+            <Membericon image={image} />
           </div>
           <div className="col-10">
             <div className="Course__CourseTalk__Name normalMouse">{name}</div>
@@ -49,10 +49,10 @@ function CourseSingleTalkParentContent({
         </div>
         <div>
           {child.map((item) => {
-            console.log(child)
             if (item.course_comment_id === id) {
               return (
                 <CourseSingleTalkChildrenContent
+                  key={item.id}
                   user_id={item.user_id}
                   content={item.content}
                   image={item.image}
