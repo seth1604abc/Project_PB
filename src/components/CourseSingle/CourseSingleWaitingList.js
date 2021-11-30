@@ -18,8 +18,8 @@ function CourseSingleWaitingList({ isCourse_id }) {
   const [theUser, setTheUser] = useState(null);
   const [likeListAll, setLikeListAll] = useState([]);
   const [likeListMember, setLikeListMember] = useState([]);
-  // const innerRef = React.createRef()
-  // 用陣列去排序另一個陣列 ------
+  const [random, setRandom] = useState(null);
+  let thisHeartSpan = document.getElementsByClassName("thisSapn");
 
   useEffect(async () => {
     //所有課程
@@ -59,6 +59,9 @@ function CourseSingleWaitingList({ isCourse_id }) {
       oldList.unshift(targetItem[0]);
       //console.log(oldList)
       setCheckdWaitingList(oldList);
+      let newList = oldList.map((item)=>{return item.id})
+      console.log(newList+',')
+      storage['WaitingList'] = `${newList},`
     } else {
       let targetItem = allCourse.data.filter((item) => {
         return Number(item.id) === Number(isCourse_id);
@@ -88,6 +91,13 @@ function CourseSingleWaitingList({ isCourse_id }) {
       return item.course_id;
     });
     setLikeListAll(currectList);
+    for (let i = 0; i < checkdWaitingList.length; i++) {
+      if (thisHeartSpan[i].innerText === '已加入收藏囉') {
+        //console.log(i,thisHeartSpan[i])
+        thisHeartSpan[i].style.color='red';
+        thisHeartSpan[i].parentElement.style.color='red';
+      }
+    }
   }, []);
 
   // 點擊空白處 讓MOREBTN隱藏
@@ -104,6 +114,7 @@ function CourseSingleWaitingList({ isCourse_id }) {
 
   function MoreBtn(e) {
     e.nativeEvent.stopImmediatePropagation();
+    setRandom(Math.random())
     let eddies = document.querySelectorAll(
       ".Course__area__Waiting__MoreBtn__Option"
     );
@@ -158,17 +169,17 @@ function CourseSingleWaitingList({ isCourse_id }) {
     return false;
   }
 
-  async function clickHeart(e, Id, text) {
+  async function clickHeart(e, Id, text,icon) {
     if (likeListAll.includes(Number(Id))) {
       e.preventDefault();
-      console.log("已在清單中");
-      text.innerText = "成功收藏影片";
-      // console.log(e)
+      // console.log("已在清單中");
+      text.innerText = "已加入收藏囉";
+      text.style.color = "red";
+      icon.style.color='red';
     } else if (!likeListAll.includes(Number(Id)) && text !== "成功收藏影片") {
       e.preventDefault();
-      console.log("沒在清單中");
-      console.log(course.likes)
-      let addCountLikes = course.likes + 1;
+      // console.log("沒在清單中");
+      let addCountLikes = checkdWaitingList[0].likes + 1;
       let likes = { like: addCountLikes, id: Id };
       let likeList = { course: Id };
       try {
@@ -186,33 +197,34 @@ function CourseSingleWaitingList({ isCourse_id }) {
         console.log(e);
       }
       text.innerText = "成功收藏影片";
+      text.style.color = 'red';
+      icon.style.color = 'red';
     }
   }
 
   function deleteFromList(e, Id, text) {
     text.innerText = "成功刪除影片";
-    console.log('waitingList',waitingList);
-    console.log('Id',Id);
     if (waitingList.includes(`${Id}`)) {
-      let thisIndex = waitingList.indexOf(`${Id}`);
-      let newList = [...waitingList]
+      let newList = [...waitingList];
+      let thisIndex = newList.indexOf(`${Id}`);
       newList.splice(thisIndex, 1);
-      setWaitingList(newList)
-      storage['WaitingList'] = `${newList.toString()},`;
+      setWaitingList(newList);
+      storage["WaitingList"] = `${newList.toString()},`;
       storage.removeItem(Id);
+      let newMap = checkdWaitingList.filter((item)=>{return (newList.includes(`${item.id}`))});
+      setCheckdWaitingList(newMap)
     }
-    if(storage['WaitingList'] === ','){
-      storage.setItem("WaitingList", '');
+    if (storage["WaitingList"] === ",") {
+      storage.setItem("WaitingList", "");
     }
   }
-  if(storage['WaitingList'] === ','){
-    storage.setItem("WaitingList", '');
+  if (storage["WaitingList"] === ",") {
+    storage.setItem("WaitingList", "");
   }
 
   if (checkdWaitingList === undefined) {
     return <></>;
   }
-
   return (
     <div className="Course__area Course__Waiting_area p-3">
       <div className="d-flex align-items-center Article__area__title">
@@ -315,16 +327,19 @@ function CourseSingleWaitingList({ isCourse_id }) {
                       onClick={(e) => {
                         let Id = item.id;
                         let text = e.currentTarget.children[1];
+                        let icon = e.currentTarget.children[0];
+                        console.log('text',text)
+                        console.log('icon',icon)
                         e.nativeEvent.stopImmediatePropagation();
-                        clickHeart(e, Id, text);
-                        console.log("收藏這部影片", item.id);
+                        clickHeart(e, Id, text,icon);
+                        // console.log("收藏這部影片", item.id);
                       }}
                       id={item.id}
                     >
-                      <i class="fas fa-heart" id={item.id}></i>{" "}
-                      <span>
+                      <i class="fas fa-heart" id={item.id}></i>
+                      <span className='thisSapn ps-1'>
                         {likeListAll.includes(Number(item.id))
-                          ? "成功收藏影片"
+                          ? "已加入收藏囉"
                           : "收藏這部影片"}
                       </span>
                     </div>
@@ -343,8 +358,8 @@ function CourseSingleWaitingList({ isCourse_id }) {
                       }}
                       id={item.id}
                     >
-                      <i class="fas fa-trash-alt" id={item.id}></i>{" "}
-                      <span>從清單中移除</span>
+                      <i class="fas fa-trash-alt" id={item.id}></i>
+                      <span className='ps-1'>從清單中移除</span>
                     </div>
                   </div>
                 </div>
