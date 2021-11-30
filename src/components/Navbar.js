@@ -111,18 +111,19 @@ function Navbar() {
             <Link to="/article">文章</Link>
           </li>
           <li style={{ justifyContent: "end" }} className="navbar__cart">
-            <Link to="/cart">
+            <Link to={isLoggedin?"/cart":"/login"}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
               <div className="my-2">{cartList}</div>
               {/* <div>總計:{cartList>0&&cartTotal}</div> */}
+              {isLoggedin?"":"尚未註冊"}
               <Link
-                to="/cart"
-                className="btn my-2 text-white"
-                style={{ backgroundColor: "#1d6cf5", width: "80%" }}
+                to={isLoggedin?"/cart":"/login"}
+                className="btn my-2 text-white text-nowrap text-center mx-1"
+                style={{ backgroundColor: "#1d6cf5",minWidth:"100px", width: "80%" }}
               >
-                購買
+                {isLoggedin?"購買":"註冊會員"}
               </Link>
             </div>
           </li>

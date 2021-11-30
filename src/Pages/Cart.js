@@ -25,6 +25,7 @@ function Cart() {
     let userData = await axios.get("http://localhost:3001/member/info");
     setUData(userData.data[0]);
     console.log(userData.data);
+    
     // console.log(cartList.data);
     // console.log(cList);
   }, []);
