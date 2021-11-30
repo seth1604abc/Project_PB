@@ -32,76 +32,84 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
     parentComment = parentComment.pop();
     setComments(parentComment);
     setVideoId(videoid);
-    //console.log("useEffect comment", comment);
-    //console.log("useEffect comments", comments);
-    //console.log("useEffect childComment", childComment);
+    let input = document.getElementById("talkInput");
+    // if(random){
+    //   if (theUser === undefined || theUser === null) {
+    //     input.setAttribute('readonly','readonly')
+    //   }else if(theUser !== undefined && theUser !== null){
+    //     input.removeAttribute('readonly')
+    //   }
+    // }
   }, [random]);
 
   async function submitComment(e) {
-    let sendtext = {
-      user_id: 4,
-      text: text,
-      course_id: videoId,
-      created_at: new Date(),
-    };
-    let childSendText = {
-      user_id: 4,
-      text: text,
-      course_comment_id: mainCommentId,
-      created_at: new Date(),
-    };
-    if (reply === false) {
-      try {
-        let result = await axios.post(
-          "http://localhost:3001/course/addComment",
-          sendtext,
-          { withCredentials: true }
-        );
-        //console.log(text);
-        let newComment = [...comments, sendtext];
-        setComment(newComment);
-        setTextValue("");
-        //console.log('newComment',newComment)
-      } catch (e) {
-        console.error(e);
+    if (theUser === undefined || theUser === null) {
+      setTextPlaceHolder("請先登入會員！");
+    } else if (theUser !== undefined && theUser !== null) {
+      let sendtext = {
+        user_id: 4,
+        text: text,
+        course_id: videoId,
+        created_at: new Date(),
+      };
+      let childSendText = {
+        user_id: 4,
+        text: text,
+        course_comment_id: mainCommentId,
+        created_at: new Date(),
+      };
+      if (reply === false) {
+        try {
+          let result = await axios.post(
+            "http://localhost:3001/course/addComment",
+            sendtext,
+            { withCredentials: true }
+          );
+          //console.log(text);
+          let newComment = [...comments, sendtext];
+          setComment(newComment);
+          setTextValue("");
+          //console.log('newComment',newComment)
+        } catch (e) {
+          console.error(e);
+        }
       }
-    }
-    if (reply === true) {
-      try {
-        let result = await axios.post(
-          "http://localhost:3001/course/addChildrenComment",
-          childSendText,
-          { withCredentials: true }
-        );
-        let newChildrenComment = [...childComment, childSendText];
-        setComment(newChildrenComment);
-        setTextValue("");
-        //console.log("newChildrenComment", newChildrenComment);
-        setTextPlaceHolder("留言");
-        setReply(false);
-      } catch (e) {
-        console.error(e);
+      if (reply === true) {
+        try {
+          let result = await axios.post(
+            "http://localhost:3001/course/addChildrenComment",
+            childSendText,
+            { withCredentials: true }
+          );
+          let newChildrenComment = [...childComment, childSendText];
+          setComment(newChildrenComment);
+          setTextValue("");
+          //console.log("newChildrenComment", newChildrenComment);
+          setTextPlaceHolder("留言");
+          setReply(false);
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
   }
 
   function responseUser(e) {
     let name = e.target.id;
-    let talkinput = document.getElementById("talkInput")
+    let talkinput = document.getElementById("talkInput");
     if (reply === false) {
       setReply(true);
       e.target.innerText = "取消回覆";
       setTextPlaceHolder(`回覆 ${name} 的留言...`);
       setMainCommentId(e.target.parentElement.id);
       // 點擊回覆時，自動focus到輸入框
-      talkinput.focus()
+      talkinput.focus();
     } else {
       setReply(false);
       e.target.innerText = "回覆";
       setTextPlaceHolder("留言");
     }
   }
-
 
   if (
     comment === undefined ||
@@ -155,8 +163,15 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
           <input
             id="talkInput"
             className="input-form-control Course__area__Talk__InputArea__Input"
-            placeholder={textPlaceHolder}
+            placeholder={
+              theUser === undefined || theUser === null
+                ? "請先登入會員！"
+                : textPlaceHolder
+            }
             value={textValue}
+            readOnly={
+              theUser === undefined || theUser === null ? "readonly" : ""
+            }
             onChange={(e) => {
               setText(e.target.value);
               setTextValue(e.target.value);
@@ -180,9 +195,6 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             onClick={(e) => {
               submitComment(e);
               setRandom(Math.random());
-              console.log("random", random);
-              console.log("comments", comments);
-              console.log("childComment", childComment);
             }}
           ></i>
         </div>

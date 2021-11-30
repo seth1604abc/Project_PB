@@ -20,6 +20,7 @@ function CourseSingleWaitingButton({
     .getItem("WaitingList")
     .substr(0, storage.getItem("WaitingList").length - 1)
     .split(",");
+
   function MoreBtn(e) {
     let eddies = document.querySelectorAll(
       ".Course__area__Waiting__MoreBtn__Option"
@@ -34,13 +35,13 @@ function CourseSingleWaitingButton({
       eddie.style.display = "";
     }
   }
-
+console.log(id)
   //拖曳事件
   //https://pjchender.blogspot.com/2017/08/html5-drag-and-drop-api.html
   function dragStart(e) {
     var index = $(e.target).index();
     e.dataTransfer.setData("text/plain", index);
-    console.log('index',index)
+    //console.log('index',index)
   }
 
   function dropped(e) {
@@ -52,8 +53,8 @@ function CourseSingleWaitingButton({
 
     // remove dropped items at old place
     let dropped = $(this).parent().children().eq(oldIndex).remove();
-    console.log('oldIndex',oldIndex)
-    console.log('newIndex',newIndex)
+    // console.log('oldIndex',oldIndex)
+    // console.log('newIndex',newIndex)
 
     if (newIndex < oldIndex) {
       target.before(dropped);

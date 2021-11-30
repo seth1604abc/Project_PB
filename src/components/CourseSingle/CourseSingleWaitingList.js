@@ -5,6 +5,7 @@ import axios from "axios";
 import { RepeatOutlined } from "@material-ui/icons";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 let storage = sessionStorage;
 
@@ -15,11 +16,11 @@ function CourseSingleWaitingList({ isCourse_id }) {
   const [checkdWaitingList, setCheckdWaitingList] = useState([]);
   const [oldIndex, setOldIndex] = useState(0);
   const [theUser, setTheUser] = useState(null);
-  const [morebutton,setMorebutton] = useState()
+  const [likeListAll, setLikeListAll] = useState([]);
+  const [likeListMember, setLikeListMember] = useState([]);
   // const innerRef = React.createRef()
   // 用陣列去排序另一個陣列 ------
 
-  // console.log("isCourse_id", isCourse_id);
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -65,9 +66,29 @@ function CourseSingleWaitingList({ isCourse_id }) {
       tempList.unshift(targetItem[0]);
       setCheckdWaitingList(tempList);
     }
-  }, []);
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    setLikeListAll(isLIkesList.data);
+    setLikeListMember(isLIkesListMember.data);
 
-  console.log(theUser)
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+    setLikeListAll(currectList);
+  }, []);
 
   // 點擊空白處 讓MOREBTN隱藏
   document.addEventListener("click", (e) => {
@@ -135,6 +156,57 @@ function CourseSingleWaitingList({ isCourse_id }) {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     return false;
+  }
+
+  async function clickHeart(e, Id, text) {
+    if (likeListAll.includes(Number(Id))) {
+      e.preventDefault();
+      console.log("已在清單中");
+      text.innerText = "成功收藏影片";
+      // console.log(e)
+    } else if (!likeListAll.includes(Number(Id)) && text !== "成功收藏影片") {
+      e.preventDefault();
+      console.log("沒在清單中");
+      console.log(course.likes)
+      let addCountLikes = course.likes + 1;
+      let likes = { like: addCountLikes, id: Id };
+      let likeList = { course: Id };
+      try {
+        let SingleCourse = await axios.post(
+          `http://localhost:3001/Course/changeLikesCount`,
+          likes,
+          { withCredentials: true }
+        );
+        let addLikeList = await axios.post(
+          `http://localhost:3001/Course/addLikeList`,
+          likeList,
+          { withCredentials: true }
+        );
+      } catch (e) {
+        console.log(e);
+      }
+      text.innerText = "成功收藏影片";
+    }
+  }
+
+  function deleteFromList(e, Id, text) {
+    text.innerText = "成功刪除影片";
+    console.log('waitingList',waitingList);
+    console.log('Id',Id);
+    if (waitingList.includes(`${Id}`)) {
+      let thisIndex = waitingList.indexOf(`${Id}`);
+      let newList = [...waitingList]
+      newList.splice(thisIndex, 1);
+      setWaitingList(newList)
+      storage['WaitingList'] = `${newList.toString()},`;
+      storage.removeItem(Id);
+    }
+    if(storage['WaitingList'] === ','){
+      storage.setItem("WaitingList", '');
+    }
+  }
+  if(storage['WaitingList'] === ','){
+    storage.setItem("WaitingList", '');
   }
 
   if (checkdWaitingList === undefined) {
@@ -223,7 +295,11 @@ function CourseSingleWaitingList({ isCourse_id }) {
                     </div>
                   </div>
                   <div
-                    className={`Course__area__Waiting__MoreBtn pointer ${theUser !== undefined ? 'Course__area__Waiting__MoreBtn__Visible' : 'Course__area__Waiting__MoreBtn__disVisible'}`}
+                    className={`Course__area__Waiting__MoreBtn pointer ${
+                      theUser !== undefined
+                        ? "Course__area__Waiting__MoreBtn__Visible"
+                        : "Course__area__Waiting__MoreBtn__disVisible"
+                    }`}
                     onClick={MoreBtn}
                     id={item.id}
                   >
@@ -235,28 +311,40 @@ function CourseSingleWaitingList({ isCourse_id }) {
                     ref={EddiesRef}
                   >
                     <div
-                      className="pb-2 pointer"
+                      className="pb-2 pointer CourseCourseCard__HeartThis"
                       onClick={(e) => {
+                        let Id = item.id;
+                        let text = e.currentTarget.children[1];
                         e.nativeEvent.stopImmediatePropagation();
+                        clickHeart(e, Id, text);
                         console.log("收藏這部影片", item.id);
                       }}
                       id={item.id}
                     >
-                      <i class="fas fa-heart" id={item.id}></i> 收藏這部影片
+                      <i class="fas fa-heart" id={item.id}></i>{" "}
+                      <span>
+                        {likeListAll.includes(Number(item.id))
+                          ? "成功收藏影片"
+                          : "收藏這部影片"}
+                      </span>
                     </div>
                     <div
                       className="Course__area__Waiting__MoreBtn__Option__Line"
                       id={item.id}
                     ></div>
                     <div
-                      className="pt-2 pointer"
+                      className="pt-2 pointer CourseCourseCard__DeleteThis"
                       onClick={(e) => {
+                        let Id = item.id;
+                        let text = e.currentTarget.children[1];
                         e.nativeEvent.stopImmediatePropagation();
-                        console.log("從清單中移除", item.id);
+                        deleteFromList(e, Id, text);
+                        //console.log("從清單中移除", item.id);
                       }}
                       id={item.id}
                     >
-                      <i class="fas fa-trash-alt" id={item.id}></i> 從清單中移除
+                      <i class="fas fa-trash-alt" id={item.id}></i>{" "}
+                      <span>從清單中移除</span>
                     </div>
                   </div>
                 </div>
