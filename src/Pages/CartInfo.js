@@ -384,6 +384,9 @@ useEffect(()=>{
                       },
                     }
                   );
+                  await axios.post(`http://localhost:3001/cart/gain-point`,{
+                    gainPoint: `${total / 100}`,
+                  })
                   await axios.post(`http://localhost:3001/cart/add-orderdetail`,{
                     listId:`${list.map(i=>i.product_id)}`,
                     listAmount:`${list.map(i=>i.amount)}`
