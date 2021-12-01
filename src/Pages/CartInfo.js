@@ -24,7 +24,7 @@ function CartInfo() {
   const [userPhone, setUserPhone] = useState("");
   const [checked, setChecked] = useState(false);
   const [data, setData] = useState({});
-  const[martList,setMartList]=useState([]);
+  const [martList, setMartList] = useState([]);
   const handleName = (e) => {
     if (e.target.value !== userName) {
       setChecked(false);
@@ -55,30 +55,27 @@ function CartInfo() {
 
   useEffect(async () => {
     // console.log(location);
-     //抓超商資料
-     await axios
-     .post("http://localhost:3001/cart/mart", {
-       city: `${data.city}`,
-       area: `${data.area}`,
-     })
-     .then(function (response) {
-       const afterReplace = response.data.replace(
-         /<\?xml.+\?>|<!DOCTYPE.+]>/g,
-         ""
-       );
+    //抓超商資料
+    await axios
+      .post("http://localhost:3001/cart/mart", {
+        city: `${data.city}`,
+        area: `${data.area}`,
+      })
+      .then(function (response) {
+        const afterReplace = response.data.replace(
+          /<\?xml.+\?>|<!DOCTYPE.+]>/g,
+          ""
+        );
 
-       var result = afterReplace.match(/<POIName>(.*?)<\/POIName>/g);
-       // console.log(result);
-       if(result!==null){
-         let mart = result.map((name) => name.replace(/<\/?POIName>/g, ""));
-         setMartList(mart)
-         console.log(martList)
-         
-         
-         
-       }
-     });
-  }, [data.city,data.area]);
+        var result = afterReplace.match(/<POIName>(.*?)<\/POIName>/g);
+        // console.log(result);
+        if (result !== null) {
+          let mart = result.map((name) => name.replace(/<\/?POIName>/g, ""));
+          setMartList(mart);
+          console.log(martList);
+        }
+      });
+  }, [data.city, data.area]);
 
   //處理信用卡
   const [cData, setCData] = useState({
@@ -118,44 +115,16 @@ function CartInfo() {
     let newData = { ...data };
     newData.area = districtValue;
     await setData(newData);
-
-    // //抓超商資料
-    // await axios
-    //   .post("http://localhost:3001/cart/mart", {
-    //     city: `${data.city}`,
-    //     area: `${data.area}`,
-    //   })
-    //   .then(function (response) {
-    //     const afterReplace = response.data.replace(
-    //       /<\?xml.+\?>|<!DOCTYPE.+]>/g,
-    //       ""
-    //     );
-
-    //     var result = afterReplace.match(/<POIName>(.*?)<\/POIName>/g);
-    //     // console.log(result);
-    //     if(result!==null){
-    //       let mart = result.map((name) => name.replace(/<\/?POIName>/g, ""));
-    //       setMartList(mart)
-    //       console.log(martList)
-          
-          
-          
-    //     }
-    //   });
   };
   //MAP超商列表
-  const[martSelect,setMartSelect]=useState([]);
-  useEffect(()=>{
-     let martOption=martList.map(name=>{
-      return(
-        <option value={name}>{name}</option>
-      )
-    })
-    setMartSelect(martOption)
-  },[martList])
-  
-  
-  
+  const [martSelect, setMartSelect] = useState([]);
+  useEffect(() => {
+    let martOption = martList.map((name) => {
+      return <option value={name}>{name}</option>;
+    });
+    setMartSelect(martOption);
+  }, [martList]);
+
   //處理地址
   const handleAddress = (e) => {
     let newData = { ...data };
@@ -313,7 +282,9 @@ function CartInfo() {
                   name=""
                   id=""
                   // onChange={handlePayment}
-                >{martList.length>0?martSelect:"請選擇地區"}</select>
+                >
+                  {martList.length > 0 ? martSelect : "請選擇地區"}
+                </select>
               )}
               {/* <input
                 type="text"
