@@ -38,6 +38,10 @@ body::-webkit-scrollbar-thumb {
 .w100 {
   width: 100%;
 }
+.w1rem{
+  width: 1rem;
+  height: 1rem;
+}
 /* 網頁文字設定 */
 
 body {
@@ -420,12 +424,10 @@ option {
   visibility: visible;
   display: flex;
   justify-content: center;
-  transition: .4s;
   align-items: center;
 }
 .Course__Video__isntUser__Content {
   /* padding: 10vw 0; */
-  transition: 0.4s;
   display: inline-block;
 }
 .Course__Video__isntUser__Content__text {
@@ -644,16 +646,17 @@ option {
   text-align: center;
 }
 .Course__area__Waiting__image {
-  width: 70%;
+  min-width: 108px;
+  height: 80px;
+  overflow: hidden;
 }
 .Course__area__Waiting__image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
   padding: 5px 0px;
 }
 .Course__area__Waiting__title {
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 .Course__area__Waiting__tag {
   font-size: 0.8rem;

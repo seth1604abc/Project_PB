@@ -3,7 +3,7 @@ import Membericon from "../MemberIcon.js";
 import { useState, useEffect } from "react";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function CourseSingleVideo({ singleCourse, isCourse_id }) {
   const [seeall, setSeeall] = useState("");
@@ -15,6 +15,10 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   const [notUserMask, setNotUserMask] = useState(
     "Course__Video__isntUser__Hidden"
   );
+  const [endVideo, setEndVideo] = useState("Course__Video__isntUser__Hidden");
+  const [nextUrl,setNextUrl]=useState('')
+  let history = useHistory();
+  let storage = sessionStorage;
   useEffect(async () => {
     let isLIkesList = await axios.get(
       "http://localhost:3001/Course/isLikeList",
@@ -87,13 +91,12 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   function viewall(e) {
     if (seeall === "") {
       setSeeall("seeall");
-      e.target.innerHTML =
-        '<i className="fas fa-angle-double-up px-1"></i> 隱藏部分資訊';
+      e.target.innerHTML = '<i class="fas fa-angle-up px-1"></i> 隱藏部分資訊';
       console.log(e.target.innerHTML);
     } else {
       setSeeall("");
       e.target.innerHTML =
-        '<i className="fas fa-angle-double-down px-1"></i> 顯示完整資訊';
+        '<i class="fas fa-angle-down px-1"></i> 顯示完整資訊';
     }
   }
 
@@ -143,6 +146,27 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
       }
     }
   }
+  let WaitingList = storage
+    .getItem("WaitingList")
+    .substr(0, storage.getItem("WaitingList").length - 1)
+    .split(",");
+  let nextList = WaitingList.filter((item) => {
+    return item !== singleCourse[0].id;
+  });
+  let nextNumber = nextList.splice(0, 1);
+  console.log('nextNumber', nextNumber);
+  console.log('nextUrl', nextUrl);
+  if (video !== undefined && video !== null) {
+      // 影片結束時跳出彈跳視窗
+      video.addEventListener("ended", () => {
+        setNextUrl(nextNumber)
+        if (WaitingList[0] === isCourse_id) {
+        setEndVideo("Course__Video__isntUser__Show");
+        storage["WaitingList"] = `${nextList.toString()},`;
+        storage.removeItem(singleCourse[0].id)
+      }
+    });
+  }
 
   if (singleCourse === undefined || rightList === undefined) {
     return <></>;
@@ -173,6 +197,24 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                     加入會員
                   </div>
                 </Link>
+              </div>
+            </div>
+          </div>
+          <div className={`Course__Video__isntUser ${endVideo} `}>
+            <div className="Course__Video__isntUser__Content">
+              <div className="Course__Video__isntUser__Content__text">
+                <i
+                  className="fas fa-times Course__isntUser__Content__close"
+                  onClick={() => {
+                    setEndVideo("Course__Video__isntUser__Hidden");
+                  }}
+                ></i>
+                <h4 className="mb-4">播放下一部課程</h4>
+                <a href={`/course-single/${Number(nextNumber)}`}>
+                  <div className="Course__Video__isntUser__Content__button pointer">
+                    Play
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -232,12 +274,12 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                 {singleCourse[0].detail}
               </pre>
               <div
-                className="pointer Course__video-area__Content__seeall-icon pe-4"
+                className="pointer Course__video-area__Content__seeall-icon"
                 onClick={(e) => {
                   viewall(e);
                 }}
               >
-                <i class="fas fa-angle-double-down px-1"></i> 顯示完整資訊
+                <i class="fas fa-angle-down px-1"></i> 顯示完整資訊
               </div>
             </div>
           </div>

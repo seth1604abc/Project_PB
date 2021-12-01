@@ -104,12 +104,12 @@ console.log(id)
         <div className="Course__area__Waiting__image">
           <img src={`/images/${filename}.png`} alt="影片縮圖" />
         </div>
-        <div className="row p-2">
-          <div className="col-12 Course__area__Waiting__title">{title}</div>
-          <div className="col-4  ms-2 Course__area__Waiting__tag">
+          <div className="Course__area__Waiting__title">{title}</div>
+        <div className="flex p-2">
+          <div className="ms-2 Course__area__Waiting__tag">
             # {BODY_PARTS[bodyPart]}
           </div>
-          <div className="col-4 Course__area__Waiting__tag">
+          <div className="Course__area__Waiting__tag">
             # {LEVEL[level]}
           </div>
         </div>

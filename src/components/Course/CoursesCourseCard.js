@@ -70,10 +70,12 @@ function CoursesCourseCard({
     if (theUser === undefined || theUser === null) {
       console.log("請登入會員");
       e.nativeEvent.stopImmediatePropagation();
-      setCourseCardMask('Course__Video__isntUser__Show')
+      setCourseCardMask("Course__Video__isntUser__Show");
       e.preventDefault();
-      for(let i=0; i<course.length; i++){
-        document.getElementsByClassName("Courses__singlecourse__card")[i].style.opacity = "0.2";
+      for (let i = 0; i < course.length; i++) {
+        document.getElementsByClassName("Courses__singlecourse__card")[
+          i
+        ].style.opacity = "0.2";
       }
     } else if (theUser !== undefined && theUser !== null) {
       e.preventDefault();
@@ -133,6 +135,7 @@ function CoursesCourseCard({
   }
 
   function AddList(e) {
+    e.preventDefault();
     // 按鈕 toggle
     if (e.currentTarget.children[0].innerText === "加入待播清單") {
       e.currentTarget.children[0].innerText = "成功加入清單";
@@ -207,29 +210,33 @@ function CoursesCourseCard({
               </div>
             </div>
           </div>
-        </Link>
-        <div id={theCourse.id} className="Courses__play-list" onClick={AddList}>
-          <div>
-            {storagelist.includes(`${theCourse.id}`)
-              ? "成功加入清單"
-              : "加入待播清單"}
+          <div
+            id={theCourse.id}
+            className="Courses__play-list"
+            onClick={AddList}
+          >
+            <div>
+              {storagelist.includes(`${theCourse.id}`)
+                ? "成功加入清單"
+                : "加入待播清單"}
+            </div>
+            <img
+              src={
+                storagelist.includes(`${theCourse.id}`)
+                  ? "/images/play-list-addsuccess.png"
+                  : "/images/play-list-bg.png"
+              }
+              alt="play-list"
+            />
+            <input
+              type="hidden"
+              value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
+            />
           </div>
-          <img
-            src={
-              storagelist.includes(`${theCourse.id}`)
-                ? "/images/play-list-addsuccess.png"
-                : "/images/play-list-bg.png"
-            }
-            alt="play-list"
-          />
-          <input
-            type="hidden"
-            value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
-          />
-        </div>
-        <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
-          <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
-        </div>
+          <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
+            <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
+          </div>
+        </Link>
       </div>
     </>
   );

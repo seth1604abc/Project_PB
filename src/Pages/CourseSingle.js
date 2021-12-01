@@ -34,14 +34,15 @@ function CourseSingle() {
       {
         withCredentials: true,
       }
-    );
-    setSingleCourse(SingleCourse.data);
+      );
+      setSingleCourse(SingleCourse.data);
     let isUser = await axios.get("http://localhost:3001/Course/isUser", {
       withCredentials: true,
     });
     setTheUser(isUser.data[0]);
   }, [random]);
-
+  
+  console.log(singleCourse)
   if (singleCourse === undefined) {
     return <></>;
   }
