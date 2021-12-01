@@ -115,7 +115,7 @@ function Navbar() {
               <i className="fas fa-shopping-cart"></i>
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
-              <div className="my-2">{cartList}</div>
+              <div className="my-2">{cartList.length<=0?"購物車為空":`${cartList}`}</div>
               {/* <div>總計:{cartList>0&&cartTotal}</div> */}
               {isLoggedin?"":"尚未註冊"}
               <Link

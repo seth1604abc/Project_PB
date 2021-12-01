@@ -127,7 +127,7 @@ function ProductCard({
                 <input
                   className="mx-2"
                   value={number}
-                  style={{ width: "50px" }}
+                  style={{ width: "30px",border:"none", textAlign:"center"}}
                 />
                 <button
                   onClick={() => {
