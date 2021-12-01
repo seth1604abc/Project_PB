@@ -27,14 +27,6 @@ function ShoppingMain() {
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
     setNewNewProduct(resProduct.data);
-
-    //確認登入
-    let res = await axios.get("http://localhost:3001/auth/login", {
-      withCredentials: true,
-    });
-    if (res.data.userId) {
-      setIsLoggedin(true);
-    }
   }, []);
   //設定composition
   

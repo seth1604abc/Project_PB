@@ -22,7 +22,9 @@ function Cart() {
     //     return item.product_id;
     //   })
     // );
-    let userData = await axios.get("http://localhost:3001/member/info");
+    let userData = await axios.get("http://localhost:3001/member/info", {
+      withCredentials: true,
+    });
     setUData(userData.data[0]);
     console.log(userData.data);
     
@@ -151,7 +153,8 @@ function Cart() {
                 newThing.amount = e.target.value;
                 setCList(newList);
                 await axios
-                  .patch(`http://localhost:3001/cart/list/${item.product_id}/${item.amount}`)
+                  .patch(`http://localhost:3001/cart/list/${item.product_id}/${item.amount}`,{},
+                        { withCredentials: true })
                   .then(function (response) {
                     console.log(response);
                   })
@@ -168,7 +171,8 @@ function Cart() {
               onClick={() => {
                 axios
                   .delete(
-                    `http://localhost:3001/cart/delete/${item.product_id}`
+                    `http://localhost:3001/cart/delete/${item.product_id}`,
+                        { withCredentials: true }
                   )
                   .then(function (response) {
                     console.log(response);
