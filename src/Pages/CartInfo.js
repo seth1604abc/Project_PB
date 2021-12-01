@@ -10,7 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import { FormControlUnstyled } from "@mui/core";
 import * as cheerio from "cheerio";
 import Cards from "react-credit-cards";
-import "react-credit-cards/es/styles-compiled.css";
+import 'react-credit-cards/es/styles-compiled.css';
 
 function CartInfo() {
   const history = useHistory();
@@ -49,7 +49,6 @@ function CartInfo() {
   };
   useEffect(() => {
     setData(user);
-    
   }, []);
 
   useEffect(async () => {
@@ -72,7 +71,11 @@ function CartInfo() {
     expiry: "",
     name: "",
     number: "",
+    focus:""
   });
+  const handleFocus=(e)=>{
+    setCData({ ...cData, focus: e.target.name });
+  }
   const handleInputNumber = (e) => {
     console.log(e.target.value.length);
     if (e.target.value.length > 16) {
@@ -227,18 +230,7 @@ function CartInfo() {
                   <option value="2">超商取貨</option>
                 </select>
               </div>
-              <div className="cart-content-l__paymethod__data">
-                <p>付款方式</p>
-                <select
-                  className="form-select"
-                  name=""
-                  id=""
-                  onChange={handlePayment}
-                >
-                  <option value="1">貨到付款</option>
-                  <option value="2">信用卡</option>
-                </select>
-              </div>
+
               {/* </div> */}
 
               <p>運送地址{shipment === 1 ? "(宅配)" : "(超商)"}</p>
@@ -280,63 +272,72 @@ function CartInfo() {
                 onChange={handleAddress}
                 onClick={() => console.log(data)}
               /> */}
-
-              <p>付款方式: {payment === 1 ? "貨到付款" : "信用卡"}</p>
-              <i
-                style={{ fontSize: "18px", marginLeft: "10px" }}
-                class="fab fa-cc-visa"
-              ></i>
-              <div id="PaymentForm" className="creditCard-group p-3">
-                <Cards
-                  cvc={cData.cvc}
-                  expiry={cData.expiry}
-                  focus={cData.focus}
-                  name={cData.name}
-                  number={cData.number}
-                />
-                <form action="" className="d-flex flex-column my-3">
-                  <input
-                    type="number"
-                    className="form-control my-1"
-                    name="cvc"
-                    placeholder="CVC"
-                    onChange={handleInputChange}
-                    maxLength="3"
-                  />
-                  <input
-                    type="date"
-                    className="form-control my-1"
-                    name="expiry"
-                    placeholder="Expire Date"
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="text"
-                    className="form-control my-1"
-                    name="name"
-                    placeholder="Your Name"
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="number"
-                    className="form-control my-1"
-                    name="number"
-                    placeholder="Card Number"
-                    onChange={handleInputNumber}
-                    max="9999999999999999"
-                    value={cData.number}
-                  />
-                </form>
+              <div className="cart-content-l__paymethod__data">
+                <p>付款方式</p>
+                <select
+                  className="form-select"
+                  name=""
+                  id=""
+                  onChange={handlePayment}
+                >
+                  <option value="1">貨到付款</option>
+                  <option value="2">信用卡</option>
+                </select>
               </div>
-              <p
-                style={{
-                  textDecoration: "underline",
-                  color: "#2571E3",
-                  fontSize: "14px",
-                }}
-              >
-                +新增信用卡
-              </p>
+              <p>付款方式: {payment === 1 ? "貨到付款" : `信用卡`}</p>
+              {payment == 2 ? (
+                <div id="PaymentForm" className="creditCard-group p-3">
+                  <Cards
+                    cvc={cData.cvc}
+                    expiry={cData.expiry}
+                    focused={cData.focus}
+                    name={cData.name}
+                    number={cData.number}
+                  />
+                  <form action="" className="d-flex flex-column my-3">
+                  <input
+                      type="tel"
+                      className="form-control my-1"
+                      name="number"
+                      placeholder="信用卡號"
+                      onChange={handleInputNumber}
+                      pattern="[\d| ]{16,22}"
+                      value={cData.number}
+                      onFocus={handleFocus}
+                    />
+                     <input
+                      type="text"
+                      className="form-control my-1"
+                      name="name"
+                      placeholder="持有人姓名"
+                      onChange={handleInputChange}
+                      onFocus={handleFocus}
+                    />
+                    <input
+                      type="month"
+                      className="form-control my-1"
+                      name="expiry"
+                      placeholder="到期日"
+                      onChange={handleInputChange}
+                      onFocus={handleFocus}
+                    />
+                    <input
+                      type="tel"
+                      className="form-control my-1"
+                      name="cvc"
+                      placeholder="CVC"
+                      onChange={handleInputChange}
+                      maxLength="3"
+                      pattern="\d{3,4}"
+                      onFocus={handleFocus}
+                    />
+                   
+                    
+                  </form>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="cart-content-r__btn d-flex align-items-center justify-content-end">
               <Link
@@ -363,15 +364,19 @@ function CartInfo() {
                     `${data.countyValue}${data.districtValue}${data.addressDetail}`
                   );
                   await axios
-                    .post(`http://localhost:3001/cart/add-order`, {
-                      total: `${total}`,
-                      user_id: `${data.id}`,
-                      point: `${point}`,
-                      address: `${data.city}${data.area}${data.addressDetail}`,
-                      payment: `${payment}`,
-                      shipment: `${shipment}`,
-                      gainPoint: `${total / 100}`,
-                    })
+                    .post(
+                      `http://localhost:3001/cart/add-order`,
+                      {
+                        total: `${total}`,
+                        user_id: `${data.id}`,
+                        point: `${point}`,
+                        address: `${data.city}${data.area}${data.addressDetail}`,
+                        payment: `${payment}`,
+                        shipment: `${shipment}`,
+                        gainPoint: `${total / 100}`,
+                      },
+                      { withCredentials: true }
+                    )
                     .then(function (response) {
                       console.log(response);
                     })
@@ -380,36 +385,49 @@ function CartInfo() {
                     });
                   await axios.delete(
                     "http://localhost:3001/cart/delete-selected",
-                    {
+                    {withCredentials: true ,
                       data: {
                         items: `${list.map((item) => item.product_id)}`,
                       },
-                    }
+                    },
                   );
                   await axios.patch(
                     `http://localhost:3001/cart/gain-point/${
                       point - total / 100
-                    }`
+                    }`,
+                    {},
+                    { withCredentials: true }
                   );
-                  
+
                   await list.forEach((item) => {
                     if (item.amount <= 0 || item.product_id <= 0) {
                       return;
                     } else {
                       axios.patch(
-                        `http://localhost:3001/cart/product-amount/${item.amount}/${item.product_id}`
+                        `http://localhost:3001/cart/product-amount/${item.amount}/${item.product_id}`,
+                        {},
+                        { withCredentials: true }
                       );
                     }
                     return;
                   });
-                  let orderid=await axios.get("http://localhost:3001/cart/getorderid")
+                  let orderid = await axios.get(
+                    "http://localhost:3001/cart/getorderid",
+                    { withCredentials: true }
+                  );
                   console.log(orderid);
-                  await list.forEach(item=> axios.post("http://localhost:3001/cart/add-orderdetail",{
-                    id:`${item.product_id}`,
-                    amount:`${item.amount}`,
-                    price:`${item.price*item.amount}`,
-                    order:`${orderid.data-1}`
-                  }))
+                  await list.forEach((item) =>
+                    axios.post(
+                      "http://localhost:3001/cart/add-orderdetail",
+                      {
+                        id: `${item.product_id}`,
+                        amount: `${item.amount}`,
+                        price: `${item.price * item.amount}`,
+                        order: `${orderid.data - 1}`,
+                      },
+                      { withCredentials: true }
+                    )
+                  );
 
                   Swal.fire({
                     title: "購買完成!",

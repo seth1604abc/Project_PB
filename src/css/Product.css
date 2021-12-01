@@ -109,6 +109,7 @@ body{
 .poper__count__group{
   border: 1px solid #09203f;
   border-radius: 5px;
+  height: 38px;
 }
 .poper__count__btn-m{
   color: #fff;
