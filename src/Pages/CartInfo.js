@@ -103,10 +103,10 @@ function CartInfo() {
   };
   //處理縣市
   const handleCountyChange = async (e) => {
-    const { countyValue } = e;
+    const { countyValue ,districtValue} = e;
     let newData = { ...data };
     newData.city = countyValue;
-    newData.area = "請選擇";
+    newData.area = districtValue;
     await setData(newData);
   };
 
@@ -259,7 +259,7 @@ function CartInfo() {
               <ZipCodeTW
                 displayType="text"
                 zipStyle={{ display: "none" }}
-                districtStyle={{ marginLeft: "1rem" }}
+                districtStyle={{ marginLeft: ".5rem" }}
                 districtClass="districtClass form-select d-inline"
                 countyClass="countyClass form-select d-inline"
                 countyValue={data.city}
@@ -278,7 +278,7 @@ function CartInfo() {
                 />
               ) : (
                 <select
-                  className="form-select"
+                  className="form-select d-inline mx-2"
                   name=""
                   id=""
                   // onChange={handlePayment}
