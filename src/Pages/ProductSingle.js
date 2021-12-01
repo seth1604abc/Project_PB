@@ -12,13 +12,14 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 const ProductSingle = () => {
   //拿url傳的資料
   const { category, productId } = useParams();
+  const history=useHistory();
   const location = useLocation();
   const [isLoggedin, setIsLoggedin] = useState(false);
   useEffect(async () => {
@@ -26,13 +27,7 @@ const ProductSingle = () => {
       top: 0,
       behavior: "instant",
     });
-    //確認登入
-    let res = await axios.get("http://localhost:3001/auth/login", {
-      withCredentials: true,
-    });
-    if (res.data.userId) {
-      setIsLoggedin(true);
-    }
+    
     //取得推薦商品
     let recommandProduct = await axios.get(
       `http://localhost:3001/product/recommand-product/${category}/${productId}`,
@@ -80,6 +75,14 @@ const ProductSingle = () => {
     console.log(recommandProduct.data);
     let newList = [productData.intro, productData.detail];
     const show = newList;
+
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
   }, [location]);
 
   //商品留言
@@ -210,7 +213,8 @@ const ProductSingle = () => {
               }
               // className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
-                let checkCart = await axios.get(
+                if(isLoggedin){
+                  let checkCart = await axios.get(
                   "http://localhost:3001/cart/list",
                   { withCredentials: true }
                 );
@@ -255,6 +259,10 @@ const ProductSingle = () => {
                   confirmButtonText: "繼續購物",
                   confirmButtonColor: "#1d6cf5",
                 });
+                }else{
+                  history.push("/login")
+                }
+                
               }}
             >
               加入購物車
