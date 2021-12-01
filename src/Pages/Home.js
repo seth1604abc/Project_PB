@@ -18,7 +18,10 @@ function Home() {
     //     withCredentials: true,
     //   }
     // );
-    
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
     let resProduct = await axios.get(
       "http://localhost:3001/product/hot-product",
       { withCredentials: true }
