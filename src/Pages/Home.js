@@ -199,15 +199,38 @@ function Home() {
             <br />
             皆由專業教練指導
           </h3>
-          <div className="coach--list">
-            <div className="divider"></div>
-            <div className="coachName">Chris</div>
-            <div className="coachTime">教練資歷5年</div>
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
+          <div className="coach--list d-flex flex-wrap justify-content-center">
+          <div className="mx-4 my-3 coach__link" style={{width:"300px"}}>
+          <Link to="/product" style={{color:"#09203f"}} className="text-decoration-none"><img src="./coach_imgs/coach-1.png" style={{width:"200px"}} alt="" />
+          <h4>洪啟學</h4>
+          <p>教練資歷:5年</p>
+          </Link>
+          </div>
+          <div className="mx-4 my-3 coach__link" style={{width:"300px"}}>
+          <Link to="/product" style={{color:"#09203f"}} className="text-decoration-none"><img src="./coach_imgs/coach-2.png" style={{width:"200px"}} alt="" />
+          <h4>洪啟學</h4>
+          <p>教練資歷:5年</p>
+          </Link>
+          </div>
+          <div className="mx-4 my-3 coach__link" style={{width:"300px"}}>
+          <Link to="/product" style={{color:"#09203f"}} className="text-decoration-none"><img src="./coach_imgs/coach-3.png" style={{width:"200px"}} alt="" />
+          <h4>洪啟學</h4>
+          <p>教練資歷:5年</p>
+          </Link>
+          </div>
+          <div className="mx-4 my-3 coach__link" style={{width:"300px"}}>
+          <Link to="/product" style={{color:"#09203f"}} className="text-decoration-none"><img src="./coach_imgs/coach-4.png" style={{width:"200px"}} alt="" />
+          <h4>洪啟學</h4>
+          <p>教練資歷:5年</p>
+          </Link>
+          </div>
+          <div className="mx-4 my-3 coach__link" style={{width:"300px"}}>
+          <Link to="/product" style={{color:"#09203f"}} className="text-decoration-none"><img src="./coach_imgs/coach-5.png" style={{width:"200px"}} alt="" />
+          <h4>洪啟學</h4>
+          <p>教練資歷:5年</p>
+          </Link>
+          </div>
+          
           </div>
         </section>
         <section className="giftCard mb-5 p-5">

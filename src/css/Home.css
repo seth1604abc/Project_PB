@@ -236,7 +236,7 @@ p {
 /* 活動介紹區 */
 
 .event {
-  margin: 10% 20%;
+  margin: 5% 20%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -335,9 +335,14 @@ p {
   color: #537895;
 }
 .coach img {
-  margin: 5%;
+  /* margin: 0 5%; */
 }
-
+.coach__link{
+  transition: .2s;
+}
+.coach__link:hover{
+  transform: scale(1.1);
+}
 .giftCard {
   position: relative;
   margin: 0 auto;
