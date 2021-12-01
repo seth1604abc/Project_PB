@@ -10,7 +10,8 @@ import withReactContent from "sweetalert2-react-content";
 import { FormControlUnstyled } from "@mui/core";
 import * as cheerio from "cheerio";
 import Cards from "react-credit-cards";
-import 'react-credit-cards/es/styles-compiled.css';
+import "react-credit-cards/es/styles-compiled.css";
+const request = require("request");
 
 function CartInfo() {
   const history = useHistory();
@@ -23,6 +24,7 @@ function CartInfo() {
   const [userPhone, setUserPhone] = useState("");
   const [checked, setChecked] = useState(false);
   const [data, setData] = useState({});
+  const[martList,setMartList]=useState([]);
   const handleName = (e) => {
     if (e.target.value !== userName) {
       setChecked(false);
@@ -53,31 +55,43 @@ function CartInfo() {
 
   useEffect(async () => {
     // console.log(location);
+     //抓超商資料
+     await axios
+     .post("http://localhost:3001/cart/mart", {
+       city: `${data.city}`,
+       area: `${data.area}`,
+     })
+     .then(function (response) {
+       const afterReplace = response.data.replace(
+         /<\?xml.+\?>|<!DOCTYPE.+]>/g,
+         ""
+       );
 
-    let mart = await axios
-      .post("http://localhost:3001/cart/mart", {
-        city: `${data.city}`,
-        area: `${data.area}`,
-      })
-      .then(function (response) {
-        console.log(response)
-      })
-      ;
-      
-      
-  }, [data.city, data.area]);
+       var result = afterReplace.match(/<POIName>(.*?)<\/POIName>/g);
+       // console.log(result);
+       if(result!==null){
+         let mart = result.map((name) => name.replace(/<\/?POIName>/g, ""));
+         setMartList(mart)
+         console.log(martList)
+         
+         
+         
+       }
+     });
+  }, [data.city,data.area]);
+
   //處理信用卡
   const [cData, setCData] = useState({
     cvc: "",
     expiry: "",
     name: "",
     number: "",
-    focus:""
+    focus: "",
   });
-  
-  const handleFocus=(e)=>{
+
+  const handleFocus = (e) => {
     setCData({ ...cData, focus: e.target.name });
-  }
+  };
   const handleInputNumber = (e) => {
     console.log(e.target.value.length);
     if (e.target.value.length > 16) {
@@ -104,7 +118,44 @@ function CartInfo() {
     let newData = { ...data };
     newData.area = districtValue;
     await setData(newData);
+
+    // //抓超商資料
+    // await axios
+    //   .post("http://localhost:3001/cart/mart", {
+    //     city: `${data.city}`,
+    //     area: `${data.area}`,
+    //   })
+    //   .then(function (response) {
+    //     const afterReplace = response.data.replace(
+    //       /<\?xml.+\?>|<!DOCTYPE.+]>/g,
+    //       ""
+    //     );
+
+    //     var result = afterReplace.match(/<POIName>(.*?)<\/POIName>/g);
+    //     // console.log(result);
+    //     if(result!==null){
+    //       let mart = result.map((name) => name.replace(/<\/?POIName>/g, ""));
+    //       setMartList(mart)
+    //       console.log(martList)
+          
+          
+          
+    //     }
+    //   });
   };
+  //MAP超商列表
+  const[martSelect,setMartSelect]=useState([]);
+  useEffect(()=>{
+     let martOption=martList.map(name=>{
+      return(
+        <option value={name}>{name}</option>
+      )
+    })
+    setMartSelect(martOption)
+  },[martList])
+  
+  
+  
   //處理地址
   const handleAddress = (e) => {
     let newData = { ...data };
@@ -262,9 +313,7 @@ function CartInfo() {
                   name=""
                   id=""
                   // onChange={handlePayment}
-                >
-                  
-                </select>
+                >{martList.length>0?martSelect:"請選擇地區"}</select>
               )}
               {/* <input
                 type="text"
@@ -296,7 +345,7 @@ function CartInfo() {
                     number={cData.number}
                   />
                   <form action="" className="d-flex flex-column my-3">
-                  <input
+                    <input
                       type="tel"
                       className="form-control my-1"
                       name="number"
@@ -306,7 +355,7 @@ function CartInfo() {
                       value={cData.number}
                       onFocus={handleFocus}
                     />
-                     <input
+                    <input
                       type="text"
                       className="form-control my-1"
                       name="name"
@@ -332,8 +381,6 @@ function CartInfo() {
                       pattern="\d{3,4}"
                       onFocus={handleFocus}
                     />
-                   
-                    
                   </form>
                 </div>
               ) : (
@@ -386,11 +433,12 @@ function CartInfo() {
                     });
                   await axios.delete(
                     "http://localhost:3001/cart/delete-selected",
-                    {withCredentials: true ,
+                    {
+                      withCredentials: true,
                       data: {
                         items: `${list.map((item) => item.product_id)}`,
                       },
-                    },
+                    }
                   );
                   await axios.patch(
                     `http://localhost:3001/cart/gain-point/${
