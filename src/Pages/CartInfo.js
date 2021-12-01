@@ -60,10 +60,11 @@ function CartInfo() {
         area: `${data.area}`,
       })
       .then(function (response) {
-        console.log(response);
-
-        // console.log($);
-      });
+        console.log(response)
+      })
+      ;
+      
+      
   }, [data.city, data.area]);
   //處理信用卡
   const [cData, setCData] = useState({
@@ -73,6 +74,7 @@ function CartInfo() {
     number: "",
     focus:""
   });
+  
   const handleFocus=(e)=>{
     setCData({ ...cData, focus: e.target.name });
   }
@@ -261,8 +263,7 @@ function CartInfo() {
                   id=""
                   // onChange={handlePayment}
                 >
-                  <option value="1">貨到付款</option>
-                  <option value="2">信用卡</option>
+                  
                 </select>
               )}
               {/* <input
@@ -395,7 +396,6 @@ function CartInfo() {
                     `http://localhost:3001/cart/gain-point/${
                       point - total / 100
                     }`,
-                    {},
                     { withCredentials: true }
                   );
 

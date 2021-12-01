@@ -18,18 +18,28 @@ function ShoppingMain() {
   useEffect(async () => {
     //抓熱門商品
     let resHitProduct = await axios.get(
-      "http://localhost:3001/product/hot-product",{ withCredentials: true }   
+      "http://localhost:3001/product/hot-product",
+      { withCredentials: true }
     );
     setHotProduct(resHitProduct.data);
 
     //抓全部商品
-    let resProduct = await axios.get("http://localhost:3001/product",{ withCredentials: true });
+    let resProduct = await axios.get("http://localhost:3001/product", {
+      withCredentials: true,
+    });
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
     setNewNewProduct(resProduct.data);
+
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
   }, []);
   //設定composition
-  
+
   //監聽搜尋
   const [search, setSearch] = useState("");
   const handleSearch = (e) => {
@@ -62,6 +72,7 @@ function ShoppingMain() {
         rate={product.average_rate}
         category={product.product_type_id}
         mainImage={product.name}
+        isLoggedin={isLoggedin}
       />
     );
   });
