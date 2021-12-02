@@ -33,7 +33,11 @@ function MemberEvent() {
     }).then(async (result) => {
       if (result.isConfirmed) {        
         let res = await axios.post("http://localhost:3001/member/event-delete", {id: id}, {withCredentials: true});
-        history.go(0);              
+        if(res){
+          Swal.fire("刪除成功").then((ok) => {
+            history.go(0);
+          })
+        }              
       }
     });
   };
@@ -44,41 +48,46 @@ function MemberEvent() {
       <div className="member-container d-flex">
         <MemberLeftBar />
         <div className="member-activity-content">
-          {memberEventData.map((data, index) => {
-            return (
-              <>
-                <div className="member-activity-content__card">
-                  <div className="member-activity-content__card__img">
-                    <img src={`/event_imgs/${data.image}`} alt="" />
-                  </div>
-                  <div className="member-activity-content__card__info d-flex">
-                    <div className="member-activity-content__card__info__title">
-                      <p>活動名稱:</p>
-                      <p style={{ marginTop: "20px" }}>活動時間:</p>
-                      <p style={{ marginTop: "20px" }}>地點:</p>
+          { memberEventData.length > 0 ? (
+                memberEventData.map((data, index) => {
+                return (
+                  <>
+                    <div className="member-activity-content__card">
+                      <div className="member-activity-content__card__img">
+                        <img src={`/event_imgs/${data.image}`} alt="" />
+                      </div>
+                      <div className="member-activity-content__card__info d-flex">
+                        <div className="member-activity-content__card__info__title">
+                          <p>活動名稱:</p>
+                          <p style={{ marginTop: "20px" }}>活動時間:</p>
+                          <p style={{ marginTop: "20px" }}>地點:</p>
+                        </div>
+                        <div className="member-activity-content__card__info__data">
+                          <p>{data.title}</p>
+                          <p style={{ marginTop: "25px" }}>{data.datetime}</p>
+                          <p style={{ marginTop: "25px" }}>{data.location}</p>
+                        </div>
+                      </div>
+                      <div className="member-activity-content__card__control">
+                        <button>
+                          <i className="far fa-eye"></i>檢視活動
+                        </button>
+                        <button id={data.id} onClick={handleDelete}>
+                          <i className="far fa-window-close"></i>取消報名
+                        </button>
+                        <button>
+                          <i className="far fa-calendar-alt"></i>加到行事曆
+                        </button>
+                      </div>
                     </div>
-                    <div className="member-activity-content__card__info__data">
-                      <p>{data.title}</p>
-                      <p style={{ marginTop: "25px" }}>{data.datetime}</p>
-                      <p style={{ marginTop: "25px" }}>{data.location}</p>
-                    </div>
-                  </div>
-                  <div className="member-activity-content__card__control">
-                    <button>
-                      <i className="far fa-eye"></i>檢視活動
-                    </button>
-                    <button id={data.id} onClick={handleDelete}>
-                      <i className="far fa-window-close"></i>取消報名
-                    </button>
-                    <button>
-                      <i className="far fa-calendar-alt"></i>加到行事曆
-                    </button>
-                  </div>
-                </div>
-                <hr />
-              </>
-            );
-          })}
+                    <hr />
+                  </>
+                );
+              })
+            ) : (
+              <p style={{fontSize: "30px", textAlign: "center"}}>還沒有報名任何活動喔!</p>
+            )            
+          }
         </div>
       </div>
       <Footer />

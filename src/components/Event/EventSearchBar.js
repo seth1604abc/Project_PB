@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import "./App.css";
+import axios from "axios";
 
-function EventSearchBar() {
+function EventSearchBar({search}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  
+  
 
   return (
     <div className="event_searchBar_wrapper my-5">
@@ -19,6 +21,7 @@ function EventSearchBar() {
         selectsStart
         startDate={startDate}
         endDate={endDate}
+        id="start"
       />
         </div>
         <span className="text-white h5 mx-4">至</span>
@@ -31,9 +34,10 @@ function EventSearchBar() {
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
+        id="end"
       />
         </div>
-        <button type="event_search_submit" className="event_search_submit">
+        <button type="event_search_submit" className="event_search_submit" onClick={search}>
           <i className="fa fa-search"></i>
         </button>
       </div>
