@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from 'axios';
@@ -42,12 +42,17 @@ function Subscribe() {
   }
 
   const sub = async (e) => {
-    let value = e.target.value;    
+    let value = e.target.value;
+    let price = e.target.id;   
     let result = await axios.post("http://localhost:3001/member/subscribe", {value: value}, {withCredentials:true});    
     if(result.data == "loginerror"){
       history.push("/login");
-    } 
-    console.log(result);
+    }    
+    if(result.data.message == "您已經是訂閱會員"){
+      Swal.fire(result.data.message);
+    } else {
+      history.push(`/subscribe-pay/${value}/${price}`);      
+    }
   }
 
   return (
@@ -135,9 +140,9 @@ function Subscribe() {
                 borderRadius: "20px",
                 padding: "10px 25px",
                 border: "1px solid transparent",
-              }}
+              }}              
             >
-              查看方案
+            <a href="#plan" style={{color: "black", textDecoration: "none"}}>查看方案</a>              
             </button>
           </div>
         </div>
@@ -183,7 +188,7 @@ function Subscribe() {
             </div>
           </div>
         </div>
-        <div className="text-center" style={{ marginTop: "200px" }}>
+        <div className="text-center" style={{ marginTop: "200px" }} id="plan">
           <p
             style={{
               fontSize: "30px",
@@ -204,7 +209,7 @@ function Subscribe() {
                 <div style={{ textAlign: "left", marginTop: "10px" }}>
                   搶先免費試用，試用期間擁有所有訂閱者福利喔!
                 </div>
-                <button value="days" className="sub-start-btn" style={{marginTop: "50px"}} onClick={sub}>馬上開始</button>
+                <button value="days" id="0" className="sub-start-btn" style={{marginTop: "50px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
             <div className="col">
@@ -241,7 +246,7 @@ function Subscribe() {
                     <i className="fas fa-check-circle"></i>會員方案七折優惠
                   </p>
                 </div>
-                <button value="years" className="sub-start-btn" style={{marginTop: "20px", padding: "5px 40px"}} onClick={sub}>馬上開始</button>
+                <button value="years" id="4200" className="sub-start-btn" style={{marginTop: "20px", padding: "5px 40px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
             <div className="col" style={{ paddingTop: "50px" }}>
@@ -262,7 +267,7 @@ function Subscribe() {
                     <i className="fas fa-check-circle"></i>參加獨享活動
                   </p>
                 </div>
-                <button value="months" className="sub-start-btn" style={{marginTop: "10px"}} onClick={sub}>馬上開始</button>
+                <button value="months" id="499" className="sub-start-btn" style={{marginTop: "10px"}} onClick={sub}>馬上開始</button>
               </div>
             </div>
           </div>

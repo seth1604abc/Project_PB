@@ -39,7 +39,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/event" exact component={Event}></Route>
-          <Route path="/event-single" exact component={EventSingle}></Route>
+          <Route path="/event-single/:id" exact component={EventSingle}></Route>
           <Route path="/article" exact component={Article}></Route>
           <Route path="/article-single" exact component={ArticleSingle}></Route>
           <Route path="/course" exact component={Course}></Route>
@@ -63,9 +63,9 @@ function App() {
           <Route path="/cart" excat component={Cart}></Route>
           <Route path="/cart-info" excat component={CartInfo}></Route>                 
           <Route path="/coach-event-add" exact component={CoachEventAdd}></Route>          
-          <Route path="/coach-event-edit" exact component={CoachEventEdit}></Route>          
+          <Route path="/coach-event-edit/:id" exact component={CoachEventEdit}></Route>          
           <Route path="/coach-course-add" exact component={CoachCourseAdd}></Route>
-          <Route path="/subscribe-pay" exact component={SubscibePay}></Route>          
+          <Route path="/subscribe-pay/:time/:price" exact component={SubscibePay}></Route>          
         </Switch>
       </Router>
      
