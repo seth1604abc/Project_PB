@@ -1,10 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CoachLeftBar from "../components/CoachLeftBar";
-
+import Swal from "sweetalert2";
+import axios from 'axios';
 
 function CoachInfo() {
+  const [{image, alt}, setImage] = useState({
+    image: "",
+    alt: "",
+  });
+  const [uploadImage, setUploadImage] = useState(null);
+  const [name, setName] = useState("");
+  const history = useHistory();
+
+  useEffect(async () => {
+    let result = await axios.get("http://localhost:3001/coach/info", {withCredentials: true})
+    setName(result.data);
+  })
+
+  const handleImage = async (e) => {
+    if(e.target.files[0]) {
+      let data = URL.createObjectURL(e.target.files[0]);
+      let name = e.target.files[0].name;
+      let result = await setImage({
+        image: data,
+        alt: name,
+      })
+      const formData = new FormData();      
+      formData.append('member', e.target.files[0], e.target.files[0].name);            
+      setUploadImage(formData);
+      
+    }    
+  }
+
+  const uploadPost = () => {    
+    if(uploadImage != null) {      
+      Swal.fire({
+        text: "確定要更改大頭貼?",
+        showDenyButton: true,
+        confirmButtonText: "確定",
+        denyButtonText: "取消",
+      }).then( async (result) => {
+        if(result.isConfirmed){
+          let res = await axios.post("http://localhost:3001/member/formdata", uploadImage, {withCredentials: true})
+          Swal.fire("上傳成功");
+          history.go(0);
+        }
+      })
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -14,29 +61,25 @@ function CoachInfo() {
           className="member-container"
           style={{ height: "85vh", position: "relative" }}
         >
-          <button
-            style={{
-              position: "absolute",
-              right: "300px",
-              top: "150px",
-              padding: "5px 30px",
-              border: "0px",
-              backgroundColor: "#E4B96F",
-            }}
-          >
-            <i class="fas fa-edit"></i>編輯
-          </button>
           <div className="coach-content d-flex">
             <div className="coach-content__pic">
-              <img src="/image/coach-content-pic.png" alt="" />
+              <div className="member-main-info__img__ct">
+                <img src={image} alt={alt} />
+              </div>
+              <input 
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                id="photo"
+                onChange={handleImage}
+              />
+              <label htmlFor="photo"><i class="fas fa-plus" style={{marginRight: "5px"}}></i>更改大頭貼</label>              
+              <button onClick={uploadPost}>上傳大頭貼</button>
             </div>
 
             <div className="coach-content__info">
               <div className="coach-content__info__data d-flex justify-content-between">
                 <div className="coach-content__info__data__title">姓名</div>
-                <div className="coach-content__info__data__data">
-                  黃禮志(Yeji)
-                </div>
+                <div className="coach-content__info__data__data">{name}</div>                 
               </div>
               <div className="coach-content__info__data d-flex justify-content-between">
                 <div className="coach-content__info__data__title">資歷</div>

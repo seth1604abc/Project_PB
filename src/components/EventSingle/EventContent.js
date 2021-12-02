@@ -1,33 +1,73 @@
-import React from "react";
-
-
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-// class SimpleMap extends Component {
-//   static defaultProps = {
-//     center: {
-//       lat: 59.95,
-//       lng: 30.33
-//     },
-//     zoom: 11
-//   }
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import { useParams, useHistory } from 'react-router-dom';
+import GoogleMapReact from 'google-map-react'
+import { Icon } from '@iconify/react'
+import locationIcon from '@iconify/icons-mdi/map-marker'
+import Swal from 'sweetalert2';
+import copy from "copy-to-clipboard";  
 
 function EventContent() {
+  const [data, setData] = useState({});
+  const [shareInfo, setSahreInfo] = useState("");
+  let { id } = useParams();
+  const history = useHistory();
+  useEffect(async () => {    
+    let result = await axios.post("http://localhost:3001/event/single", {id: id});
+    setData(result.data[0]);
+    setSahreInfo(`快來跟我一起參加這個好玩的活動，活動連結 => http://localhost:3000/event-single/${id}`)
+  }, [])
 
- 
+  const location = {
+    address: data.location,
+    lat: data.lat,
+    lng: data.lng,
+  }
+
+  const LocationPin = () => (
+    <div className="pin">
+      <Icon icon={locationIcon} className="pin-icon" />      
+    </div>
+  )
+ //api key=AIzaSyBVaDJmfSr5DZ5sWp4YhRClSK7lfOOp7Nc
+  const apply = () => {
+    Swal.fire({
+      text: "你確定要報名此項活動?",
+      showDenyButton: true,
+      confirmButtonText: "確定",
+      denyButtonText: "取消"
+    }).then(async (res) => {
+      if(res.isConfirmed){
+        let result = await axios.post("http://localhost:3001/event/apply-event", {id: id}, {withCredentials: true});
+        if(result.data == "loginerror"){
+          history.push("/login");
+        } else {
+          Swal.fire(result.data);
+        }
+      }
+    })
+  }
+  
+  const share = () => {
+    copy(shareInfo);
+    Swal.fire("已複製連結");
+  }
+
   return (
     <div className="d-flex justify-content-center">
       <div className="singleEvent_container">
         <div className="singleEvent_cover">
-          <img src="./event_imgs/event_cover_1.jpg" alt="cover" />
+          <img src={`/event_imgs/${data.image}`} alt="cover" />
         </div>
         <div className="singleEvent_title h2 mx-5 mt-5">
-          科學增肌減脂-Dr.史考特來解惑
+          {data.title}
         </div>
         <div className="d-flex justify-content-between">
           <div className="d-flex align-items-center mt-4">
-            <div className="singleEvent_coach ms-5"></div>
-            <div className="h6 ms-3">Fiona</div>
+            <div className="singleEvent_coach ms-5">
+              <img src={`/image/${data.coachimage}`} alt="" />
+            </div>
+            <div className="h6 ms-3">{data.coach}</div>
           </div>
       
             <button
@@ -38,12 +78,14 @@ function EventContent() {
               justify-content-center
               mt-3
             "
+              onClick={share}
             >
               <span className="d-flex">
                 <i className="fas fa-share-alt me-2"></i>
-                <span className="fs-6"> 分享活動</span>
+                <span className="fs-6" > 分享活動</span>
               </span>
             </button>
+            <input type="hidden" value={shareInfo}/>
           
         </div>
         {/* <!-- 活動內容 & 報名區塊 --> */}
@@ -52,34 +94,7 @@ function EventContent() {
             <div className="my-3">
               <span className="h5">【 活動介紹 】</span>
               <p className="my-3">
-                增肌健身變壯，最新研究怎麼說？
-                <br />
-                -為何喝符水能治頭痛？運動科學好重要
-                <br />
-                -健身效果好不好，竟和基因有關！？
-                <br />
-                -健身要看到效果，為何不能不談科學？
-                <br />
-                -挑對時間運動，增肌效果大不同
-                <br />
-                -一公斤肌肉能燃燒多少熱量？
-                <br />
-                -不必辛苦鍛鍊，靠這招也能變壯！？
-                <br />
-                -擁有六塊肌，等於擁有健康？
-                <br />
-                -活得更久更健康，運動是萬靈丹
-                <br />
-                -總是肥在屁股和大腿！拆解女生梨形身材原因
-                <br />
-                -訓練拚命到筋疲力盡，比較有效嗎？
-                <br />
-                科學改善了人類生活的所有面向，飲食運動也不該例外。
-                <br />
-                此次特地邀請到長庚醫院復健科主治醫師史考特(王思恆) <br />
-                與本站課程會員分享科學增肌減脂的最新觀念
-                <br />
-                健身不只是強健身體，健身更要強健大腦。
+                {data.content}
               </p>
             </div>
           </div>
@@ -94,7 +109,7 @@ function EventContent() {
                 </div>
                 <div className="row">
                   <div className="col-1"></div>
-                  <span className="col-8">2021/11/13 14:30-16:00</span>
+                  <span className="col-8">{data.datetime} 到 {data.endtime}</span>
                 </div>
               </div>
               <div className="mt-2">
@@ -106,7 +121,7 @@ function EventContent() {
                 </div>
                 <div className="row mt-2">
                   <div className="col-1"></div>
-                  <div className="col-8">2021/11/12 24:00 止</div>
+                  <div className="col-8">{data.deadline} 止</div>
                 </div>
               </div>
               <div>
@@ -118,7 +133,7 @@ function EventContent() {
                 </div>
                 <div className="row">
                   <div className="col-1"></div>
-                  <div className="col-8">10人</div>
+                  <div className="col-8">{data.limit}人</div>
                 </div>
               </div>
               <div>
@@ -129,7 +144,7 @@ function EventContent() {
                   </span>
                   <div className="row">
                     <div className="col-1"></div>
-                    <div className="col-8">10人</div>
+                    <div className="col-8">{data.quota}人</div>
                   </div>
                 </div>
               </div>
@@ -143,37 +158,29 @@ function EventContent() {
                 <div className="row">
                   <div className="col-1"></div>
                   <span className="col-8">
-                    MRT文創古亭6號空間 <br />
-                    台北市大安區羅斯福路二段33號12樓
+                    {data.location}
                   </span>
                 </div>
               </div>
             </div>
             <div className="text-center my-5">
-              <button className="singleEvent_detail_signUpBtn">立即報名</button>
+              <button className="singleEvent_detail_signUpBtn" onClick={apply}>立即報名</button>
             </div>
           </div>
         </div>
         <h5 class="text-start my-5 mx-5">活動地圖</h5>
         <div class="singleEvent_map_wrapper">
-          <div
-            class="singleEvent_img"
-            style={{ backgroundImage: "url(/event_imgs/google_map_1.jpg)" }}
+          <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.API_KEY }}
+          center={{lat: location.lat, lng: location.lng}}
+          zoom={18}          
           >
-          <div style={{ height: '100vh', width: '100%' }}>
-        {/* <GoogleMapReact
-          bootstrapURLKeys={{ key: AIzaSyD8fY5DEYdmYwYY2bhrq0PC73DkY5tBK1E}}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact> */}
-      </div>
-          </div>
+            <LocationPin
+              lat={location.lat}
+              lng={location.lng}
+              text={location.address}
+            />
+          </GoogleMapReact>
         </div>
       </div>
     </div>
