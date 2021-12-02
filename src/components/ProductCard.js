@@ -54,7 +54,7 @@ function ProductCard({
 
   //對部位
   let bodyPart = {
-    1: "綜合",
+    1: "其他",
     2: "手部",
     3: "肩部",
     4: "胸部",
