@@ -27,7 +27,12 @@ const ProductSingle = () => {
       top: 0,
       behavior: "instant",
     });
-    
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId!=="") {
+      setIsLoggedin(true);}
     //取得推薦商品
     let recommandProduct = await axios.get(
       `http://localhost:3001/product/recommand-product/${category}/${productId}`,
@@ -64,6 +69,7 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
+    
     setComments(productComment.data);
     setProductImages(productImages.data);
     setProductData(product.data[0]);
@@ -76,13 +82,7 @@ const ProductSingle = () => {
     let newList = [productData.intro, productData.detail];
     const show = newList;
 
-    //確認登入
-    let res = await axios.get("http://localhost:3001/auth/login", {
-      withCredentials: true,
-    });
-    if (res.data.userId) {
-      setIsLoggedin(true);
-    }
+    
   }, [location]);
 
   //商品留言
@@ -368,7 +368,17 @@ const ProductSingle = () => {
             <Comment />
             <Comment />
             <Comment /> */}
-            <button className="btn product__secondary__left__comment__more m-1 align-self-end">
+            <button className="btn product__secondary__left__comment__more m-1 align-self-end"
+            onClick={async()=>{
+              let productComment = await axios.get(
+      `http://localhost:3001/product/comment/${productId}/${comments.length}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(productComment)
+    setComments([...comments,...productComment.data])
+            }}>
               更多評論
             </button>
           </div>
