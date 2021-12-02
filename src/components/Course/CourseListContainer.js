@@ -4,8 +4,7 @@ import CoursesCourseCard from "./CoursesCourseCard";
 import CoursesCoursePages from "./CoursesPageButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
+import { Link } from "react-router-dom";
 
 let storage = sessionStorage;
 
@@ -24,6 +23,11 @@ function CourseListContainer() {
   const [copyFilterBase, setCopyFilterBase] = useState(filterBase);
   // 關鍵字搜尋
   const [keyWord, setKeyWord] = useState("");
+  // 已收藏的課程
+  const [heartCourse, setHeartCourse] = useState();
+  const [courseCardMask, setCourseCardMask] = useState(
+    "Course__Video__isntUser__Hidden"
+  );
   useEffect(async () => {
     //所有課程
     let allCourse = await axios.get("http://localhost:3001/course", {
@@ -33,6 +37,26 @@ function CourseListContainer() {
     setCourse(allCourse.data);
     // axios 抓回來後要保留的所有項目
     setAllCourse(allCourse.data);
+
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+    setHeartCourse(currectList);
   }, []);
 
   useEffect(() => {
@@ -138,7 +162,7 @@ function CourseListContainer() {
       });
       setCourse(coachChecked);
     }
-    setCopyFilterBase(filterBase)
+    setCopyFilterBase(filterBase);
   }
 
   function waitingListButtonToggle(e) {
@@ -147,16 +171,31 @@ function CourseListContainer() {
         .getItem("WaitingList")
         .substr(0, storage.getItem("WaitingList").length - 1)
         .split(",");
+      console.log("WaitingList", WaitingList);
       let checkdWaitingList = allCourse.filter((item) => {
-        //console.log(item.id)
+        console.log("item.id", item.id);
         return WaitingList.includes(`${item.id}`);
       });
-      //console.log("checkdWaitingList",checkdWaitingList)
+      console.log("checkdWaitingList", checkdWaitingList);
       setCourse(checkdWaitingList);
     } else {
       setCourse(allCourse);
     }
   }
+
+  function heartListButtonToggle(e) {
+    if (e === 1) {
+      //console.log("部分顯示");
+      let heartList = allCourse.filter((item) => {
+        return heartCourse.includes(item.id);
+      });
+      setCourse(heartList);
+    } else {
+      setCourse(allCourse);
+      //console.log("全部顯示");
+    }
+  }
+
   // 排序更動 熱門程度  更新時間
   function HitSort() {
     //console.log(sort)
@@ -169,10 +208,7 @@ function CourseListContainer() {
       course.sort(function (a, b) {
         return new Date(b.upload_time) - new Date(a.upload_time);
       });
-      //console.log('TimeSort')
     }
-    // 要改變的課程項目
-    //setCourse(CourseHitSort.data);
   }
 
   // 關鍵字搜尋
@@ -181,7 +217,7 @@ function CourseListContainer() {
     let Keyword = allCourse.filter((item) => {
       return item.title.includes(keyWord);
     });
-    console.log("searchtext", Keyword);
+    //console.log("searchtext", Keyword);
     let defaultFilter = {
       ...filterBase,
       body_part_id: "1",
@@ -189,9 +225,9 @@ function CourseListContainer() {
       level_id: "1",
     };
     setFilterBase(defaultFilter);
-    console.log(defaultFilter);
     if (keyWord === "") {
-      setFilterBase(copyFilterBase)
+      setFilterBase(copyFilterBase);
+      setCourse(allCourse);
       if (
         // 身體部位有變化
         filterBase.body_part_id !== "1" &&
@@ -289,6 +325,7 @@ function CourseListContainer() {
   return (
     <div>
       <CourseControlBar
+        heartListButtonToggle={heartListButtonToggle}
         waitingListButtonToggle={waitingListButtonToggle}
         bodyPartHandleSelect={bodyPartHandleSelect}
         filterBase={filterBase}
@@ -298,21 +335,40 @@ function CourseListContainer() {
         setKeyWord={setKeyWord}
         searchtext={searchtext}
       />
-      <div className="Courses__singlecourse__card__flex__wrapper">
-        {/* Card */}
-        {course.map((course) => {
+      <div className="Courses__singlecourse__card__flex__wrapper position-relative">
+        <div className={`Course__isntUser ${courseCardMask}`}>
+          <div className="Course__isntUser__Content">
+            <i
+              className="fas fa-times Course__isntUser__Content__close"
+              onClick={() => {
+                document.querySelector(".Course__isntUser").style.opacity = "0";
+                setCourseCardMask("Course__Video__isntUser__Hidden");
+                for (let i = 0; i < course.length; i++) {
+                  document.getElementsByClassName(
+                    "Courses__singlecourse__card"
+                  )[i].style.opacity = "1";
+                }
+              }}
+            ></i>
+            <div className="Course__isntUser__Content__text">
+              <h4 className="mb-4">您尚未成為會員，立即加入！</h4>
+              <Link to="/login">
+                <div className="Course__Video__isntUser__Content__button pointer">
+                  加入會員
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+        {course.map((theCourse) => {
           return (
             <CoursesCourseCard
-              key={course.id}
-              id={course.id}
-              title={course.title}
-              upload_time={course.upload_time}
-              update_time={course.update_time}
-              likes={course.likes}
-              body_part_id={BODY_PARTS[course.body_part_id]}
-              views={course.views}
-              level={LEVEL[course.level_id]}
-              filename={course.filename}
+              key={theCourse.id}
+              theCourse={theCourse}
+              course={course}
+              setHeartCourse={setHeartCourse}
+              heartCourse={heartCourse}
+              setCourseCardMask={setCourseCardMask}
             />
           );
         })}

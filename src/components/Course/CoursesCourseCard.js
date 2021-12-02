@@ -1,23 +1,141 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
+import axios from "axios";
 let storage = sessionStorage;
 
-function CoursesCourseCard(course) {
+function CoursesCourseCard({
+  id,
+  title,
+  upload_time,
+  likes,
+  coach,
+  body_part_id,
+  view,
+  level,
+  filename,
+  setHeartCourse,
+  theCourse,
+  course,
+  heartCourse,
+  setCourseCardMask,
+}) {
+  const [icon, setIcon] = useState("far");
+  const [likeListAll, setLikeListAll] = useState([]);
+  const [likeListMember, setLikeListMember] = useState([]);
+  const [theUser, setTheUser] = useState(null);
+
+  useEffect(async () => {
+    let isLIkesList = await axios.get(
+      "http://localhost:3001/Course/isLikeList",
+      {
+        withCredentials: true,
+      }
+    );
+    let isLIkesListMember = await axios.get(
+      "http://localhost:3001/Course/isLikeListMemberId",
+      {
+        withCredentials: true,
+      }
+    );
+    setLikeListAll(isLIkesList.data);
+    setLikeListMember(isLIkesListMember.data);
+
+    let filterLikeList = isLIkesList.data.filter((item) => {
+      return item.user_id === isLIkesListMember.data;
+    });
+    let currectList = filterLikeList.map((item) => {
+      return item.course_id;
+    });
+
+    if (currectList.includes(theCourse.id)) {
+      setIcon("fas HeartColor");
+    } else {
+      setIcon("far");
+    }
+    let isUser = await axios.get("http://localhost:3001/Course/isUser", {
+      withCredentials: true,
+    });
+    setTheUser(isUser.data[0]);
+  }, []);
+
   // sessionStorage
   // 給 WaitingList 空字串
   if (storage["WaitingList"] == null) {
     storage["WaitingList"] = "";
   }
 
-  function clickHeart(e) {
-    e.preventDefault()
-    if (e.target.className === "far fa-heart") {
-      e.target.className = "fas fa-heart HeartColor";
-    } else {
-      e.target.className = "far fa-heart";
+  async function clickHeart(e) {
+    if (theUser === undefined || theUser === null) {
+      console.log("請登入會員");
+      e.nativeEvent.stopImmediatePropagation();
+      setCourseCardMask("Course__Video__isntUser__Show");
+      e.preventDefault();
+      for (let i = 0; i < course.length; i++) {
+        document.getElementsByClassName("Courses__singlecourse__card")[
+          i
+        ].style.opacity = "0.2";
+      }
+    } else if (theUser !== undefined && theUser !== null) {
+      e.preventDefault();
+      if (icon === "far") {
+        setIcon("fas HeartColor");
+        let addCountLikes = theCourse.likes + 1;
+        let likes = { like: addCountLikes, id: theCourse.id };
+        let likeList = { course: theCourse.id };
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/addLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+        } catch (e) {
+          console.log(e);
+        }
+        let NewCourse = [...heartCourse];
+        if (!NewCourse.includes(theCourse.id)) {
+          NewCourse = [...heartCourse, theCourse.id];
+        } else {
+          return;
+        }
+        setHeartCourse(NewCourse);
+      } else {
+        setIcon("far");
+        let disCountLikes = theCourse.likes;
+        let likes = { like: disCountLikes, id: theCourse.id };
+        let likeList = { course: theCourse.id };
+        console.log(likeList);
+        try {
+          let SingleCourse = await axios.post(
+            `http://localhost:3001/Course/changeLikesCount`,
+            likes,
+            { withCredentials: true }
+          );
+          let addLikeList = await axios.post(
+            `http://localhost:3001/Course/deleteLikeList`,
+            likeList,
+            { withCredentials: true }
+          );
+          let NewCourse = [...heartCourse];
+          NewCourse = NewCourse.filter((item) => {
+            return item !== theCourse.id;
+          });
+          setHeartCourse(NewCourse);
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }
   }
+
   function AddList(e) {
+    e.preventDefault();
     // 按鈕 toggle
     if (e.currentTarget.children[0].innerText === "加入待播清單") {
       e.currentTarget.children[0].innerText = "成功加入清單";
@@ -44,65 +162,81 @@ function CoursesCourseCard(course) {
     }
   }
   let storagelist = storage["WaitingList"].split(",");
-  //console.log(storagelist);
-  //console.log(storagelist,course.id)
+
+  if (
+    likeListAll === undefined ||
+    likeListMember === undefined ||
+    theCourse === undefined
+  ) {
+    return <></>;
+  }
   return (
     <>
       <div className="Courses__singlecourse__card">
-        <Link to={`/course-single/${course.id}`} className="LinkNoStyle">
+        <Link to={`/course-single/${theCourse.id}`} className="LinkNoStyle">
           <img
-            src={`/images/${course.filename}.png`}
+            src={`/images/${theCourse.filename}.png`}
             className="card-img-top"
             alt="課程1"
           />
           <div className="card-body">
             <div className="mb-2 d-flex">
               <div className="Courses__singlecourse__card__type">
-                {course.body_part_id}
+                {BODY_PARTS[theCourse.body_part_id]}
               </div>
               <div className="Courses__singlecourse__card__coach_name ms-3">
-                {course.coach}
+                {theCourse.coach}
               </div>
             </div>
             <h3 className="mt-3 Courses__singlecourse__card__title">
-              {course.title}
+              {theCourse.title}
             </h3>
             <div className="mt-4 d-flex">
               <div className="Courses__singlecourse__card__count me-2">
-                觀看次數：{course.views}次
+                觀看次數：{theCourse.views}次
               </div>
               <div className="Courses__singlecourse__card__created-at me-4">
-                {course.upload_time}
+                {theCourse.upload_time}
               </div>
               <div className="Courses__singlecourse__card__heart">
-                <span>{course.likes}</span>
-                <i id={course.id} class="far fa-heart" onClick={clickHeart}></i>
+                <span>
+                  {icon === "far" ? theCourse.likes : theCourse.likes + 1}
+                </span>
+                <i
+                  id={course.id}
+                  class={`${icon} fa-heart`}
+                  onClick={clickHeart}
+                ></i>
               </div>
             </div>
           </div>
-        </Link>
-        <div id={course.id} className="Courses__play-list" onClick={AddList}>
-          <div>
-            {storagelist.includes(`${course.id}`)
-              ? "成功加入清單"
-              : "加入待播清單"}
+          <div
+            id={theCourse.id}
+            className="Courses__play-list"
+            onClick={AddList}
+          >
+            <div>
+              {storagelist.includes(`${theCourse.id}`)
+                ? "成功加入清單"
+                : "加入待播清單"}
+            </div>
+            <img
+              src={
+                storagelist.includes(`${theCourse.id}`)
+                  ? "/images/play-list-addsuccess.png"
+                  : "/images/play-list-bg.png"
+              }
+              alt="play-list"
+            />
+            <input
+              type="hidden"
+              value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
+            />
           </div>
-          <img
-            src={
-              storagelist.includes(`${course.id}`)
-                ? "/images/play-list-addsuccess.png"
-                : "/images/play-list-bg.png"
-            }
-            alt="play-list"
-          />
-          <input
-            type="hidden"
-            value={`${course.id}|${course.title}|${course.bodyparts}|${course.level}|${course.img}`}
-          />
-        </div>
-        <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
-          <img src="/images/03.jpg" alt="coach" />
-        </div>
+          <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
+            <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
+          </div>
+        </Link>
       </div>
     </>
   );

@@ -9,18 +9,19 @@ body {
   font-family: "Noto Sans TC", sans-serif;
 }
 
-main section button a{
+main section button a {
   text-decoration: none;
   color: #09203f;
 }
-.playList--context a:hover, .event--context a:hover{
+.playList--context a:hover,
+.event--context a:hover {
   text-decoration: none;
   color: #09203f;
 }
 /* hearder */
 
 header {
-  height:100vh;
+  height: 100vh;
   background: rgb(83, 120, 149);
   background: linear-gradient(
     180deg,
@@ -29,7 +30,6 @@ header {
   );
   color: white;
   position: relative;
-  
 }
 .nav {
   position: relative;
@@ -80,19 +80,50 @@ p {
 }
 .hero-player {
   position: absolute;
-  top: 80px;
+  top: 0;
   left: 0;
-  
-  
+  height: 100vh;
 }
 .home-video-filter {
-  position: relative;
+  position: absolute;
   width: 100vw;
-  height: 92vh;
-  background-color: rgba(13, 7, 100, 0.5);
+  height: 100vh;
+  background-color: rgba(5, 3, 31, 0.637);
   top: 0;
   left: 0;
   z-index: 10;
+}
+.hero-player--title {
+  text-align: center;
+  display: block;
+  width: 50vw;
+  height: 20vh;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 40vh;
+  left: 25vw;
+  z-index: 11;
+}
+@keyframes title {
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.hero-player--title h1 {
+  animation: 1s ease-out 0s 1 title;
+  color: #ecf4ff;
+  font-weight: 900;
+  font-style: italic;
+  word-spacing: 13px;
+  letter-spacing: 10px;
+  font-size: 200px;
+  text-shadow: #09203f 5px 5px, #537895 8px 8px;
 }
 /* 課程選擇區 */
 .scrollTo {
@@ -236,7 +267,7 @@ p {
 /* 活動介紹區 */
 
 .event {
-  margin: 10% 20%;
+  margin: 5% 20%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -335,9 +366,14 @@ p {
   color: #537895;
 }
 .coach img {
-  margin: 5%;
+  /* margin: 0 5%; */
 }
-
+.coach__link img {
+  transition: 0.2s;
+}
+.coach__link img:hover {
+  transform: scale(1.1);
+}
 .giftCard {
   position: relative;
   margin: 0 auto;
