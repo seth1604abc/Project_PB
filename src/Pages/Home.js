@@ -6,38 +6,66 @@ import "../css/Home.css";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import axios from "axios";
-
+import CoursesCourseCard from "../components/Course/CoursesCourseCard";
 function Home() {
-  const[pImg,setPImg]=useState({});
+  const [pImg, setPImg] = useState({});
   const [hotProduct, setHotProduct] = useState([]);
-
+  const [topEvent, setTopEvent] = useState([]);
   useEffect(async () => {
-    // let pImages = await axios.get(
-    //   `http://localhost:3001/product/images`,
-    //   {
-    //     withCredentials: true,
-    //   }
-    // );
-    
+    //頁面拉到頂端
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
+
+    //拿推薦商品
     let resProduct = await axios.get(
       "http://localhost:3001/product/hot-product",
       { withCredentials: true }
     );
-    // setPImg();
     setHotProduct(resProduct.data);
-    // console.log(hotProduct);
-    console.log(resProduct.data)
+
+    //拿推薦活動
+    let resEvent = await axios.get("http://localhost:3001/event/topEvent", {
+      withCredentials: true,
+    });
+    setTopEvent(resEvent.data);
   }, []);
+
+  //MAP活動卡片
+  let eventList=topEvent.map(event=>{
+    return(
+      <div className="home__productCard d-flex align-items-center">
+        <img src={`/event_imgs/${event.image}`} style={{height:"9rem"}} alt="" />
+        <div className="d-flex flex-column ">
+          <h5>{event.title}</h5>
+          <p></p>
+        </div>
+      </div>
+    )
+  }
+
+    )
 
   //選擇部位
   const [part, setPart] = useState("");
   const handlePart = (i) => {
     setPart(i);
   };
+  //拉出特定部位的課程
+  const [partCourse, setPartCourse] = useState([]);
+  const handlePartCourse = async (partid) => {
+    let resCourse = await axios.get(
+      `http://localhost:3001/course/part-best/${partid}`
+    );
+    setPartCourse(resCourse.data);
+  };
+  let bestCourse = partCourse.map((course) => (
+    <CoursesCourseCard course={course} />
+  ));
 
   //熱門商品
   const hotList = hotProduct.map((product) => {
-    
     return (
       <ProductCard
         productId={product.product_id}
@@ -55,15 +83,23 @@ function Home() {
     <>
       <header className="">
         <NavBar className="" />
+        <div className="d-flex justify-content-center overflow-hidden hero-player ">
+        <div className="hero-player--title d-flex justify-content-center align-items-center" >
+        <h1 className=" text-nowrap m-0 p-0">P&B Fitness</h1>
+        </div>
+        
         <ReactPlayer
-          url="https://www.youtube.com/watch?v=YARJ99FqcYE"
+          url="https://youtu.be/phAMA0PVAAc"
           loop="true"
           muted="true"
           playing="true"
-          width="100vw"
-          height="92vh"
-          className="hero-player"
+          width="100vw" 
+          height="140vh"
+          className=""
+          style={{minHeight:"100vh"}}
         />
+        </div>
+        
         <div className="home-video-filter"></div>
         <div className="nav-scrollDown">
           <a href="#scrollTo" className="scrollTo">
@@ -77,7 +113,7 @@ function Home() {
         <section className="course d-flex align-items-center">
           <div className="course--context">
             <h3 className="text-nowrap">你在找什麼課程?</h3>
-            <p>
+            <p className="mb-3">
               透過部位、時間長度還有程度標籤，快速從上百堂的課程中找到你想學習的健身知識!
             </p>
             <div className="course--context--filter">
@@ -90,6 +126,7 @@ function Home() {
                   }
                   onClick={() => {
                     handlePart("手部");
+                    handlePartCourse(2);
                   }}
                 >
                   手部
@@ -102,6 +139,7 @@ function Home() {
                   }
                   onClick={() => {
                     handlePart("腿部");
+                    handlePartCourse(3);
                   }}
                 >
                   腿部
@@ -114,6 +152,7 @@ function Home() {
                   }
                   onClick={() => {
                     handlePart("胸部");
+                    handlePartCourse(4);
                   }}
                 >
                   胸部
@@ -126,6 +165,7 @@ function Home() {
                   }
                   onClick={() => {
                     handlePart("肩部");
+                    handlePartCourse(5);
                   }}
                 >
                   肩部
@@ -138,20 +178,22 @@ function Home() {
                   }
                   onClick={() => {
                     handlePart("背部");
+                    handlePartCourse(6);
                   }}
                 >
                   背部
                 </button>
               </div>
-              <div className="course--context--filter--input ">
+              {/* <div className="course--context--filter--input ">
                 <input type="text" name="" id="" />
                 <button className="px-3 py-1">
                   <i className="fas fa-search"></i>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
-          <ProductCard />
+          {bestCourse}
+          {/* <ProductCard /> */}
         </section>
         <section className="playList">
           <img src="https://via.placeholder.com/300x200" alt="" />
@@ -173,10 +215,11 @@ function Home() {
             </p>
           </div>
           <div className="event--group">
-            <div className="event--group--cards">
+            <div className="">
+            {eventList}
+              {/* <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
-              <img src="https://via.placeholder.com/400x100" alt="" />
-              <img src="https://via.placeholder.com/400x100" alt="" />
+              <img src="https://via.placeholder.com/400x100" alt="" /> */}
             </div>
             <Link to="/event">
               <button className="event--group--link">更多活動</button>
@@ -196,15 +239,82 @@ function Home() {
             <br />
             皆由專業教練指導
           </h3>
-          <div className="coach--list">
-            <div className="divider"></div>
-            <div className="coachName">Chris</div>
-            <div className="coachTime">教練資歷5年</div>
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
-            <img src="https://via.placeholder.com/250x250" alt="" />
+          <div className="coach--list d-flex flex-wrap justify-content-center">
+            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+              <Link
+                to="/product"
+                style={{ color: "#09203f" }}
+                className="text-decoration-none"
+              >
+                <img
+                  src="./coach_imgs/coach-1.png"
+                  style={{ width: "200px" }}
+                  alt=""
+                />
+                <h4>洪啟學</h4>
+                <p>教練資歷:5年</p>
+              </Link>
+            </div>
+            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+              <Link
+                to="/coach-info"
+                style={{ color: "#09203f" }}
+                className="text-decoration-none"
+              >
+                <img
+                  src="./coach_imgs/coach-2.png"
+                  style={{ width: "200px" }}
+                  alt=""
+                />
+                <h4>洪啟學</h4>
+                <p>教練資歷:5年</p>
+              </Link>
+            </div>
+            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+              <Link
+                to="/product"
+                style={{ color: "#09203f" }}
+                className="text-decoration-none"
+              >
+                <img
+                  src="./coach_imgs/coach-3.png"
+                  style={{ width: "200px" }}
+                  alt=""
+                />
+                <h4>洪啟學</h4>
+                <p>教練資歷:5年</p>
+              </Link>
+            </div>
+            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+              <Link
+                to="/product"
+                style={{ color: "#09203f" }}
+                className="text-decoration-none"
+              >
+                <img
+                  src="./coach_imgs/coach-4.png"
+                  style={{ width: "200px" }}
+                  alt=""
+                />
+                <h4>洪啟學</h4>
+                <p>教練資歷:5年</p>
+              </Link>
+            </div>
+            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+              <Link
+                to="/product"
+                style={{ color: "#09203f" }}
+                className="text-decoration-none"
+              >
+                <img
+                  src="./coach_imgs/coach-5.png"
+                  style={{ width: "200px" }}
+                  alt=""
+                />
+                <h4>洪啟學</h4>
+                <p>教練資歷:5年</p>
+              </Link>
+            </div>
           </div>
         </section>
         <section className="giftCard mb-5 p-5">

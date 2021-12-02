@@ -922,12 +922,11 @@ body {
 }
 .cart-content-r__btn {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 1.6rem;
   display: flex;
   justify-content: center;
 }
 .cart-content-r__btn > button {
-  padding: 10px 60px;
   border: 0px;
   font-size: 20px;
 }
