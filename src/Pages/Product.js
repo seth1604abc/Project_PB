@@ -10,6 +10,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function ShoppingMain() {
+  const [isLoggedin, setIsLoggedin] = useState(false);
   const [hotProduct, setHotProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
@@ -29,9 +30,16 @@ function ShoppingMain() {
     setProduct(resProduct.data);
     setNewProduct(resProduct.data);
     setNewNewProduct(resProduct.data);
+
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId) {
+      setIsLoggedin(true);
+    }
   }, []);
   //設定composition
-  
+
   //監聽搜尋
   const [search, setSearch] = useState("");
   const handleSearch = (e) => {
@@ -64,6 +72,7 @@ function ShoppingMain() {
         rate={product.average_rate}
         category={product.product_type_id}
         mainImage={product.name}
+        isLoggedin={isLoggedin}
       />
     );
   });
@@ -79,6 +88,7 @@ function ShoppingMain() {
         rate={product.average_rate}
         category={product.product_type_id}
         mainImage={product.name}
+        isLoggedin={isLoggedin}
       />
     );
   });
