@@ -12,20 +12,27 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 const ProductSingle = () => {
   //拿url傳的資料
   const { category, productId } = useParams();
+  const history=useHistory();
   const location = useLocation();
-
+  const [isLoggedin, setIsLoggedin] = useState(false);
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
+    //確認登入
+    let res = await axios.get("http://localhost:3001/auth/login", {
+      withCredentials: true,
+    });
+    if (res.data.userId!=="") {
+      setIsLoggedin(true);}
     //取得推薦商品
     let recommandProduct = await axios.get(
       `http://localhost:3001/product/recommand-product/${category}/${productId}`,
@@ -62,6 +69,7 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
+    
     setComments(productComment.data);
     setProductImages(productImages.data);
     setProductData(product.data[0]);
@@ -73,6 +81,8 @@ const ProductSingle = () => {
     console.log(recommandProduct.data);
     let newList = [productData.intro, productData.detail];
     const show = newList;
+
+    
   }, [location]);
 
   //商品留言
@@ -196,20 +206,52 @@ const ProductSingle = () => {
           </div>
           <div className="my-3 d-flex justify-content-start ">
             <button
-              
-              className={`${productId}`==="19"?`d-none btn productMain__info__btn--cart me-3`:`btn productMain__info__btn--cart me-3`}
+              className={
+                `${productId}` === "19"
+                  ? `d-none btn productMain__info__btn--cart me-3`
+                  : `btn productMain__info__btn--cart me-3`
+              }
               // className="btn productMain__info__btn--cart me-3"
               onClick={async () => {
-                await axios
-                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
-                    number: `${number}`,
-                  })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
+                if(isLoggedin){
+                  let checkCart = await axios.get(
+                  "http://localhost:3001/cart/list",
+                  { withCredentials: true }
+                );
+                console.log(checkCart.data);
+                if (
+                  checkCart.data.filter((item) => item.product_id == productId)
+                    .length > 0
+                ) {
+                  console.log(`${productId} is in cart`);
+                  await axios
+                    .patch(
+                      `http://localhost:3001/cart/update/${productId}/${number}`,
+                      {},
+                      { withCredentials: true }
+                    )
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                } else {
+                  await axios
+                    .post(
+                      `http://localhost:3001/cart/addcart/${productId}`,
+                      {
+                        number: `${number}`,
+                      },
+                      { withCredentials: true }
+                    )
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                }
                 Swal.fire({
                   title: "成功加入購物車",
                   text: `${productData.title} ${number}份加入購物車`,
@@ -217,14 +259,68 @@ const ProductSingle = () => {
                   confirmButtonText: "繼續購物",
                   confirmButtonColor: "#1d6cf5",
                 });
+                }else{
+                  history.push("/login")
+                }
+                
               }}
             >
               加入購物車
             </button>
             <Link
-             to={`${productId}`==="19"?`/giftcard-checkout`:`/cart`}
-            //  to="/cart"
-             >
+              to={
+                isLoggedin
+                  ? `${productId}` === "19"
+                    ? `/giftcard-checkout`
+                    : `/cart`
+                  : "/login"
+              }
+              onClick={async () => {
+                if (isLoggedin) {
+                  let checkCart = await axios.get(
+                    "http://localhost:3001/cart/list",
+                    { withCredentials: true }
+                  );
+                  console.log(checkCart.data);
+                  if (
+                    checkCart.data.filter(
+                      (item) => item.product_id == productId
+                    ).length > 0
+                  ) {
+                    console.log(`${productId} is in cart`);
+                    await axios
+                      .patch(
+                        `http://localhost:3001/cart/update/${productId}/${number}`,
+                        {},
+                        { withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  } else {
+                    await axios
+                      .post(
+                        `http://localhost:3001/cart/addcart/${productId}`,
+                        {
+                          number: `${number}`,
+                        },
+                        { withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  }
+                } else {
+                  return;
+                }
+              }}
+            >
               <button className="btn productMain__info__btn--buy ">
                 直接購買
               </button>
@@ -272,7 +368,17 @@ const ProductSingle = () => {
             <Comment />
             <Comment />
             <Comment /> */}
-            <button className="btn product__secondary__left__comment__more m-1 align-self-end">
+            <button className="btn product__secondary__left__comment__more m-1 align-self-end"
+            onClick={async()=>{
+              let productComment = await axios.get(
+      `http://localhost:3001/product/comment/${productId}/${comments.length}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(productComment)
+    setComments([...comments,...productComment.data])
+            }}>
               更多評論
             </button>
           </div>
