@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 function CoachLeftBar() {
+    const [image, setImage] = useState("");
+    useEffect(async () => {
+        let result = await axios.get("http://localhost:3001/coach/image", {withCredentials: true});
+        setImage(result.data[0].image)
+        
+    })
+
+
     return (
         <>
             <div className="member-left-nav">                
                 <div style={{paddingLeft: "50px", margin: "50px 0"}}>
-                    <img src="/image/member.png" alt="" style={{width: "200px", height: "200px"}} />
+                    <img src={`/image/${image}`} alt="" style={{width: "200px", height: "200px", borderRadius: "50%"}} />
                 </div>
                 <ul className="member-left__ul">
                     <li>
