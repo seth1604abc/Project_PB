@@ -1,24 +1,11 @@
 import {useState} from "react";
-import Axios from "axios";
+import axios from "axios";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
 function CoachEventAddCard() {
-    const  modules  = { 
-        toolbar: [
-            [{ font: [] }],
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ color: [] }, { background: [] }],
-            [{ script:  "sub" }, { script:  "super" }],
-            ["blockquote", "code-block"],
-            [{ list:  "ordered" }, { list:  "bullet" }],
-            [{ indent:  "-1" }, { indent:  "+1" }, { align: [] }],
-            ["link", "image", "video"],
-            ["clean"],
-        ],
-    };
+    
 
     const [eventName, setEventName] = useState('')
     const [eventTime, setEventTime] = useState('')
@@ -26,49 +13,34 @@ function CoachEventAddCard() {
     const [eventQuotaLimit, setEventQuotaLimit] = useState('')
     const [eventDeadline, setEventDeadline] = useState('')
     const [eventIntro, setEventIntro] = useState('')
+    const [duration, setDuration] = useState(0);
+    const[image, setImage] = useState(null);
 
-    const submitEvent =() => {
-      Axios.post("http://localhost:3001/event/coach-event-add", {
-        title: eventName,
-        datetime: eventTime,
-        location: eventLocation,
-        deadline: eventDeadline,
-        limit: eventQuotaLimit,
-        content: eventIntro
-      }).then(()=>{
-        alert("successful insert");
-      })
-      // console.log(eventName);
+    const submitEvent = async () => {
+      let formData = new FormData();
+      formData.append("title", eventName);
+      formData.append("datetime", eventTime);
+      formData.append("duration", duration);
+      formData.append("location", eventLocation);
+      formData.append("deadline", eventDeadline);
+      formData.append("limit", eventQuotaLimit);
+      formData.append("content", eventIntro);
+      formData.append("image", image);
+      
+      let result = await axios.post("http://localhost:3001/event/coach-event-add", formData, {withCredentials: true});
+      
    
     }
 
-    const[image, setImage] = useState('')
-    const[loading, setLoading] = useState(false)
-
-    const uploadImage = async e => {
-      const files = e.target.files
-      const data = new FormData()
-      data.append('file', files[0]) 
-      setLoading(true)
-      const res = await fetch(
-        'http://localhost:3001/event/coach-event-add',
-        {
-          method: 'POST',
-          body: data
-        } 
-      )
-      const file = await res.json()
-
-      setImage(file.secure_url)
-      setLoading(false)
-    }
+       
+   
 
   return (
     <div className="member-activity-content ">
       <div className="row" style={{ margin: "50px 150px" }}>
         <div className="">
           <div className="CoachEventAdd_wrapper">
-            <div className="mb-4 CoachEventAdd_banner_preview"></div>
+            
             <div className="mb-4">
               <label for="">活動圖片新增</label>
               <input
@@ -76,11 +48,8 @@ function CoachEventAddCard() {
                 className="form-control"
                 name="CoachEventAdd_banner"
                 id="banner"
-                onChange={uploadImage}
-              />
-              {loading ? (
-                <h3>Loading....</h3> 
-              ): (<img src= {image} style={{ width: '300px' }} alt="" />)}
+                onChange={(e) => {setImage(e.target.files[0])}}
+              />              
             </div>
             <div className="mb-4">
               <label for="">活動名稱</label>
@@ -99,6 +68,15 @@ function CoachEventAddCard() {
                 name="CoachEventEdit_time"
                 placeholder="YYYY-MM-DD HH:MM"
                 onChange = {(e)=>{setEventTime(e.target.value)}}
+              />
+            </div>
+            <div className="mb-4">
+              <label for="">活動時長</label>
+              <input
+                type="number"
+                className="form-control"
+                min="1"                
+                onChange = {(e)=>{setDuration(e.target.value)}}
               />
             </div>
             <div className="mb-4">
@@ -136,18 +114,10 @@ function CoachEventAddCard() {
                 rows="6"
                 className="form-control"
                 name="CoachEventAdd_info"
-               
+                onChange={(e) => {setEventIntro(e.target.value)}}
               ></textarea>
             </div>
-            <div className="editor">
-              <h2>Quill</h2> 
-              <ReactQuill 
-              theme="snow"   
-              modules={modules}
-              onChange = {(e)=>{setEventIntro(e.target.value)}} />
-              {/* onChange={setValue}  */}
-              {/* onChange = {(e)=>{setEventIntro(e.target.value)}} */}
-            </div>
+            
             <div className="d-flex justify-content-end">
             <button className="btn btn-warning me-3" type="button">
               取消

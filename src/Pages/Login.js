@@ -181,7 +181,7 @@ function Login() {
                 </Form>
               </Formik>
               
-              <p
+              {/* <p
                 style={{
                   color: "#C2BEBE",
                   fontSize: "14px",
@@ -194,7 +194,7 @@ function Login() {
                 <i className="fab fa-facebook" style={{ color: "#2251D4" }}></i>
                 <i className="fab fa-google" style={{ color: "#F81735" }}></i>
                 <i className="fab fa-twitter" style={{ color: "#1D6CF5" }}></i>
-              </div>
+              </div> */}
             </div>
             <div className="signup-box-r text-center">
               <p style={{ fontSize: "40px" }}>您好，朋友</p>
@@ -239,7 +239,7 @@ function Login() {
                 <input type="text" placeholder="密碼" name="loginPassword"/>
               </div>
               <button className="register-btn" onClick={login}>登入</button>
-              <p
+              {/* <p
                 style={{
                   color: "#C2BEBE",
                   fontSize: "14px",
@@ -252,7 +252,7 @@ function Login() {
                 <i className="fab fa-facebook" style={{ color: "#2251D4" }}></i>
                 <i className="fab fa-google" style={{ color: "#F81735" }}></i>
                 <i className="fab fa-twitter" style={{ color: "#1D6CF5" }}></i>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* ====================================登入頁面結束===================================== */}

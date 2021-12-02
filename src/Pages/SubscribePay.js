@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "../css/GiftCardCheckout.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useParams, useHistory } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const SubscibePay = () => {
+  const { time, price } = useParams();
+  const [duration, setDuration] = useState({});
   const [data, setData] = useState({
     cvc: "",
     expiry: "",
     name: "",
     number: "",
   });
+  
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  useEffect(async () => {    
+    let newData = {...duration};
+    newData.text = time;
+    newData.price = price;
+    let result = await setDuration(newData)
+  })
+  
+  const search = {
+    "days": "七天",
+    "months": "一個月",
+    "years": "一年"
+  }
+  const history = useHistory()
+  const nextStep = () => {
+    Swal.fire("購買成功").then(() => {
+      history.push("/member-info");
+    })
+  }
+
   return (
     <>
       <Navbar />      
@@ -60,7 +84,7 @@ const SubscibePay = () => {
               />
             </form>
           </div>
-          <div className="w-50 ">
+          <div style={{width: "500px"}}>
             <h3 className="giftCard-title p-3 mb-0">訂單摘要</h3>
             <div className="giftCard-order container p-4">
               <div className="row mb-2">
@@ -70,26 +94,20 @@ const SubscibePay = () => {
               </div>
               <div className="row mb-2">
                 <div className="col-6">訂閱權限</div>
-                <div className="col">1個月</div>
-                <div className="col">$NT 499</div>
+                <div className="col">{search[duration.text]}</div>
+                <div className="col">NT ${duration.price}元</div>
               </div>
               
-              <div className="row mb-3 align-items-start">
-                <div className="col-6 text-nowrap">
-                  選擇紅利金<span>(剩餘點數:150點)</span>:
-                </div>
-                <div className="col"></div>
-                <input type="number" className="col me-1 form-control" />
-              </div>
+              
               <hr className="mb-1" />
               <div className="row mb-3">
                 <div className="col-6">合計:</div>
                 <div className="col"></div>
-                <div className="col">$NT3000</div>
+                <div className="col">NT ${duration.price}元</div>
               </div>
               <div className="d-flex justify-content-end">
               <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
-              <button className="btn GiftCardCheckout__btn__next">下一步</button>
+              <button className="btn GiftCardCheckout__btn__next" onClick={nextStep}>下一步</button>
               </div>
             </div>
           </div>

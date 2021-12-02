@@ -14,6 +14,7 @@ function MemberCourse() {
   
   useEffect(async () => {
     let result = await axios.get("http://localhost:3001/member/course", {withCredentials: true})
+    console.log(result.data);
     if(result.data == "loginerror"){
       history.push("/login");
     } else {
@@ -59,7 +60,7 @@ function MemberCourse() {
         <MemberLeftBar />
         <div className="member-course-content">
           {
-            memberCourseData ? (
+            memberCourseData.length > 0 ? (
               memberCourseData.map((data, index) => {
                 return (
                   <>
@@ -118,7 +119,7 @@ function MemberCourse() {
                 );
               })              
             ) : (               
-                <p>還沒有任何收藏的課程!</p>                            
+                <p style={{fontSize: "30px", textAlign: "center"}}>還沒有任何收藏的課程!</p>                            
             )           
           }
           

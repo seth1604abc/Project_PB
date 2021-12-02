@@ -1,50 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CoachLeftBar from "../components/CoachLeftBar";
 import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { useHistory } from 'react-router-dom';
 
-function CoachEvent() {
-  const datas = [
-    {
-      id: 1,
-      title: "臨時活動名稱1",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 2,
-      title: "臨時活動名稱2",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 3,
-      title: "臨時活動名稱3",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 4,
-      title: "臨時活動名稱4",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 5,
-      title: "臨時活動名稱5",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-    {
-      id: 6,
-      title: "臨時活動名稱6",
-      datetime: "2021/11/04 12:00",
-      location: "桃園市中壢區中大路300號",
-    },
-  ];
-
-  const [memberEventData, setMemberEventData] = useState(datas);
+function CoachEvent() { 
+  const [memberEventData, setMemberEventData] = useState([]);
+  useEffect(async () => {
+    let result = await axios.get("http://localhost:3001/coach/event", {withCredentials: true});
+    setMemberEventData(result.data);
+  })
 
   const handleDelete = (e) => {
     let id = e.target.id;
@@ -54,13 +21,23 @@ function CoachEvent() {
       showDenyButton: true,
       confirmButtonText: "確定",
       denyButtonText: "取消",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("成功刪除");
-        setMemberEventData(memberEventData.filter((data) => data.id !== id));
+    }).then(async (result) => {
+      if (result.isConfirmed) {        
+        let result = await axios.post("http://localhost:3001/event/event-delete", {id: id}, {withCredentials: true});
+        Swal.fire(result.data).then(() => {
+          history.go(0);
+        })
       }
     });
   };
+  const history = useHistory()
+  const newAdd = () => {
+    history.push("/coach-event-add");
+  }
+
+  const goEdit = (id) => {
+    history.push(`/coach-event-edit/${id}`);
+  }
 
   return (
     <>
@@ -68,7 +45,7 @@ function CoachEvent() {
       <div className="member-container d-flex">
         <CoachLeftBar />
         <div className="coach-activity-content">
-        <button className="coach-activity-addBtn">新增活動</button>
+        <button className="coach-activity-addBtn" onClick={newAdd}>新增活動</button>
           {memberEventData.map((data, index) => {
             return (
               <>
@@ -76,7 +53,9 @@ function CoachEvent() {
                   <div className="container">
                     <div className="row px-5">
                       <div className="col-4 d-flex align-items-center">
-                        <div className="coach-activity-content__card__img"></div>
+                        <div className="coach-activity-content__card__img">
+                          <img src={`/event_imgs/${data.image}`} alt="" />
+                        </div>
                       </div>
                       <div className="col-5">
                         <div className="coach-activity-info_wrapper">
@@ -117,7 +96,7 @@ function CoachEvent() {
                                 </p>
                               </div>
                               <div className="col-9">
-                                <p>10人</p>
+                                <p>{data.limit}人</p>
                               </div>
                             </div>
                           </div>
@@ -129,14 +108,16 @@ function CoachEvent() {
                               </span>
                             </div>
                             <div className="col-9">
-                              <p>10人</p>
+                              <p>{data.quota}人</p>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="col-3 coach-activity-content__card__control_wrapper d-flex">
                         <div className="coach-activity-content__card__control">
-                          <button>
+                          <button onClick={() => {
+                            goEdit(data.id);
+                          }}>
                             <i className="far fa-eye"></i>編輯活動
                           </button>
                           <button id={data.id} onClick={handleDelete}>
