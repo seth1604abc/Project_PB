@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Popover from "@mui/material/Popover";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -16,7 +16,9 @@ function ProductCard({
   price,
   category,
   mainImage,
+  isLoggedin
 }) {
+  
   useEffect(async () => {
     //抓商品圖片
     let pImages = await axios.get(
@@ -27,16 +29,16 @@ function ProductCard({
     );
     // console.log(pImages);
   }, []);
-
+  const history = useHistory();
   //處理彈出視窗(滑動時隱藏)
   const [scrollY, setScrollY] = useState(0);
 
   function logit() {
     setScrollY(window.pageYOffset);
-    if(anchorEl!==null){
-      setAnchorEl(null)
-    }else{
-      return
+    if (anchorEl !== null) {
+      setAnchorEl(null);
+    } else {
+      return;
     }
   }
   useEffect(() => {
@@ -44,19 +46,15 @@ function ProductCard({
       window.addEventListener("scroll", logit);
     }
     watchScroll();
-    console.log(scrollY);
+    // console.log(scrollY);
     return () => {
       window.removeEventListener("scroll", logit);
     };
   });
 
-
-
-
-
   //對部位
   let bodyPart = {
-    1: "綜合",
+    1: "其他",
     2: "手部",
     3: "肩部",
     4: "胸部",
@@ -97,6 +95,7 @@ function ProductCard({
             aria-describedby={id}
             variant="contained"
             onClick={handleClick}
+            className={productId === 19 ? "d-none" : ""}
           >
             <i className="fas fa-shopping-cart" />
           </Button>
@@ -125,7 +124,11 @@ function ProductCard({
                 >
                   -
                 </button>
-                <input className="mx-2" value={number} style={{width:"50px"}}/>
+                <input
+                  className="mx-2"
+                  value={number}
+                  style={{ width: "30px",border:"none", textAlign:"center"}}
+                />
                 <button
                   onClick={() => {
                     handleCount(1);
@@ -135,34 +138,69 @@ function ProductCard({
                   +
                 </button>
               </div>
-              <button className="btn poper__cart__btn"
-              onClick={async () => {
-                setAnchorEl(null);
-                await axios
-                  .post(`http://localhost:3001/cart/addcart/${productId}`, {
-                    number: `${number}`,
-                  })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
+              <button
+                className="btn poper__cart__btn"
+                onClick={async () => {
+                  setAnchorEl(null);
+                  if(isLoggedin){
+                    let checkCart = await axios.get(
+                    "http://localhost:3001/cart/list",
+                    { withCredentials: true }
+                  );
+                  
+                  if (
+                    checkCart.data.filter(
+                      (item) => item.product_id == productId
+                    ).length > 0
+                  ) {
+                    console.log(`${productId} is in cart`);
+                    await axios
+                      .patch(
+                        `http://localhost:3001/cart/update/${productId}/${number}`,
+                        {},{ withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  } else {
+                    await axios
+                      .post(
+                        `http://localhost:3001/cart/addcart/${productId}`,
+                        {
+                          number: `${number}`,
+                        },
+                        { withCredentials: true }
+                      )
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  }
+                  Swal.fire({
+                    title: "成功加入購物車",
+                    text: `${name} ${number}份加入購物車`,
+                    icon: "success",
+                    confirmButtonText: "繼續購物",
+                    confirmButtonColor: "#1d6cf5",
                   });
-                Swal.fire({
-                  title: "成功加入購物車",
-                  text: `${name} ${number}份加入購物車`,
-                  icon: "success",
-                  confirmButtonText: "繼續購物",
-                  confirmButtonColor: "#1d6cf5",
-                });
-              }}>
+                  }else{
+                    history.push("/login")
+                  }
+                 
+                }}
+              >
                 <i className="fas fa-shopping-cart"></i>
               </button>
             </div>
           </Popover>
         </div>
         <Link
-        // to={productId===19?`/giftcard`:`/product-single/${category}/${productId}`}
+          // to={productId===19?`/giftcard`:`/product-single/${category}/${productId}`}
           to={`/product-single/${category}/${productId}`}
           className="text-decoration-none"
         >
@@ -172,6 +210,7 @@ function ProductCard({
           <img
             src={`/product_images/${mainImage}`}
             className="card-img-top"
+            style={{ objectFit: "contain" }}
             alt="..."
           />
           <div className="card-body">
