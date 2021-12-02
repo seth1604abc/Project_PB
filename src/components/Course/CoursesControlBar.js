@@ -144,7 +144,7 @@ function CourseControlBar({
           }}
         >
           <option value="1" selected>
-            更新時間
+            發佈時間
           </option>
           <option value="2">熱門程度</option>
         </select>
