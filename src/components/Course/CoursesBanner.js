@@ -62,7 +62,18 @@ function CoursesBanner() {
         >
           <div className={`Courses__Banner__Mask ${banner1Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop id="video1" className="pointer">
+              <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
+                <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
+                  主標題
+                </h2>
+                <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
+                  副標題
+                </p>
+                <a href='#/' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                  立即觀看
+                </a>
+              </div>
+              <video muted loop id="video1" className='pointer'>
                 <source src="/videos/01.mp4" types="video/mp4" />
               </video>
             </div>
@@ -77,7 +88,18 @@ function CoursesBanner() {
         >
           <div className={`Courses__Banner__Mask ${banner2Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop id="video2" autoPlay className="pointer">
+              <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
+                <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
+                  主標題
+                </h2>
+                <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
+                  副標題
+                </p>
+                <a href='/course-single/3' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                  立即觀看
+                </a>
+              </div>
+              <video muted loop id="video2" className='pointer' autoPlay>
                 <source src="/videos/02.mp4" types="video/mp4" />
               </video>
             </div>
@@ -92,7 +114,18 @@ function CoursesBanner() {
         >
           <div className={`Courses__Banner__Mask ${banner3Scale}`}>
             <div className="Courses__Banner__Mask__Slide">
-              <video muted loop id="video3" className="pointer">
+              <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
+                <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
+                  主標題
+                </h2>
+                <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
+                  副標題
+                </p>
+                <a href='#/' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                  立即觀看
+                </a>
+              </div>
+              <video muted loop id="video3" className='pointer'>
                 <source src="/videos/03.mp4" types="video/mp4" />
               </video>
             </div>
