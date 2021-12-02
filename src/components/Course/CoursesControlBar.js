@@ -3,6 +3,7 @@ import { useState } from "react";
 let storage = sessionStorage;
 
 function CourseControlBar({
+  heartListButtonToggle,
   waitingListButtonToggle,
   bodyPartHandleSelect,
   filterBase,
@@ -22,9 +23,11 @@ function CourseControlBar({
     if (heart === "far") {
       setHeart("fas HeartColor");
       setHeartButton("bgBlueftWhite");
+      heartListButtonToggle(1)
     } else {
       setHeart("far");
       setHeartButton("");
+      heartListButtonToggle(2)
     }
   }
   function PlayListToggle() {
@@ -141,7 +144,7 @@ function CourseControlBar({
           }}
         >
           <option value="1" selected>
-            更新時間
+            發佈時間
           </option>
           <option value="2">熱門程度</option>
         </select>

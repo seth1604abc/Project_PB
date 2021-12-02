@@ -1,3 +1,21 @@
+/* Scroll Bar 開始 */
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  /* border-radius: 10px; */
+  background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--main-color);
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #cacaca;
+}
+/* Scroll Bar 結束 */
+
 /* 網站主色 */
 :root {
   --main-color: #09203f;
@@ -20,6 +38,10 @@
 .w100 {
   width: 100%;
 }
+.w1rem {
+  width: 1rem;
+  height: 1rem;
+}
 /* 網頁文字設定 */
 
 body {
@@ -30,7 +52,9 @@ body {
 .pointer {
   cursor: pointer;
 }
-
+.normalMouse {
+  cursor: default;
+}
 textarea:focus,
 input:focus {
   outline: none;
@@ -75,6 +99,7 @@ input:focus {
   overflow: hidden;
 }
 /* 設定影片位置 */
+
 .banner1 {
   left: 100%;
   transform: translateX(-39.5%);
@@ -104,11 +129,51 @@ input:focus {
 .Courses__Banner__Mask {
   overflow: hidden;
 }
+.Courses__Banner__Mask__Text {
+  top: 25%;
+  left: 10%;
+  background: rgba(256, 256, 256, 0.3);
+  border-radius: 1rem;
+  z-index: 999;
+  cursor: default;
+}
+.Courses__Banner__Mask__TextContent {
+  color: var(--main-color);
+  text-shadow: 2px 2px 1px #fff;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+.Courses__Banner__Mask__TextMainContent {
+  font-size: 2.7rem;
+}
+.Courses__Banner__Mask__TextSecondContent {
+  font-size: 1.5em;
+}
+.Courses__Banner__Mask__TextButton {
+  display: inline-block;
+  background: var(--main-color);
+  color: var(--second-color);
+  border-radius: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: .2s;
+}
+.Courses__Banner__Mask__TextButton:hover {
+  background: var(--second-color);
+  color: var(--main-color);
+  font-weight: bold;
+}
+.Courses__Banner__Mask__TextButton:hover .Courses__Banner__Mask__TextContent{
+  color: var(--second-color);
+}
 .Courses__Banner__Mask__Slide {
   border-radius: 2rem;
   width: 60vw;
   height: 33vw;
   overflow: hidden;
+  position: relative;
 }
 .Courses__Banner__Mask__Slide video {
   width: 100%;
@@ -201,6 +266,11 @@ option {
 }
 
 /* Courses - 課程CARD */
+
+.Course__isntUser__shadow {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 .Courses__singlecourse__card__flex__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
@@ -208,6 +278,7 @@ option {
   grid-gap: 4rem;
   margin: 2rem 0;
   padding: 0 3.5rem;
+  transition: 0.4s;
 }
 .Courses__singlecourse__card {
   width: 320px;
@@ -346,9 +417,75 @@ option {
 .Courses__CoursePages i:active {
   color: var(--fourth-color);
 }
+.Course__isntUser {
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  text-align: center;
+}
+.Course__isntUser__Content {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  position: relative;
+}
+.Course__isntUser__Content__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.Course__isntUser__Content__text {
+  color: var(--main-color);
+  background: white;
+  letter-spacing: 1px;
+  padding: 4rem 3rem;
+  border-radius: 0.3rem;
+}
 /* CourseList 課程列表 結束 */
 
 /* CourseSinglePage 課程單獨頁面 開始 */
+/* 影片 遮罩設定 開始 */
+.Course__Video__isntUser {
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+.Course__Video__isntUser__Hidden {
+  visibility: hidden;
+}
+.Course__Video__isntUser__Show {
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Course__Video__isntUser__Content {
+  /* padding: 10vw 0; */
+  display: inline-block;
+}
+.Course__Video__isntUser__Content__text {
+  color: var(--main-color);
+  background: white;
+  letter-spacing: 1px;
+  padding: 4rem 3rem;
+  border-radius: 0.3rem;
+  position: relative;
+}
+.Course__Video__isntUser__Content__button {
+  display: inline-block;
+  background: var(--main-color);
+  color: var(--second-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+/* 影片 遮罩設定 結束 */
 /* 影片 設定 */
 .Course__video-mainarea {
   display: flex;
@@ -363,9 +500,12 @@ option {
 }
 .Course__Video {
   position: relative;
+  overflow: hidden;
 }
 .Course__Video video {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 /* 概述 */
 .Course__Video-area__Description {
@@ -381,9 +521,9 @@ option {
   transform: scale(1);
   transition: 0.4s;
 }
-.Course__Video-area__tags:hover {
+/* .Course__Video-area__tags:hover {
   transform: scale(1.1);
-}
+} */
 .Course__Video-area__tags i {
   font-size: 13px;
   max-width: 13px;
@@ -404,7 +544,7 @@ option {
   transform: translateY(-25%);
 }
 .Course__video-area__CoachName {
-  min-width: 8rem;
+  min-width: 10rem;
   font-size: 1.1rem;
   font-weight: bold;
 }
@@ -457,7 +597,19 @@ option {
 
 /* 待播清單 */
 
+.CourseCourseCard__HeartThis:hover {
+  color: red;
+}
+.CourseCourseCard__DeleteThis:hover {
+  color: #4ca1af;
+}
+
 /* 拖曳功能 開始 */
+.noLiStyle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .Course__Single__WaitingList__Ul {
   margin: 0;
   padding: 0;
@@ -476,10 +628,12 @@ option {
 }
 .Course__area__title {
   color: var(--main-color);
+  cursor: default;
 }
 .Course__area__Secondtitle {
   padding-top: 6px;
   color: var(--main-color);
+  cursor: default;
 }
 .Course__area__List {
   margin-left: 8px;
@@ -531,16 +685,17 @@ option {
   text-align: center;
 }
 .Course__area__Waiting__image {
-  width: 60%;
+  min-width: 108px;
+  height: 80px;
+  overflow: hidden;
 }
 .Course__area__Waiting__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   padding: 5px 0px;
 }
 .Course__area__Waiting__title {
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 .Course__area__Waiting__tag {
   font-size: 0.8rem;
@@ -549,6 +704,14 @@ option {
 }
 .Course__area__HitCourse__tag {
   padding: 4px;
+  color: var(--main-color);
+  white-space: nowrap;
+}
+.Course__area__Waiting__MoreBtn__disVisible {
+  visibility: hidden;
+}
+.Course__area__Waiting__MoreBtn__Visible {
+  visibility: visible;
 }
 .Course__area__Waiting__MoreBtn__hidden {
   padding: 3px 6px;
@@ -591,7 +754,7 @@ option {
   width: 60px;
   height: 60px;
 }
-.Course__CourseTalk__MainImg{
+.Course__CourseTalk__MainImg {
   width: 80px;
   height: 80px;
 }
