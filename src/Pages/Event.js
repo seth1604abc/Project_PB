@@ -7,86 +7,40 @@ import EventCard from "../components/Event/EventCard";
 import EventSearchBar from "../components/Event/EventSearchBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import $ from "jquery";
 
 function Event() {
   //這邊是Link用的，啟學所有
   //讓每次進入頁面在最上方
+  const [event, setEvent] = useState([]);
   useEffect(async () => {
     window.scroll({
       top: 0,
       behavior: "instant",
     });
 
-    let resEvent = await axios.get("http://localhost:3001/event", {
+    let resEvent = await axios.get("http://localhost:3001/event/coach-event", {
       withCredentials: true,
     });   
-    setEvent(resEvent.data);
-    console.log(resEvent.data);
+    setEvent(resEvent.data);    
   }, []);
-
-  const [event, setEvent] = useState([]);
-
-
-  const EventData = [
-    {
-      id: 1,
-      event_time_month: "10",
-      event_time_day: "30",
-      event_time_weekday: "SAT. (六)",
-      title: "健美之道從飲食開始 營養師教您吃得有品質",
-      time: "14:00-15:30",
-      quota: "5",
-      coach: "Andrea",
-    },
-    {
-      id: 2,
-      event_time_month: "10",
-      event_time_day: "30",
-      event_time_weekday: "SAT. (六)",
-      title: "健美之道從飲食開始 營養師教您吃得有品質",
-      time: "14:00-15:30",
-      quota: "5",
-      coach: "Andrea",
-    },
-    {
-      id: 3,
-      event_time_month: "10",
-      event_time_day: "30",
-      event_time_weekday: "SAT. (六)",
-      title: "健美之道從飲食開始 營養師教您吃得有品質",
-      time: "14:00-15:30",
-      quota: "5",
-      coach: "Andrea",
-    },
-    {
-      id: 4,
-      event_time_month: "10",
-      event_time_day: "30",
-      event_time_weekday: "SAT. (六)",
-      title: "健美之道從飲食開始 營養師教您吃得有品質",
-      time: "14:00-15:30",
-      quota: "5",
-      coach: "Andrea",
-    },
-    {
-      id: 5,
-      event_time_month: "10",
-      event_time_day: "30",
-      event_time_weekday: "SAT. (六)",
-      title: "健美之道從飲食開始 營養師教您吃得有品質",
-      time: "14:00-15:30",
-      quota: "5",
-      coach: "Andrea",
-    },
-  ];
-
-  const eventList = EventData.map((data) => {
+  
+  const search = async () => {
+    let start = $("#start").val();
+    let end = $("#end").val();
+    let result = await axios.post("http://localhost:3001/event/search-event", {start: start, end: end});
+    console.log(result);
+    setEvent(result.data);
+  }
+  
+  const eventList = event.map((data) => {
     return <EventCard key={data.id} id={data.id} title={data.title} event_time_month ={data.event_time_month} 
       event_time_day={data.event_time_day}
       event_time_weekday={data.event_time_weekday}
-      time={data.time}
+      time={data.datetime}
       quota={data.quota}   
-      coach={data.coach}    
+      coach={data.coach} 
+      image={data.image}   
     />;
   })
 
@@ -100,7 +54,7 @@ function Event() {
         <div>
           <h3>訂閱會員限定 活動報名中</h3>
         </div>
-        <EventSearchBar />
+        <EventSearchBar search={search}/>
         {eventList}
       </div>
       <Footer />

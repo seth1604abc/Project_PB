@@ -387,7 +387,7 @@ body {
   height: 200px;
     
 }
-.member-course-list__img__box > img {
+.member-course-list__img__box > video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -460,11 +460,28 @@ body {
 .coach-content__pic {
   width: 40%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-.coach-content__pic > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.coach-content__pic > button {
+  border: 0;
+  padding: 5px 20px;
+  background-color: #2571e3;
+  color: white;
+  margin-top: 50px;
+}
+.coach-content__pic > input {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.coach-content__pic > label {
+  position: absolute;
+  top: 42%;
 }
 .coach-content__info {
   width: 70%;
@@ -993,6 +1010,12 @@ body {
 .navbar-login-li__div > div > a {
   text-decoration: none;
   color: black;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.navbar-login-li__div > div > a:hover {
+  color: white;
 }
 .navbar-login-li > div > div {
   text-align: center;
@@ -1126,6 +1149,11 @@ box-shadow: 5px 5px 5px lightgray;
   width: 90%;
   height: 90%;
   border: 0.5px solid lightgray;
+}
+.coach-activity-content__card__img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .coach-activity-content__card__control_wrapper{
   padding: 2rem;
