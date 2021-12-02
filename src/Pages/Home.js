@@ -7,31 +7,45 @@ import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import axios from "axios";
 import CoursesCourseCard from "../components/Course/CoursesCourseCard";
-
 function Home() {
   const [pImg, setPImg] = useState({});
   const [hotProduct, setHotProduct] = useState([]);
-
+  const [topEvent, setTopEvent] = useState([]);
   useEffect(async () => {
-    // let pImages = await axios.get(
-    //   `http://localhost:3001/product/images`,
-    //   {
-    //     withCredentials: true,
-    //   }
-    // );
+    //頁面拉到頂端
     window.scroll({
       top: 0,
       behavior: "instant",
     });
+
+    //拿推薦商品
     let resProduct = await axios.get(
       "http://localhost:3001/product/hot-product",
       { withCredentials: true }
     );
-    // setPImg();
     setHotProduct(resProduct.data);
-    // console.log(hotProduct);
-    console.log(resProduct.data);
+
+    //拿推薦活動
+    let resEvent = await axios.get("http://localhost:3001/event/topEvent", {
+      withCredentials: true,
+    });
+    setTopEvent(resEvent.data);
   }, []);
+
+  //MAP活動卡片
+  let eventList=topEvent.map(event=>{
+    return(
+      <div className="home__productCard d-flex align-items-center">
+        <img src={`/event_imgs/${event.image}`} style={{height:"9rem"}} alt="" />
+        <div className="d-flex flex-column ">
+          <h5>{event.title}</h5>
+          <p></p>
+        </div>
+      </div>
+    )
+  }
+
+    )
 
   //選擇部位
   const [part, setPart] = useState("");
@@ -46,11 +60,9 @@ function Home() {
     );
     setPartCourse(resCourse.data);
   };
-  let bestCourse=partCourse.map(course=>
-    <CoursesCourseCard
-      course={course }
-    />
-  )
+  let bestCourse = partCourse.map((course) => (
+    <CoursesCourseCard course={course} />
+  ));
 
   //熱門商品
   const hotList = hotProduct.map((product) => {
@@ -71,15 +83,23 @@ function Home() {
     <>
       <header className="">
         <NavBar className="" />
+        <div className="d-flex justify-content-center overflow-hidden hero-player ">
+        <div className="hero-player--title d-flex justify-content-center align-items-center" >
+        <h1 className=" text-nowrap m-0 p-0">P&B Fitness</h1>
+        </div>
+        
         <ReactPlayer
-          url="https://www.youtube.com/watch?v=YARJ99FqcYE"
+          url="https://youtu.be/phAMA0PVAAc"
           loop="true"
           muted="true"
           playing="true"
-          width="100vw"
-          height="92vh"
-          className="hero-player"
+          width="100vw" 
+          height="140vh"
+          className=""
+          style={{minHeight:"100vh"}}
         />
+        </div>
+        
         <div className="home-video-filter"></div>
         <div className="nav-scrollDown">
           <a href="#scrollTo" className="scrollTo">
@@ -195,10 +215,11 @@ function Home() {
             </p>
           </div>
           <div className="event--group">
-            <div className="event--group--cards">
+            <div className="">
+            {eventList}
+              {/* <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
-              <img src="https://via.placeholder.com/400x100" alt="" />
-              <img src="https://via.placeholder.com/400x100" alt="" />
+              <img src="https://via.placeholder.com/400x100" alt="" /> */}
             </div>
             <Link to="/event">
               <button className="event--group--link">更多活動</button>
@@ -236,7 +257,7 @@ function Home() {
             </div>
             <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
               <Link
-                to="/product"
+                to="/coach-info"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
