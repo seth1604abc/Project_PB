@@ -7,6 +7,9 @@ import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import axios from "axios";
 import CoursesCourseCard from "../components/Course/CoursesCourseCard";
+import Moment from 'react-moment';
+import 'moment-timezone';
+
 function Home() {
   const [pImg, setPImg] = useState({});
   const [hotProduct, setHotProduct] = useState([]);
@@ -35,11 +38,12 @@ function Home() {
   //MAP活動卡片
   let eventList=topEvent.map(event=>{
     return(
-      <div className="home__productCard d-flex align-items-center">
-        <img src={`/event_imgs/${event.image}`} style={{height:"9rem"}} alt="" />
-        <div className="d-flex flex-column ">
-          <h5>{event.title}</h5>
-          <p></p>
+      <div className="home__eventCard d-flex align-items-center mb-2">
+        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
+        <div className="home_eventCard__container d-flex flex-column  align-self-start">
+          <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
+          <p className="home__eventCard__content mb-2"><i class="fas fa-map-marked-alt"></i> {event.location}</p>
+          <p className="home__eventCard__content"><i class="far fa-calendar-alt"></i> <Moment format="YYYY-MM-DD HH:mm">{event.datetime}</Moment></p>
         </div>
       </div>
     )
@@ -215,14 +219,14 @@ function Home() {
             </p>
           </div>
           <div className="event--group">
-            <div className="">
+            <div className="mb-3">
             {eventList}
               {/* <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" /> */}
             </div>
-            <Link to="/event">
-              <button className="event--group--link">更多活動</button>
+            <Link to="/event" className="event--group--link text-nowrap">
+              更多活動
             </Link>
           </div>
         </section>
