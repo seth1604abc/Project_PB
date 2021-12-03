@@ -190,14 +190,15 @@ function Cart() {
                   .catch(function (error) {
                     console.log(error);
                   });
+                console.log(cList.indexOf(item))
                 let newList = [...cList];
                 let productId = newList.splice(
                   cList.indexOf(item),
                   1
                 ).product_id;
-                newList.splice(newList.indexOf(item), 1);
+                let newNewList=newList.splice(newList.indexOf(item), 1);
                 //   console.log(newList);
-                setCList(newList);
+                setCList(newNewList);
               }}
             >
               <i className="fas fa-trash-alt"></i>
