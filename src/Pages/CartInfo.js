@@ -335,7 +335,7 @@ function CartInfo() {
                       onFocus={handleFocus}
                     />
                     <input
-                      type="month"
+                      type="text"
                       className="form-control my-1"
                       name="expiry"
                       placeholder="到期日"

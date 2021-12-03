@@ -277,7 +277,8 @@ const ProductSingle = () => {
               }
               onClick={async () => {
                 if (isLoggedin) {
-                  let checkCart = await axios.get(
+                  if(productId!=="19"){
+                    let checkCart = await axios.get(
                     "http://localhost:3001/cart/list",
                     { withCredentials: true }
                   );
@@ -316,10 +317,8 @@ const ProductSingle = () => {
                         console.log(error);
                       });
                   }
-                } else {
-                  return;
-                }
-              }}
+                } 
+              }}}
             >
               <button className="btn productMain__info__btn--buy ">
                 直接購買
