@@ -163,6 +163,21 @@ function CoursesCourseCard({
   }
   let storagelist = storage["WaitingList"].split(",");
 
+  async function addViews() {
+    let course_id = theCourse.id;
+    let views = theCourse.views + 1;
+    let result = { course_id: course_id, views: views };
+    try {
+      let addViews = await axios.post(
+        `http://localhost:3001/Course/addViews`,
+        result,
+        { withCredentials: true }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   if (
     likeListAll === undefined ||
     likeListMember === undefined ||
@@ -172,72 +187,72 @@ function CoursesCourseCard({
   }
   return (
     <>
-      <div className="Courses__singlecourse__card">
-        <Link to={`/course-single/${theCourse.id}`} className="LinkNoStyle">
+      <a
+        href={`/course-single/${theCourse.id}`}
+        className="Courses__singlecourse__card LinkNoStyle"
+        onClick={() => {addViews()}}
+      >
+        {/* <Link to={`/course-single/${theCourse.id}`} className="LinkNoStyle"> */}
+        <img
+          src={`/images/${theCourse.filename}.png`}
+          className="card-img-top"
+          alt="課程1"
+        />
+        <div className="card-body">
+          <div className="mb-2 d-flex">
+            <div className="Courses__singlecourse__card__type">
+              {BODY_PARTS[theCourse.body_part_id]}
+            </div>
+            <div className="Courses__singlecourse__card__coach_name ms-3">
+              {theCourse.coach}
+            </div>
+          </div>
+          <h3 className="mt-3 Courses__singlecourse__card__title">
+            {theCourse.title}
+          </h3>
+          <div className="mt-4 d-flex">
+            <div className="Courses__singlecourse__card__count me-2">
+              觀看次數：{theCourse.views}次
+            </div>
+            <div className="Courses__singlecourse__card__created-at me-4">
+              {theCourse.upload_time}
+            </div>
+            <div className="Courses__singlecourse__card__heart">
+              <span>
+                {icon === "far" ? theCourse.likes : theCourse.likes + 1}
+              </span>
+              <i
+                id={course.id}
+                class={`${icon} fa-heart`}
+                onClick={clickHeart}
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div id={theCourse.id} className="Courses__play-list" onClick={AddList}>
+          <div>
+            {storagelist.includes(`${theCourse.id}`)
+              ? "成功加入清單"
+              : "加入待播清單"}
+          </div>
           <img
-            src={`/images/${theCourse.filename}.png`}
-            className="card-img-top"
-            alt="課程1"
+            src={
+              storagelist.includes(`${theCourse.id}`)
+                ? "/images/play-list-addsuccess.png"
+                : "/images/play-list-bg.png"
+            }
+            alt="play-list"
           />
-          <div className="card-body">
-            <div className="mb-2 d-flex">
-              <div className="Courses__singlecourse__card__type">
-                {BODY_PARTS[theCourse.body_part_id]}
-              </div>
-              <div className="Courses__singlecourse__card__coach_name ms-3">
-                {theCourse.coach}
-              </div>
-            </div>
-            <h3 className="mt-3 Courses__singlecourse__card__title">
-              {theCourse.title}
-            </h3>
-            <div className="mt-4 d-flex">
-              <div className="Courses__singlecourse__card__count me-2">
-                觀看次數：{theCourse.views}次
-              </div>
-              <div className="Courses__singlecourse__card__created-at me-4">
-                {theCourse.upload_time}
-              </div>
-              <div className="Courses__singlecourse__card__heart">
-                <span>
-                  {icon === "far" ? theCourse.likes : theCourse.likes + 1}
-                </span>
-                <i
-                  id={course.id}
-                  class={`${icon} fa-heart`}
-                  onClick={clickHeart}
-                ></i>
-              </div>
-            </div>
-          </div>
-          <div
-            id={theCourse.id}
-            className="Courses__play-list"
-            onClick={AddList}
-          >
-            <div>
-              {storagelist.includes(`${theCourse.id}`)
-                ? "成功加入清單"
-                : "加入待播清單"}
-            </div>
-            <img
-              src={
-                storagelist.includes(`${theCourse.id}`)
-                  ? "/images/play-list-addsuccess.png"
-                  : "/images/play-list-bg.png"
-              }
-              alt="play-list"
-            />
-            <input
-              type="hidden"
-              value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
-            />
-          </div>
-          <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
-            <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
-          </div>
-        </Link>
-      </div>
+          <input
+            type="hidden"
+            value={`${theCourse.id}|${theCourse.title}|${theCourse.body_part_id}|${theCourse.level}|${theCourse.filename}`}
+          />
+        </div>
+        <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
+          <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
+        </div>
+        {/* </Link> */}
+      </a>
     </>
   );
 }
