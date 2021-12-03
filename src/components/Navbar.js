@@ -25,7 +25,7 @@ function Navbar(props) {
     });
     setCartData(cartList.data);
     console.log(cartList.data);
-  })
+  },[])
 
   //map購物車
   const [cartTotal,setCartTotal]=useState(0);

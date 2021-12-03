@@ -281,6 +281,7 @@ function CartInfo() {
                   className="form-select d-inline mx-2"
                   name=""
                   id=""
+                  onChange={handleAddress}
                   // onChange={handlePayment}
                 >
                   {martList.length > 0 ? martSelect : "請選擇地區"}
@@ -405,16 +406,15 @@ function CartInfo() {
                   await axios.delete(
                     "http://localhost:3001/cart/delete-selected",
                     {
-                      withCredentials: true,
                       data: {
                         items: `${list.map((item) => item.product_id)}`,
                       },
-                    }
+                    },{withCredentials: true}
                   );
                   await axios.patch(
                     `http://localhost:3001/cart/gain-point/${
                       point - total / 100
-                    }`,
+                    }`,{},
                     { withCredentials: true }
                   );
 

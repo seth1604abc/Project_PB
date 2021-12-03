@@ -12,6 +12,13 @@ function Cart() {
   const [list, setList] = useState([]);
   const [cList, setCList] = useState([]);
   const [uData, setUData] = useState({});
+  useEffect(async()=>{
+    let userData = await axios.get("http://localhost:3001/member/info", {
+      withCredentials: true,
+    });
+    setUData(userData.data[0]);
+    console.log(userData.data);
+  },[])
   useEffect(async () => {
     // let cartList = await axios.get("http://localhost:3001/cart/list", {
     //   withCredentials: true,
@@ -22,12 +29,8 @@ function Cart() {
     //     return item.product_id;
     //   })
     // );
-    let userData = await axios.get("http://localhost:3001/member/info", {
-      withCredentials: true,
-    });
-    setUData(userData.data[0]);
-    console.log(userData.data);
     
+
     // console.log(cartList.data);
     // console.log(cList);
   }, []);
@@ -41,28 +44,26 @@ function Cart() {
         return item.product_id;
       })
     );
-  }, [isCheck]);
-
- 
-
+  }, [isCheck,]);
 
   //處理全選
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(list);
     if (isCheckAll) {
       setIsCheck([]);
-    }
+    }else{setIsCheck(list);}
   };
   //處理勾選
   const handleClick = (e) => {
-    const { id, checked } = e.target;
-    let newIsCheck = [...isCheck, Number(id)];
-    console.log(newIsCheck);
-    setIsCheck(newIsCheck);
-    if (!e.target.checked) {
-      let check = isCheck.filter((item) => item !== Number(id));
-      setIsCheck(check);
+    const { id } = e.target;
+    if (isCheck.includes(Number(id))) {
+      let newIsCheck = isCheck.filter((thing) => thing !== Number(id));
+      console.log(newIsCheck);
+      setIsCheck(newIsCheck);
+    } else {
+      let newIsCheck = [...isCheck, Number(id)];
+      console.log(newIsCheck);
+      setIsCheck(newIsCheck);
     }
   };
 
@@ -74,16 +75,22 @@ function Cart() {
       // let checkList=isCheck.join(",");
       // console.log(checkList);
       axios
-        .delete(`http://localhost:3001/cart/delete-selected`, {
-          data: {
-            items: `${isCheck}`,
+        .delete(
+          `http://localhost:3001/cart/delete-selected`,
+          {
+            data: {
+              items: `${isCheck.join()}`,
+            },
           },
-        })
+          { withCredentials: true }
+        )
         .then(function (response) {
           console.log(response);
           setCList(
             cList.filter((item) => !isCheck.find((check) => item == check))
           );
+          console.log(isCheck.join());
+          console.log(cList);
           setIsCheck([]);
           setIsCheckAll(false);
         })
@@ -109,13 +116,13 @@ function Cart() {
   };
   //初始總金額
   var total = 0;
-  const handleAfterTotal=()=>{
-    return total-usePoint;
-  }
+  const handleAfterTotal = () => {
+    return total - usePoint;
+  };
   //map購物清單
   let cart = cList.map((item) => {
     let itemPrice = item.price * item.amount;
-    if(isCheck.includes(item.product_id)){
+    if (isCheck.includes(item.product_id)) {
       total += itemPrice;
     }
     return (
@@ -127,7 +134,7 @@ function Cart() {
               key={item.product_id}
               id={item.product_id}
               name={item.product_id}
-              onChange={handleClick}
+              onClick={handleClick}
               checked={isCheck.includes(item.product_id) ? true : false}
             />
           </div>
@@ -153,8 +160,11 @@ function Cart() {
                 newThing.amount = e.target.value;
                 setCList(newList);
                 await axios
-                  .patch(`http://localhost:3001/cart/list/${item.product_id}/${item.amount}`,{},
-                        { withCredentials: true })
+                  .patch(
+                    `http://localhost:3001/cart/list/${item.product_id}/${item.amount}`,
+                    {},
+                    { withCredentials: true }
+                  )
                   .then(function (response) {
                     console.log(response);
                   })
@@ -172,7 +182,7 @@ function Cart() {
                 axios
                   .delete(
                     `http://localhost:3001/cart/delete/${item.product_id}`,
-                        { withCredentials: true }
+                    { withCredentials: true }
                   )
                   .then(function (response) {
                     console.log(response);
@@ -185,7 +195,7 @@ function Cart() {
                   cList.indexOf(item),
                   1
                 ).product_id;
-                newList.splice(cList.indexOf(item), 1);
+                newList.splice(newList.indexOf(item), 1);
                 //   console.log(newList);
                 setCList(newList);
               }}
@@ -238,7 +248,15 @@ function Cart() {
                 />
                 <span style={{ marginLeft: "3px" }}>選擇全部</span>
               </div>
-              <button className="btn" style={isCheck.length<1?{backgroundColor:"#333"}:{backgroundColor:"red"}} onClick={handleDeleteSelected}>
+              <button
+                className="btn"
+                style={
+                  isCheck.length < 1
+                    ? { backgroundColor: "#333" }
+                    : { backgroundColor: "red" }
+                }
+                onClick={handleDeleteSelected}
+              >
                 刪除勾選
               </button>
             </div>
@@ -288,24 +306,39 @@ function Cart() {
               <div className="cart-content__total__product d-flex justify-content-between">
                 <div className="cart-content__total__product__title">合計</div>
                 <div className="cart-content__total__product__price">
-                  {total-usePoint}
+                  {total - usePoint}
                 </div>
               </div>
               <div className="d-flex justify-content-center my-3">
                 <Link
                   to={{
                     pathname: "/cart-info",
-                    state: { checkList:cList.filter(item=>isCheck.includes(item.product_id)), usePoint,total:`${total-usePoint}`,uData},
+                    state: {
+                      checkList: cList.filter((item) =>
+                        isCheck.includes(item.product_id)
+                      ),
+                      usePoint,
+                      total: `${total - usePoint}`,
+                      uData,
+                    },
                   }}
                   className="btn"
-                  style={isCheck.length<=0?{backgroundColor: "#333",
-                    color: "white",
-                    border: "0px",
-                    width: "100%",
-                    pointerEvents:"none"}:{backgroundColor: "#2571E3",
-                    color: "white",
-                    border: "0px",
-                    width: "100%"}}
+                  style={
+                    isCheck.length <= 0
+                      ? {
+                          backgroundColor: "#333",
+                          color: "white",
+                          border: "0px",
+                          width: "100%",
+                          pointerEvents: "none",
+                        }
+                      : {
+                          backgroundColor: "#2571E3",
+                          color: "white",
+                          border: "0px",
+                          width: "100%",
+                        }
+                  }
                 >
                   下一步
                 </Link>
