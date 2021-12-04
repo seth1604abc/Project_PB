@@ -6,7 +6,11 @@ import "../css/Home.css";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import axios from "axios";
-import CoursesCourseCard from "../components/Course/CoursesCourseCard";
+// import CoursesCourseCard from "../components/Course/CoursesCourseCard";
+import Moment from 'react-moment';
+import 'moment-timezone';
+import { BODY_PARTS, LEVEL } from "../components/BodyPartandLevelTable.js";
+
 function Home() {
   const [pImg, setPImg] = useState({});
   const [hotProduct, setHotProduct] = useState([]);
@@ -35,11 +39,12 @@ function Home() {
   //MAP活動卡片
   let eventList=topEvent.map(event=>{
     return(
-      <div className="home__productCard d-flex align-items-center">
-        <img src={`/event_imgs/${event.image}`} style={{height:"9rem"}} alt="" />
-        <div className="d-flex flex-column ">
-          <h5>{event.title}</h5>
-          <p></p>
+      <div className="home__eventCard d-flex align-items-center mb-3 p-1 ps-0">
+        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
+        <div className="home_eventCard__container d-flex flex-column  align-self-start">
+          <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
+          <p className="home__eventCard__content mb-2"><i class="fas fa-map-marked-alt"></i> {event.location}</p>
+          <p className="home__eventCard__content"><i class="far fa-calendar-alt"></i> <Moment format="YYYY-MM-DD HH:mm">{event.datetime}</Moment></p>
         </div>
       </div>
     )
@@ -61,7 +66,41 @@ function Home() {
     setPartCourse(resCourse.data);
   };
   let bestCourse = partCourse.map((course) => (
-    <CoursesCourseCard course={course} />
+    <>
+      <div className="Courses__singlecourse__card">
+        <Link to={`/course-single/${course.id}`} className="LinkNoStyle">
+          <img
+            src={`/images/${course.filename}.png`}
+            className="card-img-top"
+            alt="課程1"
+          />
+          <div className="card-body">
+            <div className="mb-2 d-flex">
+              <div className="Courses__singlecourse__card__type">
+                {BODY_PARTS[course.body_part_id]}
+              </div>
+              <div className="Courses__singlecourse__card__coach_name ms-3">
+                {course.coach}
+              </div>
+            </div>
+            <h3 className="mt-3 Courses__singlecourse__card__title">
+              {course.title}
+            </h3>
+            <div className="mt-4 d-flex">
+              <div className="Courses__singlecourse__card__count me-2">
+                觀看次數：{course.views}次
+              </div>
+              <div className="Courses__singlecourse__card__created-at me-4">
+                <Moment format="YYYY-MM-DD HH:mm">{course.upload_time}</Moment>
+              </div>   
+            </div>
+          </div>
+          <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
+            <img src={`/images/${course.image}.jpg`} alt="coach" />
+          </div>
+        </Link>
+      </div>
+    </>
   ));
 
   //熱門商品
@@ -195,7 +234,7 @@ function Home() {
           {bestCourse}
           {/* <ProductCard /> */}
         </section>
-        <section className="playList">
+        <section className="playList ">
           <img src="https://via.placeholder.com/300x200" alt="" />
           <div className="playList--context">
             <h3 className="nowrap">隨你所好，安排課程</h3>
@@ -215,14 +254,14 @@ function Home() {
             </p>
           </div>
           <div className="event--group">
-            <div className="">
+            <div className="mb-4">
             {eventList}
               {/* <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" /> */}
             </div>
-            <Link to="/event">
-              <button className="event--group--link">更多活動</button>
+            <Link to="/event" className="event--group--link text-nowrap">
+              更多活動
             </Link>
           </div>
         </section>
@@ -240,7 +279,7 @@ function Home() {
             皆由專業教練指導
           </h3>
           <div className="coach--list d-flex flex-wrap justify-content-center">
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -255,7 +294,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/coach-info"
                 style={{ color: "#09203f" }}
@@ -270,7 +309,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -285,7 +324,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -300,7 +339,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -321,7 +360,7 @@ function Home() {
           <img src="./images/giftcard.png" alt="" />
           <h3>購買禮物卡，邀請朋友一起來運動!</h3>
           <p>送給朋友一個月的會籍，一起享受運動的樂趣!</p>
-          <Link to="/giftcard">
+          <Link to="/product-single/2/19">
             <button>前往購買</button>
           </Link>
         </section>

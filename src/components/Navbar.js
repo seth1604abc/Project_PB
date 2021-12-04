@@ -5,7 +5,7 @@ import $ from "jquery";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-function Navbar() {
+function Navbar(props) {
   const history = useHistory();
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [cartData, setCartData] = useState([]);
@@ -18,12 +18,14 @@ function Navbar() {
       setIsLoggedin(true);
       setRole(res.data);
     }
+  }, []);
+  useEffect(async()=>{
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
     });
     setCartData(cartList.data);
     console.log(cartList.data);
-  }, []);
+  },[])
 
   //map購物車
   const [cartTotal,setCartTotal]=useState(0);
@@ -108,7 +110,8 @@ function Navbar() {
             <Link to="/event">活動</Link>
           </li>
           <li style={{ justifyContent: "end" }} className="navbar__cart">
-            <Link to={isLoggedin?"/cart":"/login"}>
+            <Link to={isLoggedin?"/cart":"/login"}
+            onPointerEnter>
               <i className="fas fa-shopping-cart"></i>
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
