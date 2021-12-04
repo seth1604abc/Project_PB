@@ -106,10 +106,7 @@ function Navbar() {
           </li>
           <li>
             <Link to="/event">活動</Link>
-          </li>
-          <li style={{ marginRight: "50px" }}>
-            <Link to="/article">文章</Link>
-          </li>
+          </li>          
           <li style={{ justifyContent: "end" }} className="navbar__cart">
             <Link to={isLoggedin?"/cart":"/login"}>
               <i className="fas fa-shopping-cart"></i>
