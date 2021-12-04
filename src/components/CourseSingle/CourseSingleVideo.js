@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import $ from "jquery";
 
 function CourseSingleVideo({ singleCourse, isCourse_id }) {
   const [seeall, setSeeall] = useState("");
@@ -16,7 +17,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     "Course__Video__isntUser__Hidden"
   );
   const [endVideo, setEndVideo] = useState("Course__Video__isntUser__Hidden");
-  const [nextUrl,setNextUrl]=useState('')
+  const [nextUrl, setNextUrl] = useState("");
   let history = useHistory();
   let storage = sessionStorage;
   useEffect(async () => {
@@ -52,6 +53,13 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   }, []);
 
   let video = document.querySelector("video");
+  // 禁止影片下載
+  $(document).ready(function () {
+    $("#theCourseVideo").bind("contextmenu", function () {
+      return false;
+    });
+  });
+
   if (theUser === undefined) {
     //console.log("未登入");
     setInterval(showTime, 1000);
@@ -154,16 +162,16 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     return item !== singleCourse[0].id;
   });
   let nextNumber = nextList.splice(0, 1);
-  console.log('nextNumber', nextNumber);
-  console.log('nextUrl', nextUrl);
+  console.log("nextNumber", nextNumber);
+  // console.log("nextUrl", nextUrl);
   if (video !== undefined && video !== null) {
-      // 影片結束時跳出彈跳視窗
-      video.addEventListener("ended", () => {
-        setNextUrl(nextNumber)
-        if (WaitingList[0] === isCourse_id) {
+    // 影片結束時跳出彈跳視窗
+    video.addEventListener("ended", () => {
+      setNextUrl(nextNumber);
+      if (WaitingList[0] === isCourse_id || WaitingList[1] === isCourse_id) {
         setEndVideo("Course__Video__isntUser__Show");
         storage["WaitingList"] = `${nextList.toString()},`;
-        storage.removeItem(singleCourse[0].id)
+        storage.removeItem(singleCourse[0].id);
       }
     });
   }
@@ -220,6 +228,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
           </div>
           <video
             id="theCourseVideo"
+            controlsList="nodownload"
             controls
             autoPlay={true}
             muted
@@ -247,7 +256,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                   {LEVEL[singleCourse[0].level_id]}
                 </div>
               </div>
-              <div className="Course__video-area__likes me-3 Maincolor">
+              <div className="Course__video-area__likes Maincolor">
                 <i
                   class={`${icon} far fa-heart me-2 pointer`}
                   onClick={clickheart}
@@ -257,8 +266,16 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                     ? singleCourse[0].likes
                     : singleCourse[0].likes + 1}
                 </span>
-                <i class="fas fa-share-alt me-2 ms-3 Maincolor pointer"></i>
-                <span className="normalMouse">分享</span>
+                {/* <i
+                  class="fas fa-step-forward"
+                  onClick={() => {
+                    if (WaitingList[0] === isCourse_id) {
+                      storage["WaitingList"] = `${nextList.toString()},`;
+                      storage.removeItem(singleCourse[0].id);
+                      history.push(`/${Number(nextNumber)}`)
+                    }
+                  }}
+                >下一部</i> */}
               </div>
             </div>
           </div>
@@ -267,7 +284,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
               <Membericon image={singleCourse[0].image} />
             </div>
             <div className="Course__video-area__CoachName ps-2 ms-3 normalMouse">
-              {singleCourse[0].first_name} {singleCourse[0].last_name}
+              {singleCourse[0].first_name}
             </div>
             <div className="position-relative pb-4 mb-4">
               <pre className={`Course__video-area__Content pe-4 ${seeall}`}>
