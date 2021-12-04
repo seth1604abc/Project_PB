@@ -22,7 +22,6 @@ function ShoppingMain() {
       { withCredentials: true }
     );
     setHotProduct(resHitProduct.data);
-
     //抓全部商品
     let resProduct = await axios.get("http://localhost:3001/product", {
       withCredentials: true,
