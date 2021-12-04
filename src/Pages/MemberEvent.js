@@ -42,6 +42,10 @@ function MemberEvent() {
     });
   };
 
+  const pushEvent = (id) => {
+    history.push(`/event-single/${id}`)
+  }
+
   return (
     <>
       <Navbar />
@@ -69,15 +73,14 @@ function MemberEvent() {
                         </div>
                       </div>
                       <div className="member-activity-content__card__control">
-                        <button>
+                        <button onClick={() => {
+                          pushEvent(data.id)
+                        }}>
                           <i className="far fa-eye"></i>檢視活動
                         </button>
                         <button id={data.id} onClick={handleDelete}>
                           <i className="far fa-window-close"></i>取消報名
-                        </button>
-                        <button>
-                          <i className="far fa-calendar-alt"></i>加到行事曆
-                        </button>
+                        </button>                        
                       </div>
                     </div>
                     <hr />

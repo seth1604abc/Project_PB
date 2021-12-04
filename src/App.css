@@ -161,12 +161,16 @@ body {
   width: 80%;
   margin: 40px auto;
 }
+.member-activity-content__card__info {
+  
+}
 .member-activity-content__card__info__title > p {
   font-size: 18px;
   font-weight: bolder;
 }
 .member-activity-content__card__info__data {
   margin-left: 20px;
+  width: 300px;
 }
 
 .member-activity-content__card {
