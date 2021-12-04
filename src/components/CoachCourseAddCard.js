@@ -69,9 +69,9 @@ function CoachCourseAddCard() {
                   setPostForm(newData);
               }}>
                 <option value="">請選擇</option>
-                <option value="1">初級</option>
-                <option value="2">中級</option>
-                <option value="3">高級</option>
+                <option value="2">初級</option>
+                <option value="3">中級</option>
+                <option value="4">高級</option>
               </select>
             </div>
             <div className="mb-4">
