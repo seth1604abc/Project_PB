@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -20,8 +20,9 @@ const ProductGiftCard = () => {
   const text = ["介紹", "規格"];
   const defaultText = text[0];
   const [showText, setShowText] = useState(defaultText);
-
   const [number, setNumber] = useState(1);
+  const history = useHistory();
+  
   const handleClick = (i) => {
     if (i === 0) {
       if (number === 1) {
@@ -33,6 +34,17 @@ const ProductGiftCard = () => {
       setNumber(number + 1);
     }
   };
+
+  
+  const pushCheck = async () => {
+    let result = await axios.get("http://localhost:3001/gift", {withCredentials: true});
+    if(result.data == "loginerror"){
+      history.push("/login");
+    } else {
+      history.push("/giftcard-checkout");
+    }
+    
+  }
 
   return (
     <>
@@ -64,7 +76,7 @@ const ProductGiftCard = () => {
               >
                 -
               </button>
-              <div className="mx-3">{number}</div>
+              <div className="mx-3">1</div>
               <button
                 className="btn productMain__info__count__group__add"
                 onClick={() => {
@@ -79,7 +91,7 @@ const ProductGiftCard = () => {
             {/* <button className="btn productMain__info__btn--cart me-2">
               加入購物車
             </button> */}
-            <button className="btn productMain__info__btn--buy">
+            <button className="btn productMain__info__btn--buy" onClick={pushCheck}>
               直接購買
             </button>
           </div>
