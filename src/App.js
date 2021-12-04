@@ -30,8 +30,14 @@ import CoachEventAdd from './Pages/CoachEventAdd';
 import CoachEventEdit from './Pages/CoachEventEdit';
 import CoachCourseAdd from './Pages/CoachCourseAdd';
 import SubscibePay from './Pages/SubscribePay';
+let storage = sessionStorage;
 
 function App() {
+  // sessionStorage
+  // 給 WaitingList 空字串
+  if (storage["WaitingList"] == null) {
+    storage["WaitingList"] = "";
+  }
   return (
 
     <div className="App">
