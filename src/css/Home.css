@@ -223,8 +223,7 @@ p {
 /* 待播清單區 */
 .playList {
   width: auto;
-  margin: 13% 20%;
-
+  margin: 10% 20%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -267,7 +266,7 @@ p {
 /* 活動介紹區 */
 
 .event {
-  margin: 5% 20%;
+  margin: 10% 20%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

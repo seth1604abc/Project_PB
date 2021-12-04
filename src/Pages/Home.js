@@ -39,7 +39,7 @@ function Home() {
   //MAP活動卡片
   let eventList=topEvent.map(event=>{
     return(
-      <div className="home__eventCard d-flex align-items-center mb-2 p-1 ps-0">
+      <div className="home__eventCard d-flex align-items-center mb-3 p-1 ps-0">
         <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
         <div className="home_eventCard__container d-flex flex-column  align-self-start">
           <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
@@ -254,7 +254,7 @@ function Home() {
             </p>
           </div>
           <div className="event--group">
-            <div className="mb-3">
+            <div className="mb-4">
             {eventList}
               {/* <img src="https://via.placeholder.com/400x100" alt="" />
               <img src="https://via.placeholder.com/400x100" alt="" />
@@ -279,7 +279,7 @@ function Home() {
             皆由專業教練指導
           </h3>
           <div className="coach--list d-flex flex-wrap justify-content-center">
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -294,7 +294,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/coach-info"
                 style={{ color: "#09203f" }}
@@ -309,7 +309,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -324,7 +324,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}
@@ -339,7 +339,7 @@ function Home() {
                 <p>教練資歷:5年</p>
               </Link>
             </div>
-            <div className="mx-4 my-3 coach__link" style={{ width: "300px" }}>
+            <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
                 to="/product"
                 style={{ color: "#09203f" }}

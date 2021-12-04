@@ -113,7 +113,8 @@ function Navbar(props) {
             <Link to="/article">文章</Link>
           </li>
           <li style={{ justifyContent: "end" }} className="navbar__cart">
-            <Link to={isLoggedin?"/cart":"/login"}>
+            <Link to={isLoggedin?"/cart":"/login"}
+            onPointerEnter>
               <i className="fas fa-shopping-cart"></i>
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">
