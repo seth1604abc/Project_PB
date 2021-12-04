@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {ZipCodeTW} from "zipcode-tw-react";
 
 const registerData = {    
   firstName: "",
@@ -78,8 +79,8 @@ function Login() {
   }
 
   const register = async () => {
-    let city = $("#city option:selected").text();
-    let area = $("#area option:selected").text();
+    let city = $(".countyClass option:selected").text();
+    let area = $(".districtClass option:selected").text();
     let addr = $("#address").val();        
     registerData.city = city;
     registerData.area = area;
@@ -290,16 +291,7 @@ function Login() {
                 </div>              
                 <div className="register-next-container__div">
                   <label htmlFor="">地址</label>
-                  <select style={{padding: "10px", marginRight: "20px"}} id="city">
-                    <option value="" disabled>---請選擇---</option>
-                    <option value="台北市">台北市</option>
-                    <option value="桃園市">桃園市</option>
-                  </select>
-                  <select style={{padding: "10px"}} id="area">
-                    <option value="" disabled>---請選擇---</option>
-                    <option value="東區">東區</option>
-                    <option value="北區">北區</option>
-                  </select>
+                  <ZipCodeTW displayType="text" zipStyle={{display: "none"}} districtStyle={{marginLeft: "20px"}} districtClass="districtClass" countyClass="countyClass"/>
                 </div>
                 <ErrorMessage name="address" component="p" className="formik-error-reg"/>            
                 <div className="register-next-container__div">

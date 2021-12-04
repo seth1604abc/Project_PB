@@ -2,7 +2,7 @@ import React from "react";
 import $ from 'jquery';
 import { Link } from 'react-router-dom'
 
-function EventCard({ event_time_month, event_time_day, event_time_weekday, title, time, quota, coach, image, id }) {
+function EventCard({ event_time_month, event_time_day, event_time_weekday, title, time, quota, coach, image, id, event_img }) {
 
   const handle = (id) => {
     console.log(id);
@@ -38,7 +38,7 @@ function EventCard({ event_time_month, event_time_day, event_time_weekday, title
             {/* <!-- 活動封面 --> */}
             <div className="event_cover_wrapper">
               <div className="event_cover">
-                <img src="../event_imgs/w644.jpg" alt=""></img>
+                <img src={`/event_imgs/${event_img}`} alt=""></img>
               </div>
             </div>
             {/* <!-- 活動資訊 --> */}

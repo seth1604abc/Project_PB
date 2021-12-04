@@ -22,7 +22,8 @@ function Event() {
     let resEvent = await axios.get("http://localhost:3001/event/coach-event", {
       withCredentials: true,
     });   
-    setEvent(resEvent.data);    
+    setEvent(resEvent.data);
+    console.log(resEvent.data);
   }, []);
   
   const search = async () => {
@@ -39,8 +40,9 @@ function Event() {
       event_time_weekday={data.event_time_weekday}
       time={data.datetime}
       quota={data.quota}   
-      coach={data.coach} 
-      image={data.image}   
+      coach={data.coach}
+      image={data.coachImage}
+      event_img={data.image} 
     />;
   })
 
