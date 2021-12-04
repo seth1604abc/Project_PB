@@ -168,6 +168,20 @@ input:focus {
 .Courses__Banner__Mask__TextButton:hover .Courses__Banner__Mask__TextContent{
   color: var(--second-color);
 }
+.Product__Banner__Mask__Slide {
+  border-radius: 2rem;
+  width: 60vw;
+  height: 33vw;
+  overflow: hidden;
+  position: relative;
+}
+.Product__Banner__Mask__Slide img {
+  width: 166%;
+height: 100%;
+object-fit: fill;
+left: -30%;
+position: relative;
+}
 .Courses__Banner__Mask__Slide {
   border-radius: 2rem;
   width: 60vw;

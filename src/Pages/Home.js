@@ -6,9 +6,10 @@ import "../css/Home.css";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import axios from "axios";
-import CoursesCourseCard from "../components/Course/CoursesCourseCard";
+// import CoursesCourseCard from "../components/Course/CoursesCourseCard";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { BODY_PARTS, LEVEL } from "../components/BodyPartandLevelTable.js";
 
 function Home() {
   const [pImg, setPImg] = useState({});
@@ -38,7 +39,7 @@ function Home() {
   //MAP活動卡片
   let eventList=topEvent.map(event=>{
     return(
-      <div className="home__eventCard d-flex align-items-center mb-2">
+      <div className="home__eventCard d-flex align-items-center mb-2 p-1 ps-0">
         <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
         <div className="home_eventCard__container d-flex flex-column  align-self-start">
           <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
@@ -65,7 +66,41 @@ function Home() {
     setPartCourse(resCourse.data);
   };
   let bestCourse = partCourse.map((course) => (
-    <CoursesCourseCard course={course} />
+    <>
+      <div className="Courses__singlecourse__card">
+        <Link to={`/course-single/${course.id}`} className="LinkNoStyle">
+          <img
+            src={`/images/${course.filename}.png`}
+            className="card-img-top"
+            alt="課程1"
+          />
+          <div className="card-body">
+            <div className="mb-2 d-flex">
+              <div className="Courses__singlecourse__card__type">
+                {BODY_PARTS[course.body_part_id]}
+              </div>
+              <div className="Courses__singlecourse__card__coach_name ms-3">
+                {course.coach}
+              </div>
+            </div>
+            <h3 className="mt-3 Courses__singlecourse__card__title">
+              {course.title}
+            </h3>
+            <div className="mt-4 d-flex">
+              <div className="Courses__singlecourse__card__count me-2">
+                觀看次數：{course.views}次
+              </div>
+              <div className="Courses__singlecourse__card__created-at me-4">
+                <Moment format="YYYY-MM-DD HH:mm">{course.upload_time}</Moment>
+              </div>   
+            </div>
+          </div>
+          <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
+            <img src={`/images/${course.image}.jpg`} alt="coach" />
+          </div>
+        </Link>
+      </div>
+    </>
   ));
 
   //熱門商品
@@ -199,7 +234,7 @@ function Home() {
           {bestCourse}
           {/* <ProductCard /> */}
         </section>
-        <section className="playList">
+        <section className="playList ">
           <img src="https://via.placeholder.com/300x200" alt="" />
           <div className="playList--context">
             <h3 className="nowrap">隨你所好，安排課程</h3>
@@ -325,7 +360,7 @@ function Home() {
           <img src="./images/giftcard.png" alt="" />
           <h3>購買禮物卡，邀請朋友一起來運動!</h3>
           <p>送給朋友一個月的會籍，一起享受運動的樂趣!</p>
-          <Link to="/giftcard">
+          <Link to="/product-single/2/19">
             <button>前往購買</button>
           </Link>
         </section>

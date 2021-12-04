@@ -223,8 +223,8 @@ p {
 /* 待播清單區 */
 .playList {
   width: auto;
-  margin: 0 20%;
-  margin-top: 10%;
+  margin: 13% 20%;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -308,8 +308,21 @@ p {
   margin: 5% 0;
 }
 .home__eventCard {
+  position: relative;
   height: 9rem;
   width: 28rem;
+  transition: 0.4s;
+  top: 0%;
+  border: 1px solid transparent;
+  border-radius: 0 5px 5px 0;
+}
+.home__eventCard:hover {
+  position: relative;
+  top: -3%;
+  transition: 0.4s;
+  /* border: 1px solid #09203f;
+  border-left: 1px solid transparent; */
+  box-shadow: 3px 3px 3px #09203f41;
 }
 .home__eventCard__title {
   color: #537895;
@@ -416,8 +429,8 @@ p {
 .giftCard img {
   width: 300px;
   position: absolute;
-  top: -30%;
-  right: 0%;
+  top: -35%;
+  right: -10%;
   transform: rotate(20deg);
   border-radius: 10px;
 }
@@ -429,8 +442,21 @@ p {
   font-size: 1.2rem;
 }
 .giftCard button {
+  background-color: #537895;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.733);
+  padding: 2% 3%;
+  position: relative;
+  left: 80%;
+  top: 20%;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+.giftCard button:hover {
   background-color: rgb(255, 201, 85);
-  color: #09203f;
+  transform: scale(1.1);
+
+  color: #fff;
   border: none;
   padding: 2% 3%;
   position: relative;
