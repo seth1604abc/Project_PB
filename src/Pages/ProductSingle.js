@@ -69,7 +69,14 @@ const ProductSingle = () => {
         withCredentials: true,
       }
     );
-    
+    //取得留言數量
+    let commentNumber= await axios.get(
+      `http://localhost:3001/product/comments-number/${productId}`,
+      {
+        withCredentials: true,
+      }
+    )
+    setCommentCount(commentNumber.data[0])
     setComments(productComment.data);
     setProductImages(productImages.data);
     setProductData(product.data[0]);
@@ -99,6 +106,8 @@ const ProductSingle = () => {
       />
     );
   });
+  //留言數量
+  const [commentCount,setCommentCount]=useState({})
   //商品圖片
   const [productImages, setProductImages] = useState([]);
 
@@ -163,12 +172,12 @@ const ProductSingle = () => {
         </div>
         <div className="productMain__info ms-3">
           <h1>{productData.title}</h1>
-          <a href="#/">
+          <a href="#product-review">
             <span className="me-1">
               {productData.average_rate}
               <i className="fas fa-star"></i>
             </span>{" "}
-            10筆評價
+            {commentCount.count}筆評價
           </a>
           <hr className="my-1" />
           <h3>NT${productData.price}</h3>
@@ -277,7 +286,8 @@ const ProductSingle = () => {
               }
               onClick={async () => {
                 if (isLoggedin) {
-                  let checkCart = await axios.get(
+                  if(productId!=="19"){
+                    let checkCart = await axios.get(
                     "http://localhost:3001/cart/list",
                     { withCredentials: true }
                   );
@@ -316,10 +326,8 @@ const ProductSingle = () => {
                         console.log(error);
                       });
                   }
-                } else {
-                  return;
-                }
-              }}
+                } 
+              }}}
             >
               <button className="btn productMain__info__btn--buy ">
                 直接購買
@@ -362,7 +370,7 @@ const ProductSingle = () => {
             </p>
           </div>
           <div className="product__secondary__left__comment  d-flex flex-column mb-5">
-            <div>商品評價</div>
+            <div id="product-review">商品評價</div>
             {cList}
             {/* <Comment />
             <Comment />

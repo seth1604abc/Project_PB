@@ -371,7 +371,7 @@ function CourseListContainer() {
             />
           );
         })}
-      </div>      
+      </div>
     </div>
   );
 }

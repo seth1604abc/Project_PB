@@ -2,7 +2,7 @@ import React from "react";
 import "../css/Product.css";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
-import Banner from "../components/Course/CoursesBanner";
+import Banner from "../components/ProductBanner";
 import CoursesPageButton from "../components/Course/CoursesPageButton";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -22,7 +22,6 @@ function ShoppingMain() {
       { withCredentials: true }
     );
     setHotProduct(resHitProduct.data);
-
     //抓全部商品
     let resProduct = await axios.get("http://localhost:3001/product", {
       withCredentials: true,
@@ -157,7 +156,7 @@ function ShoppingMain() {
           {pList}
         </div>
       </div>
-      <CoursesPageButton />
+      
       <Footer />
     </>
   );
