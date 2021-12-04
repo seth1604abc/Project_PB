@@ -19,10 +19,6 @@ function Course() {
     });
   }, []);
 
-  function showMask(){
-    setNotUserMask("Course__Video__isntUser__Show")
-  }
-
   return (
     <div>
       <Navbar />

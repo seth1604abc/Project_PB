@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BODY_PARTS, LEVEL } from "../BodyPartandLevelTable";
+import $ from "jquery";
 import axios from "axios";
 let storage = sessionStorage;
 
@@ -60,6 +61,11 @@ function CoursesCourseCard({
     setTheUser(isUser.data[0]);
   }, []);
 
+  // 禁止右鍵下載圖片
+  $("#cardImage").bind("contextmenu", function () {
+    return false;
+  });
+
   // sessionStorage
   // 給 WaitingList 空字串
   if (storage["WaitingList"] == null) {
@@ -70,7 +76,7 @@ function CoursesCourseCard({
     if (theUser === undefined || theUser === null) {
       console.log("請登入會員");
       e.nativeEvent.stopImmediatePropagation();
-      setCourseCardMask("Course__Video__isntUser__Show");
+      setCourseCardMask("Course__isntUser__Show");
       e.preventDefault();
       for (let i = 0; i < course.length; i++) {
         document.getElementsByClassName("Courses__singlecourse__card")[
@@ -189,8 +195,11 @@ function CoursesCourseCard({
     <>
       <a
         href={`/course-single/${theCourse.id}`}
+        id="cardImage"
         className="Courses__singlecourse__card LinkNoStyle"
-        onClick={() => {addViews()}}
+        onClick={() => {
+          addViews();
+        }}
       >
         {/* <Link to={`/course-single/${theCourse.id}`} className="LinkNoStyle"> */}
         <img
@@ -210,14 +219,14 @@ function CoursesCourseCard({
           <h3 className="mt-3 Courses__singlecourse__card__title">
             {theCourse.title}
           </h3>
-          <div className="mt-4 d-flex">
-            <div className="Courses__singlecourse__card__count me-2">
-              觀看次數：{theCourse.views}次
+          <div className="mt-4 d-flex position-relitave">
+            <div className="Courses__singlecourse__card__count me-4">
+              觀看次數：{theCourse.views}
             </div>
             <div className="Courses__singlecourse__card__created-at me-4">
               {theCourse.upload_time}
             </div>
-            <div className="Courses__singlecourse__card__heart">
+            <div className="Courses__singlecourse__card__heart ">
               <span>
                 {icon === "far" ? theCourse.likes : theCourse.likes + 1}
               </span>

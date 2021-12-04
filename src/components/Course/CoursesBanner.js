@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import $ from "jquery";
 
 function CoursesBanner() {
   // 位置
@@ -50,6 +51,16 @@ function CoursesBanner() {
     }
   }
 
+  // 禁止影片被下載
+  $("#video1").bind("contextmenu", function () {
+    return false;
+  });
+  $("#video2").bind("contextmenu", function () {
+    return false;
+  });
+  $("#video3").bind("contextmenu", function () {
+    return false;
+  });
   return (
     <div className="range">
       <div className={`d-flex Courses__Banner ${bannerPos}`}>
@@ -64,17 +75,22 @@ function CoursesBanner() {
             <div className="Courses__Banner__Mask__Slide">
               <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
                 <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
-                  主標題
+                  居家啞鈴手臂訓練
                 </h2>
                 <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
-                  副標題
+                  建議使用較輕的啞鈴(2-4kg)較容易完成！
                 </p>
-                <a href='#/' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                <a
+                  href="/course-single/21"
+                  className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1"
+                >
                   立即觀看
                 </a>
               </div>
-              <video muted loop id="video1" className='pointer'>
-                <source src="/videos/01.mp4" types="video/mp4" />
+              <video muted loop id="video1" className="pointer">
+                <source src="/videos/banner1.mp4" types="video/mp4" />
+                <source src="/videos/banner1.webp" types="video/webp" />
+                <source src="/videos/banner1.mpeg" types="video/mpeg" />
               </video>
             </div>
           </div>
@@ -90,17 +106,22 @@ function CoursesBanner() {
             <div className="Courses__Banner__Mask__Slide">
               <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
                 <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
-                  主標題
+                  肩部拉筋運動
                 </h2>
                 <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
-                  副標題
+                  舒緩肩膊緊張，2星期內見效
                 </p>
-                <a href='/course-single/3' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                <a
+                  href="/course-single/20"
+                  className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1"
+                >
                   立即觀看
                 </a>
               </div>
-              <video muted loop id="video2" className='pointer' autoPlay>
-                <source src="/videos/02.mp4" types="video/mp4" />
+              <video muted loop id="video2" className="pointer" autoPlay={true}>
+                <source src="/videos/banner2.mp4" types="video/mp4" />
+                <source src="/videos/banner2.webp" types="video/webp" />
+                <source src="/videos/banner2.mpeg" types="video/mpeg" />
               </video>
             </div>
           </div>
@@ -116,17 +137,22 @@ function CoursesBanner() {
             <div className="Courses__Banner__Mask__Slide">
               <div className="position-absolute Courses__Banner__Mask__Text px-4 py-3">
                 <h2 className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextMainContent">
-                  主標題
+                  10分鐘背部訓練
                 </h2>
                 <p className="Courses__Banner__Mask__TextContent Courses__Banner__Mask__TextSecondContent">
-                  副標題
+                  一起把背肌力量練起來～
                 </p>
-                <a href='#/' className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1">
+                <a
+                  href="/course-single/8"
+                  className="Courses__Banner__Mask__TextButton mt-3 px-3 py-1"
+                >
                   立即觀看
                 </a>
               </div>
-              <video muted loop id="video3" className='pointer'>
-                <source src="/videos/03.mp4" types="video/mp4" />
+              <video muted loop id="video3" className="pointer">
+                <source src="/videos/banner3.mp4" types="video/mp4" />
+                <source src="/videos/banner3.webp" types="video/webp" />
+                <source src="/videos/banner3.mpeg" types="video/mpeg" />
               </video>
             </div>
           </div>
