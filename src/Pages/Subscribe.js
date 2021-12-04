@@ -55,6 +55,10 @@ function Subscribe() {
     }
   }
 
+  const pushsub = () => {
+    history.push("/giftcard")
+  }
+
   return (
     <>
       <div className="main-nav-sub" style={{ position: "relative" }}>
@@ -278,7 +282,7 @@ function Subscribe() {
         >
           <div style={{ width: "25%" }}>
             <img
-              src="/image/sub-giftcard.png"
+              src="/images/giftcard.png"
               alt=""
               style={{ width: "400px" }}
             />
@@ -306,6 +310,7 @@ function Subscribe() {
                 color: "white",
                 border: "1px solid transparent",
               }}
+              onClick={pushsub}
             >
               馬上開始
             </button>

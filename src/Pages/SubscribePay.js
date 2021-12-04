@@ -15,11 +15,15 @@ const SubscibePay = () => {
     expiry: "",
     name: "",
     number: "",
+    focus: "",
   });
   
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleFocus = (e) => {
+    setData({ ...data, focus: e.target.name });
   };
   useEffect(async () => {    
     let newData = {...duration};
@@ -39,6 +43,10 @@ const SubscibePay = () => {
       history.push("/member-info");
     })
   }
+  const cancel = () => {
+    history.push("/subscribe")
+  }
+
 
   return (
     <>
@@ -52,6 +60,7 @@ const SubscibePay = () => {
               focus={data.focus}
               name={data.name}
               number={data.number}
+              focused={data.focus}
             />
             <form action="" className="d-flex flex-column my-3">
               <input
@@ -60,6 +69,7 @@ const SubscibePay = () => {
                 name="cvc"
                 placeholder="CVC"
                 onChange={handleInputChange}
+                onFocus={handleFocus}
               />
               <input
                 type="date"
@@ -67,6 +77,7 @@ const SubscibePay = () => {
                 name="expiry"
                 placeholder="Expire Date"
                 onChange={handleInputChange}
+                onFocus={handleFocus}
               />
               <input
                 type="text"
@@ -74,6 +85,7 @@ const SubscibePay = () => {
                 name="name"
                 placeholder="Your Name"
                 onChange={handleInputChange}
+                onFocus={handleFocus}
               />
               <input
                 type="number"
@@ -81,6 +93,7 @@ const SubscibePay = () => {
                 name="number"
                 placeholder="Card Number"
                 onChange={handleInputChange}
+                onFocus={handleFocus}
               />
             </form>
           </div>
@@ -106,7 +119,7 @@ const SubscibePay = () => {
                 <div className="col">NT ${duration.price}元</div>
               </div>
               <div className="d-flex justify-content-end">
-              <button className="btn GiftCardCheckout__btn__pre me-3">取消購買</button>
+              <button className="btn GiftCardCheckout__btn__pre me-3" onClick={cancel}>取消購買</button>
               <button className="btn GiftCardCheckout__btn__next" onClick={nextStep}>下一步</button>
               </div>
             </div>
