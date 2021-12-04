@@ -87,11 +87,11 @@ function CourseControlBar({
             <option value="1">
               教練
             </option>
-            <option value="2">Ariel</option>
-            <option value="3">Chris</option>
-            <option value="4">Eddie</option>
-            <option value="5">Eric</option>
-            <option value="6">Tommy</option>
+            <option value="96">May</option>
+            <option value="97">Eugene</option>
+            <option value="98">Kosmo</option>
+            <option value="99">CYFIT</option>
+            <option value="100">Coffee</option>
           </select>
           <select
             className="form-select Courses__control-bar__select-width"

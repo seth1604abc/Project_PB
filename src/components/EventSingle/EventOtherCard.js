@@ -8,7 +8,7 @@ function EventOtherCard({datas}) {
     <>
       <a className="col d-flex justify-content-center" style={{textDecoration: "none", color: "black"}} href={`/event-single/${datas.id}`}>
         <div className="singleEvent_card" >
-          <img src="../event_imgs/w644.jpg" className="card-img-top" alt="課程" />
+          <img src={`/event_imgs/${datas.image}`} className="card-img-top" alt="課程" style={{width: "100%", height: "200px"}}/>
           <div className="card-body">
             <h5 className="mx-2">
               {datas.title}
@@ -29,8 +29,8 @@ function EventOtherCard({datas}) {
               <img src="/event_imgs/quota_icon.svg" width="25" alt="quota" />
               <h6 className="singleEvent_info_quota mx-3">剩餘名額: {datas.quota}人</h6>
             </div>
-            <div className="singleEvent_card_coach m-3">
-              <img src={`/image/${datas.coachimage}`} alt="" />
+            <div className="singleEvent_card_coach">
+              <img src={`/image/${datas.coachimage}`} alt="" style={{width: "30px", height: "30px"}}/>
             </div>
             <div className="singleEvent_card_coach_name">
               教練<span> {datas.coach}</span>
