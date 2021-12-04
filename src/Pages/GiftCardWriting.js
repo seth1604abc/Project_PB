@@ -4,9 +4,12 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from 'axios';
 import $ from 'jquery';
+import Swal from "sweetalert2";
+import { useHistory } from "react-router";
 
 const GiftCardWriting = () => {
   let giftData = {};
+  const history = useHistory();
   const submit = async () => {
     giftData.name = $('#name').val();
     giftData.giftName = $('#gift-name').val();
@@ -14,6 +17,11 @@ const GiftCardWriting = () => {
     giftData.giftMessage = $('#gift-message').val();
 
     let response = await axios.post("http://localhost:3001/gift", giftData);
+    if(response){
+      Swal.fire("購買成功!").then(() => {
+        history.push("/giftcard");
+      })
+    }
   }
 
   return (
