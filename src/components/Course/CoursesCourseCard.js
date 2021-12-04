@@ -258,7 +258,7 @@ function CoursesCourseCard({
           />
         </div>
         <div className="Courses__singlecourse__card__coach Courses__singlecourse__card__coach-setting">
-          <img src={`/images/${theCourse.image}.jpg`} alt="coach" />
+          <img src={`/image/${theCourse.image}`} alt="coach" style={{backgroundColor:"#537895"}} />
         </div>
         {/* </Link> */}
       </a>

@@ -120,6 +120,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   ) {
     return <></>;
   }
+  console.log(comment)
   return (
     <>
       <div className="p-3 m-1">
