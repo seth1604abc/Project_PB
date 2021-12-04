@@ -40,7 +40,7 @@ function Home() {
   let eventList=topEvent.map(event=>{
     return(
       <div className="home__eventCard d-flex align-items-center mb-3 p-1 ps-0">
-        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
+        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem",width:"9rem"}} alt="" />
         <div className="home_eventCard__container d-flex flex-column  align-self-start">
           <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
           <p className="home__eventCard__content mb-2"><i class="fas fa-map-marked-alt"></i> {event.location}</p>
