@@ -62,7 +62,7 @@ function App() {
           <Route path="/member-event" exact component={MemberEvent}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/subscribe" exact component={Subscribe}></Route>
-          <Route path="/coach" exact component={Coach}></Route>
+          <Route path="/coach/:id" exact component={Coach}></Route>
           <Route path="/coach-info" exact component={CoachInfo}></Route>
           <Route path="/coach-course" exact component={CoachCourse}></Route>
           <Route path="/coach-event" exact component={CoachEvent}></Route>
