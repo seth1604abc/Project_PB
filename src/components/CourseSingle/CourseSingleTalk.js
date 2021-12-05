@@ -33,13 +33,6 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
     setComments(parentComment);
     setVideoId(videoid);
     let input = document.getElementById("talkInput");
-    // if(random){
-    //   if (theUser === undefined || theUser === null) {
-    //     input.setAttribute('readonly','readonly')
-    //   }else if(theUser !== undefined && theUser !== null){
-    //     input.removeAttribute('readonly')
-    //   }
-    // }
   }, [random]);
 
   async function submitComment(e) {
@@ -120,6 +113,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   ) {
     return <></>;
   }
+
   return (
     <>
       <div className="p-3 m-1">

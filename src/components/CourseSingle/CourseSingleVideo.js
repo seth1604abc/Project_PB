@@ -18,6 +18,9 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   );
   const [endVideo, setEndVideo] = useState("Course__Video__isntUser__Hidden");
   const [nextUrl, setNextUrl] = useState("");
+  const [countHeart,setCountHeart] = useState();
+  const [coach,setCoach] = useState();
+
   let history = useHistory();
   let storage = sessionStorage;
   useEffect(async () => {
@@ -45,11 +48,13 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     } else {
       setIcon("far");
     }
+    setCountHeart(singleCourse[0].likes)
     setUserMask("Course__Video__isntUser__Hidden");
     let isUser = await axios.get("http://localhost:3001/Course/isUser", {
       withCredentials: true,
     });
     setTheUser(isUser.data[0]);
+    console.log(singleCourse[0])
   }, []);
 
   let video = document.querySelector("video");
@@ -114,6 +119,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     } else if (theUser !== undefined) {
       if (icon === "far") {
         setIcon("fas HeartColor");
+        setCountHeart(singleCourse[0].likes+1)
         let addCountLikes = singleCourse[0].likes + 1;
         let likes = { like: addCountLikes, id: singleCourse[0].id };
         let likeList = { course: singleCourse[0].id };
@@ -133,7 +139,8 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
         }
       } else {
         setIcon("far");
-        let disCountLikes = singleCourse[0].likes;
+        setCountHeart(countHeart-1)
+        let disCountLikes = countHeart-1;
         let likes = { like: disCountLikes, id: singleCourse[0].id };
         let likeList = { course: singleCourse[0].id };
 
@@ -162,8 +169,6 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     return item !== singleCourse[0].id;
   });
   let nextNumber = nextList.splice(0, 1);
-  console.log("nextNumber", nextNumber);
-  // console.log("nextUrl", nextUrl);
   if (video !== undefined && video !== null) {
     // 影片結束時跳出彈跳視窗
     video.addEventListener("ended", () => {
@@ -262,9 +267,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                   onClick={clickheart}
                 ></i>
                 <span className="normalMouse">
-                  {icon === "far"
-                    ? singleCourse[0].likes
-                    : singleCourse[0].likes + 1}
+                  {countHeart}
                 </span>
                 {/* <i
                   class="fas fa-step-forward"
@@ -281,7 +284,9 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
           </div>
           <div className="d-flex mt-4 pt-2">
             <div className="Course__video-area__MemberImgsetting ms-3">
+            {/* <a href={`http://loaclhost:3000/coach/${}`}> */}
               <Membericon image={singleCourse[0].image} />
+            {/* </a> */}
             </div>
             <div className="Course__video-area__CoachName ps-2 ms-3 normalMouse">
               {singleCourse[0].first_name}
