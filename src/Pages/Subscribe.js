@@ -81,10 +81,7 @@ function Subscribe() {
               </li>
               <li>
                 <Link to="/event">活動</Link>
-              </li>
-              <li style={{ marginRight: "50px" }}>
-                <Link to="/article">文章</Link>
-              </li>
+              </li>              
               <li style={{ justifyContent: "end" }}>
                 <Link to="/cart">
                   <i style={{}} className="fas fa-shopping-cart"></i>
