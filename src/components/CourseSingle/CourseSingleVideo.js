@@ -18,6 +18,8 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
   );
   const [endVideo, setEndVideo] = useState("Course__Video__isntUser__Hidden");
   const [nextUrl, setNextUrl] = useState("");
+  const [countHeart,setCountHeart] = useState();
+
   let history = useHistory();
   let storage = sessionStorage;
   useEffect(async () => {
@@ -45,6 +47,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     } else {
       setIcon("far");
     }
+    setCountHeart(singleCourse[0].likes)
     setUserMask("Course__Video__isntUser__Hidden");
     let isUser = await axios.get("http://localhost:3001/Course/isUser", {
       withCredentials: true,
@@ -114,6 +117,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     } else if (theUser !== undefined) {
       if (icon === "far") {
         setIcon("fas HeartColor");
+        setCountHeart(singleCourse[0].likes+1)
         let addCountLikes = singleCourse[0].likes + 1;
         let likes = { like: addCountLikes, id: singleCourse[0].id };
         let likeList = { course: singleCourse[0].id };
@@ -133,7 +137,8 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
         }
       } else {
         setIcon("far");
-        let disCountLikes = singleCourse[0].likes;
+        setCountHeart(countHeart-1)
+        let disCountLikes = countHeart-1;
         let likes = { like: disCountLikes, id: singleCourse[0].id };
         let likeList = { course: singleCourse[0].id };
 
@@ -262,9 +267,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
                   onClick={clickheart}
                 ></i>
                 <span className="normalMouse">
-                  {icon === "far"
-                    ? singleCourse[0].likes
-                    : singleCourse[0].likes + 1}
+                  {countHeart}
                 </span>
                 {/* <i
                   class="fas fa-step-forward"
