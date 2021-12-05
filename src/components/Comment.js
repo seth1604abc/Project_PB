@@ -12,7 +12,6 @@ const comment = (props) => {
                         <p>{props.name}</p>
                     </div>
                     <div className="d-flex flex-column justify-content-between me-3">
-                        <h5>title</h5>
                         <p className="mb-3">{props.rate}<i class="fas fa-star"></i></p>
                         <p>{props.content}</p>
                     </div>
