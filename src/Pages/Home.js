@@ -303,7 +303,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>May Fit</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -318,7 +318,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Eugene & Jayn</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -333,7 +333,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Kosmo</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -348,7 +348,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>兆佑</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -363,7 +363,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Coffee林芊妤</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
