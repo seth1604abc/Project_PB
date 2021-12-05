@@ -97,6 +97,7 @@ const ProductSingle = () => {
         createdTime={comment.created_at}
         user_id={comment.user_id}
         product_id={comment.product_id}
+        image={comment.image}
       />
     );
   });
