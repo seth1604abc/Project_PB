@@ -271,7 +271,7 @@ function MemberOrder() {
               </div>
               <div>
                 <div>評論</div>                
-                <textarea name="" id="ratetext" cols="50" rows="5"></textarea>
+                <textarea name="" id="ratetext" rows="5" style={{width: "100%"}}></textarea>
               </div>
               <div className="d-flex justify-content-between member-order__ratebtn">                
                 <button style={{backgroundColor: "#ffecd2", color: "black"}} onClick={cancelRate}>取消評論</button>

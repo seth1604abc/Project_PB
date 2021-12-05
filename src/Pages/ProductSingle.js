@@ -6,7 +6,7 @@ import "../css/Article.css";
 import "../css/Course.css";
 import RecommandProduct from "../components/RecommandProduct";
 import ArticleRecommand from "../components/ArticleRecommand";
-import CourseSingleHitCourse from "../components/CourseSingleHitCourse";
+import CourseSingleHitCourse from "../components/CourseSingle/CourseSingleHitCourse";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
@@ -41,13 +41,7 @@ const ProductSingle = () => {
       }
     );
 
-    //取得推薦文章
-    // let recommandArticle = await axios.get(
-    //   `http://localhost:3001/product/article/${category}/${productId}`,
-    //   {
-    //     withCredentials: true,
-    //   }
-    // );
+    
 
     let product = await axios.get(
       `http://localhost:3001/product/${productId}`,
@@ -103,6 +97,7 @@ const ProductSingle = () => {
         createdTime={comment.created_at}
         user_id={comment.user_id}
         product_id={comment.product_id}
+        image={comment.image}
       />
     );
   });

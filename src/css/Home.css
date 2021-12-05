@@ -292,13 +292,7 @@ p {
 .event--group {
   position: relative;
 }
-.event--group a {
-  position: absolute;
-  width: auto;
-  top: 95%;
-  left: 80%;
-  padding: 10px;
-}
+
 .event--group--cards {
   display: flex;
   flex-direction: column;
@@ -341,7 +335,7 @@ p {
 }
 .event--group--link {
   position: relative;
-  left: 70%;
+  left: 80%;
   width: 30%;
   background: none;
   border: 1px solid #09203f;
