@@ -235,8 +235,7 @@ function CourseSingleWaitingList({ isCourse_id }) {
         />
         <h2 className="Course__area__title me-3 normalMouse">播放清單</h2>
         <div className="Course__area__Secondtitle normalMouse">
-          共<span className="p-2">{checkdWaitingList.length}</span>部課程，
-          <span className="p-2">50</span>分鐘
+          共<span className="p-2">{checkdWaitingList.length}</span>部課程
         </div>
       </div>
       <div className="Course__area__List">

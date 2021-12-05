@@ -26,6 +26,7 @@ function CoursesCourseCard({
   const [likeListAll, setLikeListAll] = useState([]);
   const [likeListMember, setLikeListMember] = useState([]);
   const [theUser, setTheUser] = useState(null);
+  const [countHeart,setCountHeart] = useState();
 
   useEffect(async () => {
     let isLIkesList = await axios.get(
@@ -59,6 +60,7 @@ function CoursesCourseCard({
       withCredentials: true,
     });
     setTheUser(isUser.data[0]);
+    setCountHeart(theCourse.likes)
   }, []);
 
   // 禁止右鍵下載圖片
@@ -86,6 +88,8 @@ function CoursesCourseCard({
     } else if (theUser !== undefined && theUser !== null) {
       e.preventDefault();
       if (icon === "far") {
+        //console.log('加1 theCourse.likes',theCourse.likes)
+        setCountHeart(theCourse.likes+1)
         setIcon("fas HeartColor");
         let addCountLikes = theCourse.likes + 1;
         let likes = { like: addCountLikes, id: theCourse.id };
@@ -113,10 +117,12 @@ function CoursesCourseCard({
         setHeartCourse(NewCourse);
       } else {
         setIcon("far");
-        let disCountLikes = theCourse.likes;
+        //console.log('減1 theCourse.likes',theCourse.likes)
+        setCountHeart(countHeart-1)
+        let disCountLikes = countHeart-1;
         let likes = { like: disCountLikes, id: theCourse.id };
         let likeList = { course: theCourse.id };
-        console.log(likeList);
+        //console.log(likeList);
         try {
           let SingleCourse = await axios.post(
             `http://localhost:3001/Course/changeLikesCount`,
@@ -191,6 +197,7 @@ function CoursesCourseCard({
   ) {
     return <></>;
   }
+
   return (
     <>
       <a
@@ -228,7 +235,7 @@ function CoursesCourseCard({
             </div>
             <div className="Courses__singlecourse__card__heart ">
               <span>
-                {icon === "far" ? theCourse.likes : theCourse.likes + 1}
+                {countHeart}
               </span>
               <i
                 id={course.id}
