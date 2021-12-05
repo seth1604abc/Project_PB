@@ -111,7 +111,12 @@ function Navbar(props) {
           </li>
           <li style={{ justifyContent: "end" }} className="navbar__cart">
             <Link to={isLoggedin?"/cart":"/login"}
-            onPointerEnter>
+            onPointerEnter={async()=>{
+              let cartList = await axios.get("http://localhost:3001/cart/list", {
+      withCredentials: true,
+    });
+    setCartData(cartList.data);
+            }}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
             <div className="navbar__cart__content  flex-column align-items-center">

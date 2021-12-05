@@ -28,25 +28,35 @@ function Home() {
       { withCredentials: true }
     );
     setHotProduct(resProduct.data);
-
+    //預設推薦課程
+    let resCourse = await axios.get(
+      `http://localhost:3001/course/part-best/2`,{ withCredentials: true }
+    );
+    setPartCourse(resCourse.data);
     //拿推薦活動
     let resEvent = await axios.get("http://localhost:3001/event/topEvent", {
       withCredentials: true,
     });
     setTopEvent(resEvent.data);
+  
+    
   }, []);
 
   //MAP活動卡片
   let eventList=topEvent.map(event=>{
     return(
+      
+      <Link to={`/event-single/${event.id}`} style={{textDecoration:"none"}} className="">
       <div className="home__eventCard d-flex align-items-center mb-3 p-1 ps-0">
-        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem"}} alt="" />
+        <img src={`/event_imgs/${event.image}`} className="me-3" style={{height:"9rem",width:"9rem"}} alt="" />
         <div className="home_eventCard__container d-flex flex-column  align-self-start">
           <h5 className="home__eventCard__title mb-2 fw-bold">{event.title}</h5>
           <p className="home__eventCard__content mb-2"><i class="fas fa-map-marked-alt"></i> {event.location}</p>
           <p className="home__eventCard__content"><i class="far fa-calendar-alt"></i> <Moment format="YYYY-MM-DD HH:mm">{event.datetime}</Moment></p>
         </div>
       </div>
+        </Link>
+      
     )
   }
 
@@ -61,7 +71,7 @@ function Home() {
   const [partCourse, setPartCourse] = useState([]);
   const handlePartCourse = async (partid) => {
     let resCourse = await axios.get(
-      `http://localhost:3001/course/part-best/${partid}`
+      `http://localhost:3001/course/part-best/${partid}`,{ withCredentials: true }
     );
     setPartCourse(resCourse.data);
   };
@@ -153,7 +163,7 @@ function Home() {
           <div className="course--context">
             <h3 className="text-nowrap">你在找什麼課程?</h3>
             <p className="mb-3">
-              透過部位、時間長度還有程度標籤，快速從上百堂的課程中找到你想學習的健身知識!
+              透過部位、時間長度還有程度標籤，快速從眾多課程中找到你想學習的健身知識!
             </p>
             <div className="course--context--filter">
               <div className="course--context--filter--part">
@@ -234,8 +244,11 @@ function Home() {
           {bestCourse}
           {/* <ProductCard /> */}
         </section>
-        <section className="playList ">
-          <img src="https://via.placeholder.com/300x200" alt="" />
+        <section className="playList d-flex align-items-center ">
+        <div className="d-flex align-items-center" style={{width:"20rem",height:"29rem",overflow:"hidden",position:"relative"}}>
+        <img src="/playlist.gif" style={{position:"absolute",left:"-273px",width:"54.1rem"}}/>
+        </div>
+          {/* <img src="https://via.placeholder.com/300x200" alt="" /> */}
           <div className="playList--context">
             <h3 className="nowrap">隨你所好，安排課程</h3>
             <p className="mb-3 me-0">
@@ -290,7 +303,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>May Fit</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -305,7 +318,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Eugene & Jayn</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -320,7 +333,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Kosmo</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -335,7 +348,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>兆佑</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
@@ -350,7 +363,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>洪啟學</h4>
+                <h4>Coffee林芊妤</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
