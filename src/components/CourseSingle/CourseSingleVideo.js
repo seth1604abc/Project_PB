@@ -167,8 +167,6 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
     return item !== singleCourse[0].id;
   });
   let nextNumber = nextList.splice(0, 1);
-  console.log("nextNumber", nextNumber);
-  // console.log("nextUrl", nextUrl);
   if (video !== undefined && video !== null) {
     // 影片結束時跳出彈跳視窗
     video.addEventListener("ended", () => {
