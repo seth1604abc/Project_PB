@@ -24,6 +24,7 @@ function CourseSingle() {
   const [singleCourse, setSingleCourse] = useState();
   const [random, setRandom] = useState();
   const [theUser, setTheUser] = useState(null);
+  const [bodyPartId,setBodyPartId] = useState()
   useEffect(async () => {
     window.scroll({
       top: 0,
@@ -40,6 +41,8 @@ function CourseSingle() {
       withCredentials: true,
     });
     setTheUser(isUser.data[0]);
+    console.log(SingleCourse.data[0].body_part_id)
+    setBodyPartId(SingleCourse.data[0].body_part_id)
   }, [random]);
   
   console.log(singleCourse)
@@ -77,7 +80,7 @@ function CourseSingle() {
               <CourseSingleHitCourse videoid={courseId} setRandom={setRandom} />
             </div>
             <div>
-              <CourseSingleProduct />
+              <CourseSingleProduct bodyPart={bodyPartId} />
             </div>
           </div>
         </div>
