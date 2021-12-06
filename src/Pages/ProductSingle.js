@@ -18,7 +18,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const ProductSingle = () => {
   //拿url傳的資料
-  const { category, productId } = useParams();
+  const { category, productId,part } = useParams();
   const history=useHistory();
   const location = useLocation();
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -35,7 +35,7 @@ const ProductSingle = () => {
       setIsLoggedin(true);}
     //取得推薦商品
     let recommandProduct = await axios.get(
-      `http://localhost:3001/product/recommand-product/${category}/${productId}`,
+      `http://localhost:3001/product/recommand-product/${category}}/${productId}`,
       {
         withCredentials: true,
       }

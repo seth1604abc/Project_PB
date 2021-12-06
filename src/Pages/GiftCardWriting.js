@@ -16,7 +16,7 @@ const GiftCardWriting = () => {
     giftData.giftEmail = $('#gift-email').val();
     giftData.giftMessage = $('#gift-message').val();
 
-    let response = await axios.post("http://localhost:3001/gift", giftData);
+    let response = await axios.post("http://localhost:3001/gift", giftData,{withCredentials: true});
     if(response){
       Swal.fire("購買成功!").then(() => {
         history.push("/giftcard");

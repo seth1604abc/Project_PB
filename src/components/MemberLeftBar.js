@@ -21,8 +21,8 @@ function MemberLeftBar() {
                     <h2>會員專區</h2>
                     <p>首頁>會員專區>個人資料</p>
                 </div> */}
-                <div className="member-main-info__img__ct" style={{margin: "50px 0", border: "0px"}}>
-                    <img src={`/image/${photo}`} alt=""/>
+                <div className="member-main-info__img__ct " style={{margin: "50px 0 50px 18%", border: "0px",}}>
+                    <img src={`/image/${photo}`} alt="" width="100%" height="100%" style={{objectFit:"cover"}}/>
                 </div>
                 <ul className="member-left__ul">
                     <li>
