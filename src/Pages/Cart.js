@@ -182,6 +182,9 @@ function Cart() {
             <button
               className="btn"
               onClick={async() => {
+                let newList = [...cList];
+                let thing=newList.splice(newList.indexOf(item), 1);
+                let newNewList=newList.filter(product=>product!==thing);
                 await axios
                   .delete(
                     `http://localhost:3001/cart/delete/${item.product_id}`,
@@ -194,12 +197,7 @@ function Cart() {
                     console.log(error);
                   });
                 console.log(cList.indexOf(item))
-                let newList = [...cList];
-                let productId = newList.splice(
-                  cList.indexOf(item),
-                  1
-                ).product_id;
-                let newNewList=newList.splice(newList.indexOf(item), 1);
+                
                 //   console.log(newList);
                 setCList(newNewList);
               }}
