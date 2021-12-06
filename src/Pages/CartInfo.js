@@ -56,6 +56,7 @@ function CartInfo() {
   useEffect(async () => {
     // console.log(location);
     //抓超商資料
+    console.log(list);
     await axios
       .post("http://localhost:3001/cart/mart", {
         city: `${data.city}`,
@@ -403,14 +404,14 @@ function CartInfo() {
                     .catch(function (error) {
                       console.log(error);
                     });
-                  await axios.delete(
-                    "http://localhost:3001/cart/delete-selected",
-                    {
-                      data: {
-                        items: `${list.map((item) => item.product_id)}`,
-                      },
-                    },{withCredentials: true}
-                  );
+                    list.map(item=>{
+                       axios.delete(
+                    `http://localhost:3001/cart/delete/${item.product_id}`
+                    ,{withCredentials: true}
+                  ); 
+                    })
+                     
+                  
                   await axios.patch(
                     `http://localhost:3001/cart/gain-point/${
                       point - total / 100
