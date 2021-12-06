@@ -20,6 +20,7 @@ function CourseSingleTalkParentContent({
     return <></>;
   }
 
+  
   return (
     <div key={id}>
       <div className="m-3">

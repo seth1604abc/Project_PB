@@ -288,7 +288,7 @@ function CourseSingleVideo({ singleCourse, isCourse_id }) {
               </div>
               <div className="Course__video-area__CoachName ps-2 ms-3 normalMouse">
                 <a href={`http://localhost:3000/coach/${coach}`} className='LinkNoStyle MainColor'>
-                  {singleCourse[0].first_name}
+                  {singleCourse[0].last_name}
                 </a>
               </div>
             </div>

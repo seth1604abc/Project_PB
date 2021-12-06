@@ -66,10 +66,10 @@ function CoachInfo() {
           className="member-container"
           style={{ height: "120vh", position: "relative" }}
         >
-          <div className="coach-content d-flex">
+          <div className="coach-content d-flex align-items-center">
             <div className="coach-content__pic">
               <div className="member-main-info__img__ct">
-                <img src={image} alt={alt} />
+                <img src={image} alt={alt} width="100%" height="100%" style={{objectFit:"contain"}}/>
               </div>
               <input
                 type="file"
@@ -77,7 +77,7 @@ function CoachInfo() {
                 id="photo"
                 onChange={handleImage}
               />
-              <label htmlFor="photo">
+              <label htmlFor="photo" style={{cursor:"pointer"}}>
                 <i class="fas fa-plus" style={{ marginRight: "5px" }}></i>
                 更改大頭貼
               </label>
