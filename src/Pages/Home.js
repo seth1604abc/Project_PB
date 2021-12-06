@@ -308,8 +308,8 @@ function Home() {
               </Link>
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
-              <Link
-                to="/coach-info"
+              <a
+                href="http://localhost:3000/coach/96"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -320,7 +320,7 @@ function Home() {
                 />
                 <h4>Eugene & Jayn</h4>
                 <p>教練資歷:5年</p>
-              </Link>
+              </a>
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
