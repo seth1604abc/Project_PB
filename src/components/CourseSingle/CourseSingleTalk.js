@@ -5,7 +5,6 @@ import axios from "axios";
 
 function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   const [comment, setComment] = useState([]);
-  const [comments, setComments] = useState([]);
   const [childComment, setChildComment] = useState([]);
   const [icon, setIcon] = useState("far");
   const [text, setText] = useState("");
@@ -13,10 +12,10 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   const [videoId, setVideoId] = useState([]);
   const [textValue, setTextValue] = useState("");
   const [reply, setReply] = useState(false);
-  const [replyText, setReplyText] = useState("回覆");
+  const [replyText, setReplyText] = useState();
   const [mainCommentId, setMainCommentId] = useState();
   const [random, setRandom] = useState(0);
-  const [sendText, setSandText] = useState();
+  const [lastComment, setLastComment] = useState();
 
 
   useEffect(async () => {
@@ -29,13 +28,9 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
     let sonComment = allComment.data;
     sonComment = sonComment[sonComment.length - 1];
     setChildComment(sonComment);
-    // 抓主留言(刪除子留言的陣列)
-    let parentComment = allComment.data;
-    parentComment = parentComment.pop();
-    setComments(parentComment);
     setVideoId(videoid);
+    setReplyText("回覆")
     let input = document.getElementById("talkInput");
-    console.log(allComment.data)
   }, [random]);
 
   async function submitComment(e) {
@@ -62,11 +57,10 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             { withCredentials: true }
           );
           console.log(result.data.theNewMainComment[0]);
-          let newComment = [result.data.theNewMainComment[0],...comment ];
-          setComment(newComment);
-          // setComments(newComment);
+          let newComment = [result.data.theNewMainComment[0],...childComment ];
+          setChildComment(newComment);
           setTextValue("");
-          console.log('newComment',newComment)
+          console.log('childComment',childComment)
           setRandom(Math.random());
         } catch (e) {
           console.error(e);
@@ -79,14 +73,13 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             childSendText,
             { withCredentials: true }
           );
-          // console.log(childComment)
-          // console.log(result.data.theNewSonComment[0])
-          // let newChildrenComment = [...childComment, result.data.theNewSonComment[0]];
-          // setChildComment(newChildrenComment);
+          console.log('新子留言',result.data.theNewSonComment[0])
+          let newChildrenComment = [...childComment, result.data.theNewSonComment[0]];
+          setChildComment(newChildrenComment);
+          console.log('newChildrenComment',newChildrenComment)
           setTextValue("");
-          //console.log("newChildrenComment", newChildrenComment);
           setTextPlaceHolder("留言");
-          setReply(false);
+          setReplyText('回覆')
           setRandom(Math.random());
         } catch (e) {
           console.error(e);
@@ -113,15 +106,12 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   }
 
   if (
-    comment === null ||
-    // childComment === [] ||
+    comment === undefined ||
     course_id === undefined ||
     videoId === undefined
   ) {
     return <></>;
   }
-
-  console.log(comment)
   return (
     <>
       <div className="p-3 m-1">
