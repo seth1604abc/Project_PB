@@ -565,10 +565,19 @@ option {
   height: 45px;
   transform: translateY(-25%);
 }
+.Course__video-area__coach{
+  display: flex;
+}
 .Course__video-area__CoachName {
   min-width: 10rem;
   font-size: 1.1rem;
   font-weight: bold;
+  text-decoration: none;
+  color: var(--main-color);
+}
+.Course__video-area__coach:hover{
+  border: 1px gray;
+  border-radius: 0.5rem;
 }
 .Course__video-area__Content {
   font-size: 0.9rem;

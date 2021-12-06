@@ -82,6 +82,7 @@ function Navbar(props) {
     }).then(async (res) => {
       if(res.isConfirmed){
         let result = await axios.get("http://localhost:3001/auth/logout", { withCredentials: true });
+        sessionStorage.clear();
         history.push("/login");
       }
     })
