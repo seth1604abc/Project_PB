@@ -52,7 +52,7 @@ function ProductFiter({
             <i className="fas fa-gift me-2"></i>禮物卡
           </button>
           <select
-            className={`btn text-nowrap ${
+            className={`text-nowrap btn ps-4 pe-4 ${
               cat === "健身器材" ? "product__fillter__buttons-active" : ""
             }`}
             onClick={() => {
@@ -60,12 +60,12 @@ function ProductFiter({
             }}
             onChange={handleSelect}
           >
-            <option value="1">健身器材</option>
-            <option value="2">手部</option>
-            <option value="3">肩部</option>
-            <option value="4">胸部</option>
-            <option value="5">背部</option>
-            <option value="6">腿部</option>
+            <option className="text-start" value="1">健身器材</option>
+            <option className="text-start" value="2">手部</option>
+            <option className="text-start" value="3">肩部</option>
+            <option className="text-start" value="4">胸部</option>
+            <option className="text-start" value="5">背部</option>
+            <option className="text-start" value="6">腿部</option>
           </select>
         </div>
         <div className="product__fillter__search d-flex">
