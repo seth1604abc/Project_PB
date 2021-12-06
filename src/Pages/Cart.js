@@ -44,7 +44,7 @@ function Cart() {
         return item.product_id;
       })
     );
-  }, [isCheck,]);
+  }, [isCheck]);
 
   //處理全選
   const handleSelectAll = (e) => {
@@ -74,14 +74,15 @@ function Cart() {
     } else {
       // let checkList=isCheck.join(",");
       // console.log(checkList);
-      axios
+      for(let i=0;i<isCheck.length;i++){
+        axios
         .delete(
-          `http://localhost:3001/cart/delete-selected`,
-          {
-            data: {
-              items: `${isCheck.join()}`,
-            },
-          },
+          `http://localhost:3001/cart/delete/${isCheck[i]}`,
+          // {
+          //   data: {
+          //     items: `${isCheck[i]}`,
+          //   },
+          // },
           { withCredentials: true }
         )
         .then(function (response) {
@@ -97,6 +98,8 @@ function Cart() {
         .catch(function (error) {
           console.log(error);
         });
+      }
+      
     }
   };
 
@@ -178,8 +181,8 @@ function Cart() {
           <div className="cart-cotent__box__delete">
             <button
               className="btn"
-              onClick={() => {
-                axios
+              onClick={async() => {
+                await axios
                   .delete(
                     `http://localhost:3001/cart/delete/${item.product_id}`,
                     { withCredentials: true }
