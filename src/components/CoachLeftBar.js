@@ -15,7 +15,7 @@ function CoachLeftBar() {
         <>
             <div className="member-left-nav">                
                 <div style={{paddingLeft: "50px", margin: "50px 0"}}>
-                    <img src={`/image/${image}`} alt="" style={{width: "200px", height: "200px", borderRadius: "50%"}} />
+                    <img src={`/image/${image}`} alt="" style={{width: "200px", height: "200px", borderRadius: "50%",objectFit:"contain"}} />
                 </div>
                 <ul className="member-left__ul">
                     <li>

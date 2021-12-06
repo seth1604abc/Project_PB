@@ -16,6 +16,8 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   const [replyText, setReplyText] = useState("回覆");
   const [mainCommentId, setMainCommentId] = useState();
   const [random, setRandom] = useState(0);
+  const [sendText, setSandText] = useState();
+
 
   useEffect(async () => {
     //所有留言
@@ -33,6 +35,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
     setComments(parentComment);
     setVideoId(videoid);
     let input = document.getElementById("talkInput");
+    console.log(allComment.data)
   }, [random]);
 
   async function submitComment(e) {
@@ -40,14 +43,14 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
       setTextPlaceHolder("請先登入會員！");
     } else if (theUser !== undefined && theUser !== null) {
       let sendtext = {
-        user_id: 4,
-        text: text,
+        user_id: 'Eric',
+        content: text,
         course_id: videoId,
         created_at: new Date(),
       };
       let childSendText = {
-        user_id: 4,
-        text: text,
+        user_id: 'Eric',
+        content: text,
         course_comment_id: mainCommentId,
         created_at: new Date(),
       };
@@ -58,11 +61,13 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             sendtext,
             { withCredentials: true }
           );
-          //console.log(text);
-          let newComment = [...comments, sendtext];
+          console.log(result.data.theNewMainComment[0]);
+          let newComment = [result.data.theNewMainComment[0],...comment ];
           setComment(newComment);
+          // setComments(newComment);
           setTextValue("");
-          //console.log('newComment',newComment)
+          console.log('newComment',newComment)
+          setRandom(Math.random());
         } catch (e) {
           console.error(e);
         }
@@ -74,12 +79,15 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             childSendText,
             { withCredentials: true }
           );
-          let newChildrenComment = [...childComment, childSendText];
-          setComment(newChildrenComment);
+          // console.log(childComment)
+          // console.log(result.data.theNewSonComment[0])
+          // let newChildrenComment = [...childComment, result.data.theNewSonComment[0]];
+          // setChildComment(newChildrenComment);
           setTextValue("");
           //console.log("newChildrenComment", newChildrenComment);
           setTextPlaceHolder("留言");
           setReply(false);
+          setRandom(Math.random());
         } catch (e) {
           console.error(e);
         }
@@ -105,15 +113,15 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
   }
 
   if (
-    comment === undefined ||
-    childComment === [] ||
-    comments === undefined ||
+    comment === null ||
+    // childComment === [] ||
     course_id === undefined ||
     videoId === undefined
   ) {
     return <></>;
   }
 
+  console.log(comment)
   return (
     <>
       <div className="p-3 m-1">
@@ -135,6 +143,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
           </div>
         </div>
         <div className="Course__area__TalkHeight">
+
           {comment.map((item) => {
             if (item.course_id === Number(course_id)) {
               return (

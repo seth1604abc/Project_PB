@@ -73,7 +73,7 @@ function Coach() {
                     <img src={`/image/${data.image}`} alt="" style={{width: "400px"}}/>
                 </div>
                 <div style={{ width: "40%"}}>
-                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "100px"}}>{data.first_name + " " +  data.last_name}</p>
+                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "100px"}}>{data.last_name}</p>
                     <p>
                         私人教練能讓您事半功倍                        
                     </p>
