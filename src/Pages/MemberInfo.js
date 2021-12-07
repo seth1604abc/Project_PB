@@ -55,6 +55,9 @@ function MemberInfo() {
           let response = axios.post("http://localhost:3001/member/info", modifyData, {
             withCredentials: true,            
           });
+          if(response){
+            Swal.fire("修改成功");
+          }
           
         }
     })

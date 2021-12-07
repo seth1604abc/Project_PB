@@ -67,7 +67,7 @@ function MemberCourse() {
                     <div className="member-course-list d-flex">
                       <div className="member-course-list__img">
                         <div className="member-course-list__img__box">
-                          <img src={`/images/${data.filename}`} alt="" />
+                          <img src={`/images/${data.filename}.png`} alt="" style={{width: "100%", height: "100%", overflow: "cover"}}/>
                         </div>
                       </div>
                       <div className="member-course-list__info">
@@ -75,7 +75,7 @@ function MemberCourse() {
                           影片名稱:
                         </span>
                         <span className="member-course-list__info__data">
-                          {data.title}
+                          <a href={`/course-single/${data.id}`}>{data.title}</a>
                         </span>
                         <br />
                         <span className="member-course-list__info__title">
