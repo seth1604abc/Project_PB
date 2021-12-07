@@ -448,9 +448,8 @@ p {
 .giftCard button:hover {
   background-color: rgb(255, 201, 85);
   transform: scale(1.1);
-
+  border: 1px solid transparent;
   color: #fff;
-  border: none;
   padding: 2% 3%;
   position: relative;
   left: 80%;
