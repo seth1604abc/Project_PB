@@ -26,7 +26,7 @@ function EventContent() {
 
   const LocationPin = () => (
     <div className="pin">
-      <Icon icon={locationIcon} className="pin-icon" />      
+      <Icon icon={locationIcon} className="pin-icon" style={{ fontSize: '36px', color: "red" }}/>      
     </div>
   )
  //api key=AIzaSyBVaDJmfSr5DZ5sWp4YhRClSK7lfOOp7Nc

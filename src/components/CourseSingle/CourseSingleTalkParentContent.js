@@ -13,9 +13,11 @@ function CourseSingleTalkParentContent({
   image,
 }) {
   const [child, setChild] = useState();
+  // const [text, setText] = useState();
   useEffect(() => {
     setChild(childComment);
-  }, [child]);
+    // setText(replyText)
+  }, [childComment,replyText]);
   if (child === undefined) {
     return <></>;
   }

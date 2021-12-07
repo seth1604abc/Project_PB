@@ -72,7 +72,7 @@ const SubscibePay = () => {
                 onFocus={handleFocus}
               />
               <input
-                type="date"
+                type="tel"
                 className="form-control my-1"
                 name="expiry"
                 placeholder="Expire Date"
