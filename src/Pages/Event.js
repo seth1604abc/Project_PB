@@ -52,7 +52,7 @@ function Event() {
       <nav>
         <EventBanner />
       </nav>
-      <div className="event_container">
+      <div className="event_container d-flex flex-column align-items-center">
         <div>
           <h3>訂閱會員限定 活動報名中</h3>
         </div>
