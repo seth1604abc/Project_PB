@@ -17,6 +17,7 @@ const GiftCardWriting = () => {
     giftData.giftMessage = $('#gift-message').val();
 
     let response = await axios.post("http://localhost:3001/gift", giftData,{withCredentials: true});
+    console.log(response);
     if(response){
       Swal.fire("購買成功!").then(() => {
         history.push("/giftcard");
@@ -63,7 +64,9 @@ const GiftCardWriting = () => {
           </div>
         </div>
         <div className="d-flex justify-content-end container w-50 p-0">
-            <button className="btn GiftCardWriting__btn__pre me-3 ">上一步</button>
+            <button className="btn GiftCardWriting__btn__pre me-3 " onClick={() => {
+              history.push("/giftcard-checkout")
+            }}>上一步</button>
             <button className="btn GiftCardWriting__btn__next " onClick={submit}>下一步</button>
         </div>
       </div>
