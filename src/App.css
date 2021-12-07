@@ -1099,7 +1099,7 @@ body {
 }
 footer {
   background-color: #09203f;
-  height: 80px;
+  /* height: 80px; */
   width: 100%;
 }
 
