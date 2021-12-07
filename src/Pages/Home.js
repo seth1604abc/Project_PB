@@ -294,7 +294,7 @@ function Home() {
           <div className="coach--list d-flex flex-wrap justify-content-center">
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
-                to="/product"
+                to="/coach/97"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -303,13 +303,13 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>May Fit</h4>
+                <h4>CYFIT兆佑</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <a
-                href="http://localhost:3000/coach/96"
+                href="/coach/99"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -324,7 +324,7 @@ function Home() {
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
-                to="/product"
+                to="/coach/100"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -333,13 +333,13 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>Kosmo</h4>
+                <h4>Coffee林芊妤</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
-                to="/product"
+                to="/coach/96"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -348,13 +348,13 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>兆佑</h4>
+                <h4>May Fit</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
             <div className="mx-4 my-0 coach__link" style={{ width: "300px" }}>
               <Link
-                to="/product"
+                to="/coach/98"
                 style={{ color: "#09203f" }}
                 className="text-decoration-none"
               >
@@ -363,7 +363,7 @@ function Home() {
                   style={{ width: "200px" }}
                   alt=""
                 />
-                <h4>Coffee林芊妤</h4>
+                <h4>KosmoFit</h4>
                 <p>教練資歷:5年</p>
               </Link>
             </div>
