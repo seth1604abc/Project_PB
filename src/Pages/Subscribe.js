@@ -179,7 +179,7 @@ function Subscribe() {
             <div className="col subscribe-benefit-box">
               <img src="/image/sub-content-2.png" alt="" />
               <p>商城</p>
-              <p>購買商品</p>
+              <span>購買商品</span>
               <span>可以獲得回饋點數</span>
             </div>
             <div className="col subscribe-benefit-box">

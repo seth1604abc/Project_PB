@@ -34,12 +34,13 @@ function MemberEvent() {
       if (result.isConfirmed) {        
         let res = await axios.post("http://localhost:3001/member/event-delete", {id: id}, {withCredentials: true});
         if(res){
-          Swal.fire("刪除成功").then((ok) => {
+          Swal.fire("刪除成功").then(() => {
             history.go(0);
           })
-        }              
+        }   
       }
-    });
+    })
+    
   };
 
   const pushEvent = (id) => {
