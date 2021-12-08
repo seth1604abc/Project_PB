@@ -125,8 +125,8 @@ function CourseControlBar({
               setKeyWord(e.target.value);
             }}
           />
-          <button type="button" className="btn" >
-            <i class="fas fa-search" onClick={searchtext}></i>
+          <button type="button" className="btn" onClick={searchtext} >
+            <i class="fas fa-search" ></i>
           </button>
         </div>
       </div>

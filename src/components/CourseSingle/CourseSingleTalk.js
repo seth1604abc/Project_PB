@@ -132,7 +132,7 @@ function CourseSingleTalk({ course_id, singleCourse, videoid, theUser }) {
             則
           </div>
         </div>
-        <div className="Course__area__TalkHeight">
+        <div className="Course__area__TalkHeight scroll">
 
           {comment.map((item) => {
             if (item.course_id === Number(course_id)) {

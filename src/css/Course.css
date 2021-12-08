@@ -1,11 +1,17 @@
-/* Scroll Bar 開始 */
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  /* border-radius: 10px; */
-  background-color: #ffffff;
+.scroll {
+  overflow-y: scroll;
+  scrollbar-color: lightgray white;
+  scrollbar-width: thin;
 }
 
-body::-webkit-scrollbar {
+/* Scroll Bar 開始 */
+/* body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  
+  background-color: #ffffff;
+} */
+
+/* body::-webkit-scrollbar {
   width: 12px;
   background-color: var(--main-color);
 }
@@ -13,7 +19,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #cacaca;
-}
+} */
 /* Scroll Bar 結束 */
 
 /* 網站主色 */
@@ -134,7 +140,7 @@ input:focus {
   border-radius: 1rem;
   z-index: 999;
   cursor: default;
-  top:35%;
+  top: 35%;
   left: 5%;
 }
 .Courses__Banner__Mask__TextContent {
@@ -158,14 +164,14 @@ input:focus {
   text-decoration: none;
   cursor: pointer;
   letter-spacing: 1px;
-  transition: .2s;
+  transition: 0.2s;
 }
 .Courses__Banner__Mask__TextButton:hover {
   background: var(--second-color);
   color: var(--main-color);
   font-weight: bold;
 }
-.Courses__Banner__Mask__TextButton:hover .Courses__Banner__Mask__TextContent{
+.Courses__Banner__Mask__TextButton:hover .Courses__Banner__Mask__TextContent {
   color: var(--second-color);
 }
 .Product__Banner__Mask__Slide {
@@ -177,10 +183,10 @@ input:focus {
 }
 .Product__Banner__Mask__Slide img {
   width: 166%;
-height: 100%;
-object-fit: fill;
-left: -30%;
-position: relative;
+  height: 100%;
+  object-fit: fill;
+  left: -30%;
+  position: relative;
 }
 .Courses__Banner__Mask__Slide {
   border-radius: 2rem;
@@ -565,7 +571,7 @@ option {
   height: 45px;
   transform: translateY(-25%);
 }
-.Course__video-area__coach{
+.Course__video-area__coach {
   display: flex;
 }
 .Course__video-area__CoachName {
@@ -575,7 +581,7 @@ option {
   text-decoration: none;
   color: var(--main-color);
 }
-.Course__video-area__coach:hover{
+.Course__video-area__coach:hover {
   border: 1px gray;
   border-radius: 0.5rem;
 }
