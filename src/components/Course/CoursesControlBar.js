@@ -61,7 +61,7 @@ function CourseControlBar({
             defaultValue={filterBase.body_part_id}
           >
             <option value="1">
-              課程分類
+              部位
             </option>
             <option value="2">手部</option>
             <option value="3">肩部</option>

@@ -10,8 +10,9 @@ function CoachEvent() {
   const [memberEventData, setMemberEventData] = useState([]);
   useEffect(async () => {
     let result = await axios.get("http://localhost:3001/coach/event", {withCredentials: true});
+    console.log(result);
     setMemberEventData(result.data);
-  })
+  }, [])
 
   const handleDelete = (e) => {
     let id = e.target.id;

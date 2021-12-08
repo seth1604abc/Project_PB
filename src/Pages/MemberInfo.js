@@ -162,7 +162,7 @@ function MemberInfo() {
               <div className="member-main-info--l w-50">
                 <div className="member-main-info__img mt-3">
                   <div className="member-main-info__img__ct">
-                    <img src={image} alt={alt} />
+                    <img src={image} alt={alt} style={{width: "100%", height: "100%", objectFit: "cover"}}/>
                   </div>
                   <input type="file"
                     accept=".png, .jpg, .jpeg"
