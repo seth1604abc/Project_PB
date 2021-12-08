@@ -185,7 +185,7 @@ function MemberInfo() {
                   <br />
                   <label for="">生日</label>
                   <br />
-                  <input type="date" defaultValue={data.birth} name="birth"/>
+                  <input type="date"  defaultValue={data.birth} name="birth"/>
                 </div>
               </div>
               <div className="w-50 member-main-info--r">
@@ -203,7 +203,7 @@ function MemberInfo() {
                   <label for="">地址</label>
                   <br />  
 
-                  <ZipCodeTW displayType="text" zipStyle={{display: "none"}} districtStyle={{marginLeft: "20px"}} districtClass="districtClass" countyClass="countyClass" countyValue={data.city} handleChangeCounty={handleCountyChange} districtValue={data.area} handleChangeDistrict={handleDistrictChange}/>
+                  <ZipCodeTW displayType="text" zipStyle={{display: "none"}} districtStyle={{marginLeft: "20px"}} districtClass="districtClass form-select d-inline" countyClass="countyClass form-select d-inline" countyValue={data.city} handleChangeCounty={handleCountyChange} districtValue={data.area} handleChangeDistrict={handleDistrictChange}/>
 
                   <input type="text" style={{marginTop: "15px"}} defaultValue={data.address} name="address"/>
                   <div className="member-main-info--l__ct__btn">
