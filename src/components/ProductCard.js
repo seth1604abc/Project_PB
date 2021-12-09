@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import {roundTo} from 'round-to';
 
 function ProductCard({
   productId,
@@ -218,7 +219,7 @@ function ProductCard({
             <h5 className="card-title">
               {name}
               <span className="card-title__star">
-                {rate}
+                {roundTo(Number(rate),1)}
                 <i className="fas fa-star"></i>
               </span>
             </h5>

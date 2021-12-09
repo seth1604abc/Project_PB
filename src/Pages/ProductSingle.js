@@ -15,6 +15,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { Link,useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import {roundTo} from 'round-to';
 
 const ProductSingle = () => {
   //拿url傳的資料
@@ -169,7 +170,7 @@ const ProductSingle = () => {
           <h1>{productData.title}</h1>
           <a href="#product-review">
             <span className="me-1">
-              {productData.average_rate}
+              {roundTo(Number(productData.average_rate),1)}
               <i className="fas fa-star"></i>
             </span>{" "}
             {commentCount.count}筆評價
