@@ -13,13 +13,14 @@ function MemberCoin() {
   
   useEffect(async () => {
     let response = await axios.get("http://localhost:3001/member/coin-balance", { withCredentials: true})
+    console.log(response.data);
     if(response.data == "loginerror"){
       history.push("/login");
     } else {
       setBalance(response.data[0].point);
       let result = await axios.get("http://localhost:3001/member/coin", { withCredentials: true})
       console.log(result.data);
-      let total = 0;
+      let total = 50;
       for(let i=0; i<result.data.length; i++){
         total = total + result.data[i].gain_point - result.data[i].use_point;
         result.data[i].balance = total;
