@@ -12,6 +12,10 @@ function Subscribe() {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [role, setRole] = useState({});  
   useEffect( async () => {
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
     let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });        
     if(res.data.userId) {
       setIsLoggedin(true);
