@@ -238,7 +238,7 @@ function CourseSingleWaitingList({ isCourse_id }) {
           共<span className="p-2">{checkdWaitingList.length}</span>部課程
         </div>
       </div>
-      <div className="Course__area__List">
+      <div className="Course__area__List scroll">
         <ul className="Course__Single__WaitingList__Ul">
           {checkdWaitingList.map((item, index) => {
             return (

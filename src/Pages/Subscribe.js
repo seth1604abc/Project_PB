@@ -12,6 +12,10 @@ function Subscribe() {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [role, setRole] = useState({});  
   useEffect( async () => {
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
     let res = await axios.get("http://localhost:3001/auth/login", { withCredentials: true });        
     if(res.data.userId) {
       setIsLoggedin(true);
@@ -274,14 +278,15 @@ function Subscribe() {
           </div>
         </div>
         <div
-          className="d-flex justify-content-center align-items-center"
+          className="d-flex justify-content-center align-items-start"
           style={{ padding: "100px 0" }}
         >
-          <div style={{ width: "25%" }}>
+          <div style={{ width: "25%" }} className="me-5">
             <img
               src="/images/giftcard.png"
               alt=""
               style={{ width: "400px" }}
+              
             />
           </div>
           <div style={{ color: "#537895" }}>
@@ -291,6 +296,7 @@ function Subscribe() {
                 fontWeight: "bolder",
                 letterSpacing: "8px",
               }}
+              className="mb-3"
             >
               與好友一起運動
             </p>
@@ -298,7 +304,7 @@ function Subscribe() {
             <p style={{ fontSize: "22px" }}>
               前往商城購買禮物卡，送給你的好友一
             </p>
-            <p style={{ fontSize: "22px" }}>個月的會員福利!</p>
+            <p style={{ fontSize: "22px" }} className="mb-3">個月的會員福利!</p>
             <button
               style={{
                 backgroundColor: "#1D6CF5",

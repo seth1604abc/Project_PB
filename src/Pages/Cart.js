@@ -34,6 +34,24 @@ function Cart() {
     // console.log(cartList.data);
     // console.log(cList);
   }, []);
+
+  // const getCartData=async()=>{
+  //   let cartList=await setInterval(async()=>{
+  //   await axios.get("http://localhost:3001/cart/list", {
+  //     withCredentials: true,
+  //   });
+  //   setCList(cartList.data);
+  //   setList(
+  //     cartList.data.map((item) => {
+  //       return item.product_id;
+  //     }))
+  //   },1000 )
+  // }
+  // useEffect( () => {
+  //      getCartData();
+  // clearInterval(getCartData);
+      
+  // }, []);
   useEffect(async () => {
     let cartList = await axios.get("http://localhost:3001/cart/list", {
       withCredentials: true,
@@ -44,6 +62,7 @@ function Cart() {
         return item.product_id;
       })
     );
+    
   }, [isCheck]);
 
   //處理全選
